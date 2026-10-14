@@ -103,3 +103,12 @@
   background-position: center 60%;
   animation: heroDrift 24s ease-in-out infinite alternate;
 }
+
+@media(max-width:760px) {
+  /* ... tus otros estilos ... */
+  .hero-photo {
+    background-image: linear-gradient(0deg,#100810 0%,#100810dd 24%,#10081020 75%), url('../images/hero/hero.jpg');
+    background-position: center center; /* Cambiado para centrar la imagen en móviles */
+  }
+  /* ... */
+}
