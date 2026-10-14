@@ -1,0 +1,4 @@
+GEMAS DE MY PRINCESS
+Cada archivo JPG es una imagen independiente recortada de la referencia que enviaste.
+Nombres: cuarzo-rosa, amatista, aguamarina, topacio, turmalina, esmeralda, zafiro, rubi y diamante.
+La página index.html ya está enlazada a estas imágenes. Mantén los nombres de archivo al reemplazarlas.

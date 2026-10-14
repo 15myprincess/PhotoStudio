@@ -1,0 +1,19 @@
+/* Calendario My Princess: tema oscuro, rosa y oro */
+.calendar-live-card { min-width: 0; }
+#bookingCalendar { margin: 1rem 0; color: #f9e9ef; font-family: inherit; }
+#bookingCalendar .fc { --fc-border-color: rgba(226,177,190,.22); --fc-page-bg-color: transparent; --fc-neutral-bg-color: rgba(255,255,255,.035); --fc-today-bg-color: rgba(205,105,143,.13); --fc-list-event-hover-bg-color: rgba(205,105,143,.12); }
+#bookingCalendar .fc .fc-toolbar-title { color: #f4d8e1; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; }
+#bookingCalendar .fc .fc-button { background: #6c2948; border-color: #b66b88; text-transform: capitalize; box-shadow: none; }
+#bookingCalendar .fc .fc-button:hover, #bookingCalendar .fc .fc-button:focus { background: #8b365d; border-color: #d5a0b3; }
+#bookingCalendar .fc .fc-daygrid-day-number, #bookingCalendar .fc .fc-col-header-cell-cushion { color: #f5dfe7; text-decoration: none; }
+#bookingCalendar .fc .fc-daygrid-day.fc-day-past { opacity: .42; }
+#bookingCalendar .fc .fc-daygrid-day.fc-day-future { cursor: pointer; }
+#bookingCalendar .fc .fc-daygrid-day:hover { background: rgba(205,105,143,.09); }
+#bookingCalendar .fc-event { border-radius: 4px; padding: 2px 4px; }
+#bookingCalendar .fc .fc-daygrid-day-frame { min-height: 44px; }
+@media (max-width: 700px) {
+  #bookingCalendar .fc .fc-toolbar { flex-wrap: wrap; gap: .45rem; }
+  #bookingCalendar .fc .fc-toolbar-title { font-size: 1.1rem; }
+  #bookingCalendar .fc .fc-button { padding: .3rem .45rem; font-size: .8rem; }
+  #bookingCalendar .fc .fc-daygrid-day-frame { min-height: 36px; }
+}
