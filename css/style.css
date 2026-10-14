@@ -92,3 +92,14 @@
 }
 /* Legacy CSS star no longer visible: the real gemstone image is used instead. */
 .gem-card .gem { color: transparent; }
+
+
+.hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: linear-gradient(90deg,#100810 0%,#100810e8 25%,#10081025 60%,#10081070 100%), url('../images/hero/hero.jpg');
+  background-size: cover;
+  background-position: center 60%;
+  animation: heroDrift 24s ease-in-out infinite alternate;
+}
