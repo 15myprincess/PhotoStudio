@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#120911">
+<title>Galería de Vestidos | My Princess</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/vestuario.css">
+</head>
+<body class="vestuario-page">
+<header class="header"><a class="brand" href="index.html#inicio"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><nav class="nav vestuario-nav"><a href="index.html#contratos">Contratos</a><a class="active" href="vestuario.html">Vestuario</a><a class="nav-cta" href="index.html#reserva">Volver a la solicitud</a></nav></header>
+<main class="wardrobe-main">
+  <section class="wardrobe-hero"><p class="eyebrow">VESTUARIO EXCLUSIVO DEL ESTUDIO</p><h1>El vestido de tus sueños</h1><p>Elige los vestidos de quinceañera que deseas que preparemos para tu sesión fotográfica.</p><div class="wardrobe-package" id="selectedPackageLabel">Cargando contrato…</div><p class="wardrobe-note">Esta galería incluye únicamente vestidos que ofrece My Princess. La ropa casual o elegante usada en otras fotografías no necesita seleccionarse aquí.</p></section>
+  <section class="wardrobe-controls" aria-label="Filtros de vestidos"><label>Buscar vestido<input id="dressSearch" type="search" placeholder="Nombre, código, color o talla"></label><label>Filtrar por color<select id="colorFilter"><option value="">Todos los colores</option></select></label></section>
+  <p class="wardrobe-status" id="dressStatus" role="status">Cargando vestidos disponibles…</p>
+  <div class="wardrobe-grid" id="dressGrid"></div>
+  <div class="wardrobe-sticky"><span id="selectionCounter">0 vestidos seleccionados</span><button class="button pink" id="confirmDresses" type="button" disabled>Confirmar selección →</button></div>
+</main>
+<footer class="footer"><a class="brand footer-brand" href="index.html#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span></footer>
+<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/vestuario.js"></script>
+</body></html>

@@ -1,12 +1,14 @@
-/* CONFIGURACIÓN DEL ESTUDIO: sustituye los valores cuando tengas los datos definitivos. */
+/* Configuración pública del sitio My Princess.
+ * SUPABASE_ANON_KEY es una clave publicable (anon/publishable), nunca service_role.
+ * El acceso a datos privados se realiza mediante el backend.
+ */
 window.MY_PRINCESS_CONFIG = {
-  whatsapp: '', // Ejemplo internacional: 535XXXXXXXX (sin + ni espacios)
-  phone: '',
-  email: '',
-  mapsUrl: '',
-  address: 'Camagüey, Cuba'
+  SUPABASE_URL: "PEGA_AQUI_LA_URL_DE_TU_PROYECTO_SUPABASE",
+  SUPABASE_ANON_KEY: "PEGA_AQUI_TU_CLAVE_PUBLISHABLE_O_ANON",
+  API_BASE_URL: "PEGA_AQUI_LA_URL_DE_TU_BACKEND_RENDER",
+  CONTACT: {
+    whatsapp: "",
+    phone: "",
+    email: ""
+  }
 };
-
-// URL del backend seguro de reservas. Vacío = calendario en modo demostración.
-window.MY_PRINCESS_CONFIG = window.MY_PRINCESS_CONFIG || {};
-window.MY_PRINCESS_CONFIG.bookingApiBase = '';

@@ -112,3 +112,5 @@
   }
   /* ... */
 }
+/* Integración de selección de vestuario en el formulario */
+.dress-picker-label{margin-top:2px}.dress-picker-button{justify-self:start;margin:2px 0 0;padding:10px 16px!important}.selected-dress-summary{display:block;padding:9px 11px;border:1px solid #e5c4d2;border-radius:8px;background:#fff9fc;color:#7e4b64;font-size:10px;font-weight:400;overflow-wrap:anywhere}
