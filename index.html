@@ -6,7 +6,7 @@
 <title>My Princess | Estudio Fotográfico</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"><link rel="stylesheet" href="css/calendar.css">
+<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"><link rel="stylesheet" href="css/calendar.css?v=2">
 </head>
 <body>
 <div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -34,7 +34,7 @@
 <input type="hidden" name="selectedDressIds" id="selectedDressIds" value="[]">
 <label>Método de pago preferido<select name="payment"><option>QR</option><option>Transferencia bancaria</option><option>Pago presencial</option></select></label><label>Notas (opcional)<textarea name="notes" rows="2" placeholder="Cuéntanos algún detalle especial"></textarea></label><button class="button pink submit" type="submit">Preparar solicitud <span>→</span></button><p class="form-note">La fecha no queda reservada hasta que el estudio confirme la disponibilidad. El plazo de pago de 24 horas comenzará después de la confirmación.</p><div id="bookingResult" class="result" hidden></div></form></div><aside class="calendar-card calendar-live-card">
 <h3>Calendario de disponibilidad</h3>
-<p id="calendarStatus" role="status">Vista de demostración: conecta el servicio seguro para mostrar disponibilidad real.</p>
+<p id="calendarStatus" role="status">Cargando disponibilidad…</p>
 <div id="bookingCalendar" aria-label="Calendario de disponibilidad"></div>
 <div class="calendar-legend"><span><i class="available"></i>Disponible para consultar</span><span><i class="busy"></i>Fecha ocupada</span></div>
 <p class="form-note">Seleccionar una fecha solo prepara la solicitud; no confirma la reserva.</p>
@@ -45,5 +45,5 @@
 </main><footer class="footer"><a class="brand footer-brand" href="#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span><a href="#top" class="back-top" aria-label="Volver arriba">↑</a><small class="copyright">© <span id="year"></span> My Princess · Estudio Fotográfico</small></footer>
 <div class="modal" id="contractModal" aria-hidden="true"><div class="modal-panel"><button class="modal-close" aria-label="Cerrar">×</button><div class="modal-gem">✧</div><p class="eyebrow">CONTRATO FOTOGRÁFICO</p><h2 id="modalTitle">Cuarzo Rosa</h2><p id="modalDescription">Una experiencia pensada para guardar recuerdos inolvidables.</p><p class="modal-note">Contenido y precio por definir con el estudio.</p><a href="#reserva" class="button pink modal-reserve">Consultar este contrato →</a></div></div>
 <div class="lightbox" id="lightbox"><button aria-label="Cerrar imagen">×</button><img src="" alt="Vista ampliada"></div><a class="floating-whatsapp" href="#contacto" aria-label="Contactar">✆</a>
-<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="js/main.js"></script><script src="js/calendar.js"></script><script src="js/my-princess-data.js"></script>
+<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js"></script><script src="js/calendar.js?v=2"></script><script src="js/my-princess-data.js?v=2"></script>
 </body></html>

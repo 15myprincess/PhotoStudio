@@ -52,11 +52,12 @@
     
     const date = String(dateInput?.value || '');
     
-    // VALIDACIÓN EXTRA: Bloquear si coincide con el día 22 o cualquier fecha ocupada cargada en el calendario
-    // (Opcionalmente puedes validar contra la lista que maneja FullCalendar si está disponible)
-    if (date === '2026-10-22') {
-      if (result) result.textContent = 'La fecha seleccionada (22 de octubre) ya se encuentra ocupada. Por favor, elige otra fecha.';
-      alert('El día 22 de octubre ya está reservado. Selecciona otra fecha disponible.');
+    // VALIDACIÓN contra Google Calendar real (calendar.js expone MP_checkDateBusy).
+    // true = ocupada · false = libre · null = no se pudo comprobar (el backend vuelve a validar al guardar).
+    const isBusy = window.MP_checkDateBusy ? await window.MP_checkDateBusy(date) : null;
+    if (isBusy === true) {
+      if (result) result.textContent = `La fecha seleccionada (${date}) ya se encuentra ocupada. Por favor, elige otra fecha.`;
+      alert(`El día ${date} ya está reservado. Selecciona otra fecha disponible.`);
       dateInput?.focus();
       return;
     }

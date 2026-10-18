@@ -17,3 +17,12 @@
   #bookingCalendar .fc .fc-button { padding: .3rem .45rem; font-size: .8rem; }
   #bookingCalendar .fc .fc-daygrid-day-frame { min-height: 36px; }
 }
+
+/* v2 — Días ocupados bien visibles.
+   FullCalendar dibuja los eventos "background" con opacidad 0.3 y color verde por defecto;
+   sobre el tema oscuro un vino al 30 % casi no se distingue. */
+#bookingCalendar .fc { --fc-bg-event-color: #c2416f; --fc-bg-event-opacity: .62; }
+#bookingCalendar .fc .fc-bg-event.mp-busy-day { background: #c2416f; opacity: .62; }
+#bookingCalendar .fc .fc-bg-event.mp-busy-day .fc-event-title {
+  color: #fff; font-size: .62rem; font-style: normal; letter-spacing: .04em; text-transform: uppercase; opacity: .9;
+}
