@@ -8,8 +8,8 @@ window.MY_PRINCESS_CONFIG = {
   API_BASE_URL: "https://my-princess-calendar-backend.onrender.com",
   bookingApiBase: "https://my-princess-calendar-backend.onrender.com",
   CONTACT: {
-    whatsapp: "+53 52512369",
-    phone: "+53 52512369",
+    whatsapp: "+5352512369",
+    phone: "+5352512369",
     email: "my.princess.foto.studio@gmail.com"
   }
 };
