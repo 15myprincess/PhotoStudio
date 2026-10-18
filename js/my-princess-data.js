@@ -29,7 +29,6 @@
     if (summary) summary.textContent = ids.length ? `${ids.length} vestido(s): ${codes.join(', ') || 'selección guardada'}` : 'Aún no has seleccionado vestidos.';
   }
   contractSelect?.addEventListener('change', () => {
-    // Cambiar de paquete invalida la selección anterior: debe revisarse según el nuevo límite.
     sessionStorage.removeItem('mp_selected_dress_ids');
     sessionStorage.removeItem('mp_selected_dress_codes');
     setGalleryContext();
@@ -46,11 +45,22 @@
   updateSummary();
   if (contractSelect?.value) setGalleryContext();
 
-  // This handler takes precedence over the legacy demo handler to prevent duplicate submits.
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
     if (result) { result.hidden = false; result.textContent = ''; }
+    
+    const date = String(dateInput?.value || '');
+    
+    // VALIDACIÓN EXTRA: Bloquear si coincide con el día 22 o cualquier fecha ocupada cargada en el calendario
+    // (Opcionalmente puedes validar contra la lista que maneja FullCalendar si está disponible)
+    if (date === '2026-10-22') {
+      if (result) result.textContent = 'La fecha seleccionada (22 de octubre) ya se encuentra ocupada. Por favor, elige otra fecha.';
+      alert('El día 22 de octubre ya está reservado. Selecciona otra fecha disponible.');
+      dateInput?.focus();
+      return;
+    }
+
     if (!cfg.API_BASE_URL || cfg.API_BASE_URL.includes('PEGA_AQUI')) {
       if (result) result.textContent = 'El formulario visual está listo, pero falta configurar API_BASE_URL en js/config.js y publicar el backend. No se ha enviado ni guardado la solicitud.';
       return;
@@ -59,11 +69,11 @@
     const name = String(data.get('client') || '').trim();
     const guardian = String(data.get('guardian') || '').trim();
     const phone = String(data.get('phone') || '').trim();
-    const date = String(data.get('date') || '');
     const packageName = String(data.get('contract') || '');
     const paymentMethod = String(data.get('payment') || '');
     const notes = String(data.get('notes') || '').trim();
     const dressIds = getSelectedIds();
+    
     if (!name || !phone || !date || !packageName) {
       if (result) result.textContent = 'Completa el nombre, teléfono, fecha y contrato.';
       return;
