@@ -148,6 +148,22 @@
   margin: 0 auto;
   background: #1b0e1a;
 }
+
+/* Botón auxiliar para descarga manual de galería */
+.gallery-save-btn {
+  margin-top: 8px;
+  width: 100%;
+  background: #70405b;
+  color: #fff7fb;
+  border: 1px solid #d9b47d;
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.gallery-save-btn:hover {
+  background: #8b5071;
+}
 </style>
 </head>
 <body class="vestuario-page probador-page">
@@ -163,7 +179,7 @@
   <section class="tryon-consent" aria-labelledby="consentTitle">
     <h2 id="consentTitle">Antes de empezar</h2>
     <label class="tryon-check"><input type="checkbox" id="consentCheck">
-      <span>Autorizo enviar mi selfie y la foto del vestido al estudio <strong>My Princess</strong> para que prepare my montaje, que puede crearse con ayuda de herramientas de inteligencia artificial. El estudio usa las fotos <strong>solo para este montaje</strong> y las elimina después de entregármelo. Si la participante es <strong>menor de 18 años</strong>, declaro ser su madre, padre o tutor y autorizo este uso.</span></label>
+      <span>Autorizo enviar mi selfie y la foto del vestido al estudio <strong>My Princess</strong> para que prepare mi montaje, que puede crearse con ayuda de herramientas de inteligencia artificial. El estudio usa las fotos <strong>solo para este montaje</strong> y las elimina después de entregármelo. Si la participante es <strong>menor de 18 años</strong>, declaro ser su madre, padre o tutor y autorizo este uso.</span></label>
   </section>
 
   <div class="tryon-layout">
@@ -183,6 +199,8 @@
           <button class="button outline" type="button" id="retakeBtn" hidden>Repetir</button>
           <label class="button outline tryon-upload" id="uploadLabel" aria-disabled="true">Subir una foto<input type="file" id="uploadInput" accept="image/*" disabled hidden></label>
         </div>
+        <!-- Botón para guardar selfie en galería fácilmente -->
+        <button class="gallery-save-btn" type="button" id="saveSelfieBtn" style="display:none;">📥 Guardar mi selfie en la galería</button>
         <p class="tryon-tip">Consejo: de frente, con buena luz y sin gorra ni lentes oscuros.</p>
       </section>
 
@@ -257,6 +275,11 @@
       </div>
       <p class="tryon-msg" id="dressMsg" role="status">Cargando vestidos…</p>
       <div class="tryon-dresses" id="dressList"></div>
+      
+      <!-- Botón para guardar vestido seleccionado en galería -->
+      <div style="margin-top: 15px;">
+        <button class="gallery-save-btn" type="button" id="saveDressBtn">📥 Guardar vestido seleccionado en galería</button>
+      </div>
     </section>
   </div>
 </main>
@@ -264,8 +287,48 @@
 <footer class="footer"><a class="brand footer-brand" href="index.html#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span></footer>
 <script src="js/config.js"></script><script src="js/tryon-config.js?v=1"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/probador.js?v=2"></script>
 <script>
-  // Script robusto para descarga mediante Blob y apertura de WhatsApp
-  document.getElementById('requestForm').addEventListener('submit', async function(e) {
+  // Mostrar el botón de guardar selfie cuando la foto esté lista
+  const selfiePreview = document.getElementById('selfiePreview');
+  const saveSelfieBtn = document.getElementById('saveSelfieBtn');
+
+  const observer = new MutationObserver(() => {
+    if (selfiePreview.src && !selfiePreview.hidden) {
+      saveSelfieBtn.style.display = 'block';
+    } else {
+      saveSelfieBtn.style.display = 'none';
+    }
+  });
+  observer.observe(selfiePreview, { attributes: true, attributeFilter: ['src', 'hidden'] });
+
+  // Evento para descargar la selfie manualmente (permite la acción directa del usuario requerida por el móvil)
+  saveSelfieBtn.addEventListener('click', function() {
+    if (selfiePreview.src) {
+      const a = document.createElement('a');
+      a.href = selfiePreview.src;
+      a.download = 'mi-selfie-15anos.jpg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  });
+
+  // Evento para descargar el vestido seleccionado manualmente
+  document.getElementById('saveDressBtn').addEventListener('click', function() {
+    const selectedDress = document.querySelector('.tryon-dress.is-selected img');
+    if (selectedDress && selectedDress.src) {
+      const a = document.createElement('a');
+      a.href = selectedDress.src;
+      a.download = 'vestido-elegido-15anos.jpg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } else {
+      alert('Por favor, selecciona primero un vestido en el Paso 2.');
+    }
+  });
+
+  // Envío del formulario y apertura limpia de WhatsApp
+  document.getElementById('requestForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const name = document.getElementById('reqName').value.trim();
@@ -277,54 +340,10 @@
       return;
     }
 
-    // Función segura para descargar imágenes usando Blob (evita bloqueos de CORS)
-    async function downloadImageAsBlob(url, filename) {
-      if (!url) return;
-      try {
-        const response = await fetch(url, { mode: 'cors' });
-        const blob = await response.blob();
-        const blobUrl = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = blobUrl;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(blobUrl);
-      } catch (err) {
-        // Método alternativo si falla el fetch por políticas estrictas del servidor
-        const a = document.createElement('a');
-        a.href = url;
-        a.target = '_blank';
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
-    }
-
-    // 1. Descargar la selfie tomada o cargada
-    const selfieImg = document.getElementById('selfiePreview');
-    if (selfieImg && selfieImg.src && !selfieImg.hidden) {
-      await downloadImageAsBlob(selfieImg.src, 'mi-selfie-15anos.jpg');
-    }
-
-    // 2. Descargar la foto del vestido seleccionado
-    const selectedDress = document.querySelector('.tryon-dress.is-selected img');
-    if (selectedDress && selectedDress.src) {
-      setTimeout(async () => {
-        await downloadImageAsBlob(selectedDress.src, 'vestido-elegido-15anos.jpg');
-      }, 500);
-    }
-
-    // 3. Abrir WhatsApp con el mensaje preformateado
-    const text = `¡Hola, My Princess! Deseo solicitar mi montaje de 15 anos.%0A%0A*Nombre:* ${encodeURIComponent(name)}%0A*WhatsApp:* ${encodeURIComponent(phone)}%0A*Nº Transferencia:* ${encodeURIComponent(ref)}%0A%0A(Mis fotos acaban de descargarse en mi dispositivo, procedo a adjuntarlas aquí).`;
+    const text = `¡Hola, My Princess! Deseo solicitar mi montaje de 15 años.%0A%0A*Nombre:* ${encodeURIComponent(name)}%0A*WhatsApp:* ${encodeURIComponent(phone)}%0A*Nº Transferencia:* ${encodeURIComponent(ref)}%0A%0A(Ya guardé mis fotos en el teléfono, procedo a adjuntarlas aquí).`;
     
     const whatsappUrl = `https://wa.me/5352512369?text=${text}`;
-    
-    setTimeout(() => {
-      window.open(whatsappUrl, '_blank');
-    }, 1000);
+    window.open(whatsappUrl, '_blank');
   });
 </script>
 </body></html>
