@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=2"><link rel="stylesheet" href="css/vestuario.css"><link rel="stylesheet" href="css/probador.css?v=2">
 <style>
-/* Estilos actualizados para la sección de pago y previsualización móvil en el Paso 3 */
+/* Estilos para la sección de pago y previsualización móvil en el Paso 3 */
 .tryon-price {
   border: none;
   background: transparent;
@@ -121,7 +121,7 @@
   text-align: justify;
 }
 
-/* Imagen de muestra / promocional grande en formato móvil */
+/* Imagen promocional grande en formato móvil */
 .sample-image-section {
   width: 100%;
   margin-top: 10px;
@@ -163,7 +163,7 @@
   <section class="tryon-consent" aria-labelledby="consentTitle">
     <h2 id="consentTitle">Antes de empezar</h2>
     <label class="tryon-check"><input type="checkbox" id="consentCheck">
-      <span>Autorizo enviar mi selfie y la foto del vestido al estudio <strong>My Princess</strong> por correo electrónico para que prepare mi montaje, que puede crearse con ayuda de herramientas de inteligencia artificial. El estudio usa las fotos <strong>solo para este montaje</strong> y las elimina después de entregármelo. Si la participante es <strong>menor de 18 años</strong>, declaro ser su madre, padre o tutor y autorizo este uso.</span></label>
+      <span>Autorizo enviar mi selfie y la foto del vestido al estudio <strong>My Princess</strong> para que prepare mi montaje, que puede crearse con ayuda de herramientas de inteligencia artificial. El estudio usa las fotos <strong>solo para este montaje</strong> y las elimina después de entregármelo. Si la participante es <strong>menor de 18 años</strong>, declaro ser su madre, padre o tutor y autorizo este uso.</span></label>
   </section>
 
   <div class="tryon-layout">
@@ -209,8 +209,8 @@
             </div>
 
             <div class="payment-instructions-block">
-              <p class="delivery-fine-print">Tu foto estará lista en 24 horas y te la enviaremos por WhatsApp.</p>
-              <p class="instructions-fine-print">Por favor, rellene bien el formulario y haga primero la transferencia con el número de la transferencia que le llegó al mensaje y recibirá su foto lo antes posible en el plazo de 24 horas. Muchas gracias por solicitar el servicio. Que tenga buen día.</p>
+              <p class="delivery-fine-print">Tu foto estará lista antes de 24 horas y te la enviaremos por WhatsApp.</p>
+              <p class="instructions-fine-print">Una vez que realice la Transferencia rellene el formulario con los datos correspondientes (Importante poner el número de transferencia que le llega). Recibirá su foto lo antes posible antes de un plazo de 24 horas. Muchas gracias por solicitar el servicio. Que tenga buen día.</p>
             </div>
 
             <!-- Imagen promocional grande en formato móvil -->
@@ -223,9 +223,9 @@
         </div>
 
         <form class="tryon-form" id="requestForm" novalidate>
-          <label>Tu nombre<input id="reqName" autocomplete="name" maxlength="80" placeholder="Nombre y apellido"></label>
-          <label>Tu número de WhatsApp<input id="reqPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+53 5XXXXXXX"></label>
-          <label id="refLabel">Referencia o número de tu transferencia<input id="reqRef" maxlength="80" placeholder="Ej.: número de confirmación"></label>
+          <label>Tu nombre<input id="reqName" autocomplete="name" maxlength="80" placeholder="Nombre y apellido" required></label>
+          <label>Tu número de WhatsApp<input id="reqPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+53 5XXXXXXX" required></label>
+          <label id="refLabel">Referencia o número de tu transferencia<input id="reqRef" maxlength="80" placeholder="Ej.: número de confirmación" required></label>
           <button class="button pink tryon-generate" type="submit" id="requestBtn" disabled>✉ Solicitar mi montaje</button>
         </form>
         <button class="button outline tryon-generate tryon-preview-btn" type="button" id="previewBtn" disabled>Ver vista previa rápida</button>
@@ -263,4 +263,24 @@
 
 <footer class="footer"><a class="brand footer-brand" href="index.html#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span></footer>
 <script src="js/config.js"></script><script src="js/tryon-config.js?v=1"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/probador.js?v=2"></script>
+<script>
+  // Script para redirigir el envío del formulario directamente al WhatsApp del estudio (+53 52512369)
+  document.getElementById('requestForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('reqName').value.trim();
+    const phone = document.getElementById('reqPhone').value.trim();
+    const ref = document.getElementById('reqRef').value.trim();
+    
+    if (!name || !phone || !ref) {
+      alert('Por favor, completa todos los campos del formulario.');
+      return;
+    }
+
+    const text = `¡Hola, My Princess! Deseo solicitar mi montaje de 15 años.%0A%0A*Nombre:* ${encodeURIComponent(name)}%0A*WhatsApp:* ${encodeURIComponent(phone)}%0A*Nº Transferencia:* ${encodeURIComponent(ref)}%0A%0A(Adjunto aquí mi selfie y la foto del vestido seleccionado).`;
+    
+    const whatsappUrl = `https://wa.me/5352512369?text=${text}`;
+    window.open(whatsappUrl, '_blank');
+  });
+</script>
 </body></html>
