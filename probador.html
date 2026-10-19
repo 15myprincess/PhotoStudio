@@ -8,7 +8,94 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=2"><link rel="stylesheet" href="css/vestuario.css"><link rel="stylesheet" href="css/probador.css?v=2">
 <style>
-/* Estilos para la sección de pago y previsualización móvil en el Paso 3 */
+/* --- MENÚ SUPERIOR MINIMALISTA Y COMPACTO --- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: #120911cc;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #70405b55;
+  height: 55px;
+}
+.header .brand {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff0f7;
+  text-decoration: none;
+}
+.header .brand small {
+  display: none; /* Oculto en móvil para ahorrar espacio */
+}
+.menu-toggle {
+  background: none;
+  border: 1px solid #70405b;
+  color: #f4d9e8;
+  font-size: 20px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.nav-dropdown {
+  position: absolute;
+  top: 55px;
+  right: 16px;
+  background: #1b0e1a;
+  border: 1px solid #70405b;
+  border-radius: 12px;
+  padding: 12px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  min-width: 180px;
+}
+.nav-dropdown.is-open {
+  display: flex;
+}
+.nav-dropdown a {
+  color: #f4d9e8;
+  text-decoration: none;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.nav-dropdown a:hover, .nav-dropdown a.active {
+  background: #f28bb822;
+  color: #ffd9ea;
+}
+.nav-dropdown .nav-cta {
+  background: #f28bb8;
+  color: #260f1c;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media(min-width: 768px) {
+  .header .brand small { display: inline; }
+  .menu-toggle { display: none; }
+  .nav-dropdown {
+    position: static;
+    display: flex !important;
+    flex-direction: row;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    gap: 15px;
+    align-items: center;
+  }
+  .nav-dropdown a { padding: 4px 8px; }
+}
+
+/* --- ESTILOS DE LA SECCIÓN DE PAGO Y FORMULARIO --- */
 .tryon-price {
   border: none;
   background: transparent;
@@ -22,8 +109,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 20px;
+  gap: 16px;
+  padding: 16px;
   border: 1px solid #d9b47d;
   border-radius: 12px;
   background: #f28bb810;
@@ -41,7 +128,7 @@
 }
 
 .highlighted-price-amount strong {
-  font: 600 32px 'Cormorant Garamond', serif;
+  font: 600 30px 'Cormorant Garamond', serif;
   color: #ffd9ea;
   border-bottom: 2px solid #ffd9ea;
   padding-bottom: 3px;
@@ -53,13 +140,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-align: center;
 }
 
 .payment-qr-graphic {
-  width: 140px;
-  height: 140px;
+  width: 130px;
+  height: 130px;
   display: block;
   border-radius: 8px;
   border: 1px solid #d9b47d;
@@ -68,10 +155,10 @@
 }
 
 .payment-or-text {
-  font-size: 13px;
+  font-size: 12px;
   color: #f4d9e8;
-  line-height: 1.5;
-  max-width: 300px;
+  line-height: 1.4;
+  max-width: 280px;
 }
 
 .payment-card-block {
@@ -81,19 +168,19 @@
 
 .card-number-label {
   display: block;
-  font-size: 13px;
+  font-size: 12px;
   color: #f4d9e8;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .card-number-display {
   display: inline-block;
-  padding: 8px 16px;
+  padding: 6px 14px;
   background: #1b0e1a;
   color: #fff7fb;
   border-radius: 8px;
   border: 1px solid #70405b;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 2px;
 }
@@ -102,20 +189,20 @@
   text-align: center;
   width: 100%;
   border-top: 1px solid #70405b55;
-  padding-top: 14px;
+  padding-top: 12px;
 }
 
 .delivery-fine-print {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.4;
   color: #ffd9ea;
-  margin: 0 0 8px 0;
+  margin: 0 0 6px 0;
 }
 
 .instructions-fine-print {
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: 11px;
+  line-height: 1.5;
   color: #cdbbc8;
   margin: 0;
   text-align: justify;
@@ -124,50 +211,45 @@
 /* Imagen promocional grande en formato móvil */
 .sample-image-section {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 5px;
   text-align: center;
   border-top: 1px solid #70405b55;
-  padding-top: 16px;
+  padding-top: 12px;
 }
 
 .sample-image-title {
-  font-size: 13px;
+  font-size: 12px;
   color: #f4d9e8;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-weight: 500;
 }
 
 .sample-image-preview {
   width: 100%;
-  max-width: 320px;
+  max-width: 280px;
   height: auto;
   border: 1px solid #d9b47d;
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   display: block;
   margin: 0 auto;
   background: #1b0e1a;
 }
-
-/* Botón auxiliar para descarga manual de galería */
-.gallery-save-btn {
-  margin-top: 8px;
-  width: 100%;
-  background: #70405b;
-  color: #fff7fb;
-  border: 1px solid #d9b47d;
-  font-size: 11px;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.gallery-save-btn:hover {
-  background: #8b5071;
-}
 </style>
 </head>
 <body class="vestuario-page probador-page">
-<header class="header"><a class="brand" href="index.html#inicio"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><nav class="nav vestuario-nav"><a href="index.html#contratos">Contratos</a><a href="vestuario.html">Vestuario</a><a class="active" href="probador.html">Probador</a><a class="nav-cta" href="index.html#reserva">Reserva tu fecha</a></nav></header>
+
+<!-- MENÚ MINIMALISTA DESPLEGABLE -->
+<header class="header">
+  <a class="brand" href="index.html#inicio"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+  <nav class="nav-dropdown" id="navDropdown">
+    <a href="index.html#contratos">Contratos</a>
+    <a href="vestuario.html">Vestuario</a>
+    <a class="active" href="probador.html">Probador</a>
+    <a class="nav-cta" href="index.html#reserva">Reserva tu fecha</a>
+  </nav>
+</header>
 
 <main class="wardrobe-main tryon-main">
   <section class="wardrobe-hero">
@@ -199,8 +281,6 @@
           <button class="button outline" type="button" id="retakeBtn" hidden>Repetir</button>
           <label class="button outline tryon-upload" id="uploadLabel" aria-disabled="true">Subir una foto<input type="file" id="uploadInput" accept="image/*" disabled hidden></label>
         </div>
-        <!-- Botón para guardar selfie en galería fácilmente -->
-        <button class="gallery-save-btn" type="button" id="saveSelfieBtn" style="display:none;">📥 Guardar mi selfie en la galería</button>
         <p class="tryon-tip">Consejo: de frente, con buena luz y sin gorra ni lentes oscuros.</p>
       </section>
 
@@ -275,59 +355,30 @@
       </div>
       <p class="tryon-msg" id="dressMsg" role="status">Cargando vestidos…</p>
       <div class="tryon-dresses" id="dressList"></div>
-      
-      <!-- Botón para guardar vestido seleccionado en galería -->
-      <div style="margin-top: 15px;">
-        <button class="gallery-save-btn" type="button" id="saveDressBtn">📥 Guardar vestido seleccionado en galería</button>
-      </div>
     </section>
   </div>
 </main>
 
 <footer class="footer"><a class="brand footer-brand" href="index.html#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span></footer>
+
 <script src="js/config.js"></script><script src="js/tryon-config.js?v=1"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/probador.js?v=2"></script>
 <script>
-  // Mostrar el botón de guardar selfie cuando la foto esté lista
-  const selfiePreview = document.getElementById('selfiePreview');
-  const saveSelfieBtn = document.getElementById('saveSelfieBtn');
+  // Control del menú desplegable minimalista
+  const menuToggle = document.getElementById('menuToggle');
+  const navDropdown = document.getElementById('navDropdown');
 
-  const observer = new MutationObserver(() => {
-    if (selfiePreview.src && !selfiePreview.hidden) {
-      saveSelfieBtn.style.display = 'block';
-    } else {
-      saveSelfieBtn.style.display = 'none';
-    }
+  menuToggle.addEventListener('click', () => {
+    navDropdown.classList.toggle('is-open');
   });
-  observer.observe(selfiePreview, { attributes: true, attributeFilter: ['src', 'hidden'] });
 
-  // Evento para descargar la selfie manualmente (permite la acción directa del usuario requerida por el móvil)
-  saveSelfieBtn.addEventListener('click', function() {
-    if (selfiePreview.src) {
-      const a = document.createElement('a');
-      a.href = selfiePreview.src;
-      a.download = 'mi-selfie-15anos.jpg';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+  // Cerrar menú al hacer clic fuera
+  document.addEventListener('click', (e) => {
+    if (!menuToggle.contains(e.target) && !navDropdown.contains(e.target)) {
+      navDropdown.classList.remove('is-open');
     }
   });
 
-  // Evento para descargar el vestido seleccionado manualmente
-  document.getElementById('saveDressBtn').addEventListener('click', function() {
-    const selectedDress = document.querySelector('.tryon-dress.is-selected img');
-    if (selectedDress && selectedDress.src) {
-      const a = document.createElement('a');
-      a.href = selectedDress.src;
-      a.download = 'vestido-elegido-15anos.jpg';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    } else {
-      alert('Por favor, selecciona primero un vestido en el Paso 2.');
-    }
-  });
-
-  // Envío del formulario y apertura limpia de WhatsApp
+  // Automatización del botón "Solicitar mi montaje": Descarga fotos y abre WhatsApp con instrucciones
   document.getElementById('requestForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -340,10 +391,38 @@
       return;
     }
 
-    const text = `¡Hola, My Princess! Deseo solicitar mi montaje de 15 años.%0A%0A*Nombre:* ${encodeURIComponent(name)}%0A*WhatsApp:* ${encodeURIComponent(phone)}%0A*Nº Transferencia:* ${encodeURIComponent(ref)}%0A%0A(Ya guardé mis fotos en el teléfono, procedo a adjuntarlas aquí).`;
+    // 1. Descargar la selfie si está disponible
+    const selfieImg = document.getElementById('selfiePreview');
+    if (selfieImg && selfieImg.src && !selfieImg.hidden) {
+      const a = document.createElement('a');
+      a.href = selfieImg.src;
+      a.download = 'mi-selfie-15anos.jpg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    // 2. Descargar el vestido seleccionado si está disponible
+    const selectedDress = document.querySelector('.tryon-dress.is-selected img');
+    if (selectedDress && selectedDress.src) {
+      setTimeout(() => {
+        const a = document.createElement('a');
+        a.href = selectedDress.src;
+        a.download = 'vestido-elegido-15anos.jpg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }, 400);
+    }
+
+    // 3. Abrir WhatsApp con mensaje personalizado indicando que adjunten los archivos descargados
+    const text = `¡Hola, My Princess! Deseo solicitar mi montaje de 15 años.%0A%0A*Nombre:* ${encodeURIComponent(name)}%0A*WhatsApp:* ${encodeURIComponent(phone)}%0A*Nº Transferencia:* ${encodeURIComponent(ref)}%0A%0A📎 *Nota importante:* Mis fotos (selfie y vestido) se acaban de descargar en mi dispositivo. Las adjunto aquí en la galería.`;
     
     const whatsappUrl = `https://wa.me/5352512369?text=${text}`;
-    window.open(whatsappUrl, '_blank');
+    
+    setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
+    }, 800);
   });
 </script>
 </body></html>
