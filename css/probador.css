@@ -1,0 +1,51 @@
+/* Probador virtual — My Princess */
+.tryon-main{max-width:1180px}
+.tryon-consent{max-width:820px;margin:0 auto 22px;padding:16px 18px;border:1px solid #d9b47d;border-radius:14px;background:#f28bb810}
+.tryon-consent h2{font:600 22px 'Cormorant Garamond',serif;color:#ffe5ef;margin:0 0 8px}
+.tryon-check{display:flex;gap:12px;align-items:flex-start;color:#f4d9e8;font-size:12px;line-height:1.6;cursor:pointer}
+.tryon-check input{flex:none;width:20px;height:20px;margin-top:2px;accent-color:#f28bb8}
+.tryon-layout{display:grid;grid-template-columns:minmax(300px,400px) 1fr;gap:22px;align-items:start}
+.tryon-col{display:grid;gap:22px}
+.tryon-left{position:sticky;top:90px}
+.tryon-panel{padding:18px;border:1px solid #70405b;border-radius:16px;background:#ffffff08}
+.tryon-panel h2{display:flex;align-items:center;gap:10px;font:600 24px 'Cormorant Garamond',serif;color:#fff0f7;margin:0 0 14px}
+.tryon-step{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#f28bb8;color:#260f1c;font:700 13px 'Montserrat',sans-serif}
+.tryon-stage{position:relative;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:#1b0e1a;border:1px solid #70405b}
+.tryon-stage video,.tryon-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tryon-stage video{transform:scaleX(-1)}
+.tryon-stage [hidden]{display:none!important}
+.face-guide{position:absolute;left:19%;right:19%;top:12%;bottom:30%;border:2px dashed #f28bb8cc;border-radius:50%/55%;pointer-events:none;box-shadow:0 0 0 999px #0000002e}
+.tryon-placeholder{position:absolute;inset:0;display:grid;place-content:center;gap:6px;text-align:center;color:#d9b47d;font-size:12px}
+.tryon-placeholder span{font-size:42px}
+.tryon-msg{min-height:20px;margin:10px 0 0;color:#e6b7cd;font-size:12px;line-height:1.5}
+.tryon-msg.is-error{color:#ff9db8}
+.tryon-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.tryon-actions .button{flex:1 1 140px;text-align:center;justify-content:center}
+.tryon-actions [hidden]{display:none!important}
+.tryon-upload{cursor:pointer}
+.tryon-upload[aria-disabled="true"],.button:disabled{opacity:.45;cursor:not-allowed;pointer-events:none}
+.tryon-tip{margin:12px 0 0;font-size:11px;color:#cdbbc8}
+.tryon-chosen{margin:0 0 12px;color:#f4d9e8;font-size:13px}
+.tryon-generate{width:100%}
+.tryon-result{margin:16px 0 0}
+.tryon-result img{display:block;width:100%;border-radius:12px;border:1px solid #d77ba5;background:#251322}
+.tryon-result figcaption{margin-top:10px;font-size:11px;line-height:1.5;color:#cdbbc8}
+.tryon-clear{display:block;margin:16px auto 0;padding:8px 12px;border:0;background:none;color:#e6b7cd;font-size:11px;text-decoration:underline;cursor:pointer}
+.tryon-filters{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.tryon-filters label{display:grid;gap:6px;color:#f4d9e8;font-size:11px}
+.tryon-filters input,.tryon-filters select{width:100%;padding:11px;border:1px solid #70405b;border-radius:8px;background:#1b0e1a;color:#fff7fb}
+.tryon-dresses{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:12px;margin-top:6px}
+.tryon-dress{display:block;width:100%;padding:0;text-align:left;border:1px solid #70405b;border-radius:12px;overflow:hidden;background:#150a13;color:#fff0f7;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s}
+.tryon-dress:hover{transform:translateY(-3px);border-color:#d77ba5}
+.tryon-dress.is-selected{border-color:#f28bb8;box-shadow:0 0 0 2px #f28bb866}
+.tryon-dress img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;background:#251322}
+.tryon-dress span{display:block;padding:7px 8px 9px;font-size:10px;line-height:1.35;color:#f4d9e8}
+.tryon-dress b{display:block;font-size:9px;letter-spacing:1.5px;font-weight:600;color:#d9b47d}
+.tryon-busy{opacity:.6;pointer-events:none}
+@media (max-width:900px){
+  .tryon-layout{grid-template-columns:1fr}
+  .tryon-left{display:contents}
+  .tryon-left>.tryon-panel:nth-child(1){order:1}
+  .tryon-right{order:2}
+  .tryon-left>.tryon-panel:nth-child(2){order:3}
+}
