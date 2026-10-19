@@ -49,3 +49,21 @@
   .tryon-right{order:2}
   .tryon-left>.tryon-panel:nth-child(2){order:3}
 }
+
+/* v2 — solicitud de montaje (pago, WhatsApp, confirmación) */
+.tryon-price{margin:0 0 14px;padding:12px 14px;border:1px solid #d9b47d;border-radius:12px;background:#f28bb810}
+.tryon-price-amount{margin:0 0 6px;font-size:14px;color:#ffe5ef}
+.tryon-price-amount strong{font:600 26px 'Cormorant Garamond',serif;color:#ffd9ea}
+.tryon-pay{margin:6px 0;font-size:12px;line-height:1.55;color:#f4d9e8;white-space:pre-line}
+.tryon-fine{margin:8px 0 0;font-size:11px;line-height:1.5;color:#cdbbc8}
+.tryon-form{display:grid;gap:10px;margin:0}
+.tryon-form[hidden]{display:none!important}
+.tryon-form label{display:grid;gap:5px;color:#f4d9e8;font-size:11px}
+.tryon-form input{width:100%;padding:11px;border:1px solid #70405b;border-radius:8px;background:#1b0e1a;color:#fff7fb;font-size:14px}
+.tryon-form input:disabled{opacity:.6}
+.tryon-preview-btn{margin-top:10px}
+.tryon-done{margin-top:14px;padding:16px;border:1px solid #f28bb8;border-radius:14px;background:#f28bb81a;text-align:center}
+.tryon-done[hidden]{display:none!important}
+.tryon-done h3{margin:0 0 8px;font:600 26px 'Cormorant Garamond',serif;color:#ffe5ef}
+.tryon-done p{margin:0 0 10px;font-size:13px;line-height:1.55;color:#f4d9e8}
+.tryon-ticket strong{display:inline-block;padding:3px 10px;border-radius:20px;background:#f28bb8;color:#260f1c;letter-spacing:1px}

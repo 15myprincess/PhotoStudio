@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#120911">
 <title>Pruébate tu vestido | My Princess</title>
-<meta name="description" content="Tómate una selfie, elige un vestido de My Princess y mira un montaje ilustrativo creado con inteligencia artificial.">
+<meta name="description" content="Tómate una selfie, elige un vestido de My Princess y solicita tu montaje: el estudio lo prepara y te lo envía por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=2"><link rel="stylesheet" href="css/vestuario.css"><link rel="stylesheet" href="css/probador.css?v=1">
+<link rel="stylesheet" href="css/style.css?v=2"><link rel="stylesheet" href="css/vestuario.css"><link rel="stylesheet" href="css/probador.css?v=2">
 </head>
 <body class="vestuario-page probador-page">
 <header class="header"><a class="brand" href="index.html#inicio"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><nav class="nav vestuario-nav"><a href="index.html#contratos">Contratos</a><a href="vestuario.html">Vestuario</a><a class="active" href="probador.html">Probador</a><a class="nav-cta" href="index.html#reserva">Reserva tu fecha</a></nav></header>
@@ -15,13 +15,13 @@
   <section class="wardrobe-hero">
     <p class="eyebrow">PROBADOR VIRTUAL</p>
     <h1>Pruébate tu vestido</h1>
-    <p>Tómate una selfie, elige un vestido del estudio y mira un montaje de cómo podrías verte. Es una imagen ilustrativa creada con inteligencia artificial.</p>
+    <p>Tómate una selfie, elige un vestido del estudio y solicita tu montaje: lo preparamos y te lo enviamos por WhatsApp para que veas cómo podrías lucir.</p>
   </section>
 
   <section class="tryon-consent" aria-labelledby="consentTitle">
     <h2 id="consentTitle">Antes de empezar</h2>
     <label class="tryon-check"><input type="checkbox" id="consentCheck">
-      <span>Autorizo el uso de mi foto para crear el montaje. Entiendo que se enviará <strong>temporalmente</strong> a un servicio de inteligencia artificial (Google Gemini), que <strong>My Princess no la guarda</strong> y que puedo borrarla cuando quiera. Si la participante es <strong>menor de 18 años</strong>, declaro ser su madre, padre o tutor y autorizo este uso.</span></label>
+      <span>Autorizo enviar mi selfie y la foto del vestido al estudio <strong>My Princess</strong> por correo electrónico para que prepare mi montaje, que puede crearse con ayuda de herramientas de inteligencia artificial. El estudio usa las fotos <strong>solo para este montaje</strong> y las elimina después de entregármelo. Si la participante es <strong>menor de 18 años</strong>, declaro ser su madre, padre o tutor y autorizo este uso.</span></label>
   </section>
 
   <div class="tryon-layout">
@@ -45,20 +45,37 @@
       </section>
 
       <section class="tryon-panel" aria-labelledby="genTitle">
-        <h2 id="genTitle"><span class="tryon-step">3</span> Tu montaje</h2>
+        <h2 id="genTitle"><span class="tryon-step">3</span> Solicita tu montaje</h2>
         <p class="tryon-chosen" id="chosenLabel">Aún no has elegido un vestido.</p>
-        <button class="button pink tryon-generate" type="button" id="generateBtn" disabled>✨ Generar mi montaje</button>
+        <div class="tryon-price">
+          <p class="tryon-price-amount">Costo: <strong id="priceLabel">50 pesos</strong></p>
+          <p class="tryon-pay" id="payInstructions"></p>
+          <p class="tryon-fine">Tu foto estará lista en un plazo de <b id="hoursLabel">24</b> horas y te la enviamos por WhatsApp.</p>
+        </div>
+        <form class="tryon-form" id="requestForm" novalidate>
+          <label>Tu nombre<input id="reqName" autocomplete="name" maxlength="80" placeholder="Nombre y apellido"></label>
+          <label>Tu número de WhatsApp<input id="reqPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+53 5XXXXXXX"></label>
+          <label id="refLabel">Referencia o número de tu transferencia<input id="reqRef" maxlength="80" placeholder="Ej.: número de confirmación"></label>
+          <button class="button pink tryon-generate" type="submit" id="requestBtn" disabled>✉ Solicitar mi montaje</button>
+        </form>
+        <button class="button outline tryon-generate tryon-preview-btn" type="button" id="previewBtn" disabled>Ver vista previa rápida</button>
         <p class="tryon-msg" id="genMsg" role="status" aria-live="polite"></p>
+        <div class="tryon-done" id="doneBox" hidden>
+          <h3>¡Solicitud enviada! ♡</h3>
+          <p id="doneText"></p>
+          <p class="tryon-ticket">Tu número de solicitud: <strong id="doneTicket"></strong></p>
+          <button class="button outline" type="button" id="newRequest">Probar otro vestido</button>
+        </div>
         <figure class="tryon-result" id="resultBox" hidden>
-          <img id="resultImg" alt="Montaje ilustrativo con el vestido elegido">
+          <img id="resultImg" alt="Vista previa de demostración con el vestido elegido">
           <figcaption id="resultNote"></figcaption>
           <div class="tryon-actions">
-            <a class="button pink" id="downloadBtn" download="mi-montaje-my-princess.png" href="#">Descargar</a>
+            <a class="button pink" id="downloadBtn" download="vista-previa-my-princess.jpg" href="#" hidden>Descargar</a>
             <button class="button outline" type="button" id="tryAnother">Probar otro vestido</button>
             <a class="button outline" href="index.html#reserva">Reservar mi fecha</a>
           </div>
         </figure>
-        <button class="tryon-clear" type="button" id="clearPhoto">🗑 Borrar mi foto y el montaje</button>
+        <button class="tryon-clear" type="button" id="clearPhoto">🗑 Borrar mi foto y mis datos</button>
       </section>
     </div>
 
@@ -75,5 +92,5 @@
 </main>
 
 <footer class="footer"><a class="brand footer-brand" href="index.html#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span></footer>
-<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/probador.js?v=1"></script>
+<script src="js/config.js"></script><script src="js/tryon-config.js?v=1"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/probador.js?v=2"></script>
 </body></html>

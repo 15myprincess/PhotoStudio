@@ -9,7 +9,9 @@
     consent: $('#consentCheck'), video: $('#camVideo'), guide: $('#faceGuide'), preview: $('#selfiePreview'),
     placeholder: $('#stagePlaceholder'), cameraMsg: $('#cameraMsg'), enable: $('#enableCamera'), shutter: $('#shutterBtn'),
     retake: $('#retakeBtn'), uploadLabel: $('#uploadLabel'), upload: $('#uploadInput'), chosen: $('#chosenLabel'),
-    generate: $('#generateBtn'), genMsg: $('#genMsg'), resultBox: $('#resultBox'), resultImg: $('#resultImg'),
+    requestForm: $('#requestForm'), reqName: $('#reqName'), reqPhone: $('#reqPhone'), reqRef: $('#reqRef'), refLabel: $('#refLabel'),
+    requestBtn: $('#requestBtn'), previewBtn: $('#previewBtn'), genMsg: $('#genMsg'), priceLabel: $('#priceLabel'), payInstr: $('#payInstructions'),
+    hoursLabel: $('#hoursLabel'), doneBox: $('#doneBox'), doneText: $('#doneText'), doneTicket: $('#doneTicket'), newRequest: $('#newRequest'), resultBox: $('#resultBox'), resultImg: $('#resultImg'),
     resultNote: $('#resultNote'), download: $('#downloadBtn'), another: $('#tryAnother'), clear: $('#clearPhoto'),
     search: $('#dressSearch'), color: $('#colorFilter'), dressMsg: $('#dressMsg'), list: $('#dressList')
   };
@@ -63,7 +65,10 @@
     el.guide.hidden = !state.stream;
     el.preview.hidden = !state.selfie;
     el.placeholder.hidden = !!(state.stream || state.selfie);
-    el.generate.disabled = !(ok && state.selfie && state.dress) || state.busy;
+    const ready = ok && !!state.selfie && !!state.dress && !state.busy;
+    el.requestBtn.disabled = !ready;
+    el.previewBtn.disabled = !ready;
+    [el.reqName, el.reqPhone, el.reqRef].forEach((i) => { i.disabled = state.busy; });
     el.chosen.textContent = state.dress ? `Vestido elegido: ${state.dress.name} (${state.dress.code})` : 'Aún no has elegido un vestido.';
   }
   function setSelfie(dataUrl) {
@@ -152,28 +157,11 @@
       : '<p class="tryon-msg">No hay vestidos que coincidan con la búsqueda.</p>';
   }
 
-  // ───────────── Generación ─────────────
-  async function postTryon(payload) {
-    const send = async () => {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 100000);
-      try {
-        const r = await fetch(`${apiBase}/tryon`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: ctrl.signal });
-        return { ok: r.ok, status: r.status, json: await r.json().catch(() => ({})) };
-      } finally { clearTimeout(timer); }
-    };
-    try { return await send(); }
-    catch (err) {
-      // Un TypeError es un fallo de red típico de Render despertando: se reintenta una vez.
-      if (err instanceof TypeError) { await new Promise((r) => setTimeout(r, 3000)); return send(); }
-      throw err;
-    }
-  }
+  // ───────────── Vista previa local (sin IA) ─────────────
   const drawCover = (g, img, x, y, w, h) => {
     const s = Math.max(w / img.width, h / img.height);
     g.drawImage(img, x + (w - img.width * s) / 2, y + (h - img.height * s) / 2, img.width * s, img.height * s);
   };
-  // Vista previa de demostración (sin IA): la selfie en un círculo sobre la foto del vestido.
   async function buildDemo(selfieUrl, dressUrl) {
     const [dress, face] = await Promise.all([dataUrlToImage(dressUrl), dataUrlToImage(selfieUrl)]);
     const W = 900, H = 1200, c = document.createElement('canvas');
@@ -188,44 +176,103 @@
     g.fillText('VISTA PREVIA DE DEMOSTRACIÓN', W / 2, H - 27);
     return c.toDataURL('image/jpeg', 0.9);
   }
-  function showResult(url, demo) {
-    el.resultImg.src = url;
-    el.download.href = url;
-    el.download.download = 'mi-montaje-my-princess.' + (url.startsWith('data:image/jpeg') ? 'jpg' : 'png');
-    el.resultNote.textContent = demo
-      ? 'Vista previa de demostración (sin IA). Cuando el probador esté activo verás aquí un montaje realista con tu rostro.'
-      : 'Imagen ilustrativa creada con inteligencia artificial. Tu rostro y el vestido real pueden verse distintos; el estudio confirmará el resultado en la prueba.';
-    el.resultBox.hidden = false;
-    el.resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-  async function generate() {
+  async function preview() {
     if (state.busy || !el.consent.checked || !state.selfie || !state.dress) return;
     state.busy = true; el.resultBox.hidden = true; updateUi();
-    say(el.genMsg, 'Preparando las imágenes…');
+    say(el.genMsg, 'Preparando la vista previa…');
     try {
-      const dressData = await urlToDataUrl(state.dress.image);
-      let url = null, demo = !apiBase;
-      if (!demo) {
-        say(el.genMsg, 'Creando tu montaje… puede tardar hasta un minuto (la primera vez el servidor tiene que despertar).');
-        const r = await postTryon({ consent: true, selfie: state.selfie, dress: dressData, dressName: state.dress.name });
-        if (r.status === 501) demo = true;
-        else if (r.ok && r.json.image) url = r.json.image;
-        else {
-          const msg = r.json && r.json.message;
-          throw new Error(msg || 'No se pudo generar el montaje. Inténtalo de nuevo en un momento.');
-        }
-      }
-      if (demo) url = await buildDemo(state.selfie, dressData);
-      say(el.genMsg, demo ? 'Listo (vista previa de demostración).' : '¡Listo! Así podrías verte.');
-      showResult(url, demo);
+      const url = await buildDemo(state.selfie, await urlToDataUrl(state.dress.image));
+      el.resultImg.src = url;
+      el.resultNote.textContent = 'Vista previa de demostración: no es tu montaje final. Para recibir tu foto con tu rostro y el vestido, toca “Solicitar mi montaje”.';
+      el.resultBox.hidden = false;
+      say(el.genMsg, '');
+      el.resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (err) {
-      console.error('[My Princess] Probador:', err);
-      const timeout = err && err.name === 'AbortError';
-      say(el.genMsg, timeout ? 'Tardó demasiado. Inténtalo de nuevo.' : (err.message === 'vestido' ? 'No se pudo leer la imagen del vestido.' : (err.message || 'No se pudo generar el montaje.')), true);
+      console.error('[My Princess] Vista previa:', err);
+      say(el.genMsg, 'No se pudo preparar la vista previa. Inténtalo de nuevo.', true);
     } finally {
       state.busy = false; updateUi();
     }
   }
+
+  // ───────────── Solicitud de montaje (correo al estudio) ─────────────
+  const tcfg = Object.assign({ priceLabel: '50 pesos', paymentInstructions: '', requirePaymentReference: true, deliveryHours: 24 }, window.MY_PRINCESS_TRYON || {});
+  // '+53 5123 4567' / '51234567' → '+5351234567'; devuelve null si no parece un teléfono.
+  function normalizePhone(value) {
+    const raw = String(value || '').replace(/[^\d+]/g, '');
+    const plus = raw.startsWith('+');
+    let d = raw.replace(/\+/g, '');
+    if (!plus && /^5\d{7}$/.test(d)) d = '53' + d;
+    return d.length >= 8 && d.length <= 15 ? '+' + d : null;
+  }
+  const newId = () => (window.crypto && window.crypto.randomUUID ? window.crypto.randomUUID() : 'r-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10));
+  async function postJson(path, payload) {
+    const send = async () => {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 60000);
+      try {
+        const r = await fetch(`${apiBase}${path}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), signal: ctrl.signal });
+        return { ok: r.ok, status: r.status, json: await r.json().catch(() => ({})) };
+      } finally { clearTimeout(timer); }
+    };
+    try { return await send(); }
+    catch (err) {
+      // Fallo de red (Render despertando): se reintenta UNA vez con el mismo requestId; el servidor no duplica el correo.
+      if (err instanceof TypeError) { await new Promise((r) => setTimeout(r, 3000)); return send(); }
+      throw err;
+    }
+  }
+  function showDone(json, phone) {
+    const hours = json.hours || tcfg.deliveryHours;
+    el.doneTicket.textContent = json.ticket;
+    el.doneText.textContent = `Tu foto estará lista en un plazo de ${hours} horas y te la enviaremos por WhatsApp al ${phone}. Guarda tu número de solicitud por si necesitas escribirnos.`;
+    el.requestForm.hidden = true; el.previewBtn.hidden = true; el.resultBox.hidden = true;
+    el.doneBox.hidden = false;
+    // Privacidad: la selfie ya salió hacia el estudio; se borra de esta página.
+    stopCamera(); state.selfie = null; el.preview.removeAttribute('src'); el.upload.value = '';
+    say(el.genMsg, '');
+    say(el.cameraMsg, 'Tu selfie se envió al estudio y se borró de esta página.');
+    updateUi();
+    el.doneBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  async function submitRequest(e) {
+    e.preventDefault();
+    if (state.busy || !el.consent.checked || !state.selfie || !state.dress) return;
+    const name = el.reqName.value.trim();
+    const phone = normalizePhone(el.reqPhone.value);
+    const ref = el.reqRef.value.trim();
+    if (name.length < 2) { say(el.genMsg, 'Escribe tu nombre.', true); el.reqName.focus(); return; }
+    if (!phone) { say(el.genMsg, 'Escribe un número de WhatsApp válido, por ejemplo +53 5XXXXXXX.', true); el.reqPhone.focus(); return; }
+    if (tcfg.requirePaymentReference && ref.length < 3) { say(el.genMsg, `Escribe la referencia o el número de tu transferencia de ${tcfg.priceLabel}.`, true); el.reqRef.focus(); return; }
+    if (!apiBase) { say(el.genMsg, 'El envío de solicitudes no está configurado todavía. Escríbenos por WhatsApp.', true); return; }
+    state.busy = true; updateUi();
+    say(el.genMsg, 'Enviando tu solicitud… (si el servidor estaba dormido puede tardar un poco)');
+    try {
+      const dressData = await urlToDataUrl(state.dress.image);
+      const r = await postJson('/tryon-request', {
+        requestId: newId(), consent: true, name, whatsapp: phone, paymentRef: ref,
+        dressCode: state.dress.code, dressName: state.dress.name, selfie: state.selfie, dress: dressData
+      });
+      if (r.ok && r.json && r.json.ok) { showDone(r.json, phone); return; }
+      if (r.status === 501) throw new Error('El envío de solicitudes aún no está activo. Escríbenos por WhatsApp y te ayudamos.');
+      throw new Error((r.json && r.json.message) || 'No se pudo enviar tu solicitud. Inténtalo de nuevo o escríbenos por WhatsApp.');
+    } catch (err) {
+      console.error('[My Princess] Solicitud:', err);
+      const timeout = err && err.name === 'AbortError';
+      say(el.genMsg, timeout ? 'Tardó demasiado. Inténtalo de nuevo.' : (err.message === 'vestido' ? 'No se pudo leer la imagen del vestido.' : (err.message || 'No se pudo enviar tu solicitud.')), true);
+    } finally {
+      state.busy = false; updateUi();
+    }
+  }
+  function newRequest() {
+    el.doneBox.hidden = true; el.requestForm.hidden = false; el.previewBtn.hidden = false;
+    el.reqRef.value = '';
+    state.dress = null; renderDresses();
+    say(el.genMsg, ''); say(el.cameraMsg, 'Toma otra selfie para tu nuevo montaje.');
+    updateUi();
+    el.list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   function clearAll() {
     stopCamera();
     state.selfie = null;
@@ -234,6 +281,8 @@
     el.download.href = '#';
     el.resultBox.hidden = true;
     el.upload.value = '';
+    el.doneBox.hidden = true; el.requestForm.hidden = false; el.previewBtn.hidden = false;
+    el.reqName.value = ''; el.reqPhone.value = ''; el.reqRef.value = '';
     say(el.genMsg, '');
     say(el.cameraMsg, el.consent.checked ? 'Tu foto se borró. Puedes tomar otra.' : 'Marca el permiso para activar la cámara.');
     updateUi();
@@ -261,7 +310,9 @@
   });
   el.search.addEventListener('input', renderDresses);
   el.color.addEventListener('change', renderDresses);
-  el.generate.addEventListener('click', generate);
+  el.requestForm.addEventListener('submit', submitRequest);
+  el.previewBtn.addEventListener('click', preview);
+  el.newRequest.addEventListener('click', newRequest);
   el.another.addEventListener('click', () => { el.resultBox.hidden = true; say(el.genMsg, ''); el.list.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
   el.clear.addEventListener('click', clearAll);
   document.addEventListener('visibilitychange', () => { if (document.hidden && state.stream) { stopCamera(); updateUi(); } });
@@ -275,13 +326,13 @@
     el.color.innerHTML = '<option value="">Todos</option>' + colors.map((c) => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
     renderDresses();
     say(el.dressMsg, mode === 'real' ? 'Toca un vestido para elegirlo.' : 'Toca un vestido para elegirlo (por ahora se muestran vestidos de muestra).');
-    // Despierta el servidor (Render) y averigua si la IA está activa.
-    if (apiBase) {
-      try {
-        const h = await (await fetch(`${apiBase}/health`)).json();
-        state.tryonEnabled = !!h.tryon;
-        if (!h.tryon) say(el.genMsg, 'El probador con IA está en preparación: por ahora verás una vista previa de demostración.');
-      } catch { /* el servidor puede estar despertando */ }
-    }
+    // Datos de precio y pago (editables en js/tryon-config.js)
+    el.priceLabel.textContent = tcfg.priceLabel;
+    el.hoursLabel.textContent = tcfg.deliveryHours;
+    el.payInstr.textContent = tcfg.paymentInstructions;
+    el.refLabel.firstChild.textContent = tcfg.requirePaymentReference ? 'Referencia o número de tu transferencia' : 'Referencia de tu transferencia (opcional)';
+    if (/PEGA AQU/i.test(tcfg.paymentInstructions)) console.warn('[My Princess] Falta escribir las instrucciones de pago en js/tryon-config.js');
+    // Despierta el servidor (Render) para que el envío posterior no espere.
+    if (apiBase) fetch(`${apiBase}/health`).catch(() => {});
   })();
 })();
