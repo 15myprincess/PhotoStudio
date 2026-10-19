@@ -7,6 +7,148 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=2"><link rel="stylesheet" href="css/vestuario.css"><link rel="stylesheet" href="css/probador.css?v=2">
+<style>
+/* Estilos actualizados para la sección de pago y previsualización móvil en el Paso 3 */
+.tryon-price {
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tryon-payment-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #d9b47d;
+  border-radius: 12px;
+  background: #f28bb810;
+  position: relative;
+}
+
+.highlighted-price-block {
+  text-align: center;
+}
+
+.highlighted-price-amount {
+  font-size: 15px;
+  color: #ffe5ef;
+  margin: 0;
+}
+
+.highlighted-price-amount strong {
+  font: 600 32px 'Cormorant Garamond', serif;
+  color: #ffd9ea;
+  border-bottom: 2px solid #ffd9ea;
+  padding-bottom: 3px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.payment-qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.payment-qr-graphic {
+  width: 140px;
+  height: 140px;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid #d9b47d;
+  background: #fff;
+  padding: 4px;
+}
+
+.payment-or-text {
+  font-size: 13px;
+  color: #f4d9e8;
+  line-height: 1.5;
+  max-width: 300px;
+}
+
+.payment-card-block {
+  text-align: center;
+  width: 100%;
+}
+
+.card-number-label {
+  display: block;
+  font-size: 13px;
+  color: #f4d9e8;
+  margin-bottom: 6px;
+}
+
+.card-number-display {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #1b0e1a;
+  color: #fff7fb;
+  border-radius: 8px;
+  border: 1px solid #70405b;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.payment-instructions-block {
+  text-align: center;
+  width: 100%;
+  border-top: 1px solid #70405b55;
+  padding-top: 14px;
+}
+
+.delivery-fine-print {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffd9ea;
+  margin: 0 0 8px 0;
+}
+
+.instructions-fine-print {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #cdbbc8;
+  margin: 0;
+  text-align: justify;
+}
+
+/* Imagen de muestra / promocional grande en formato móvil */
+.sample-image-section {
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+  border-top: 1px solid #70405b55;
+  padding-top: 16px;
+}
+
+.sample-image-title {
+  font-size: 13px;
+  color: #f4d9e8;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.sample-image-preview {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border: 1px solid #d9b47d;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  display: block;
+  margin: 0 auto;
+  background: #1b0e1a;
+}
+</style>
 </head>
 <body class="vestuario-page probador-page">
 <header class="header"><a class="brand" href="index.html#inicio"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><nav class="nav vestuario-nav"><a href="index.html#contratos">Contratos</a><a href="vestuario.html">Vestuario</a><a class="active" href="probador.html">Probador</a><a class="nav-cta" href="index.html#reserva">Reserva tu fecha</a></nav></header>
@@ -47,11 +189,39 @@
       <section class="tryon-panel" aria-labelledby="genTitle">
         <h2 id="genTitle"><span class="tryon-step">3</span> Solicita tu montaje</h2>
         <p class="tryon-chosen" id="chosenLabel">Aún no has elegido un vestido.</p>
+        
         <div class="tryon-price">
-          <p class="tryon-price-amount">Costo: <strong id="priceLabel">50 pesos</strong></p>
-          <p class="tryon-pay" id="payInstructions"></p>
-          <p class="tryon-fine">Tu foto estará lista en un plazo de <b id="hoursLabel">24</b> horas y te la enviamos por WhatsApp.</p>
+          <!-- Área de pago y diseño integrada -->
+          <div class="tryon-payment-area">
+            
+            <div class="highlighted-price-block">
+              <p class="highlighted-price-amount">Costo: <strong id="priceLabel">50 pesos</strong></p>
+            </div>
+
+            <div class="payment-qr-container">
+              <img src="images/QR.jpg" alt="Código QR de pago" class="payment-qr-graphic">
+              <p class="payment-or-text">Usted puede escanear el código QR para efectuar el pago o pagar a través de la tarjeta:</p>
+            </div>
+
+            <div class="payment-card-block">
+              <span class="card-number-label">Número de tarjeta:</span>
+              <div class="card-number-display">9200-0699-9610-9918</div>
+            </div>
+
+            <div class="payment-instructions-block">
+              <p class="delivery-fine-print">Tu foto estará lista en 24 horas y te la enviaremos por WhatsApp.</p>
+              <p class="instructions-fine-print">Por favor, rellene bien el formulario y haga primero la transferencia con el número de la transferencia que le llegó al mensaje y recibirá su foto lo antes posible en el plazo de 24 horas. Muchas gracias por solicitar el servicio. Que tenga buen día.</p>
+            </div>
+
+            <!-- Imagen promocional grande en formato móvil -->
+            <div class="sample-image-section">
+              <p class="sample-image-title">Vista previa de referencia del servicio</p>
+              <img src="images/ImaFotoIA.jpg" alt="Promoción de transformación de 15 años" class="sample-image-preview">
+            </div>
+
+          </div>
         </div>
+
         <form class="tryon-form" id="requestForm" novalidate>
           <label>Tu nombre<input id="reqName" autocomplete="name" maxlength="80" placeholder="Nombre y apellido"></label>
           <label>Tu número de WhatsApp<input id="reqPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+53 5XXXXXXX"></label>
