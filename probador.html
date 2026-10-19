@@ -255,7 +255,7 @@
   <section class="wardrobe-hero">
     <p class="eyebrow">PROBADOR VIRTUAL</p>
     <h1>Pruébate tu vestido</h1>
-    <p>Tómate una selfie, elige un vestido del estudio y solicita tu montaje: lo preparamos y te lo enviamos por WhatsApp para que veas cómo podrías lucir.</p>
+    <p>Tómate una selfie, elige un vestido del estudio y solicita tu montaje por WhatsApp. Descarga las dos imágenes y adjúntalas al mensaje para que el estudio pueda preparar tu solicitud.</p>
   </section>
 
   <section class="tryon-consent" aria-labelledby="consentTitle">
@@ -378,51 +378,137 @@
     }
   });
 
-  // Automatización del botón "Solicitar mi montaje": Descarga fotos y abre WhatsApp con instrucciones
-  document.getElementById('requestForm').addEventListener('submit', function(e) {
+  // Solicitud manual por WhatsApp: no llama a Gemini ni al endpoint /tryon.
+  // Descarga selfie + vestido elegido y abre WhatsApp con instrucciones para adjuntarlos.
+  const requestForm = document.getElementById('requestForm');
+  const genMsg = document.getElementById('genMsg');
+  const consentCheck = document.getElementById('consentCheck');
+
+  function setRequestMessage(message, isError = false) {
+    if (!genMsg) return;
+    genMsg.textContent = message;
+    genMsg.style.color = isError ? '#ffb8c7' : '#ffd9ea';
+  }
+
+  function selectedDressImage() {
+    // Soporta varias clases habituales para tarjetas seleccionadas.
+    const selectors = [
+      '.tryon-dress.is-selected img', '.tryon-dress.selected img',
+      '.tryon-dress[aria-pressed="true"] img', '.tryon-dress[aria-selected="true"] img',
+      '.dress-card.is-selected img', '.dress-card.selected img',
+      '#dressList [aria-pressed="true"] img', '#dressList [aria-selected="true"] img',
+      '#dressList input[type="radio"]:checked'
+    ];
+    for (const selector of selectors) {
+      const node = document.querySelector(selector);
+      if (!node) continue;
+      if (node.tagName === 'IMG' && node.src) return node;
+      const card = node.closest('.tryon-dress, .dress-card, label, button, article') || node.parentElement;
+      const img = card && card.querySelector('img');
+      if (img && img.src) return img;
+    }
+    return null;
+  }
+
+  function extensionFor(type, fallback = 'jpg') {
+    const mime = (type || '').toLowerCase().split(';')[0];
+    if (mime === 'image/png') return 'png';
+    if (mime === 'image/webp') return 'webp';
+    if (mime === 'image/jpeg' || mime === 'image/jpg') return 'jpg';
+    return fallback;
+  }
+
+  async function imageToBlob(img) {
+    if (!img || !img.src) throw new Error('No se encontró la imagen.');
+    // fetch funciona tanto con blob/data URLs de la selfie como con imágenes públicas que permitan CORS.
+    const response = await fetch(img.src, { mode: 'cors', cache: 'no-store' });
+    if (!response.ok) throw new Error('No se pudo descargar una de las imágenes (HTTP ' + response.status + ').');
+    const blob = await response.blob();
+    if (!blob.type.startsWith('image/')) throw new Error('El archivo seleccionado no parece ser una imagen.');
+    return blob;
+  }
+
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    // Dar tiempo al navegador para iniciar la descarga antes de liberar el objeto.
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }
+
+  requestForm.addEventListener('submit', async function(e) {
+    // Captura el evento antes que probador.js: evita que también se llame a Gemini (/tryon).
     e.preventDefault();
-    
+    e.stopPropagation();
+    if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+
     const name = document.getElementById('reqName').value.trim();
     const phone = document.getElementById('reqPhone').value.trim();
     const ref = document.getElementById('reqRef').value.trim();
-    
+    const selfieImg = document.getElementById('selfiePreview');
+    const dressImg = selectedDressImage();
+
+    if (!consentCheck || !consentCheck.checked) {
+      setRequestMessage('Marca la autorización para usar las imágenes antes de continuar.', true);
+      consentCheck?.focus();
+      return;
+    }
     if (!name || !phone || !ref) {
-      alert('Por favor, completa todos los campos del formulario.');
+      setRequestMessage('Completa tu nombre, WhatsApp y referencia de transferencia.', true);
+      return;
+    }
+    if (!selfieImg || selfieImg.hidden || !selfieImg.src) {
+      setRequestMessage('Primero toma o sube tu selfie.', true);
+      return;
+    }
+    if (!dressImg) {
+      setRequestMessage('Primero selecciona un vestido de la galería.', true);
       return;
     }
 
-    // 1. Descargar la selfie si está disponible
-    const selfieImg = document.getElementById('selfiePreview');
-    if (selfieImg && selfieImg.src && !selfieImg.hidden) {
-      const a = document.createElement('a');
-      a.href = selfieImg.src;
-      a.download = 'mi-selfie-15anos.jpg';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
+    const requestBtn = document.getElementById('requestBtn');
+    const originalText = requestBtn ? requestBtn.textContent : '';
+    if (requestBtn) { requestBtn.disabled = true; requestBtn.textContent = 'Preparando descargas…'; }
+    setRequestMessage('Preparando las dos imágenes. Si el navegador pregunta, permite las descargas múltiples.');
 
-    // 2. Descargar el vestido seleccionado si está disponible
-    const selectedDress = document.querySelector('.tryon-dress.is-selected img');
-    if (selectedDress && selectedDress.src) {
-      setTimeout(() => {
-        const a = document.createElement('a');
-        a.href = selectedDress.src;
-        a.download = 'vestido-elegido-15anos.jpg';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }, 400);
-    }
+    try {
+      // Descargamos ambas imágenes antes de abrir WhatsApp para no dejar una solicitud a medias.
+      const [selfieBlob, dressBlob] = await Promise.all([
+        imageToBlob(selfieImg), imageToBlob(dressImg)
+      ]);
+      const selfieExt = extensionFor(selfieBlob.type);
+      const dressExt = extensionFor(dressBlob.type);
+      downloadBlob(selfieBlob, 'My-Princess-selfie.' + selfieExt);
+      setTimeout(() => downloadBlob(dressBlob, 'My-Princess-vestido-seleccionado.' + dressExt), 700);
 
-    // 3. Abrir WhatsApp con mensaje personalizado indicando que adjunten los archivos descargados
-    const text = `¡Hola, My Princess! Deseo solicitar mi montaje de 15 años.%0A%0A*Nombre:* ${encodeURIComponent(name)}%0A*WhatsApp:* ${encodeURIComponent(phone)}%0A*Nº Transferencia:* ${encodeURIComponent(ref)}%0A%0A📎 *Nota importante:* Mis fotos (selfie y vestido) se acaban de descargar en mi dispositivo. Las adjunto aquí en la galería.`;
-    
-    const whatsappUrl = `https://wa.me/5352512369?text=${text}`;
-    
-    setTimeout(() => {
-      window.open(whatsappUrl, '_blank');
-    }, 800);
-  });
+      const message = [
+        '¡Hola, My Princess! Deseo solicitar mi montaje de 15 años.',
+        '',
+        'Nombre: ' + name,
+        'WhatsApp: ' + phone,
+        'N.º de transferencia: ' + ref,
+        '',
+        'Ya descargué estas dos imágenes en mi dispositivo:',
+        '1. My-Princess-selfie.' + selfieExt,
+        '2. My-Princess-vestido-seleccionado.' + dressExt,
+        '',
+        'Adjunto ambas imágenes a este chat desde la galería o la carpeta Descargas. Muchas gracias.'
+      ].join('\n');
+      const whatsappUrl = 'https://wa.me/5352512369?text=' + encodeURIComponent(message);
+      setRequestMessage('¡Listo! Se iniciaron las descargas de la selfie y el vestido. En WhatsApp, adjunta los dos archivos descargados antes de enviar el mensaje.');
+      // Abrir en la misma pestaña evita que algunos navegadores móviles bloqueen la ventana emergente.
+      setTimeout(() => { window.location.href = whatsappUrl; }, 1100);
+    } catch (error) {
+      console.error('[My Princess] No se pudieron preparar las imágenes:', error);
+      setRequestMessage('No se pudieron descargar ambas imágenes. ' + (error && error.message ? error.message : 'Comprueba tu conexión e inténtalo otra vez.'), true);
+    } finally {
+      if (requestBtn) { requestBtn.disabled = false; requestBtn.textContent = originalText || '✉ Solicitar mi montaje'; }
+    }
+  }, true);
 </script>
 </body></html>
