@@ -29,9 +29,10 @@
     if (summary) summary.textContent = ids.length ? `${ids.length} vestido(s): ${codes.join(', ') || 'selección guardada'}` : 'Aún no has seleccionado vestidos.';
   }
   contractSelect?.addEventListener('change', () => {
-    sessionStorage.removeItem('mp_selected_dress_ids');
-    sessionStorage.removeItem('mp_selected_dress_codes');
+    // Cambiar de contrato no debe borrar los vestidos ya elegidos.
+    // La galería validará la nueva cantidad permitida al volver a abrirse.
     setGalleryContext();
+    saveDraft();
   });
   galleryLink?.addEventListener('click', (event) => {
     if (!contractSelect?.value) {
@@ -42,10 +43,17 @@
     }
     setGalleryContext();
   });
-  updateSummary();
-  if (contractSelect?.value) setGalleryContext();
+  function saveDraft() {
+    const draft = {};
+    for (const key of ['client','guardian','phone','date','contract','payment','notes']) {
+      if (form.elements[key]) draft[key] = String(form.elements[key].value || '');
+    }
+    draft.dressIds = getSelectedIds();
+    try { draft.dressNames = JSON.parse(sessionStorage.getItem('mp_selected_dress_codes') || '[]'); } catch { draft.dressNames = []; }
+    sessionStorage.setItem('mp_booking_draft', JSON.stringify(draft));
+  }
 
-  // Restaura el formulario si la clienta tuvo que ir a crear cuenta/iniciar sesión.
+  // Restaura primero el borrador y después actualiza el resumen/contexto de la galería.
   try {
     const draft = JSON.parse(sessionStorage.getItem('mp_booking_draft') || 'null');
     if (draft) {
@@ -56,6 +64,11 @@
       if (Array.isArray(draft.dressNames)) sessionStorage.setItem('mp_selected_dress_codes', JSON.stringify(draft.dressNames));
     }
   } catch {}
+  form.addEventListener('input', saveDraft);
+  form.addEventListener('change', saveDraft);
+  updateSummary();
+  if (contractSelect?.value) setGalleryContext();
+  saveDraft();
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
