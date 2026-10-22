@@ -49,7 +49,7 @@
     }
     const n = selected.size;
     counter.textContent = packageLimit > 0 ? `${n} de ${packageLimit} vestidos seleccionados` : `${n} seleccionados · límite pendiente de configurar`;
-    confirm.disabled = !(packageId && packageLimit > 0 && n === packageLimit);
+    confirm.disabled = !(packageLimit > 0 && n === packageLimit);
   }
   function escapeHtml(v) { return String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 
@@ -68,7 +68,8 @@
     let activePackageId = sessionStorage.getItem("mp_package_id") || "";
     let activeLimit = Number(sessionStorage.getItem("mp_dress_limit") || "0");
     if (activePackageId) packageId = activePackageId;
-    if (!activePackageId) {
+    // Si falta el límite, vuelve a consultar el paquete aunque ya exista un ID guardado.
+    if (!activePackageId || !(activeLimit > 0)) {
       const packageResult = await supabaseClient.from("contract_packages").select("id,name,included_studio_dresses,active").eq("name", packageName).eq("active", true).maybeSingle();
       if (packageResult.error) {
         status.textContent = "No se pudo consultar el contrato en Supabase. Comprueba la política pública de lectura de paquetes.";
@@ -79,11 +80,14 @@
         grid.innerHTML = '<div class="dress-empty">El contrato no está disponible en la base de datos.</div>'; return;
       }
       activePackageId = packageResult.data.id;
-      packageId = activePackageId; // Actualiza también la variable que habilita el botón.
+      packageId = activePackageId;
       activeLimit = Number(packageResult.data.included_studio_dresses || 0);
       packageLimit = activeLimit;
       sessionStorage.setItem("mp_package_id", activePackageId);
       sessionStorage.setItem("mp_dress_limit", String(activeLimit));
+      if (packageLabel) packageLabel.textContent = `${packageName} · ${packageLimit} vestido(s) del estudio`;
+    } else {
+      packageLimit = activeLimit;
     }
     if (!(activeLimit > 0)) {
       status.textContent = "La cantidad de vestidos de este contrato aún no está configurada en Supabase. El estudio debe definirla antes de permitir la selección.";
@@ -119,7 +123,12 @@
   search?.addEventListener("input", render);
   colorFilter?.addEventListener("change", render);
   confirm?.addEventListener("click", () => {
-    if (selected.size !== packageLimit) return;
+    if (!(packageLimit > 0) || selected.size !== packageLimit) {
+      status.textContent = packageLimit > 0
+        ? `Selecciona exactamente ${packageLimit} vestido(s) para continuar.`
+        : "No se pudo determinar cuántos vestidos incluye el contrato. Vuelve al formulario, selecciona el contrato y entra otra vez a la galería.";
+      return;
+    }
     sessionStorage.setItem("mp_selected_dress_ids", JSON.stringify([...selected]));
     sessionStorage.setItem("mp_selected_dress_codes", JSON.stringify(dresses.filter(d=>selected.has(d.id)).map(d=>d.code)));
     location.href = "index.html#reserva";
