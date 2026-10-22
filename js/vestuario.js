@@ -8,7 +8,7 @@
   const search = $("#dressSearch");
   const colorFilter = $("#colorFilter");
   const packageLabel = $("#selectedPackageLabel");
-  const packageId = sessionStorage.getItem("mp_package_id") || "";
+  let packageId = sessionStorage.getItem("mp_package_id") || "";
   const packageName = sessionStorage.getItem("mp_package_name") || "";
   let packageLimit = Number(sessionStorage.getItem("mp_dress_limit") || "0");
   let dresses = [];
@@ -67,6 +67,7 @@
     supabaseClient = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
     let activePackageId = sessionStorage.getItem("mp_package_id") || "";
     let activeLimit = Number(sessionStorage.getItem("mp_dress_limit") || "0");
+    if (activePackageId) packageId = activePackageId;
     if (!activePackageId) {
       const packageResult = await supabaseClient.from("contract_packages").select("id,name,included_studio_dresses,active").eq("name", packageName).eq("active", true).maybeSingle();
       if (packageResult.error) {
@@ -78,6 +79,7 @@
         grid.innerHTML = '<div class="dress-empty">El contrato no está disponible en la base de datos.</div>'; return;
       }
       activePackageId = packageResult.data.id;
+      packageId = activePackageId; // Actualiza también la variable que habilita el botón.
       activeLimit = Number(packageResult.data.included_studio_dresses || 0);
       packageLimit = activeLimit;
       sessionStorage.setItem("mp_package_id", activePackageId);
