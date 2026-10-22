@@ -60,8 +60,15 @@
       for (const key of ['client','guardian','phone','date','contract','payment','notes']) {
         if (form.elements[key] && typeof draft[key] === 'string') form.elements[key].value = draft[key];
       }
-      if (Array.isArray(draft.dressIds)) sessionStorage.setItem('mp_selected_dress_ids', JSON.stringify(draft.dressIds));
-      if (Array.isArray(draft.dressNames)) sessionStorage.setItem('mp_selected_dress_codes', JSON.stringify(draft.dressNames));
+      // La selección confirmada más reciente de la galería tiene prioridad sobre
+      // la copia anterior guardada en el borrador antes de entrar a vestuario.html.
+      // Solo recuperar los vestidos del borrador si nunca se creó la clave de sesión.
+      if (sessionStorage.getItem('mp_selected_dress_ids') === null && Array.isArray(draft.dressIds)) {
+        sessionStorage.setItem('mp_selected_dress_ids', JSON.stringify(draft.dressIds));
+      }
+      if (sessionStorage.getItem('mp_selected_dress_codes') === null && Array.isArray(draft.dressNames)) {
+        sessionStorage.setItem('mp_selected_dress_codes', JSON.stringify(draft.dressNames));
+      }
     }
   } catch {}
   form.addEventListener('input', saveDraft);
