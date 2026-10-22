@@ -23,7 +23,16 @@
     const name = btn.dataset.contract; document.getElementById('modalTitle').textContent = name;
     document.getElementById('modalDescription').textContent = descriptions[name] || 'Una experiencia fotográfica especial.';
     modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
-    const select = document.querySelector('[name="contract"]'); if(select) select.value=name;
+    const select = document.querySelector('[name="contract"]');
+
+if (select) {
+  select.value = name;
+
+  // Notificar el cambio al sistema de reservas.
+  select.dispatchEvent(
+    new Event("change", { bubbles: true })
+  );
+}
   }));
   const closeModal = () => {modal.classList.remove('open');modal.setAttribute('aria-hidden','true');};
   document.querySelector('.modal-close')?.addEventListener('click',closeModal);
