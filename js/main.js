@@ -42,11 +42,33 @@
     if(url){a.href=url;if(type==='whatsapp')a.target='_blank';} else {a.href='#contacto';a.addEventListener('click',e=>{e.preventDefault();alert('Añade los datos de contacto en js/config.js antes de publicar.');});}
   });
   const form=document.getElementById('bookingForm');
-  form?.addEventListener('submit',e=>{
-    e.preventDefault(); const data=Object.fromEntries(new FormData(form).entries());
-    const summary=`SOLICITUD DE RESERVA — MY PRINCESS\nNombre: ${data.client}\nTutor: ${data.guardian||'No indicado'}\nTeléfono: ${data.phone}\nFecha solicitada: ${data.date}\nContrato: ${data.contract}\nMétodo de pago preferido: ${data.payment}\nNotas: ${data.notes||'Ninguna'}\n\nPendiente de confirmación del estudio.`;
-    const result=document.getElementById('bookingResult'); result.hidden=false; result.textContent='La solicitud está preparada en este navegador. Todavía no se ha enviado al estudio. Copia el resumen y envíalo por WhatsApp o correo cuando los datos estén configurados.';
-    const copy=document.createElement('button'); copy.type='button';copy.className='button outline';copy.textContent='Copiar resumen de la solicitud';copy.style.marginTop='10px';copy.onclick=async()=>{try{await navigator.clipboard.writeText(summary);copy.textContent='Resumen copiado ✓';}catch{const ta=document.createElement('textarea');ta.value=summary;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();copy.textContent='Resumen copiado ✓';}};
-    const old=result.querySelector('button');if(old)old.remove();result.appendChild(document.createElement('br'));result.appendChild(copy);
+  form?.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const data=Object.fromEntries(new FormData(form).entries());
+    const result=document.getElementById('bookingResult');
+    result.hidden=false; result.textContent='Verificando tu cuenta…';
+    const draft={...data, dressIds:JSON.parse(sessionStorage.getItem('mp_selected_dress_ids')||'[]'), dressNames:JSON.parse(sessionStorage.getItem('mp_selected_dress_codes')||'[]')};
+    sessionStorage.setItem('mp_booking_draft',JSON.stringify(draft));
+    const cfg=window.MY_PRINCESS_CONFIG||{};
+    if(!window.supabase||!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY){result.textContent='El sistema de cuentas no está configurado. Contacta al estudio.';return;}
+    const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
+    const {data:{session}}=await sb.auth.getSession();
+    if(!session){result.textContent='Para enviar una solicitud debes iniciar sesión o crear una cuenta. Hemos conservado los datos del formulario.';const a=document.createElement('a');a.href='cuenta.html?next=reserve';a.className='button pink';a.textContent='Iniciar sesión o registrarme';a.style.display='inline-block';a.style.marginTop='12px';result.appendChild(document.createElement('br'));result.appendChild(a);return;}
+    if(!data.client||!data.phone||!data.date||!data.contract){result.textContent='Completa nombre, teléfono, fecha y contrato.';return;}
+    if(data.date < new Date().toISOString().slice(0,10)){result.textContent='Selecciona una fecha futura.';return;}
+    const api=(cfg.bookingApiBase||cfg.API_BASE_URL||'').replace(/\/+$/,'');
+    if(!api){result.textContent='No está configurado el servidor de reservas.';return;}
+    const button=form.querySelector('[type="submit"]');if(button){button.disabled=true;button.textContent='Enviando solicitud…';}
+    try{
+      const resp=await fetch(api+'/booking-requests',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token},body:JSON.stringify({name:data.client,guardian:data.guardian,phone:data.phone,date:data.date,packageName:data.contract,payment:data.payment,message:data.notes,dressIds:draft.dressIds,dressNames:draft.dressNames})});
+      const body=await resp.json().catch(()=>({}));
+      if(!resp.ok)throw new Error(body.error||'No se pudo guardar la solicitud.');
+      result.textContent='✓ Tu solicitud fue guardada correctamente y está pendiente de revisión por el estudio. La fecha no se considera confirmada hasta recibir la aprobación por correo.';
+      sessionStorage.removeItem('mp_booking_draft');
+      const wa=document.createElement('a');wa.href='https://wa.me/'+String(cfg.whatsapp||'').replace(/\D/g,'')+'?text='+encodeURIComponent('Hola, soy '+data.client+'. He enviado una solicitud de reserva para '+data.date+' con el contrato '+data.contract+'. Referencia: '+body.id+'. Quedo pendiente de confirmación.');wa.target='_blank';wa.rel='noopener';wa.className='button outline';wa.textContent='Avisar por WhatsApp';wa.style.display='inline-block';wa.style.marginTop='10px';result.appendChild(document.createElement('br'));result.appendChild(wa);
+    }catch(err){result.textContent=err.message||'Error al enviar. Tus datos siguen guardados en esta sesión; inténtalo de nuevo.';}
+    finally{if(button){button.disabled=false;button.innerHTML='Preparar solicitud <span>→</span>';}}
   });
+  // Rehidrata el formulario al volver desde Vestuario o desde el registro.
+  try{const draft=JSON.parse(sessionStorage.getItem('mp_booking_draft')||'null');if(draft&&form){for(const [k,v] of Object.entries(draft)){const field=form.elements.namedItem(k);if(field&&typeof v==='string')field.value=v;}}}catch{}
 })();

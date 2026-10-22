@@ -1,54 +1,12 @@
-<!doctype html>
-<html lang="es">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#120911">
-<title>Mi cuenta | My Princess</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><style>
-.account-page{min-height:100vh;background:radial-gradient(ellipse at top,#321629,#100810 60%);color:#fff0f7}.account-main{max-width:760px;margin:auto;padding:36px 18px 90px}.account-card{border:1px solid #70405b;border-radius:18px;background:#ffffff08;padding:clamp(18px,4vw,30px);margin:18px 0}.account-main h1{font:600 clamp(38px,7vw,62px)/1.1 'Cormorant Garamond',serif;color:#ffacd0;text-align:center}.account-main p{color:#e6ccda}.account-form{display:grid;gap:12px}.account-form label{display:grid;gap:6px;font-size:12px;color:#f4d9e8}.account-form input{padding:12px;border-radius:8px;border:1px solid #70405b;background:#1b0e1a;color:#fff}.account-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.account-msg{min-height:24px;font-size:13px}.event-item{border:1px solid #70405b;border-radius:12px;padding:14px;margin:10px 0;background:#1b0e1a}.event-item strong{color:#ffacd0}.account-nav{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;position:sticky;top:0;background:#120911ee;border-bottom:1px solid #70405b;z-index:10}.account-nav a{color:#ffacd0;text-decoration:none}.hidden{display:none!important}
-</style></head>
-<body class="account-page">
-<header class="account-nav"><a href="index.html">♛ My Princess</a><a href="index.html#reserva">Volver a la reserva</a></header>
-<main class="account-main"><p class="eyebrow" style="text-align:center">TU ESPACIO PERSONAL</p><h1>Mi cuenta, mi gran día</h1>
-<p style="text-align:center">El registro es opcional. Al iniciar sesión, solo tú podrás consultar las fechas de evento vinculadas a tu cuenta.</p>
-<section class="account-card" id="authCard"><h2 id="authTitle">Crear cuenta o iniciar sesión</h2><form class="account-form" id="authForm">
-<label>Nombre completo<input id="fullName" autocomplete="name" maxlength="120" placeholder="Tu nombre" /></label>
-<label>Correo electrónico<input id="email" type="email" autocomplete="email" required maxlength="200" placeholder="tu correo" /></label>
-<label>Contraseña<input id="password" type="password" autocomplete="current-password" required minlength="8" placeholder="Mínimo 8 caracteres" /></label>
-<label id="consentLabel"><input id="remindersConsent" type="checkbox" checked style="width:auto;display:inline"> Acepto recibir recordatorios de mi evento por correo (3 días antes, el día anterior y a las 7:00 a. m. el día del evento).</label>
-<div class="account-actions"><button class="button pink" id="signUpBtn" type="button">Crear cuenta</button><button class="button" type="submit">Iniciar sesión</button></div></form><p class="account-msg" id="accountMessage" role="status"></p></section>
-<section class="account-card hidden" id="eventsCard"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><h2>Mis fechas reservadas ♛</h2><button class="button" id="logoutBtn" type="button">Cerrar sesión</button></div><p id="clientGreeting"></p><div id="myEvents"></div><p class="account-msg" id="eventsMessage"></p></section>
-</main>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mi cuenta | My Princess</title><link rel="stylesheet" href="css/style.css"><style>
+body{background:#120911;color:#fff0f7;font-family:Montserrat,Arial,sans-serif}.account{max-width:760px;margin:30px auto;padding:20px}.panel{background:#1d101c;border:1px solid #70405b;border-radius:16px;padding:22px;margin:18px 0}.form{display:grid;gap:12px}.form input{padding:12px;border-radius:8px;border:1px solid #70405b;background:#100810;color:#fff;width:100%;box-sizing:border-box}.btn{background:#e98ab5;color:#260f1c;border:0;border-radius:25px;padding:12px 18px;cursor:pointer;font-weight:600}.btn.alt{background:transparent;color:#f8cfe0;border:1px solid #a95b80}.muted{color:#d8b8c8;font-size:13px}.item{border:1px solid #70405b;border-radius:10px;padding:14px;margin:10px 0}.status{color:#ffacd0;font-weight:600}.top{display:flex;justify-content:space-between;gap:12px;align-items:center}.hidden{display:none}
+</style></head><body><main class="account"><div class="top"><a href="index.html" style="color:#ffacd0">♛ My Princess</a><a href="index.html#reserva" style="color:#ffacd0">Volver a reservar</a></div><h1>Mi cuenta, mi gran día</h1><p class="muted">Para enviar una solicitud de reserva necesitas una cuenta. Aquí podrás consultar el estado de tus solicitudes.</p>
+<section class="panel" id="auth"><h2>Crear cuenta / Iniciar sesión</h2><form class="form" id="form"><label>Nombre completo (para registro)<input id="name" autocomplete="name" maxlength="120"></label><label>Correo<input id="email" type="email" required autocomplete="email"></label><label>Contraseña<input id="password" type="password" minlength="8" required autocomplete="current-password"></label><div><button class="btn" type="button" id="signup">Crear cuenta</button> <button class="btn alt" type="submit">Iniciar sesión</button></div></form><p id="message" class="muted" role="status"></p></section>
+<section class="panel hidden" id="requests"><div class="top"><h2>Mis solicitudes</h2><button class="btn alt" id="logout">Cerrar sesión</button></div><div id="requestList"></div><p id="requestMessage" class="muted"></p></section></main>
 <script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-(() => {
- const cfg=window.MY_PRINCESS_CONFIG||{}, msg=document.getElementById('accountMessage'), form=document.getElementById('authForm'), eventsCard=document.getElementById('eventsCard'), authCard=document.getElementById('authCard');
- if(!window.supabase||!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY){msg.textContent='No se pudo cargar el servicio de cuentas. Comprueba la conexión.';return}
- const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
- const setMsg=t=>msg.textContent=t;
- async function loadSession(){
-  const {data:{session}}=await sb.auth.getSession();
-  if(!session){eventsCard.classList.add('hidden');authCard.classList.remove('hidden');return}
-  authCard.classList.add('hidden');eventsCard.classList.remove('hidden');
-  const {data:userData}=await sb.auth.getUser(); const user=userData.user;
-  document.getElementById('clientGreeting').textContent='Sesión iniciada: '+(user.email||'');
-  const box=document.getElementById('myEvents');box.innerHTML='';
-  const {data,error}=await sb.from('event_reservations').select('id,event_date,status').eq('user_id',user.id).eq('status','confirmed').order('event_date');
-  if(error){document.getElementById('eventsMessage').textContent='No fue posible cargar tus fechas. Comprueba que se aplicó la migración SQL v5.';return}
-  if(!data.length){box.innerHTML='<p>Aún no hay fechas confirmadas vinculadas a tu cuenta. Cuando el estudio confirme tu reserva, aparecerá aquí. ♡</p>';return}
-  data.forEach(ev=>{const d=document.createElement('div');d.className='event-item';const date=new Date(ev.event_date+'T12:00:00');d.innerHTML='<strong>♛ Tu gran día</strong><p></p>';d.querySelector('p').textContent=new Intl.DateTimeFormat('es',{dateStyle:'full'}).format(date);box.appendChild(d)});
- }
- document.getElementById('signUpBtn').addEventListener('click',async()=>{
-  const name=document.getElementById('fullName').value.trim(), email=document.getElementById('email').value.trim(), password=document.getElementById('password').value;
-  if(name.length<2){setMsg('Escribe tu nombre completo para crear la cuenta.');return}
-  if(password.length<8){setMsg('La contraseña debe tener al menos 8 caracteres.');return}
-  setMsg('Creando cuenta…');
-  const {data,error}=await sb.auth.signUp({email,password,options:{data:{full_name:name,reminders_opt_in:document.getElementById('remindersConsent').checked}}});
-  if(error){setMsg(error.message);return}
-  if(data.user && data.session){
-   const {error:profileError}=await sb.from('client_profiles').upsert({user_id:data.user.id,full_name:name,email,reminders_opt_in:document.getElementById('remindersConsent').checked});
-   if(profileError){setMsg('La cuenta se creó, pero el perfil no pudo guardarse. Verifica la migración SQL.');return}
-   setMsg('Cuenta creada.');await loadSession();
-  } else setMsg('Revisa tu correo para confirmar la cuenta. Después podrás iniciar sesión.');
- });
- form.addEventListener('submit',async e=>{e.preventDefault();setMsg('Iniciando sesión…');const {error}=await sb.auth.signInWithPassword({email:document.getElementById('email').value.trim(),password:document.getElementById('password').value});if(error){setMsg(error.message);return}setMsg('');await loadSession()});
- document.getElementById('logoutBtn').addEventListener('click',async()=>{await sb.auth.signOut();await loadSession()});
- sb.auth.onAuthStateChange(()=>{setTimeout(loadSession,0)});loadSession();
-})();
+(async()=>{const cfg=window.MY_PRINCESS_CONFIG||{},$=id=>document.getElementById(id),msg=$('message');if(!window.supabase){msg.textContent='No se pudo cargar Supabase.';return}const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);const api=(cfg.bookingApiBase||cfg.API_BASE_URL||'').replace(/\/+$/,'');
+async function load(){const {data:{session}}=await sb.auth.getSession();if(!session){$('auth').classList.remove('hidden');$('requests').classList.add('hidden');return}$('auth').classList.add('hidden');$('requests').classList.remove('hidden');$('requestList').textContent='Cargando…';try{const r=await fetch(api+'/my-booking-requests',{headers:{Authorization:'Bearer '+session.access_token}}),j=await r.json();if(!r.ok)throw Error(j.error||'Error');$('requestList').innerHTML='';if(!j.requests.length){$('requestList').textContent='Todavía no tienes solicitudes.';return}j.requests.forEach(x=>{const d=document.createElement('article');d.className='item';const h=document.createElement('h3');h.textContent=x.contract_name+' · '+x.event_date;const p=document.createElement('p');p.className='status';p.textContent=({pending:'Pendiente de revisión',approved:'Aprobada · fecha confirmada',rejected:'No aprobada',cancelled:'Cancelada'})[x.status]||x.status;const n=document.createElement('p');n.className='muted';n.textContent=x.admin_note||'';d.append(h,p,n);$('requestList').append(d)})}catch(e){$('requestMessage').textContent=e.message}}
+$('signup').onclick=async()=>{const name=$('name').value.trim(),email=$('email').value.trim(),password=$('password').value;if(name.length<2){msg.textContent='Escribe tu nombre completo.';return}if(password.length<8){msg.textContent='La contraseña debe tener al menos 8 caracteres.';return}msg.textContent='Creando cuenta…';const {error}=await sb.auth.signUp({email,password,options:{data:{full_name:name}}});msg.textContent=error?error.message:'Revisa tu correo para confirmar la cuenta. Después inicia sesión.'};
+$('form').onsubmit=async e=>{e.preventDefault();msg.textContent='Iniciando sesión…';const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){msg.textContent=error.message;return}await load();const params=new URLSearchParams(location.search);if(params.get('next')==='reserve')location.href='index.html#reserva';else if(params.get('next')==='admin')location.href='admin.html'};
+$('logout').onclick=async()=>{await sb.auth.signOut();await load()};sb.auth.onAuthStateChange(()=>setTimeout(load,0));await load()})();
 </script></body></html>
