@@ -6,7 +6,7 @@
 <title>My Princess | Estudio Fotográfico</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=2"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"><link rel="stylesheet" href="css/calendar.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=12"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"><link rel="stylesheet" href="css/calendar.css?v=12">
 </head>
 <body>
 <div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -45,5 +45,101 @@
 </main><footer class="footer"><a class="brand footer-brand" href="#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span><a href="#top" class="back-top" aria-label="Volver arriba">↑</a><small class="copyright">© <span id="year"></span> My Princess · Estudio Fotográfico</small></footer>
 <div class="modal" id="contractModal" aria-hidden="true"><div class="modal-panel"><button class="modal-close" aria-label="Cerrar">×</button><div class="modal-gem">✧</div><p class="eyebrow">CONTRATO FOTOGRÁFICO</p><h2 id="modalTitle">Cuarzo Rosa</h2><p id="modalDescription">Una experiencia pensada para guardar recuerdos inolvidables.</p><p class="modal-note">Contenido y precio por definir con el estudio.</p><a href="#reserva" class="button pink modal-reserve">Consultar este contrato →</a></div></div>
 <div class="lightbox" id="lightbox"><button aria-label="Cerrar imagen">×</button><img src="" alt="Vista ampliada"></div><a class="floating-whatsapp" href="#contacto" aria-label="Contactar">✆</a>
-<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js?v=11"></script><script src="js/calendar.js?v=11"></script><script src="js/my-princess-data.js?v=11"></script>
+<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js?v=12"></script><script src="js/calendar.js?v=12"></script><script src="js/my-princess-data.js?v=12"></script>
+
+<script>
+/* Puente de selección de contrato para la galería de vestuario. */
+(() => {
+  const form = document.getElementById('bookingForm');
+  const contractSelect = form?.querySelector('select[name="contract"]');
+  const galleryLink = document.getElementById('openDressGallery');
+  const selectedIds = document.getElementById('selectedDressIds');
+  const summary = document.getElementById('selectedDressSummary');
+  const clean = value => String(value || '').trim();
+
+  function saveContract(name, {clearDresses = false} = {}) {
+    name = clean(name);
+    if (!name) return false;
+    const previous = clean(sessionStorage.getItem('mp_package_name'));
+    if (previous && previous !== name) {
+      sessionStorage.removeItem('mp_package_id');
+      sessionStorage.removeItem('mp_dress_limit');
+      sessionStorage.removeItem('mp_selected_dress_ids');
+      sessionStorage.removeItem('mp_selected_dress_codes');
+      if (selectedIds) selectedIds.value = '[]';
+      if (summary) summary.textContent = 'Aún no has seleccionado vestidos.';
+      clearDresses = true;
+    }
+    sessionStorage.setItem('mp_package_name', name);
+    if (galleryLink) {
+      const url = new URL(galleryLink.href, window.location.href);
+      url.searchParams.set('contrato', name);
+      galleryLink.href = url.href;
+    }
+    return true;
+  }
+
+  function selectContract(name) {
+    name = clean(name);
+    if (!name) return false;
+    if (contractSelect) {
+      const option = Array.from(contractSelect.options).find(o => clean(o.value) === name || clean(o.textContent) === name);
+      if (option) {
+        const changed = contractSelect.value !== option.value;
+        contractSelect.value = option.value;
+        saveContract(name);
+        if (changed) contractSelect.dispatchEvent(new Event('change', {bubbles: true}));
+        return true;
+      }
+    }
+    return saveContract(name);
+  }
+
+  if (contractSelect) {
+    contractSelect.addEventListener('change', () => {
+      const name = clean(contractSelect.value);
+      if (name) saveContract(name);
+    });
+    if (clean(contractSelect.value)) saveContract(contractSelect.value);
+  }
+
+  // Las tarjetas de gemas guardan el contrato antes de que main.js abra el modal.
+  document.addEventListener('click', event => {
+    const cardButton = event.target.closest('[data-contract]');
+    if (cardButton) selectContract(cardButton.getAttribute('data-contract'));
+  }, true);
+
+  // El botón del modal debe llevar el contrato mostrado al formulario.
+  document.querySelector('.modal-reserve')?.addEventListener('click', () => {
+    const title = clean(document.getElementById('modalTitle')?.textContent);
+    if (title) selectContract(title);
+  }, true);
+
+  galleryLink?.addEventListener('click', event => {
+    const name = clean(contractSelect?.value) || clean(sessionStorage.getItem('mp_package_name'));
+    if (!name) {
+      event.preventDefault();
+      const result = document.getElementById('bookingResult');
+      if (result) {
+        result.hidden = false;
+        result.textContent = 'Selecciona primero uno de los nueve contratos para elegir los vestidos incluidos.';
+      } else {
+        alert('Selecciona primero un contrato en el formulario de reserva.');
+      }
+      contractSelect?.focus();
+      return;
+    }
+    saveContract(name);
+    const url = new URL(galleryLink.href, window.location.href);
+    url.searchParams.set('contrato', name);
+    galleryLink.href = url.href;
+  });
+
+  // Si se abre la página con #reserva, el contexto del contrato sigue disponible.
+  window.addEventListener('pageshow', () => {
+    if (contractSelect && clean(contractSelect.value)) saveContract(contractSelect.value);
+  });
+})();
+</script>
+
 </body></html>

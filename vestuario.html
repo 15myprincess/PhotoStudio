@@ -5,7 +5,7 @@
 <title>Galería de Vestidos | My Princess</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/vestuario.css">
+<link rel="stylesheet" href="css/style.css?v=12"><link rel="stylesheet" href="css/vestuario.css?v=12">
 </head>
 <body class="vestuario-page">
 <header class="header compact-header">
@@ -23,7 +23,28 @@
   <div class="wardrobe-sticky"><span id="selectionCounter">0 vestidos seleccionados</span><button class="button pink" id="confirmDresses" type="button" disabled>Confirmar selección →</button></div>
 </main>
 <footer class="footer"><a class="brand footer-brand" href="index.html#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span></footer>
-<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/vestuario.js?v=11"></script>
+<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+/* Recupera el contrato de la URL si sessionStorage no lo conserva. Debe ir antes de vestuario.js. */
+(() => {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = (params.get('contrato') || params.get('contract') || params.get('package') || '').trim();
+    if (fromUrl) {
+      const previous = (sessionStorage.getItem('mp_package_name') || '').trim();
+      if (previous && previous !== fromUrl) {
+        sessionStorage.removeItem('mp_package_id');
+        sessionStorage.removeItem('mp_dress_limit');
+        sessionStorage.removeItem('mp_selected_dress_ids');
+        sessionStorage.removeItem('mp_selected_dress_codes');
+      }
+      sessionStorage.setItem('mp_package_name', fromUrl);
+    }
+  } catch (error) {
+    console.warn('No se pudo recuperar el contrato de la reserva.', error);
+  }
+})();
+</script>
+<script src="js/vestuario.js?v=12"></script>
 <script>
 (() => {
   const btn = document.getElementById('menuToggle');
