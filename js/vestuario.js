@@ -12,7 +12,7 @@
   const packageName = sessionStorage.getItem("mp_package_name") || "";
   let packageLimit = Number(sessionStorage.getItem("mp_dress_limit") || "0");
   let dresses = [];
-  let selected = new Set(JSON.parse(sessionStorage.getItem("mp_selected_dress_ids") || "[]"));
+  let selected = new Set((() => { try { const value = JSON.parse(sessionStorage.getItem("mp_selected_dress_ids") || "[]"); return Array.isArray(value) ? value.map(String) : []; } catch { return []; } })());
   let supabaseClient = null;
 
   if (packageLabel) packageLabel.textContent = packageName ? `${packageName} · ${packageLimit} vestido(s) del estudio` : "Primero selecciona un contrato en la página principal";
@@ -109,7 +109,8 @@
 
   grid?.addEventListener("click", e => {
     const btn = e.target.closest("[data-select]"); if (!btn) return;
-    const id = btn.dataset.select;
+    const id = String(btn.dataset.select || "");
+    if (!id) return;
     if (selected.has(id)) selected.delete(id);
     else {
       if (!(packageLimit > 0)) { status.textContent = "El estudio aún debe configurar cuántos vestidos incluye este contrato."; return; }
@@ -117,7 +118,7 @@
       selected.add(id);
     }
     sessionStorage.setItem("mp_selected_dress_ids", JSON.stringify([...selected]));
-    sessionStorage.setItem("mp_selected_dress_codes", JSON.stringify(dresses.filter(d=>selected.has(d.id)).map(d=>d.code)));
+    sessionStorage.setItem("mp_selected_dress_codes", JSON.stringify(dresses.filter(d=>selected.has(String(d.id))).map(d=>d.code)));
     render();
   });
   search?.addEventListener("input", render);
@@ -130,7 +131,7 @@
       return;
     }
     sessionStorage.setItem("mp_selected_dress_ids", JSON.stringify([...selected]));
-    sessionStorage.setItem("mp_selected_dress_codes", JSON.stringify(dresses.filter(d=>selected.has(d.id)).map(d=>d.code)));
+    sessionStorage.setItem("mp_selected_dress_codes", JSON.stringify(dresses.filter(d=>selected.has(String(d.id))).map(d=>d.code)));
     location.href = "index.html#reserva";
   });
   load();
