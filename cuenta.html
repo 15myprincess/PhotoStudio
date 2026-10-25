@@ -14,11 +14,13 @@
 <label>Contraseña<input id="password" type="password" autocomplete="current-password" required minlength="8" placeholder="Mínimo 8 caracteres"></label>
 <label style="display:flex;grid-template-columns:none;align-items:flex-start;gap:9px;line-height:1.5"><input id="remindersConsent" type="checkbox" checked style="width:auto;flex:0 0 auto;margin-top:3px"> Acepto recibir recordatorios por correo (3 días antes, el día anterior y a las 7:00 a. m. el día del evento).</label>
 <div class="account-actions"><button class="button pink" id="signUpBtn" type="button">Crear cuenta</button><button class="button" type="submit">Iniciar sesión</button></div></form><p class="account-msg" id="accountMessage" role="status"></p><p class="small-note">Si activaste la confirmación por correo en Supabase, primero abre el mensaje de confirmación y luego inicia sesión.</p></section>
+
+<section class="account-card hidden" id="profileCard"><h2>Mi perfil ♛</h2><p>Actualiza tu nombre y tus preferencias de recordatorio.</p><form class="account-form" id="profileForm"><label>Nombre completo<input id="profileName" autocomplete="name" maxlength="120" required></label><label>Correo de la cuenta<input id="profileEmail" type="email" disabled></label><label style="display:flex;grid-template-columns:none;align-items:flex-start;gap:9px;line-height:1.5"><input id="profileReminders" type="checkbox" style="width:auto;flex:0 0 auto;margin-top:3px"> Quiero recibir recordatorios por correo sobre mi evento.</label><div class="account-actions"><button class="button pink" type="submit">Guardar perfil</button><button class="button outline" id="resetPasswordBtn" type="button">Cambiar contraseña</button></div></form><p class="account-msg" id="profileMessage" role="status"></p><p class="small-note">Puedes retirar tu consentimiento para recordatorios cuando quieras. El correo de acceso se cambia mediante la verificación de Supabase.</p></section>
 <section class="account-card hidden" id="eventsCard"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><h2>Mis solicitudes ♛</h2><div class="account-actions"><button class="button outline" id="reloadBtn" type="button">Actualizar</button><button class="button" id="logoutBtn" type="button">Cerrar sesión</button></div></div><p id="clientGreeting"></p><div id="myEvents"></div><p class="account-msg" id="eventsMessage"></p><a class="button pink" href="index.html#reserva">Solicitar otra fecha</a></section>
 </main>
 <script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 (() => {
- const cfg=window.MY_PRINCESS_CONFIG||{}, $=id=>document.getElementById(id), msg=$('accountMessage'), form=$('authForm'), eventsCard=$('eventsCard'), authCard=$('authCard');
+ const cfg=window.MY_PRINCESS_CONFIG||{}, $=id=>document.getElementById(id), msg=$('accountMessage'), form=$('authForm'), eventsCard=$('eventsCard'), authCard=$('authCard'), profileCard=$('profileCard');
  if(!window.supabase||!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY){msg.textContent='No se pudo cargar Supabase. Comprueba js/config.js y la conexión.';return}
  const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY), api=(cfg.bookingApiBase||cfg.API_BASE_URL||'').replace(/\/+$/,'');
  const setMsg=t=>msg.textContent=t;
@@ -37,10 +39,10 @@
  }
  async function loadSession(){
   const {data:{session}}=await sb.auth.getSession();
-  if(!session){eventsCard.classList.add('hidden');authCard.classList.remove('hidden');return}
+  if(!session){eventsCard.classList.add('hidden');profileCard.classList.add('hidden');authCard.classList.remove('hidden');return}
   authCard.classList.add('hidden');eventsCard.classList.remove('hidden');
   const {data:userData}=await sb.auth.getUser();const user=userData.user;if(!user)return;
-  await ensureProfile(user);$('clientGreeting').textContent='Sesión iniciada: '+(user.email||'');
+  await ensureProfile(user);profileCard.classList.remove('hidden');$('profileName').value=String(user.user_metadata?.full_name||$('fullName').value||'');$('profileEmail').value=user.email||'';$('profileReminders').checked=user.user_metadata?.reminders_opt_in===true;$('clientGreeting').textContent='Sesión iniciada: '+(user.email||'');
   const box=$('myEvents');box.innerHTML='';$('eventsMessage').textContent='Cargando solicitudes…';
   try{
     if(!api)throw new Error('No está configurada la URL del backend en js/config.js.');
@@ -64,6 +66,8 @@
  });
  async function redirectIfNeeded(){const next=new URLSearchParams(location.search).get('next');if(next==='reserve')location.href='index.html#reserva';else if(next==='admin')location.href='admin.html'}
  form.addEventListener('submit',async e=>{e.preventDefault();setMsg('Iniciando sesión…');const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){setMsg(error.message);return}setMsg('');await loadSession();await redirectIfNeeded()});
+ $('profileForm').addEventListener('submit',async e=>{e.preventDefault();const name=$('profileName').value.trim(),consent=$('profileReminders').checked,pm=$('profileMessage');if(name.length<2){pm.textContent='Escribe tu nombre completo.';return}pm.textContent='Guardando cambios…';const {error:authError}=await sb.auth.updateUser({data:{full_name:name,reminders_opt_in:consent}});if(authError){pm.textContent='No se pudo actualizar el perfil: '+authError.message;return}const {data:{user}}=await sb.auth.getUser();const {error:profileError}=await sb.from('client_profiles').upsert({user_id:user.id,full_name:name,email:user.email||'',reminders_opt_in:consent},{onConflict:'user_id'});if(profileError){pm.textContent='El perfil de acceso se actualizó, pero no se pudo guardar la preferencia de recordatorios. Revisa los permisos de client_profiles.';return}pm.textContent='Perfil actualizado correctamente.';$('clientGreeting').textContent='Sesión iniciada: '+(user.email||'')});
+ $('resetPasswordBtn').addEventListener('click',async()=>{const email=$('profileEmail').value;if(!email)return;const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});$('profileMessage').textContent=error?'No se pudo enviar el enlace: '+error.message:'Si el servicio de correo está configurado, recibirás un enlace para restablecer la contraseña.'});
  $('reloadBtn').addEventListener('click',loadSession);$('logoutBtn').addEventListener('click',async()=>{await sb.auth.signOut();await loadSession()});sb.auth.onAuthStateChange(()=>{setTimeout(loadSession,0)});loadSession();
 })();
 </script></body></html>
