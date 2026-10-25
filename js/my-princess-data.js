@@ -60,7 +60,7 @@
   });
   function saveDraft() {
     const draft = {};
-    for (const key of ['client','guardian','phone','date','contract','payment','notes']) {
+    for (const key of ['client','guardian','phone','identityNumber','date','contract','payment','notes']) {
       if (form.elements[key]) draft[key] = String(form.elements[key].value || '');
     }
     draft.dressIds = getSelectedIds();
@@ -102,15 +102,17 @@
     const name = String(data.get('client') || '').trim();
     const guardian = String(data.get('guardian') || '').trim();
     const phone = String(data.get('phone') || '').trim();
+    const identityNumber = String(data.get('identityNumber') || '').replace(/\D/g, '');
     const date = String(data.get('date') || '');
     const packageName = String(data.get('contract') || '').trim();
     const paymentMethod = String(data.get('payment') || '').trim();
     const notes = String(data.get('notes') || '').trim();
     const dressIds = getSelectedIds();
     const dressNames = (() => { try { return JSON.parse(sessionStorage.getItem('mp_selected_dress_codes') || '[]'); } catch { return []; } })();
-    const draft = {client:name, guardian, phone, date, contract:packageName, payment:paymentMethod, notes, dressIds, dressNames};
+    const draft = {client:name, guardian, phone, identityNumber, date, contract:packageName, payment:paymentMethod, notes, dressIds, dressNames};
     sessionStorage.setItem('mp_booking_draft', JSON.stringify(draft));
-    if (!name || !phone || !date || !packageName) { if(result)result.textContent='Completa nombre, teléfono, fecha y contrato.'; return; }
+    if (!name || !phone || !identityNumber || !date || !packageName) { if(result)result.textContent='Completa nombre, teléfono, carné de identidad, fecha y contrato.'; return; }
+    if (!/^\\d{11}$/.test(identityNumber)) { if(result)result.textContent='El carné de identidad debe contener exactamente 11 dígitos, sin espacios ni guiones.'; form.elements.identityNumber?.focus(); return; }
     if (date < new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString().slice(0,10)) { if(result)result.textContent='Selecciona una fecha de hoy o futura.'; return; }
     if (!cfg.API_BASE_URL || cfg.API_BASE_URL.includes('PEGA_AQUI')) { if(result)result.textContent='Falta configurar API_BASE_URL en js/config.js. No se ha enviado la solicitud.'; return; }
     if (!window.supabase || !cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) { if(result)result.textContent='Falta configurar Supabase Auth. No se ha enviado la solicitud.'; return; }
@@ -127,7 +129,7 @@
     try {
       const response = await fetch(`${cfg.API_BASE_URL.replace(/\/$/, '')}/booking-requests`, {
         method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token},
-        body:JSON.stringify({name,guardian,phone,date,packageName,paymentMethod,message:notes,dressIds,reminderConsent:session.user?.user_metadata?.reminders_opt_in===true})
+        body:JSON.stringify({name,guardian,phone,identityNumber,date,packageName,paymentMethod,message:notes,dressIds,reminderConsent:session.user?.user_metadata?.reminders_opt_in===true})
       });
       const body=await response.json().catch(()=>({}));
       if(!response.ok) throw new Error(body.error||'No se pudo enviar la solicitud.');
