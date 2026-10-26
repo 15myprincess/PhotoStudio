@@ -151,8 +151,8 @@
     el.list.innerHTML = shown.length
       ? shown.map((d) => {
           const on = state.dress && state.dress.id === d.id;
-          return `<button type="button" class="tryon-dress${on ? ' is-selected' : ''}" data-id="${esc(d.id)}" aria-pressed="${!!on}">` +
-            `<img src="${esc(d.image)}" alt="${esc(d.name)}" loading="lazy"><span><b>${esc(d.code)}</b>${esc(d.name)}</span></button>`;
+          return `<div class="tryon-dress-wrap"><button type="button" class="tryon-dress${on ? ' is-selected' : ''}" data-id="${esc(d.id)}" aria-pressed="${!!on}">` +
+            `<img src="${esc(d.image)}" alt="${esc(d.name)}" loading="lazy"><span><b>${esc(d.code)}</b>${esc(d.name)}</span></button><button type="button" class="tryon-zoom" data-view-id="${esc(d.id)}" aria-label="Ampliar ${esc(d.name)}" title="Ver a pantalla completa">⛶</button></div>`;
         }).join('')
       : '<p class="tryon-msg">No hay vestidos que coincidan con la búsqueda.</p>';
   }
@@ -303,6 +303,19 @@
     catch { say(el.cameraMsg, 'No se pudo leer esa foto. Prueba con otra.', true); }
   });
   el.list.addEventListener('click', (e) => {
+    const zoom = e.target.closest('[data-view-id]');
+    if (zoom && window.MPImmersiveViewer) {
+      e.preventDefault();
+      const list = state.dresses.map(d => ({id:String(d.id),src:d.image,name:d.name,code:d.code,color:d.color,description:d.description,selected:!!(state.dress && String(state.dress.id)===String(d.id))}));
+      const at=list.findIndex(d=>d.id===String(zoom.dataset.viewId));
+      window.MPImmersiveViewer.open(list,Math.max(0,at),item=>{
+        state.dress=state.dresses.find(d=>String(d.id)===String(item.id))||null;
+        renderDresses();updateUi();
+        const fresh=state.dresses.map(d=>({id:String(d.id),src:d.image,name:d.name,code:d.code,color:d.color,description:d.description,selected:!!(state.dress&&String(state.dress.id)===String(d.id))}));
+        window.MPImmersiveViewer.update(fresh,fresh.findIndex(d=>d.id===String(item.id)));
+      },'[data-view-id="'+String(zoom.dataset.viewId)+'"]');
+      return;
+    }
     const b = e.target.closest('[data-id]');
     if (!b) return;
     state.dress = state.dresses.find((d) => String(d.id) === b.dataset.id) || null;
