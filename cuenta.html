@@ -29,8 +29,10 @@
  async function ensureProfile(user){
    const meta=user.user_metadata||{}, fullName=String(meta.full_name||$('fullName').value||user.email||'Clienta').trim().slice(0,120);
    const consent=meta.reminders_opt_in===true;
-   const {data:existing}=await sb.from('client_profiles').select('phone,identity_number').eq('user_id',user.id).maybeSingle();
-   const {error}=await sb.from('client_profiles').upsert({user_id:user.id,full_name:fullName,email:user.email||'',phone:existing?.phone||'',identity_number:existing?.identity_number||'',reminders_opt_in:consent},{onConflict:'user_id'});
+   const {data:existing}=await sb.from('client_profiles').select('phone,identity_number,reminders_opt_in,full_name').eq('user_id',user.id).maybeSingle();
+   const phone=String(meta.phone||existing?.phone||'').trim();
+   const identityNumber=String(meta.identity_number||existing?.identity_number||'').trim();
+   const {error}=await sb.from('client_profiles').upsert({user_id:user.id,full_name:existing?.full_name||fullName,email:user.email||'',phone,identity_number:identityNumber,reminders_opt_in:existing?.reminders_opt_in??consent},{onConflict:'user_id'});
    if(error) console.warn('No se pudo sincronizar el perfil de recordatorios:',error.message);
  }
  function addRequest(box,x){
@@ -62,10 +64,10 @@
  $('signUpBtn').addEventListener('click',async()=>{
   const name=$('fullName').value.trim(),email=$('email').value.trim(),password=$('password').value,phone=$('phone').value.trim(),identityNumber=$('identityNumber').value.trim(),consent=$('remindersConsent').checked;
   if(name.length<2){setMsg('Escribe tu nombre completo para crear la cuenta.');return}if(!phone){setMsg('Escribe un teléfono de contacto.');return}if(!/^[0-9]{11}$/.test(identityNumber)){setMsg('El carné de identidad debe tener exactamente 11 dígitos.');return}if(password.length<8){setMsg('La contraseña debe tener al menos 8 caracteres.');return}
-  setMsg('Creando cuenta…');const {data,error}=await sb.auth.signUp({email,password,options:{data:{full_name:name,reminders_opt_in:consent}}});
+  setMsg('Creando cuenta…');const {data,error}=await sb.auth.signUp({email,password,options:{data:{full_name:name,phone,identity_number:identityNumber,reminders_opt_in:consent}}});
   if(error){setMsg(error.message);return}
   if(data.user&&data.session){const {error:pe}=await sb.from('client_profiles').upsert({user_id:data.user.id,full_name:name,email,phone,identity_number:identityNumber,reminders_opt_in:consent},{onConflict:'user_id'});if(pe)console.warn('Perfil:',pe.message);setMsg('Cuenta creada.');await loadSession();redirectIfNeeded()}
-  else setMsg('La cuenta se ha solicitado. Si Supabase exige confirmación por correo, tendrás que desactivarla en la configuración de Auth antes de poder entrar sin confirmar.');
+  else setMsg('La cuenta se ha creado, pero todavía no hay una sesión iniciada. Si aparece una confirmación por correo, revisa la configuración de autenticación de Supabase. Tus datos de perfil se sincronizarán al iniciar sesión.');
  });
  async function redirectIfNeeded(){const next=new URLSearchParams(location.search).get('next');if(next==='reserve')location.href='index.html#reserva';else if(next==='admin')location.href='admin.html'}
  form.addEventListener('submit',async e=>{e.preventDefault();setMsg('Iniciando sesión…');const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error){setMsg(error.message);return}setMsg('');await loadSession();await redirectIfNeeded()});
