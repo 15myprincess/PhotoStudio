@@ -43,6 +43,7 @@
             ${src ? `<img src="${escapeHtml(src)}" alt="${escapeHtml(d.name)}" loading="lazy">` : '<span class="dress-no-image">Fotografía pendiente</span>'}
             <span class="dress-check">${isSelected ? "✓ Seleccionado" : "♡ Seleccionar"}</span>
           </button>
+          <button class="dress-zoom" type="button" data-view-dress="${d.id}" aria-label="Ampliar ${escapeHtml(d.name)}" title="Ver a pantalla completa">⛶</button>
           <div class="dress-info"><span class="dress-code">${escapeHtml(d.code)}</span><h2>${escapeHtml(d.name)}</h2><p>${escapeHtml([d.color, d.size ? `Talla ${d.size}` : ""].filter(Boolean).join(" · ") || "Detalles por completar")}</p>${d.description ? `<small>${escapeHtml(d.description)}</small>` : ""}</div>
         </article>`;
       }).join("");
@@ -108,6 +109,24 @@
   function renderCounterOnly() { counter.textContent = packageLimit > 0 ? `${selected.size} de ${packageLimit} vestidos seleccionados` : "Límite de vestidos pendiente de configurar"; }
 
   grid?.addEventListener("click", e => {
+    const zoom = e.target.closest("[data-view-dress]");
+    if (zoom && window.MPImmersiveViewer) {
+      e.preventDefault();
+      const list = dresses.map(d => ({id:String(d.id),src:imageUrl(d.image_path),name:d.name,code:d.code,color:d.color,size:d.size,description:d.description,selected:selected.has(String(d.id))}));
+      const at = list.findIndex(d => d.id === String(zoom.dataset.viewDress));
+      window.MPImmersiveViewer.open(list, Math.max(0,at), item => {
+        const id=String(item.id);
+        if(selected.has(id)) selected.delete(id);
+        else if(packageLimit>0 && selected.size<packageLimit) selected.add(id);
+        else { status.textContent = packageLimit>0 ? `Este contrato permite seleccionar ${packageLimit} vestido(s). Quita uno si deseas cambiar la selección.` : "El estudio aún debe configurar cuántos vestidos incluye este contrato."; return; }
+        sessionStorage.setItem("mp_selected_dress_ids",JSON.stringify([...selected]));
+        sessionStorage.setItem("mp_selected_dress_codes",JSON.stringify(dresses.filter(d=>selected.has(String(d.id))).map(d=>d.code)));
+        render();
+        const fresh=dresses.map(d=>({id:String(d.id),src:imageUrl(d.image_path),name:d.name,code:d.code,color:d.color,size:d.size,description:d.description,selected:selected.has(String(d.id))}));
+        window.MPImmersiveViewer.open(fresh,fresh.findIndex(d=>d.id===id),arguments=>{},'[data-view-dress="'+id+'"]');
+      }, '[data-view-dress="'+String(zoom.dataset.viewDress)+'"]');
+      return;
+    }
     const btn = e.target.closest("[data-select]"); if (!btn) return;
     const id = String(btn.dataset.select || "");
     if (!id) return;
