@@ -123,7 +123,7 @@
         sessionStorage.setItem("mp_selected_dress_codes",JSON.stringify(dresses.filter(d=>selected.has(String(d.id))).map(d=>d.code)));
         render();
         const fresh=dresses.map(d=>({id:String(d.id),src:imageUrl(d.image_path),name:d.name,code:d.code,color:d.color,size:d.size,description:d.description,selected:selected.has(String(d.id))}));
-        window.MPImmersiveViewer.open(fresh,fresh.findIndex(d=>d.id===id),arguments=>{},'[data-view-dress="'+id+'"]');
+        window.MPImmersiveViewer.update(fresh,fresh.findIndex(d=>d.id===id));
       }, '[data-view-dress="'+String(zoom.dataset.viewDress)+'"]');
       return;
     }
