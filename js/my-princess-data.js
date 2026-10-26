@@ -60,7 +60,7 @@
   });
   function saveDraft() {
     const draft = {};
-    for (const key of ['client','guardian','phone','identityNumber','date','contract','payment','notes']) {
+    for (const key of ['requesterName','client','guardian','phone','identityNumber','date','contract','payment','notes']) {
       if (form.elements[key]) draft[key] = String(form.elements[key].value || '');
     }
     draft.dressIds = getSelectedIds();
@@ -83,9 +83,8 @@
       if (error) console.warn('No se pudo leer el perfil para autocompletar:', error.message);
       const meta = user.user_metadata || {};
       const values = {
-        client: profile?.full_name || meta.full_name || '',
-        phone: profile?.phone || meta.phone || '',
-        identityNumber: profile?.identity_number || meta.identity_number || ''
+        requesterName: profile?.full_name || meta.full_name || '',
+        phone: profile?.phone || meta.phone || ''
       };
       for (const [key, value] of Object.entries(values)) {
         const field = form.elements[key];
@@ -103,7 +102,7 @@
   try {
     const draft = JSON.parse(sessionStorage.getItem('mp_booking_draft') || 'null');
     if (draft) {
-      for (const key of ['client','guardian','phone','date','contract','payment','notes']) {
+      for (const key of ['requesterName','client','guardian','phone','date','contract','payment','notes']) {
         if (form.elements[key] && typeof draft[key] === 'string') form.elements[key].value = draft[key];
       }
       // La selección confirmada más reciente de la galería tiene prioridad sobre
@@ -139,6 +138,7 @@
     if (result) { result.hidden = false; result.textContent = 'Comprobando cuenta y disponibilidad…'; }
     const data = new FormData(form);
     const name = String(data.get('client') || '').trim();
+    const requesterName = String(data.get('requesterName') || '').trim();
     const guardian = String(data.get('guardian') || '').trim();
     const phone = String(data.get('phone') || '').trim();
     const identityNumber = String(data.get('identityNumber') || '').replace(/\D/g, '');
@@ -148,7 +148,7 @@
     const notes = String(data.get('notes') || '').trim();
     const dressIds = getSelectedIds();
     const dressNames = (() => { try { return JSON.parse(sessionStorage.getItem('mp_selected_dress_codes') || '[]'); } catch { return []; } })();
-    const draft = {client:name, guardian, phone, identityNumber, date, contract:packageName, payment:paymentMethod, notes, dressIds, dressNames};
+    const draft = {requesterName, client:name, guardian, phone, identityNumber, date, contract:packageName, payment:paymentMethod, notes, dressIds, dressNames};
     sessionStorage.setItem('mp_booking_draft', JSON.stringify(draft));
     if (!name || !phone || !identityNumber || !date || !packageName) { if(result)result.textContent='Completa nombre, teléfono, carné de identidad, fecha y contrato.'; return; }
     if (!/^\\d{11}$/.test(identityNumber)) { if(result)result.textContent='El carné de identidad debe contener exactamente 11 dígitos, sin espacios ni guiones.'; form.elements.identityNumber?.focus(); return; }
@@ -168,7 +168,7 @@
     try {
       const response = await fetch(`${cfg.API_BASE_URL.replace(/\/$/, '')}/booking-requests`, {
         method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token},
-        body:JSON.stringify({name,guardian,phone,identityNumber,date,packageName,paymentMethod,message:notes,dressIds,reminderConsent:session.user?.user_metadata?.reminders_opt_in===true})
+        body:JSON.stringify({name,requesterName,guardian,phone,identityNumber,date,packageName,paymentMethod,message:notes,dressIds,reminderConsent:session.user?.user_metadata?.reminders_opt_in===true})
       });
       const body=await response.json().catch(()=>({}));
       if(!response.ok) throw new Error(body.error||'No se pudo enviar la solicitud.');
