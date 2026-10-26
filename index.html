@@ -19,10 +19,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=13"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"><link rel="stylesheet" href="css/calendar.css?v=13">
+
+<style>
+.account-indicator{display:inline-flex!important;align-items:center;gap:9px;padding:6px 10px!important;border:1px solid #d9a1bc;border-radius:30px;background:linear-gradient(120deg,#f28bb81c,#d9b47d12);min-width:max-content}.account-avatar{width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;border:1px solid #e9b5cd;background:radial-gradient(circle at 30% 20%,#ffe5ef,#d84f8b);color:#321322;font-size:20px;box-shadow:0 0 14px #f28bb833}.account-greeting{display:flex;flex-direction:column;line-height:1.25;gap:3px}.account-greeting span{font-size:9px;color:#f5c4d9;letter-spacing:.5px}.account-greeting strong{font-size:10px;color:#fff7fb;font-weight:600;max-width:115px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.account-indicator.is-logged-in{border-color:#d9b47d;background:#d9b47d12}.account-indicator.is-logged-in .account-avatar{background:linear-gradient(135deg,#ffe7f1,#d9b47d);border-color:#ffe0b1}@media(max-width:900px){.account-indicator{align-self:flex-start;margin:5px 0 8px}.account-greeting strong{max-width:190px}}
+</style>
 </head>
 <body>
 <div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<header class="header" id="top"><a class="brand" href="#inicio"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button><nav class="nav"><a class="active" href="#inicio">Inicio</a><a href="#contratos">Contratos</a><a href="vestuario.html">Vestuario</a><a href="probador.html">Probador</a><a href="cuenta.html">Mi cuenta</a><a href="#nosotros">Acerca de</a><a href="#galeria">Galería</a><a href="#ubicacion">Cómo llegar</a><a href="#contacto">Contacto</a><a class="nav-cta" href="#reserva">▦ &nbsp; Reserva tu fecha</a></nav></header>
+<header class="header" id="top"><a class="brand" href="#inicio"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button><nav class="nav"><a class="active" href="#inicio">Inicio</a><a href="#contratos">Contratos</a><a href="vestuario.html">Vestuario</a><a href="probador.html">Probador</a><a href="cuenta.html" class="account-indicator" id="accountIndicator" aria-label="Mi cuenta"><span class="account-avatar" id="accountAvatar" aria-hidden="true">♙</span><span class="account-greeting"><span id="accountHello">Mi cuenta</span><strong id="accountUserName">Iniciar sesión</strong></span></a><a href="#nosotros">Acerca de</a><a href="#galeria">Galería</a><a href="#ubicacion">Cómo llegar</a><a href="#contacto">Contacto</a><a class="nav-cta" href="#reserva">▦ &nbsp; Reserva tu fecha</a></nav></header>
 <main>
 <section class="hero" id="inicio"><div class="hero-photo"></div><div class="hero-vignette"></div><div class="hero-copy reveal"><div class="hero-crown">♛</div><p class="eyebrow">ESTUDIO FOTOGRÁFICO</p><h1>My Princess</h1><h2>Capturamos la magia<br>de tus 15 años</h2><p class="intro">Porque cada princesa tiene una historia,<br>y nosotros la contamos en imágenes…</p><a class="button pink" href="#contratos">Descubre nuestros contratos <span>↗</span></a></div><div class="hero-note">Los mejores<br>momentos<br>merecen ser<br>eternos <b>♡</b></div><div class="hero-scroll">DESLIZA PARA DESCUBRIR <span>↓</span></div></section>
 <section class="benefits"><div><b>♧</b><span>Fotografía<br>profesional</span></div><div><b>◇</b><span>9 contratos<br>exclusivos</span></div><div><b>▦</b><span>Reserva en línea<br>por confirmar</span></div><div><b>♡</b><span>Atención cercana<br>y personalizada</span></div><div><b>✧</b><span>Recuerdos<br>para siempre</span></div></section>
@@ -64,4 +68,46 @@
 <script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js?v=13"></script><script src="js/calendar.js?v=13"></script><script src="js/my-princess-data.js?v=13"></script>
 
 
+
+<script>
+(() => {
+  const indicator = document.getElementById('accountIndicator');
+  const hello = document.getElementById('accountHello');
+  const nameEl = document.getElementById('accountUserName');
+  const avatar = document.getElementById('accountAvatar');
+  const cfg = window.MY_PRINCESS_CONFIG || {};
+  if (!indicator || !window.supabase || !cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) return;
+  const sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+  function setLoggedOut() {
+    indicator.classList.remove('is-logged-in');
+    hello.textContent = 'Bienvenido';
+    nameEl.textContent = 'Mi cuenta';
+    avatar.textContent = '♙';
+    indicator.setAttribute('aria-label', 'Iniciar sesión o crear una cuenta');
+  }
+  async function refreshAccount(user) {
+    if (!user) { setLoggedOut(); return; }
+    const meta = user.user_metadata || {};
+    let displayName = String(meta.full_name || meta.name || '').trim();
+    try {
+      const { data: profile } = await sb.from('client_profiles').select('full_name').eq('user_id', user.id).maybeSingle();
+      if (profile?.full_name) displayName = String(profile.full_name).trim();
+    } catch (e) { console.warn('No se pudo leer el nombre del perfil:', e); }
+    if (!displayName) displayName = String(user.email || '').split('@')[0] || 'Cliente';
+    const firstName = displayName.split(/\\s+/)[0];
+    hello.textContent = '¡Hola!';
+    nameEl.textContent = firstName;
+    avatar.textContent = firstName.charAt(0).toLocaleUpperCase('es');
+    indicator.classList.add('is-logged-in');
+    indicator.setAttribute('aria-label', 'Sesión iniciada: ' + displayName + '. Abrir mi cuenta');
+    indicator.title = 'Sesión iniciada como ' + displayName;
+  }
+  sb.auth.getSession().then(({data}) => refreshAccount(data.session?.user || null)).catch(setLoggedOut);
+  sb.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED' || event === 'SIGNED_OUT') {
+      setTimeout(() => refreshAccount(session?.user || null), 0);
+    }
+  });
+})();
+</script>
 </body></html>
