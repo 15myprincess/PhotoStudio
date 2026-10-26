@@ -100,7 +100,9 @@
       state.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: state.cameraFacing }, width: { ideal: 1280 }, height: { ideal: 1280 } }, audio: false });
       el.video.srcObject = state.stream;
       await el.video.play().catch(() => {});
-      say(el.cameraMsg, state.cameraFacing === 'user'\n        ? 'Cámara frontal activa. Coloca tu rostro dentro del óvalo y toca “Tomar selfie”.'\n        : 'Cámara trasera activa. Encuadra la pose o pide ayuda para tomar la foto.');
+      say(el.cameraMsg, state.cameraFacing === 'user'
+        ? 'Cámara frontal activa. Coloca tu rostro dentro del óvalo y toca “Tomar selfie”.'
+        : 'Cámara trasera activa. Encuadra la pose o pide ayuda para tomar la foto.');
     } catch (err) {
       state.stream = null;
       const denied = err && (err.name === 'NotAllowedError' || err.name === 'SecurityError');
