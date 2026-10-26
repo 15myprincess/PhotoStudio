@@ -68,6 +68,37 @@
     sessionStorage.setItem('mp_booking_draft', JSON.stringify(draft));
   }
 
+  // Autocompleta los datos compartidos desde el perfil del cliente autenticado.
+  // Solo rellena campos vacíos: nunca pisa lo que la persona ya escribió en el formulario.
+  async function autofillFromAccount() {
+    try {
+      if (!window.supabase || !cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) return;
+      const sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session?.user) return;
+      const user = session.user;
+      const { data: profile, error } = await sb.from('client_profiles')
+        .select('full_name, phone, identity_number, email')
+        .eq('user_id', user.id).maybeSingle();
+      if (error) console.warn('No se pudo leer el perfil para autocompletar:', error.message);
+      const meta = user.user_metadata || {};
+      const values = {
+        client: profile?.full_name || meta.full_name || '',
+        phone: profile?.phone || meta.phone || '',
+        identityNumber: profile?.identity_number || meta.identity_number || ''
+      };
+      for (const [key, value] of Object.entries(values)) {
+        const field = form.elements[key];
+        if (field && !String(field.value || '').trim() && String(value || '').trim()) {
+          field.value = String(value).trim();
+        }
+      }
+      saveDraft();
+    } catch (e) {
+      console.warn('No se pudieron autocompletar los datos de la cuenta:', e);
+    }
+  }
+
   // Restaura primero el borrador y después actualiza el resumen/contexto de la galería.
   try {
     const draft = JSON.parse(sessionStorage.getItem('mp_booking_draft') || 'null');
@@ -93,6 +124,14 @@
   updateSummary();
   if (contractSelect?.value) setGalleryContext();
   saveDraft();
+  autofillFromAccount();
+  // También cubre el caso de que la persona inicie sesión mientras la página sigue abierta.
+  if (window.supabase && cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY) {
+    const authClient = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+    authClient.auth.onAuthStateChange((eventName) => {
+      if (eventName === 'SIGNED_IN' || eventName === 'USER_UPDATED') setTimeout(autofillFromAccount, 0);
+    });
+  }
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
