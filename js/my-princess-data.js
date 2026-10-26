@@ -152,7 +152,7 @@
     const draft = {requesterName, client:name, guardian, phone, identityNumber, date, contract:packageName, payment:paymentMethod, notes, dressIds, dressNames};
     sessionStorage.setItem('mp_booking_draft', JSON.stringify(draft));
     if (!name || !phone || !identityNumber || !date || !packageName) { if(result)result.textContent='Completa nombre, teléfono, carné de identidad, fecha y contrato.'; return; }
-    if (!/^\\d{11}$/.test(identityNumber)) { if(result)result.textContent='El carné de identidad debe contener exactamente 11 dígitos, sin espacios ni guiones.'; form.elements.identityNumber?.focus(); return; }
+    if (!/^\d{11}$/.test(identityNumber)) { if(result)result.textContent='El carné de identidad debe contener exactamente 11 dígitos, sin espacios ni guiones.'; form.elements.identityNumber?.focus(); return; }
     if (date < new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString().slice(0,10)) { if(result)result.textContent='Selecciona una fecha de hoy o futura.'; return; }
     if (!cfg.API_BASE_URL || cfg.API_BASE_URL.includes('PEGA_AQUI')) { if(result)result.textContent='Falta configurar API_BASE_URL en js/config.js. No se ha enviado la solicitud.'; return; }
     if (!window.supabase || !cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) { if(result)result.textContent='Falta configurar Supabase Auth. No se ha enviado la solicitud.'; return; }
