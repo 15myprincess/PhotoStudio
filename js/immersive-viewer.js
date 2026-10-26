@@ -7,5 +7,5 @@
   function close(){const m=document.getElementById('mpImmersiveViewer');if(m){m.hidden=true;document.body.classList.remove('mp-viewer-open')}if(origin){const e=document.querySelector(origin);if(e)e.focus()}}
   function move(n){index=(index+n+items.length)%items.length;paint()}
   document.addEventListener('keydown',e=>{const m=document.getElementById('mpImmersiveViewer');if(!m||m.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')move(1);if(e.key==='ArrowLeft')move(-1)});
-  window.MPImmersiveViewer={open,close};
+  window.MPImmersiveViewer={open,close,update:(list,at)=>{items=list;index=Math.max(0,Math.min(at,list.length-1));paint()}};
 })();
