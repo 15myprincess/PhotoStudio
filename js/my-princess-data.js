@@ -78,12 +78,13 @@
       if (!session?.user) return;
       const user = session.user;
       const { data: profile, error } = await sb.from('client_profiles')
-        .select('full_name, phone, identity_number, email')
+        .select('full_name, quinceanera_name, phone, identity_number, email')
         .eq('user_id', user.id).maybeSingle();
       if (error) console.warn('No se pudo leer el perfil para autocompletar:', error.message);
       const meta = user.user_metadata || {};
       const values = {
         requesterName: profile?.full_name || meta.full_name || '',
+        client: profile?.quinceanera_name || meta.quinceanera_name || '',
         phone: profile?.phone || meta.phone || ''
       };
       for (const [key, value] of Object.entries(values)) {
