@@ -69,7 +69,8 @@
     el.enable.hidden = !!state.stream || !!state.selfie;
     el.upload.disabled = !ok;
     el.uploadLabel.setAttribute('aria-disabled', String(!ok));
-    el.shutter.hidden = !state.stream;\n    switchCameraBtn.hidden = !state.stream;
+    el.shutter.hidden = !state.stream;
+    switchCameraBtn.hidden = !state.stream;
     el.retake.hidden = !state.selfie;
     el.video.hidden = !state.stream;
     el.guide.hidden = !state.stream;
@@ -317,7 +318,8 @@
     if (!el.consent.checked) clearAll(); // retirar el permiso borra la foto
     else { say(el.cameraMsg, 'Activa la cámara o sube una foto.'); updateUi(); }
   });
-  el.enable.addEventListener('click', startCamera);\n  switchCameraBtn.addEventListener('click', switchCamera);
+  el.enable.addEventListener('click', startCamera);
+  switchCameraBtn.addEventListener('click', switchCamera);
   el.shutter.addEventListener('click', capture);
   el.retake.addEventListener('click', () => { state.selfie = null; el.preview.removeAttribute('src'); el.resultBox.hidden = true; updateUi(); startCamera(); });
   el.upload.addEventListener('change', async () => {
