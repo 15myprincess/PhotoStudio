@@ -23,6 +23,19 @@
 <style>
 .account-indicator{display:inline-flex!important;align-items:center;gap:9px;padding:6px 10px!important;border:1px solid #d9a1bc;border-radius:30px;background:linear-gradient(120deg,#f28bb81c,#d9b47d12);min-width:max-content;flex-shrink:0}.account-avatar{width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;border:1px solid #e9b5cd;background:radial-gradient(circle at 30% 20%,#ffe5ef,#d84f8b);color:#321322;font-size:20px;box-shadow:0 0 14px #f28bb833}.account-greeting{display:flex;flex-direction:column;line-height:1.25;gap:3px}.account-greeting span{font-size:9px;color:#f5c4d9;letter-spacing:.5px}.account-greeting strong{font-size:10px;color:#fff7fb;font-weight:600;max-width:115px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.account-indicator.is-logged-in{border-color:#d9b47d;background:#d9b47d12}.account-indicator.is-logged-in .account-avatar{background:linear-gradient(135deg,#ffe7f1,#d9b47d);border-color:#ffe0b1}@media(max-width:900px){.header{gap:10px}.menu-toggle{order:3;display:block;flex:0 0 auto;padding:7px 4px}.account-indicator{order:2;margin-left:auto;margin-right:2px;padding:5px 8px!important;gap:7px}.account-avatar{width:32px;height:32px;flex-basis:32px}.account-greeting strong{max-width:105px}.nav{order:4}.brand{min-width:0}.brand>span:nth-child(2){font-size:29px}.brand small{font-size:6px;letter-spacing:1.4px}}
 </style>
+<style>
+.mp-success-backdrop{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(15,5,13,.78);backdrop-filter:blur(8px)}
+.mp-success-backdrop[hidden]{display:none!important}
+.mp-success-card{width:min(100%,480px);padding:clamp(24px,5vw,38px);border:1px solid #d9b47d;border-radius:24px;background:linear-gradient(145deg,#291321,#120911 72%);box-shadow:0 24px 90px #0009;text-align:center;color:#fff0f7;animation:mpSuccessIn .28s ease-out}
+.mp-success-icon{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 14px;border:1px solid #d9b47d;border-radius:50%;font-size:38px;color:#ffacd0;background:#d9b47d12}
+.mp-success-card h2{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,7vw,42px);line-height:1.05;color:#ffacd0;margin:0 0 16px}
+.mp-success-card p{font-size:14px;line-height:1.8;color:#f6dfeb}
+.mp-success-card .mp-success-thanks{font-weight:600;color:#e9c98d}
+.mp-success-card .mp-success-ref{font-size:11px;color:#d8b8c8;overflow-wrap:anywhere}
+.mp-success-card button{margin-top:10px;min-width:150px}
+@keyframes mpSuccessIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.mp-success-card{animation:none}}
+</style>
 </head>
 <body>
 <div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
