@@ -10,6 +10,11 @@
   const dateInput = form.elements.date;
   if (dateInput) dateInput.min = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 
+  function showBookingSuccess(reference,date,packageName){
+    let modal=document.getElementById('bookingSuccessModal');
+    if(!modal){modal=document.createElement('div');modal.id='bookingSuccessModal';modal.className='mp-success-backdrop';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-labelledby','mpSuccessTitle');modal.innerHTML='<div class="mp-success-card"><div class="mp-success-icon">♡</div><h2 id="mpSuccessTitle">¡Gracias por enviar tu reserva!</h2><p>Hemos recibido tu solicitud. En un plazo de 24 horas recibirás una respuesta para realizar el pago de la reserva. Una vez efectuado el pago y verificado por el estudio, tus días quedarán aprobados.</p><p class="mp-success-thanks">Muchas gracias por enviarnos tu solicitud.</p><p class="mp-success-ref"></p><button type="button" class="button pink" id="mpSuccessClose">Entendido</button></div>';document.body.appendChild(modal);modal.querySelector('#mpSuccessClose').addEventListener('click',()=>modal.remove());modal.addEventListener('click',e=>{if(e.target===modal)modal.remove()});}
+    modal.querySelector('.mp-success-ref').textContent='Referencia: '+reference+' · Fecha: '+date+' · Contrato: '+packageName;modal.hidden=false;modal.querySelector('#mpSuccessClose').focus();
+  }
   function getSelectedIds() {
     try { return JSON.parse(sessionStorage.getItem('mp_selected_dress_ids') || '[]'); } catch { return []; }
   }
@@ -78,14 +83,16 @@
       if (!session?.user) return;
       const user = session.user;
       const { data: profile, error } = await sb.from('client_profiles')
-        .select('full_name, quinceanera_name, phone, identity_number, email')
+        .select('full_name, quinceanera_name, guardian, phone, identity_number, email')
         .eq('user_id', user.id).maybeSingle();
       if (error) console.warn('No se pudo leer el perfil para autocompletar:', error.message);
       const meta = user.user_metadata || {};
       const values = {
         requesterName: profile?.full_name || meta.full_name || '',
         client: profile?.quinceanera_name || meta.quinceanera_name || '',
-        phone: profile?.phone || meta.phone || ''
+        guardian: profile?.guardian || meta.guardian || '',
+        phone: profile?.phone || meta.phone || '',
+        identityNumber: profile?.identity_number || meta.identity_number || ''
       };
       for (const [key, value] of Object.entries(values)) {
         const field = form.elements[key];
@@ -173,8 +180,8 @@
       });
       const body=await response.json().catch(()=>({}));
       if(!response.ok) throw new Error(body.error||'No se pudo enviar la solicitud.');
-      if(result){result.textContent=`✓ Solicitud enviada y guardada. Referencia: ${body.requestId||body.id||'recibida'}. Está pendiente de revisión; no se considera confirmada hasta que el estudio apruebe la solicitud y verifique el calendario.`;
-        const wa=document.createElement('a');wa.href='https://wa.me/'+String(cfg.whatsapp||'').replace(/\D/g,'')+'?text='+encodeURIComponent(`Hola, soy ${name}. Envié una solicitud para el ${date}, contrato ${packageName}. Referencia: ${body.requestId||body.id||'pendiente'}. Quedo pendiente de confirmación.`);wa.target='_blank';wa.rel='noopener';wa.className='button outline';wa.textContent='Avisar al estudio por WhatsApp';wa.style.display='inline-block';wa.style.marginTop='10px';result.append(document.createElement('br'),wa);}
+      if(result){result.textContent='✓ Solicitud enviada. Referencia: '+(body.requestId||body.id||'recibida')+'. Pendiente de revisión por el estudio.';}
+      showBookingSuccess(body.requestId||body.id||'recibida',date,packageName);
       sessionStorage.removeItem('mp_booking_draft');
       form.reset();sessionStorage.removeItem('mp_selected_dress_ids');sessionStorage.removeItem('mp_selected_dress_codes');sessionStorage.removeItem('mp_package_id');sessionStorage.removeItem('mp_package_name');sessionStorage.removeItem('mp_dress_limit');updateSummary();
     } catch(error) { if(result)result.textContent=(error.message||'Error al enviar la solicitud.')+' Tus datos siguen guardados en esta sesión; inténtalo de nuevo más tarde.'; }
