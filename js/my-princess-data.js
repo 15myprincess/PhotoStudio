@@ -12,7 +12,7 @@
 
   function showBookingSuccess(reference,date,packageName){
     let modal=document.getElementById('bookingSuccessModal');
-    if(!modal){modal=document.createElement('div');modal.id='bookingSuccessModal';modal.className='mp-success-backdrop';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-labelledby','mpSuccessTitle');modal.innerHTML='<div class="mp-success-card"><div class="mp-success-icon">♡</div><h2 id="mpSuccessTitle">¡Gracias por enviar tu reserva!</h2><p>Hemos recibido tu solicitud. En un plazo de 24 horas recibirás una respuesta para realizar el pago de la reserva. Una vez efectuado el pago y verificado por el estudio, tus días quedarán aprobados.</p><p class="mp-success-thanks">Muchas gracias por enviarnos tu solicitud.</p><p class="mp-success-ref"></p><button type="button" class="button pink" id="mpSuccessClose">Entendido</button></div>';document.body.appendChild(modal);modal.querySelector('#mpSuccessClose').addEventListener('click',()=>modal.remove());modal.addEventListener('click',e=>{if(e.target===modal)modal.remove()});}
+    if(!modal){modal=document.createElement('div');modal.id='bookingSuccessModal';modal.className='mp-success-backdrop';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-labelledby','mpSuccessTitle');modal.innerHTML='<div class="mp-success-card"><div class="mp-success-icon">♡</div><h2 id="mpSuccessTitle">¡Gracias por enviar tu reserva!</h2><p>Hemos recibido tu solicitud. En un plazo de 24 horas obtendrás una respuesta para realizar el pago de la reserva. Una vez que se efectúe el pago, usted tendrá aprobados sus días.</p><p class="mp-success-thanks">Muchas gracias por enviarnos tu solicitud.</p><p class="mp-success-ref"></p><button type="button" class="button pink" id="mpSuccessClose">Entendido</button></div>';document.body.appendChild(modal);modal.querySelector('#mpSuccessClose').addEventListener('click',()=>modal.remove());modal.addEventListener('click',e=>{if(e.target===modal)modal.remove()});}
     modal.querySelector('.mp-success-ref').textContent='Referencia: '+reference+' · Fecha: '+date+' · Contrato: '+packageName;modal.hidden=false;modal.querySelector('#mpSuccessClose').focus();
   }
   function getSelectedIds() {
@@ -92,7 +92,10 @@
         client: profile?.quinceanera_name || meta.quinceanera_name || '',
         guardian: profile?.guardian || meta.guardian || '',
         phone: profile?.phone || meta.phone || '',
-        identityNumber: profile?.identity_number || meta.identity_number || ''
+        identityNumber: profile?.identity_number || meta.identity_number || '',
+        contract: meta.preferred_contract || '',
+        payment: meta.preferred_payment || '',
+        notes: meta.booking_notes || ''
       };
       for (const [key, value] of Object.entries(values)) {
         const field = form.elements[key];
