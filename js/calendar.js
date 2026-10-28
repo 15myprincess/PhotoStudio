@@ -86,7 +86,7 @@
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), timeoutMs);
       try {
-        const res = await fetch(url, { headers: { Accept: 'application/json' }, signal: ctrl.signal });
+        const res = await fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store', signal: ctrl.signal });
         if (!res.ok) throw Object.assign(new Error(`HTTP ${res.status}`), { status: res.status });
         return await res.json();
       } finally {
