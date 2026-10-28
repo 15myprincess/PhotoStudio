@@ -399,7 +399,7 @@
     genMsg.style.color = isError ? '#ffb8c7' : '#ffd9ea';
   }
 
-  function selectedDressImage() {
+  function selectedDressImages() {
     // Soporta varias clases habituales para tarjetas seleccionadas.
     const selectors = [
       '.tryon-dress.is-selected img', '.tryon-dress.selected img',
@@ -408,15 +408,9 @@
       '#dressList [aria-pressed="true"] img', '#dressList [aria-selected="true"] img',
       '#dressList input[type="radio"]:checked'
     ];
-    for (const selector of selectors) {
-      const node = document.querySelector(selector);
-      if (!node) continue;
-      if (node.tagName === 'IMG' && node.src) return node;
-      const card = node.closest('.tryon-dress, .dress-card, label, button, article') || node.parentElement;
-      const img = card && card.querySelector('img');
-      if (img && img.src) return img;
-    }
-    return null;
+    const found = [];
+    document.querySelectorAll('.tryon-dress.is-selected img, .tryon-dress.selected img, .tryon-dress[aria-pressed="true"] img, .tryon-dress[aria-selected="true"] img, .dress-card.is-selected img, .dress-card.selected img, #dressList [aria-pressed="true"] img, #dressList [aria-selected="true"] img').forEach(img => { if (img.src && !found.some(x => x.src === img.src)) found.push(img); });
+    return found;
   }
 
   function extensionFor(type, fallback = 'jpg') {
@@ -458,17 +452,36 @@
 
     const name = document.getElementById('reqName').value.trim();
     const phone = document.getElementById('reqPhone').value.trim();
-    const ref = document.getElementById('reqRef').value.trim();
+    const sender = document.getElementById('reqSender').value.trim();
+    const amount = Number(document.getElementById('reqAmount').value);
+    const date = document.getElementById('reqDate').value;
+    const time = document.getElementById('reqTime').value || 'No indicada';
+    const ref = document.getElementById('reqRef').value.trim() || 'No aparece';
+    const bank = document.getElementById('reqBank').value.trim();
+    const proof = document.getElementById('reqProof').files[0];
     const selfieImg = document.getElementById('selfiePreview');
-    const dressImg = selectedDressImage();
+    const dressImgs = selectedDressImages();
+    const expectedAmount = dressImgs.length * 50;
 
     if (!consentCheck || !consentCheck.checked) {
       setRequestMessage('Marca la autorización para usar las imágenes antes de continuar.', true);
       consentCheck?.focus();
       return;
     }
-    if (!name || !phone || !ref) {
-      setRequestMessage('Completa tu nombre, WhatsApp y referencia de transferencia.', true);
+    if (!name || !phone || !sender || !date || !bank || !proof || !Number.isFinite(amount)) {
+      setRequestMessage('Completa tus datos y adjunta el comprobante de pago.', true);
+      return;
+    }
+    if (!dressImgs.length) {
+      setRequestMessage('Selecciona al menos un vestido.', true);
+      return;
+    }
+    if (amount !== expectedAmount) {
+      setRequestMessage('El importe debe ser ' + expectedAmount + ' CUP (' + dressImgs.length + ' vestidos × 50 CUP).', true);
+      return;
+    }
+    if (!proof.type.startsWith('image/') && proof.type !== 'application/pdf') {
+      setRequestMessage('Adjunta una imagen o un PDF del comprobante.', true);
       return;
     }
     if (!selfieImg || selfieImg.hidden || !selfieImg.src) {
@@ -487,29 +500,38 @@
 
     try {
       // Descargamos ambas imágenes antes de abrir WhatsApp para no dejar una solicitud a medias.
-      const [selfieBlob, dressBlob] = await Promise.all([
-        imageToBlob(selfieImg), imageToBlob(dressImg)
-      ]);
+      const selfieBlob = await imageToBlob(selfieImg);
+      const dressBlobs = await Promise.all(dressImgs.map(imageToBlob));
       const selfieExt = extensionFor(selfieBlob.type);
-      const dressExt = extensionFor(dressBlob.type);
       downloadBlob(selfieBlob, 'My-Princess-selfie.' + selfieExt);
-      setTimeout(() => downloadBlob(dressBlob, 'My-Princess-vestido-seleccionado.' + dressExt), 700);
+      for (let i = 0; i < dressBlobs.length; i++) {
+        const ext = extensionFor(dressBlobs[i].type);
+        setTimeout(() => downloadBlob(dressBlobs[i], 'My-Princess-vestido-' + (i + 1) + '.' + ext), 500 + i * 700);
+      }
+      const dressNames = dressImgs.map((img, i) => (i + 1) + '. ' + (img.alt || 'Vestido seleccionado ' + (i + 1))).join('\n');
 
       const message = [
         '¡Hola, My Princess! Deseo solicitar mi montaje de 15 años.',
         '',
         'Nombre: ' + name,
         'WhatsApp: ' + phone,
-        'N.º de transferencia: ' + ref,
+        'Titular que envió el dinero: ' + sender,
+        'Importe declarado: ' + amount + ' CUP',
+        'Fecha de la operación: ' + date,
+        'Hora aproximada: ' + time,
+        'Banco/aplicación: ' + bank,
+        'Referencia/operación: ' + ref,
+        'Vestidos seleccionados: ' + dressImgs.length,
+        'Total calculado: ' + expectedAmount + ' CUP',
         '',
-        'Ya descargué estas dos imágenes en mi dispositivo:',
-        '1. My-Princess-selfie.' + selfieExt,
-        '2. My-Princess-vestido-seleccionado.' + dressExt,
+        'Vestidos:', dressNames,
         '',
-        'Adjunto ambas imágenes a este chat desde la galería o la carpeta Descargas. Muchas gracias.'
+        'Archivos descargados: selfie y ' + dressImgs.length + ' vestido(s).',
+        '',
+        'Adjunto la selfie, todas las fotos de los vestidos y el comprobante de pago desde la galería/Descargas. El estudio verificará el ingreso real antes de comenzar. Muchas gracias.'
       ].join('\n');
       const whatsappUrl = 'https://wa.me/5352512369?text=' + encodeURIComponent(message);
-      setRequestMessage('¡Listo! Se iniciaron las descargas de la selfie y el vestido. En WhatsApp, adjunta los dos archivos descargados antes de enviar el mensaje.');
+      setRequestMessage('¡Listo! Se descargaron la selfie y los vestidos. En WhatsApp adjunta todos esos archivos y el comprobante antes de enviar el mensaje.');
       // Abrir en la misma pestaña evita que algunos navegadores móviles bloqueen la ventana emergente.
       setTimeout(() => { window.location.href = whatsappUrl; }, 1100);
     } catch (error) {
