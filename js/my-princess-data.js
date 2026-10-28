@@ -11,9 +11,45 @@
   if (dateInput) dateInput.min = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 
   function showBookingSuccess(reference,date,packageName){
-    let modal=document.getElementById('bookingSuccessModal');
-    if(!modal){modal=document.createElement('div');modal.id='bookingSuccessModal';modal.className='mp-success-backdrop';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.setAttribute('aria-labelledby','mpSuccessTitle');modal.innerHTML='<div class="mp-success-card"><div class="mp-success-icon">♡</div><h2 id="mpSuccessTitle">¡Gracias por enviar tu reserva!</h2><p>Hemos recibido tu solicitud. En un plazo de 24 horas obtendrás una respuesta para realizar el pago de la reserva. Una vez que se efectúe el pago, usted tendrá aprobado su día especial. Gracias por elegirnos❤️</p><p class="mp-success-ref"></p><button type="button" class="button pink" id="mpSuccessClose">Entendido</button></div>';document.body.appendChild(modal);const successCard=modal.querySelector('.mp-success-card');successCard.style.background='#fffafc';successCard.style.color='#382334';successCard.style.border='1px solid #e8c4d5';successCard.style.boxShadow='0 24px 70px rgba(45,18,36,.28)';successCard.querySelector('h2').style.color='#7c2855';successCard.querySelectorAll('p').forEach(p=>{p.style.color='#382334';p.style.lineHeight='1.7';p.style.opacity='1'});successCard.querySelector('.mp-success-ref').style.color='#68465a';successCard.querySelector('#mpSuccessClose').style.color='#fff';modal.querySelector('#mpSuccessClose').addEventListener('click',()=>modal.remove());modal.addEventListener('click',e=>{if(e.target===modal)modal.remove()});}
-    modal.querySelector('.mp-success-ref').textContent='Referencia: '+reference+' · Fecha: '+date+' · Contrato: '+packageName;modal.hidden=false;modal.querySelector('#mpSuccessClose').focus();
+    const modal=document.getElementById('bookingSuccessModal');
+    if (modal && typeof window.MP_showBookingSuccess === 'function') {
+      window.MP_showBookingSuccess(reference);
+      const ref=modal.querySelector('#bookingSuccessReference');
+      if(ref) ref.textContent='Referencia: '+reference+' · Fecha: '+date+' · Contrato: '+packageName;
+      // Refuerza el contraste del cuadro de confirmación para que todos los textos se lean.
+      const card=modal.querySelector('.mp-success-card');
+      if(card){
+        card.style.background='#fffafc';
+        card.style.color='#382334';
+        card.querySelectorAll('h2,p,.mp-success-ref').forEach(el=>{el.style.opacity='1';el.style.color=el.matches('h2')?'#7c2855':'#382334';});
+      }
+      return;
+    }
+    // Respaldo por si la página no incluye el modal compartido.
+    alert('¡Solicitud enviada correctamente! Referencia: '+reference+' · Fecha: '+date+' · Contrato: '+packageName);
+  }
+  function setContactWhatsAppState(button){
+    if(!button) return;
+    button.disabled=false;
+    button.type='button';
+    button.classList.add('contact-whatsapp-submit');
+    button.innerHTML='C Contactar por WhatsApp';
+    button.onclick=()=>{
+      const message='Hola, soy cliente de My Princess. Ya envié mi solicitud de contrato de 15 años y deseo agilizarla o aclarar una duda.';
+      window.open('https://wa.me/5352512369?text='+encodeURIComponent(message),'_blank','noopener');
+    };
+    let note=document.getElementById('bookingWhatsAppNote');
+    if(!note){
+      note=document.createElement('p');
+      note.id='bookingWhatsAppNote';
+      note.className='form-note booking-whatsapp-note';
+      button.insertAdjacentElement('afterend',note);
+    }
+    note.textContent='Contáctenos si necesita agilizar su contrato o si tiene alguna duda que podamos aclarar. ¡LLÁMENOS YA!';
+    note.style.color='#6f294e';
+    note.style.opacity='1';
+    note.style.fontWeight='600';
+    note.style.lineHeight='1.6';
   }
   function getSelectedIds() {
     try { return JSON.parse(sessionStorage.getItem('mp_selected_dress_ids') || '[]'); } catch { return []; }
@@ -183,11 +219,13 @@
       });
       const body=await response.json().catch(()=>({}));
       if(!response.ok) throw new Error(body.error||'No se pudo enviar la solicitud.');
-      if(result){result.textContent='✓ Solicitud enviada. Referencia: '+(body.requestId||body.id||'recibida')+'. Pendiente de revisión por el estudio.';}
-      showBookingSuccess(body.requestId||body.id||'recibida',date,packageName);
+      const reference=body.requestId||body.id||'recibida';
+      if(result){result.hidden=true;result.textContent='';}
+      showBookingSuccess(reference,date,packageName);
+      if(button) setContactWhatsAppState(button);
       sessionStorage.removeItem('mp_booking_draft');
       form.reset();sessionStorage.removeItem('mp_selected_dress_ids');sessionStorage.removeItem('mp_selected_dress_codes');sessionStorage.removeItem('mp_package_id');sessionStorage.removeItem('mp_package_name');sessionStorage.removeItem('mp_dress_limit');updateSummary();
     } catch(error) { if(result)result.textContent=(error.message||'Error al enviar la solicitud.')+' Tus datos siguen guardados en esta sesión; inténtalo de nuevo más tarde.'; }
-    finally { if(button){button.disabled=false;button.textContent=button.dataset.originalText||'Preparar solicitud →';} }
+    finally { if(button && !button.classList.contains('contact-whatsapp-submit')){button.disabled=false;button.textContent=button.dataset.originalText||'Preparar solicitud →';} }
   }, true);
 })();
