@@ -68,7 +68,7 @@
   const expandBusyDays = (startStr, endStr) => {
     startStr = dateValue(startStr);
     endStr = dateValue(endStr) || startStr;
-    if (!/^\\d{4}-\\d{2}-\\d{2}/.test(startStr)) return [];
+    if (!/^\d{4}-\d{2}-\d{2}/.test(startStr)) return [];
     const first = startStr.slice(0, 10);
     const end = String(endStr);
     let last = end.slice(0, 10);
