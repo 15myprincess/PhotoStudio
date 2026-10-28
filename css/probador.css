@@ -85,3 +85,39 @@
 .tryon-price,.tryon-payment-area{margin-top:18px}
 @media(max-width:760px){.tryon-layout{grid-template-columns:1fr;gap:14px}.tryon-stage{min-height:260px}.tryon-panel{padding:16px}.tryon-main{padding:20px 13px 36px}}
 @media(max-width:420px){.tryon-main .wardrobe-hero h1,.tryon-main .wardrobe-hero h2{font-size:34px}.tryon-stage{min-height:220px}.tryon-actions{display:grid;grid-template-columns:1fr}.tryon-actions .button{width:100%}}
+
+
+/* My Princess · probador virtual de estilo boutique */
+.tryon-main{max-width:1320px;margin:0 auto;padding:clamp(24px,4vw,48px) clamp(14px,4vw,42px) 100px}
+.tryon-layout{grid-template-columns:minmax(290px,.88fr) minmax(0,1.12fr);gap:clamp(16px,2.5vw,30px)}
+.tryon-left{top:78px}
+.tryon-col{gap:18px}
+.tryon-panel{position:relative;padding:clamp(15px,2vw,24px);border:1px solid #d9b47d55;border-radius:5px 22px 5px 22px;background:linear-gradient(145deg,#ffffff0c,#1a0d19e8 70%);box-shadow:0 16px 42px #0003}
+.tryon-panel:before{content:"";position:absolute;inset:7px;border:1px solid #fff2;border-radius:2px 15px 2px 15px;pointer-events:none}
+.tryon-panel h2{position:relative;font-size:clamp(23px,2.5vw,30px);gap:12px;margin-bottom:17px}
+.tryon-step{width:32px;height:32px;background:linear-gradient(135deg,#ffe7f0,#d9b47d);color:#321323;box-shadow:0 4px 14px #d9b47d22}
+.tryon-stage{border:1px solid #d9b47d88;border-radius:4px 18px 4px 18px;background:radial-gradient(ellipse at 50% 25%,#4a2a40,#170d17 70%);box-shadow:inset 0 0 45px #0005}
+.tryon-stage img,.tryon-stage video{object-position:center}
+.face-guide{border-color:#ffd2e4dd;box-shadow:0 0 0 999px #00000025,0 0 25px #f28bb833}
+.tryon-placeholder{color:#e6c68e;padding:20px}
+.tryon-placeholder span{font-size:52px;filter:drop-shadow(0 0 15px #d9b47d30)}
+.tryon-msg{padding:8px 10px;border-left:2px solid #d9b47d;background:#d9b47d0b;border-radius:0 8px 8px 0}
+.tryon-actions{gap:9px}
+.tryon-actions .button,.tryon-generate{min-height:44px;border-radius:30px}
+.tryon-actions .button{flex:1 1 130px;padding:11px 14px}
+.tryon-generate{width:100%;margin-top:6px;background:linear-gradient(110deg,#ffe2ee,#f28bb8 55%,#d9b47d);border:1px solid #ffe5ef;color:#29111f;box-shadow:0 8px 22px #f28bb822}
+.tryon-tip{line-height:1.7;color:#d8c4d0}
+.tryon-chosen{padding:10px 12px;border:1px solid #d9b47d55;border-radius:10px;background:#d9b47d0b}
+.tryon-filters{gap:12px;margin-bottom:16px}
+.tryon-filters label{font-size:10px;letter-spacing:.04em;text-transform:uppercase}
+.tryon-filters input,.tryon-filters select{min-height:44px;padding:11px 13px;border-color:#84506a;border-radius:9px;background:#100810;outline:none}
+.tryon-filters input:focus,.tryon-filters select:focus{border-color:#d9b47d;box-shadow:0 0 0 3px #d9b47d1c}
+.tryon-result img{border-color:#d9b47d88;border-radius:4px 18px 4px 18px;box-shadow:0 15px 36px #0004}
+.tryon-consent{border-color:#d9b47d88;border-radius:5px 18px 5px 18px;background:linear-gradient(120deg,#d9b47d12,#f28bb80d);box-shadow:0 10px 30px #0002}
+.tryon-consent h2{font-size:25px}
+.tryon-check{color:#e8d6e0}
+.tryon-done{border-color:#d9b47d;border-radius:5px 18px 5px 18px;background:linear-gradient(135deg,#d9b47d16,#f28bb818)}
+.tryon-done h3{font-size:30px}
+@media(max-width:850px){.tryon-layout{grid-template-columns:1fr}.tryon-left{position:static}.tryon-stage{max-height:70svh;aspect-ratio:4/5}.tryon-stage video,.tryon-stage img{object-fit:contain;background:#160c16}}
+@media(max-width:520px){.tryon-main{padding:18px 12px 90px}.tryon-layout{gap:14px}.tryon-col{gap:14px}.tryon-panel{padding:14px;border-radius:4px 17px 4px 17px}.tryon-panel:before{inset:5px}.tryon-panel h2{font-size:24px;margin-bottom:13px}.tryon-stage{aspect-ratio:3/4;max-height:none}.tryon-filters{grid-template-columns:1fr;gap:9px}.tryon-actions .button{flex-basis:calc(50% - 8px);font-size:10px;padding:10px 8px}.tryon-tip{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.tryon-panel *{scroll-behavior:auto!important;transition:none!important}}
