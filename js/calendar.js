@@ -110,7 +110,7 @@
       const wakeTimer = setTimeout(() => setStatus('El servidor está tardando. Espera; las fechas no se habilitarán hasta verificarlas.'), 3000);
       try {
         const data = await fetchAvailability(info.startStr, info.endStr);
-        if (version !== requestVersion) return;
+        if (version !== requestVersion) { success([]); return; }
         const events = normalizeEvents(data);
         busyDates.clear();
         for (const event of events) {
@@ -131,7 +131,7 @@
           ? 'Disponibilidad verificada. Los días en vino están ocupados.'
           : 'Disponibilidad verificada: el servidor no devuelve días ocupados para este mes.');
       } catch (error) {
-        if (version !== requestVersion) return;
+        if (version !== requestVersion) { success([]); return; }
         console.error('[My Princess] Error consultando disponibilidad:', error);
         availabilityLoaded = false;
         availabilityError = true;
