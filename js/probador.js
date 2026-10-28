@@ -19,7 +19,7 @@
 
   // Vestidos de muestra (carpeta vestidos-muestra/): se usan si Supabase aún no está configurado.
   const DEMO_DRESSES = [{"id":"MUESTRA-01","code":"MUESTRA-01","name":"Vestido princesa blanco","color":"Blanco","image":"vestidos-muestra/vestido-01.jpg"},{"id":"MUESTRA-02","code":"MUESTRA-02","name":"Vestido línea A marfil","color":"Marfil","image":"vestidos-muestra/vestido-02.jpg"},{"id":"MUESTRA-03","code":"MUESTRA-03","name":"Vestido sirena champán","color":"Champán","image":"vestidos-muestra/vestido-03.jpg"},{"id":"MUESTRA-04","code":"MUESTRA-04","name":"Vestido con vuelos rosa palo","color":"Rosa palo","image":"vestidos-muestra/vestido-04.jpg"},{"id":"MUESTRA-05","code":"MUESTRA-05","name":"Vestido midi rosa claro","color":"Rosa claro","image":"vestidos-muestra/vestido-05.jpg"},{"id":"MUESTRA-06","code":"MUESTRA-06","name":"Vestido princesa fucsia","color":"Fucsia","image":"vestidos-muestra/vestido-06.jpg"},{"id":"MUESTRA-07","code":"MUESTRA-07","name":"Vestido princesa rosa chicle","color":"Rosa chicle","image":"vestidos-muestra/vestido-07.jpg"},{"id":"MUESTRA-08","code":"MUESTRA-08","name":"Vestido línea A coral","color":"Coral","image":"vestidos-muestra/vestido-08.jpg"},{"id":"MUESTRA-09","code":"MUESTRA-09","name":"Vestido sirena durazno","color":"Durazno","image":"vestidos-muestra/vestido-09.jpg"},{"id":"MUESTRA-10","code":"MUESTRA-10","name":"Vestido con vuelos salmón","color":"Salmón","image":"vestidos-muestra/vestido-10.jpg"},{"id":"MUESTRA-11","code":"MUESTRA-11","name":"Vestido midi rojo","color":"Rojo","image":"vestidos-muestra/vestido-11.jpg"},{"id":"MUESTRA-12","code":"MUESTRA-12","name":"Vestido princesa vino","color":"Vino","image":"vestidos-muestra/vestido-12.jpg"},{"id":"MUESTRA-13","code":"MUESTRA-13","name":"Vestido princesa burdeos","color":"Burdeos","image":"vestidos-muestra/vestido-13.jpg"},{"id":"MUESTRA-14","code":"MUESTRA-14","name":"Vestido línea A dorado","color":"Dorado","image":"vestidos-muestra/vestido-14.jpg"},{"id":"MUESTRA-15","code":"MUESTRA-15","name":"Vestido sirena amarillo","color":"Amarillo","image":"vestidos-muestra/vestido-15.jpg"},{"id":"MUESTRA-16","code":"MUESTRA-16","name":"Vestido con vuelos plateado","color":"Plateado","image":"vestidos-muestra/vestido-16.jpg"},{"id":"MUESTRA-17","code":"MUESTRA-17","name":"Vestido midi gris perla","color":"Gris perla","image":"vestidos-muestra/vestido-17.jpg"},{"id":"MUESTRA-18","code":"MUESTRA-18","name":"Vestido princesa negro","color":"Negro","image":"vestidos-muestra/vestido-18.jpg"},{"id":"MUESTRA-19","code":"MUESTRA-19","name":"Vestido princesa azul marino","color":"Azul marino","image":"vestidos-muestra/vestido-19.jpg"},{"id":"MUESTRA-20","code":"MUESTRA-20","name":"Vestido línea A azul rey","color":"Azul rey","image":"vestidos-muestra/vestido-20.jpg"},{"id":"MUESTRA-21","code":"MUESTRA-21","name":"Vestido sirena celeste","color":"Celeste","image":"vestidos-muestra/vestido-21.jpg"},{"id":"MUESTRA-22","code":"MUESTRA-22","name":"Vestido con vuelos turquesa","color":"Turquesa","image":"vestidos-muestra/vestido-22.jpg"},{"id":"MUESTRA-23","code":"MUESTRA-23","name":"Vestido midi aqua","color":"Aqua","image":"vestidos-muestra/vestido-23.jpg"},{"id":"MUESTRA-24","code":"MUESTRA-24","name":"Vestido princesa verde menta","color":"Verde menta","image":"vestidos-muestra/vestido-24.jpg"},{"id":"MUESTRA-25","code":"MUESTRA-25","name":"Vestido princesa verde esmeralda","color":"Verde esmeralda","image":"vestidos-muestra/vestido-25.jpg"},{"id":"MUESTRA-26","code":"MUESTRA-26","name":"Vestido línea A verde oliva","color":"Verde oliva","image":"vestidos-muestra/vestido-26.jpg"},{"id":"MUESTRA-27","code":"MUESTRA-27","name":"Vestido sirena lila","color":"Lila","image":"vestidos-muestra/vestido-27.jpg"},{"id":"MUESTRA-28","code":"MUESTRA-28","name":"Vestido con vuelos lavanda","color":"Lavanda","image":"vestidos-muestra/vestido-28.jpg"},{"id":"MUESTRA-29","code":"MUESTRA-29","name":"Vestido midi morado","color":"Morado","image":"vestidos-muestra/vestido-29.jpg"},{"id":"MUESTRA-30","code":"MUESTRA-30","name":"Vestido princesa cobre","color":"Cobre","image":"vestidos-muestra/vestido-30.jpg"}];
-  const state = { stream: null, selfie: null, dresses: [], dress: null, busy: false, tryonEnabled: null, cameraFacing: 'user' };
+  const state = { stream: null, selfie: null, dresses: [], dress: null, selectedDresses: [], busy: false, tryonEnabled: null, cameraFacing: 'user' };
 
   const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const say = (node, text, isError = false) => { node.textContent = text; node.classList.toggle('is-error', !!isError); };
@@ -76,11 +76,12 @@
     el.guide.hidden = !state.stream;
     el.preview.hidden = !state.selfie;
     el.placeholder.hidden = !!(state.stream || state.selfie);
-    const ready = ok && !!state.selfie && !!state.dress && !state.busy;
+    const ready = ok && !!state.selfie && state.selectedDresses.length > 0 && !state.busy;
     el.requestBtn.disabled = !ready;
     el.previewBtn.disabled = !ready;
     [el.reqName, el.reqPhone, el.reqRef].forEach((i) => { i.disabled = state.busy; });
-    el.chosen.textContent = state.dress ? `Vestido elegido: ${state.dress.name} (${state.dress.code})` : 'Aún no has elegido un vestido.';
+    el.chosen.textContent = state.selectedDresses.length ? `Vestidos seleccionados: ${state.selectedDresses.length} · Total: ${state.selectedDresses.length * 50} CUP` : 'Aún no has elegido vestidos.';
+    const countLabel = $('#dressCountLabel'); if (countLabel) countLabel.textContent = String(state.selectedDresses.length);
   }
   function setSelfie(dataUrl) {
     state.selfie = dataUrl;
@@ -177,7 +178,7 @@
     const shown = state.dresses.filter((d) => (!q || `${d.name} ${d.code} ${d.color}`.toLocaleLowerCase('es').includes(q)) && (!c || d.color === c));
     el.list.innerHTML = shown.length
       ? shown.map((d) => {
-          const on = state.dress && state.dress.id === d.id;
+          const on = state.selectedDresses.some((item) => String(item.id) === String(d.id));
           return `<div class="tryon-dress-wrap"><button type="button" class="tryon-dress${on ? ' is-selected' : ''}" data-id="${esc(d.id)}" aria-pressed="${!!on}">` +
             `<img src="${esc(d.image)}" alt="${esc(d.name)}" loading="lazy"><span><b>${esc(d.code)}</b>${esc(d.name)}</span></button><button type="button" class="tryon-zoom" data-view-id="${esc(d.id)}" aria-label="Ampliar ${esc(d.name)}" title="Ver a pantalla completa">⛶</button></div>`;
         }).join('')
@@ -204,7 +205,7 @@
     return c.toDataURL('image/jpeg', 0.9);
   }
   async function preview() {
-    if (state.busy || !el.consent.checked || !state.selfie || !state.dress) return;
+    if (state.busy || !el.consent.checked || !state.selfie || !state.selectedDresses.length) return;
     state.busy = true; el.resultBox.hidden = true; updateUi();
     say(el.genMsg, 'Preparando la vista previa…');
     try {
@@ -294,7 +295,7 @@
   function newRequest() {
     el.doneBox.hidden = true; el.requestForm.hidden = false; el.previewBtn.hidden = false;
     el.reqRef.value = '';
-    state.dress = null; renderDresses();
+    state.dress = null; state.selectedDresses = []; renderDresses();
     say(el.genMsg, ''); say(el.cameraMsg, 'Toma otra selfie para tu nuevo montaje.');
     updateUi();
     el.list.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -346,7 +347,12 @@
     }
     const b = e.target.closest('[data-id]');
     if (!b) return;
-    state.dress = state.dresses.find((d) => String(d.id) === b.dataset.id) || null;
+    const chosen = state.dresses.find((d) => String(d.id) === b.dataset.id);
+    if (chosen) {
+      const index = state.selectedDresses.findIndex((d) => String(d.id) === String(chosen.id));
+      if (index >= 0) state.selectedDresses.splice(index, 1); else state.selectedDresses.push(chosen);
+      state.dress = state.selectedDresses[state.selectedDresses.length - 1] || null;
+    }
     renderDresses(); updateUi();
   });
   el.search.addEventListener('input', renderDresses);
