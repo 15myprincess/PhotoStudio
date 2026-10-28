@@ -201,3 +201,83 @@
  #bookingCalendar .fc .fc-toolbar-title{color:#ffe4ef!important;}
  #bookingCalendar .fc .fc-col-header-cell-cushion{font-size:9px!important;color:#f7cfe0!important;}
 }
+
+
+/* V16 — capa final de marca: neutraliza explícitamente la hoja predeterminada de FullCalendar */
+#bookingCalendar, #bookingCalendar .fc, #bookingCalendar .fc-view-harness,
+#bookingCalendar .fc-view, #bookingCalendar .fc-scrollgrid,
+#bookingCalendar .fc-scrollgrid-section > td,
+#bookingCalendar .fc-daygrid-body, #bookingCalendar .fc-daygrid-body table{
+  background:transparent!important;color:#faeaf2!important;
+}
+#bookingCalendar .fc .fc-scrollgrid,
+#bookingCalendar .fc .fc-scrollgrid-section,
+#bookingCalendar .fc .fc-scrollgrid-section table,
+#bookingCalendar .fc .fc-scrollgrid-sync-table{
+  border-color:rgba(235,190,211,.18)!important;background:transparent!important;
+}
+#bookingCalendar .fc .fc-col-header,
+#bookingCalendar .fc .fc-col-header thead,
+#bookingCalendar .fc .fc-col-header tr,
+#bookingCalendar .fc .fc-col-header th,
+#bookingCalendar .fc .fc-col-header .fc-scrollgrid-sync-inner{
+  background:#3a192f!important;border-color:rgba(235,190,211,.18)!important;
+}
+#bookingCalendar .fc .fc-col-header-cell-cushion{
+  color:#f9d9e7!important;font-weight:700!important;letter-spacing:.06em!important;
+}
+#bookingCalendar .fc .fc-daygrid-day,
+#bookingCalendar .fc .fc-daygrid-day-frame,
+#bookingCalendar .fc .fc-daygrid-day-top,
+#bookingCalendar .fc .fc-daygrid-day-bottom,
+#bookingCalendar .fc .fc-daygrid-day-events,
+#bookingCalendar .fc .fc-daygrid-day-bg{
+  background:transparent!important;
+}
+#bookingCalendar .fc .fc-daygrid-day-number{
+  color:#faeaf2!important;background:transparent!important;text-decoration:none!important;
+}
+#bookingCalendar .fc .fc-day-other .fc-daygrid-day-number{color:#92778a!important;}
+#bookingCalendar .fc .fc-day-today,
+#bookingCalendar .fc .fc-day-today .fc-daygrid-day-frame{
+  background:rgba(226,143,180,.095)!important;
+}
+#bookingCalendar .fc .fc-day-today .fc-daygrid-day-number{
+  background:linear-gradient(135deg,#ffe5ef,#d99ab9)!important;color:#35152a!important;
+}
+#bookingCalendar .fc .fc-bg-event,
+#bookingCalendar .fc .fc-daygrid-bg-harness .fc-bg-event,
+#bookingCalendar .fc .fc-daygrid-day-bg .fc-bg-event,
+#bookingCalendar .fc .fc-bg-event.mp-busy-day{
+  background:linear-gradient(135deg,#bd527f,#742847)!important;
+  background-color:#9f3c68!important;opacity:.78!important;
+  border:1px solid rgba(255,215,232,.32)!important;border-radius:7px!important;
+  margin:3px!important;inset:3px!important;
+}
+#bookingCalendar .fc .fc-bg-event:before,
+#bookingCalendar .fc .fc-bg-event:after{display:none!important;content:none!important;}
+#bookingCalendar .fc .fc-toolbar .fc-button,
+#bookingCalendar .fc .fc-toolbar .fc-button-primary,
+#bookingCalendar .fc .fc-toolbar .fc-button:disabled{
+  background:linear-gradient(135deg,#8d3a63,#4c203d)!important;
+  background-color:#652848!important;color:#fff2f8!important;
+  border:1px solid #bd7a9b!important;border-radius:10px!important;
+  text-shadow:none!important;box-shadow:0 4px 13px rgba(0,0,0,.22)!important;
+}
+#bookingCalendar .fc .fc-toolbar .fc-button:hover:not(:disabled){
+  background:linear-gradient(135deg,#c65b8b,#7d3158)!important;
+}
+#bookingCalendar .fc .fc-toolbar .fc-button-active{
+  background:linear-gradient(135deg,#f2bfd5,#d38caf)!important;color:#35152a!important;
+}
+#bookingCalendar .fc .fc-highlight{background:rgba(230,145,183,.17)!important;}
+#bookingCalendar .fc .fc-daygrid-event,
+#bookingCalendar .fc .fc-daygrid-block-event{
+  background:linear-gradient(135deg,#bd527f,#742847)!important;color:#fff2f8!important;
+  border:1px solid rgba(255,215,232,.3)!important;border-radius:6px!important;
+}
+#bookingCalendar .fc .fc-event-title,
+#bookingCalendar .fc .fc-event-time{color:#fff2f8!important;font-weight:600!important;text-shadow:none!important;}
+#bookingCalendar .fc .fc-daygrid-day-frame{min-height:47px!important;}
+#bookingCalendar .fc .fc-daygrid-day-number{font-size:12px!important;}
+#bookingCalendar .fc .fc-toolbar-title{color:#ffe4ef!important;font-family:'Cormorant Garamond',serif!important;}
