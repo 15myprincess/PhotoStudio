@@ -377,3 +377,34 @@
 @media(max-width:700px){
  #bookingCalendar .fc .fc-daygrid-day.mp-busy-date:after{width:calc(100% - 4px)!important;margin:2px 2px 3px!important;font-size:6px!important;letter-spacing:0!important;}
 }
+
+
+/* V19 — indicador visible incluso cuando FullCalendar reconstruye capas internas. */
+#bookingCalendar .fc-daygrid-day.mp-busy-date,
+#bookingCalendar .fc-daygrid-day.mp-busy-date .fc-daygrid-day-frame {
+  background: linear-gradient(135deg, rgba(135, 18, 62, .92), rgba(75, 20, 48, .88)) !important;
+}
+#bookingCalendar .fc-daygrid-day.mp-busy-date {
+  position: relative !important;
+  box-shadow: inset 0 0 0 2px #ff8db8 !important;
+  outline: 1px solid #ffd6e6 !important;
+  outline-offset: -2px !important;
+}
+#bookingCalendar .fc-daygrid-day.mp-busy-date:after {
+  content: "OCUPADO" !important;
+  display: block !important;
+  position: relative !important;
+  z-index: 5 !important;
+  margin: 3px 2px !important;
+  padding: 3px 1px !important;
+  border-radius: 4px !important;
+  background: #ffb4d0 !important;
+  color: #48132c !important;
+  text-align: center !important;
+  font: 900 7px/1.15 Arial, sans-serif !important;
+  letter-spacing: 0 !important;
+  pointer-events: none !important;
+}
+@media (max-width: 700px) {
+  #bookingCalendar .fc-daygrid-day.mp-busy-date:after { font-size: 6px !important; margin: 2px 1px !important; }
+}
