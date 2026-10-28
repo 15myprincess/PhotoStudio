@@ -94,12 +94,12 @@
       }
     };
     try {
-      return await attempt(30000);
+      return await attempt(15000);
     } catch (err) {
       // Render (plan gratuito) se duerme: el primer intento puede fallar mientras despierta.
       const transient = !err.status || [502, 503, 504].includes(err.status);
       if (!transient) throw err;
-      return await attempt(45000);
+      return await attempt(20000);
     }
   }
 
@@ -120,9 +120,9 @@
         setStatus('No se puede comprobar la disponibilidad ahora. No selecciones fechas hasta recuperar la conexión.');
         return;
       }
-      setStatus('Cargando disponibilidad…');
+      setStatus('Conectando con el calendario…');
       const wakeTimer = setTimeout(
-        () => setStatus('Despertando el servidor de disponibilidad… la primera vez puede tardar hasta un minuto.'), 5000);
+        () => setStatus('El servidor está tardando en responder. No selecciones una fecha todavía.'), 4000);
       try {
         const data = await fetchAvailability(info.startStr, info.endStr);
         busyDates.clear();
@@ -150,7 +150,7 @@
         console.error('[My Princess] No se pudo cargar la disponibilidad:', err);
         availabilityLoaded = false;
         availabilityError = true;
-        setStatus('No fue posible cargar la disponibilidad real. Inténtalo de nuevo en un momento.');
+        setStatus('No se pudo cargar la disponibilidad. Recarga la página; por seguridad no se aceptan fechas sin verificar.');
         failure(err);
       } finally {
         clearTimeout(wakeTimer);
