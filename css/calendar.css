@@ -281,3 +281,15 @@
 #bookingCalendar .fc .fc-daygrid-day-frame{min-height:47px!important;}
 #bookingCalendar .fc .fc-daygrid-day-number{font-size:12px!important;}
 #bookingCalendar .fc .fc-toolbar-title{color:#ffe4ef!important;font-family:'Cormorant Garamond',serif!important;}
+
+/* Final cell-based rendering: no FullCalendar background-event overlays */
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date,
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-frame,
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-bg{background:linear-gradient(145deg,rgba(191,74,119,.42),rgba(105,31,66,.56))!important;background-color:rgba(139,45,84,.42)!important;}
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date{box-shadow:inset 0 0 0 1px rgba(255,190,215,.22)!important;}
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number{color:#ffe7f0!important;font-weight:700!important;}
+#bookingCalendar .fc .fc-daygrid-day .fc-daygrid-bg-harness,#bookingCalendar .fc .fc-daygrid-day .fc-bg-event{display:none!important;}
+#bookingCalendar .fc .fc-toolbar-title{font-family:'Cormorant Garamond',Georgia,serif!important;font-weight:600!important;}
+#bookingCalendar .fc .fc-col-header-cell{background:#35182d!important;}
+#bookingCalendar .fc .fc-col-header-cell-cushion{color:#f7cfe0!important;}
+#bookingCalendar .fc .fc-button-primary{background:linear-gradient(135deg,#8c3a63,#4b203d)!important;border-color:#bd7a9b!important;color:#fff4f9!important;}
