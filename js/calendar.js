@@ -13,6 +13,20 @@
   const busyDates = new Set();
   const setStatus = (text) => { if (statusEl) statusEl.textContent = text; };
 
+  // FullCalendar puede crear/reutilizar las celdas después de que termina la petición.
+  // Aplicamos las clases en un punto posterior al render y siempre que cambie el mes.
+  const paintBusyDays = () => {
+    calendarEl.querySelectorAll('.fc-daygrid-day[data-date]').forEach((cell) => {
+      cell.classList.toggle('mp-busy-date', busyDates.has(cell.getAttribute('data-date')));
+    });
+  };
+  const scheduleBusyPaint = () => {
+    requestAnimationFrame(() => {
+      paintBusyDays();
+      requestAnimationFrame(paintBusyDays);
+    });
+  };
+
   // <helpers>
   const pad = (n) => String(n).padStart(2, '0');
   const addDays = (ymd, n) => {
@@ -83,11 +97,9 @@
         });
         // Las fechas ocupadas se marcan directamente en cada celda; no usamos eventos de fondo de FullCalendar.
         success([]);
-        calendarEl.querySelectorAll('.mp-busy-date').forEach((el) => el.classList.remove('mp-busy-date'));
-        busyDates.forEach((d) => {
-          const cell = calendarEl.querySelector(`.fc-daygrid-day[data-date="${d}"]`);
-          if (cell) cell.classList.add('mp-busy-date');
-        });
+        // No pintamos inmediatamente: success() hace que FullCalendar actualice su DOM.
+        // Dos pasadas de animación garantizan que las celdas estén disponibles.
+        scheduleBusyPaint();
         setStatus(busyDates.size
           ? 'Disponibilidad cargada desde el estudio. Las fechas en vino están ocupadas.'
           : 'Disponibilidad cargada desde el estudio: no hay fechas ocupadas en este mes.');
@@ -104,11 +116,7 @@
       if (busyDates.has(date)) arg.el.classList.add('mp-busy-date');
     },
     datesSet: () => {
-      requestAnimationFrame(() => {
-        calendarEl.querySelectorAll('.fc-daygrid-day[data-date]').forEach((cell) => {
-          cell.classList.toggle('mp-busy-date', busyDates.has(cell.getAttribute('data-date')));
-        });
-      });
+      scheduleBusyPaint();
     },
     dateClick: (info) => {
       const clickedDate = info.dateStr; // Formato YYYY-MM-DD
