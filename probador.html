@@ -6,7 +6,7 @@
 <meta name="description" content="Tómate una selfie, elige un vestido de My Princess y solicita tu montaje: el estudio lo prepara y te lo envía por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=14"><link rel="stylesheet" href="css/vestuario.css?v=14"><link rel="stylesheet" href="css/probador.css?v=3"><link rel="stylesheet" href="css/immersive-viewer.css?v=1">
+<link rel="stylesheet" href="css/style.css?v=14"><link rel="stylesheet" href="css/vestuario.css?v=14"><link rel="stylesheet" href="css/probador.css?v=4"><link rel="stylesheet" href="css/immersive-viewer.css?v=1">
 <style>
 /* --- MENÚ SUPERIOR MINIMALISTA Y COMPACTO --- */
 .header {
@@ -255,7 +255,7 @@
   <section class="wardrobe-hero">
     <p class="eyebrow">PROBADOR VIRTUAL</p>
     <h1>Pruébate tu vestido</h1>
-    <p>Tómate una selfie, elige un vestido del estudio y solicita tu montaje por WhatsApp. Descarga las dos imágenes y adjúntalas al mensaje para que el estudio pueda preparar tu solicitud.</p>
+    <p>Tómate una selfie, selecciona todos los vestidos que quieras y solicita tu montaje. Cada vestido cuesta 50 CUP. Descarga las imágenes y adjúntalas al WhatsApp junto con tu comprobante de pago.</p>
   </section>
 
   <section class="tryon-consent" aria-labelledby="consentTitle">
@@ -286,14 +286,15 @@
 
       <section class="tryon-panel" aria-labelledby="genTitle">
         <h2 id="genTitle"><span class="tryon-step">3</span> Solicita tu montaje</h2>
-        <p class="tryon-chosen" id="chosenLabel">Aún no has elegido un vestido.</p>
+        <p class="tryon-chosen" id="chosenLabel">Aún no has elegido vestidos.</p>
+        <p class="instructions-fine-print">Selecciona tantos vestidos como desees. El precio se calcula automáticamente: <strong>50 CUP por cada vestido</strong>.</p>
         
         <div class="tryon-price">
           <!-- Área de pago y diseño integrada -->
           <div class="tryon-payment-area">
             
             <div class="highlighted-price-block">
-              <p class="highlighted-price-amount">Costo: <strong id="priceLabel">50 pesos</strong></p>
+              <p class="highlighted-price-amount">Vestidos: <strong id="dressCountLabel">0</strong> · Total: <strong id="priceLabel">0 CUP</strong></p>
             </div>
 
             <div class="payment-qr-container">
@@ -308,7 +309,7 @@
 
             <div class="payment-instructions-block">
               <p class="delivery-fine-print">Tu foto estará lista antes de 24 horas y te la enviaremos por WhatsApp.</p>
-              <p class="instructions-fine-print">Una vez que realice la Transferencia rellene el formulario con los datos correspondientes (Importante poner el número de transferencia que le llega). Recibirá su foto lo antes posible antes de un plazo de 24 horas. Muchas gracias por solicitar el servicio. Que tenga buen día.</p>
+              <p class="instructions-fine-print">Después de transferir, completa los datos del pago y adjunta el comprobante en WhatsApp. La solicitud se atenderá cuando el estudio confirme el ingreso real en la cuenta receptora. Plazo estimado de entrega: hasta 24 horas después de verificar el pago.</p>
             </div>
 
             <!-- Imagen promocional grande en formato móvil -->
@@ -323,7 +324,14 @@
         <form class="tryon-form" id="requestForm" novalidate>
           <label>Tu nombre<input id="reqName" autocomplete="name" maxlength="80" placeholder="Nombre y apellido" required></label>
           <label>Tu número de WhatsApp<input id="reqPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+53 5XXXXXXX" required></label>
-          <label id="refLabel">Referencia o número de tu transferencia<input id="reqRef" maxlength="80" placeholder="Ej.: número de confirmación" required></label>
+          <label>Nombre del titular que envió el dinero<input id="reqSender" maxlength="100" placeholder="Nombre del remitente" required></label>
+          <label>Importe transferido (CUP)<input id="reqAmount" type="number" min="1" step="1" inputmode="numeric" placeholder="Importe enviado" required></label>
+          <label>Fecha de la operación<input id="reqDate" type="date" required></label>
+          <label>Hora aproximada (opcional)<input id="reqTime" type="time"></label>
+          <label>Referencia o número de operación<input id="reqRef" maxlength="100" placeholder="Número que aparece en el comprobante; si no aparece, escribe No aparece"></label>
+          <label>Aplicación o banco utilizado<input id="reqBank" maxlength="80" placeholder="Transfermóvil, banco… " required></label>
+          <label>Comprobante de pago (imagen)<input id="reqProof" type="file" accept="image/*,.pdf" required></label>
+          <p class="instructions-fine-print">La imagen del comprobante se adjuntará manualmente al chat de WhatsApp. No envíes PIN, contraseña ni códigos de seguridad.</p>
           <button class="button pink tryon-generate" type="submit" id="requestBtn" disabled>✉ Solicitar mi montaje</button>
         </form>
         <button class="button outline tryon-generate tryon-preview-btn" type="button" id="previewBtn" disabled>Ver vista previa rápida</button>
@@ -348,7 +356,8 @@
     </div>
 
     <section class="tryon-panel tryon-right" aria-labelledby="dressTitle">
-      <h2 id="dressTitle"><span class="tryon-step">2</span> Elige un vestido</h2>
+      <h2 id="dressTitle"><span class="tryon-step">2</span> Elige uno o varios vestidos</h2>
+      <p class="tryon-msg">Toca cada vestido para seleccionarlo o quitarlo. No hay límite de cantidad: 50 CUP por vestido.</p>
       <div class="tryon-filters">
         <label>Buscar<input id="dressSearch" type="search" placeholder="Nombre, código o color"></label>
         <label>Color<select id="colorFilter"><option value="">Todos</option></select></label>
