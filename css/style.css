@@ -177,3 +177,110 @@
   .benefits{grid-template-columns:repeat(2,minmax(0,1fr));}
   .benefits>div:last-child{grid-column:1/-1;justify-content:center;border-top:1px solid rgba(255,190,218,.2);}
 }
+
+
+/* MY PRINCESS · GEM COLLECTION COUTURE — rediseño editorial de contratos */
+#contratos.contracts{
+  position:relative;isolation:isolate;overflow:hidden;
+  padding:clamp(64px,8vw,108px) clamp(18px,5vw,76px);
+  background:
+    radial-gradient(ellipse at 12% 8%,rgba(210,117,158,.13),transparent 34%),
+    radial-gradient(ellipse at 90% 70%,rgba(217,180,125,.09),transparent 32%),
+    linear-gradient(155deg,#1b0d19 0%,#100810 48%,#1a0c18 100%);
+}
+#contratos.contracts:before{
+  content:"";position:absolute;inset:18px;pointer-events:none;z-index:-1;
+  border:1px solid rgba(217,180,125,.16);border-radius:28px;
+  mask-image:linear-gradient(#000,transparent 92%);
+}
+#contratos .section-heading{max-width:760px;margin:0 auto clamp(34px,5vw,58px);text-align:center}
+#contratos .section-heading .eyebrow{color:#e9bdcf;letter-spacing:.28em;font-size:10px;font-weight:700}
+#contratos .section-heading h2{
+  margin:8px 0 12px;color:#fff5f9;
+  font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;
+  font-size:clamp(36px,5vw,62px);line-height:1.04;letter-spacing:-.025em;
+}
+#contratos .section-heading h2 span{color:#e4b87f;text-shadow:0 0 25px #d9b47d24}
+#contratos .section-heading>p:last-child{color:#cdb9c7;font-size:13px;letter-spacing:.025em}
+#contratos .gem-grid{
+  width:min(1240px,100%);margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(14px,2vw,25px);align-items:stretch;
+}
+#contratos .gem-card{
+  --gem-accent:#eaa3c2;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  min-height:310px;padding:22px 18px 20px;overflow:hidden;isolation:isolate;
+  border:1px solid rgba(232,190,210,.28);border-radius:22px;
+  background:
+    radial-gradient(ellipse at 50% 32%,color-mix(in srgb,var(--gem-accent) 15%,transparent),transparent 56%),
+    linear-gradient(150deg,rgba(61,31,51,.94),rgba(21,11,21,.98) 72%);
+  box-shadow:0 14px 34px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.075);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s;
+}
+#contratos .gem-card:before{
+  content:"";position:absolute;inset:9px;border:1px solid color-mix(in srgb,var(--gem-accent) 24%,transparent);
+  border-radius:15px;pointer-events:none;z-index:-1;opacity:.8;
+  background:radial-gradient(circle at 50% 20%,color-mix(in srgb,var(--gem-accent) 10%,transparent),transparent 56%);
+}
+#contratos .gem-card:after{
+  content:"✧";position:absolute;right:20px;top:14px;color:color-mix(in srgb,var(--gem-accent) 65%,#fff);
+  font-size:19px;opacity:.65;pointer-events:none;
+}
+#contratos .gem-card:hover{
+  transform:translateY(-7px);border-color:color-mix(in srgb,var(--gem-accent) 72%,#d9b47d);
+  box-shadow:0 22px 48px rgba(0,0,0,.34),0 0 28px color-mix(in srgb,var(--gem-accent) 12%,transparent),inset 0 1px 0 rgba(255,255,255,.12);
+}
+#contratos .gem-card .number{
+  display:grid;place-items:center;width:29px;height:29px;margin:0 0 7px;
+  border:1px solid rgba(217,180,125,.58);border-radius:50%;
+  color:#e8c99d;background:#21111e;font-size:10px;letter-spacing:.04em;
+  box-shadow:0 0 0 4px rgba(217,180,125,.055);
+}
+#contratos .gem-card .gem{
+  width:100%;height:clamp(118px,13vw,166px);margin:0 0 8px;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at center,color-mix(in srgb,var(--gem-accent) 15%,transparent),transparent 67%);
+}
+#contratos .gem-card .gem img{
+  width:100%;height:100%;object-fit:contain;mix-blend-mode:screen;
+  filter:drop-shadow(0 9px 14px rgba(0,0,0,.36)) drop-shadow(0 0 13px color-mix(in srgb,var(--gem-accent) 25%,transparent));
+  transition:transform .45s ease,filter .45s ease;
+}
+#contratos .gem-card:hover .gem img{transform:translateY(-3px) scale(1.055);filter:drop-shadow(0 10px 16px #0007) drop-shadow(0 0 18px color-mix(in srgb,var(--gem-accent) 43%,transparent))}
+#contratos .gem-card h3{
+  margin:2px 0 4px;color:#fff2f7;font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(23px,2.1vw,29px);font-weight:600;line-height:1.05;letter-spacing:.01em;
+}
+#contratos .gem-card p{margin:0;color:color-mix(in srgb,var(--gem-accent) 72%,#fff);font-size:10px;text-transform:uppercase;letter-spacing:.19em;font-weight:600}
+#contratos .gem-card .details{
+  margin-top:auto;padding:10px 19px 9px;min-width:145px;
+  border:1px solid rgba(217,180,125,.52);border-radius:999px;
+  background:linear-gradient(135deg,rgba(217,180,125,.12),rgba(217,180,125,.035));
+  color:#f5dcb9;font-size:10px;font-weight:600;letter-spacing:.06em;
+  transition:background .25s,color .25s,border-color .25s,transform .25s;
+}
+#contratos .gem-card .details:hover{background:linear-gradient(135deg,#e8c99d,#c69a63);color:#281522;border-color:#f5dfbd;transform:translateY(-1px)}
+#contratos .g1{--gem-accent:#f2a8c8}#contratos .g2{--gem-accent:#c6a1f4}
+#contratos .g3{--gem-accent:#9fe3ef}#contratos .g4{--gem-accent:#f2cc83}
+#contratos .g5{--gem-accent:#e99bc7}#contratos .g6{--gem-accent:#9bd4ad}
+#contratos .g7{--gem-accent:#9dbcf6}#contratos .g8{--gem-accent:#ef9ba7}
+#contratos .g9{--gem-accent:#e5e3f7}
+#contratos .g9{background:radial-gradient(ellipse at 50% 30%,rgba(217,180,125,.17),transparent 55%),linear-gradient(150deg,#3a2a37,#171019 72%);border-color:rgba(217,180,125,.52)}
+#contratos .section-footnote{margin:28px auto 0;max-width:650px;text-align:center;color:#a994a3;font-size:10px;letter-spacing:.025em}
+@media(max-width:900px){#contratos .gem-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#contratos .gem-card{min-height:295px}}
+@media(max-width:560px){
+ #contratos.contracts{padding:54px 14px}
+ #contratos.contracts:before{inset:7px;border-radius:18px}
+ #contratos .section-heading{margin-bottom:28px}
+ #contratos .section-heading h2{font-size:36px}
+ #contratos .section-heading>p:last-child{font-size:12px}
+ #contratos .gem-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ #contratos .gem-card{min-height:255px;padding:14px 8px 15px;border-radius:16px}
+ #contratos .gem-card:before{inset:6px;border-radius:11px}
+ #contratos .gem-card .gem{height:100px;margin-bottom:7px}
+ #contratos .gem-card h3{font-size:21px}
+ #contratos .gem-card p{font-size:8px;letter-spacing:.13em}
+ #contratos .gem-card .details{min-width:0;width:100%;padding:9px 5px;font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){#contratos .gem-card,#contratos .gem-card *{transition:none!important}}
