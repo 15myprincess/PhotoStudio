@@ -361,3 +361,13 @@
   .benefits .benefit-icon svg{width:23px;height:23px;}
   .benefits span{font-size:clamp(9px,2.6vw,11px);line-height:1.35;}
 }
+
+
+/* My Princess — encuadre móvil del hero: priorizar la modelo hacia la derecha. */
+@media (max-width: 600px) {
+  .hero-photo {
+    background-position: right center !important;
+    background-size: cover !important;
+    animation: none !important;
+  }
+}
