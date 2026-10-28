@@ -20,6 +20,13 @@
       cell.classList.toggle('mp-busy-date', busyDates.has(cell.getAttribute('data-date')));
     });
   };
+  // Vigila reconstrucciones internas de FullCalendar que pueden borrar las clases visuales.
+  let paintObserver = null;
+  const observeCalendarCells = () => {
+    if (paintObserver || !window.MutationObserver) return;
+    paintObserver = new MutationObserver(() => paintBusyDays());
+    paintObserver.observe(calendarEl, { childList: true, subtree: true });
+  };
   const scheduleBusyPaint = () => {
     const paint = () => {
       paintBusyDays();
@@ -40,6 +47,14 @@
   };
   // Convierte un bloque ocupado de Google (día completo o con hora) en TODOS los días que toca.
   // Google devuelve el fin como límite exclusivo: un evento de día completo del 22 llega como 22 → 23.
+  const normalizeEvents = (data) => {
+    if (Array.isArray(data)) return data;
+    if (Array.isArray(data?.events)) return data.events;
+    if (Array.isArray(data?.data?.events)) return data.data.events;
+    if (Array.isArray(data?.busy)) return data.busy;
+    if (Array.isArray(data?.busyDates)) return data.busyDates.map(date => typeof date === 'string' ? { start: date, end: date } : date);
+    return [];
+  };
   const expandBusyDays = (startStr, endStr) => {
     const first = String(startStr).slice(0, 10);
     const end = String(endStr || startStr);
@@ -96,8 +111,11 @@
       try {
         const data = await fetchAvailability(info.startStr, info.endStr);
         busyDates.clear();
-        (data.events || []).forEach((ev) => {
-          if (ev && ev.start) expandBusyDays(ev.start, ev.end).forEach((d) => busyDates.add(d));
+        normalizeEvents(data).forEach((ev) => {
+          if (!ev) return;
+          const start = ev.start || ev.startDate || ev.date || ev.dateTime;
+          const end = ev.end || ev.endDate || start;
+          if (start) expandBusyDays(start, end).forEach((d) => busyDates.add(d));
         });
         // Las fechas ocupadas se marcan directamente en cada celda; no usamos eventos de fondo de FullCalendar.
         success([]);
@@ -143,6 +161,8 @@
   });
 
   calendar.render();
+  observeCalendarCells();
+  scheduleBusyPaint();
 
   // Para validar cualquier fecha (también las escritas a mano en el formulario y de otros meses).
   // Devuelve true = ocupada, false = libre, null = no se pudo comprobar.
@@ -151,7 +171,7 @@
     if (busyDates.has(ymd)) return true;
     try {
       const data = await fetchAvailability(`${addDays(ymd, -1)}T00:00:00Z`, `${addDays(ymd, 2)}T00:00:00Z`);
-      return (data.events || []).some((ev) => ev && ev.start && expandBusyDays(ev.start, ev.end).includes(ymd));
+      return normalizeEvents(data).some((ev) => { if (!ev) return false; const start = ev.start || ev.startDate || ev.date || ev.dateTime; const end = ev.end || ev.endDate || start; return !!start && expandBusyDays(start, end).includes(ymd); });
     } catch (err) {
       console.error('[My Princess] No se pudo comprobar la fecha:', err);
       return null;
