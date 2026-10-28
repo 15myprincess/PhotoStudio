@@ -370,7 +370,7 @@
 
 <footer class="footer"><a class="brand footer-brand" href="index.html#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span></footer>
 
-<script src="js/config.js"></script><script src="js/tryon-config.js?v=1"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/probador.js?v=5"></script><script src="js/immersive-viewer.js?v=1"></script>
+<script src="js/config.js"></script><script src="js/tryon-config.js?v=1"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/probador.js?v=6"></script><script src="js/immersive-viewer.js?v=1"></script>
 <script>
   // Control del menú desplegable minimalista
   const menuToggle = document.getElementById('menuToggle');
@@ -488,8 +488,8 @@
       setRequestMessage('Primero toma o sube tu selfie.', true);
       return;
     }
-    if (!dressImg) {
-      setRequestMessage('Primero selecciona un vestido de la galería.', true);
+    if (!dressImgs.length) {
+      setRequestMessage('Primero selecciona al menos un vestido de la galería.', true);
       return;
     }
 
