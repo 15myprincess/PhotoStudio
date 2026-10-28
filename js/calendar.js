@@ -55,9 +55,20 @@
     if (Array.isArray(data?.busyDates)) return data.busyDates.map(date => typeof date === 'string' ? { start: date, end: date } : date);
     return [];
   };
+  // La API puede devolver fechas como texto ISO o como objetos de Google Calendar:
+  // { date: "YYYY-MM-DD" } para eventos de día completo y { dateTime: "..." } con hora.
+  const dateValue = (value) => {
+    if (!value) return '';
+    if (typeof value === 'string') return value;
+    if (typeof value === 'object') return value.date || value.dateTime || value.datetime || value.value || '';
+    return String(value);
+  };
   const expandBusyDays = (startStr, endStr) => {
-    const first = String(startStr).slice(0, 10);
-    const end = String(endStr || startStr);
+    startStr = dateValue(startStr);
+    endStr = dateValue(endStr) || startStr;
+    if (!/^\\d{4}-\\d{2}-\\d{2}/.test(startStr)) return [];
+    const first = startStr.slice(0, 10);
+    const end = String(endStr);
     let last = end.slice(0, 10);
     const endsAtMidnight = end.length === 10 || /T00:00(:00(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?$/.test(end);
     if (endsAtMidnight && last > first) last = addDays(last, -1);
@@ -171,7 +182,7 @@
     if (busyDates.has(ymd)) return true;
     try {
       const data = await fetchAvailability(`${addDays(ymd, -1)}T00:00:00Z`, `${addDays(ymd, 2)}T00:00:00Z`);
-      return normalizeEvents(data).some((ev) => { if (!ev) return false; const start = ev.start || ev.startDate || ev.date || ev.dateTime; const end = ev.end || ev.endDate || start; return !!start && expandBusyDays(start, end).includes(ymd); });
+      return normalizeEvents(data).some((ev) => { if (!ev) return false; const start = ev.start || ev.startDate || ev.date || ev.dateTime; const end = ev.end || ev.endDate || start; return !!dateValue(start) && expandBusyDays(start, end).includes(ymd); });
     } catch (err) {
       console.error('[My Princess] No se pudo comprobar la fecha:', err);
       return null;
