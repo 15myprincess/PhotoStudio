@@ -210,6 +210,7 @@
     }
     const busy = window.MP_checkDateBusy ? await window.MP_checkDateBusy(date) : null;
     if (busy === true) { if(result)result.textContent=`La fecha ${date} aparece ocupada en el calendario. Elige otra fecha.`; alert(`El día ${date} aparece ocupado. Elige otra fecha.`); return; }
+    if (busy === null) { if(result)result.textContent='No hemos podido verificar si esa fecha está libre porque el servidor de disponibilidad no respondió. No se ha enviado la solicitud. Espera unos segundos y vuelve a intentarlo.'; alert('No se pudo verificar la disponibilidad. Por seguridad, no se ha enviado la solicitud.'); return; }
     const button = form.querySelector('[type="submit"]');
     if(button){button.disabled=true;button.dataset.originalText=button.textContent;button.textContent='Enviando solicitud…';}
     try {
