@@ -67,3 +67,21 @@
 .tryon-done h3{margin:0 0 8px;font:600 26px 'Cormorant Garamond',serif;color:#ffe5ef}
 .tryon-done p{margin:0 0 10px;font-size:13px;line-height:1.55;color:#f4d9e8}
 .tryon-ticket strong{display:inline-block;padding:3px 10px;border-radius:20px;background:#f28bb8;color:#260f1c;letter-spacing:1px}
+
+
+/* My Princess — probador virtual: interfaz despejada y centrada */
+.tryon-main{width:min(1180px,100%);margin:0 auto;padding:clamp(20px,4vw,46px) clamp(14px,3vw,26px) 52px}
+.tryon-main .wardrobe-hero{max-width:720px;margin:0 auto 22px}
+.tryon-main .wardrobe-hero h1,.tryon-main .wardrobe-hero h2{font-size:clamp(34px,5vw,50px);line-height:1.05}
+.tryon-consent{max-width:760px;margin:0 auto 22px;padding:12px 16px;border:1px solid #684354;border-radius:12px;background:#fff9fc06;color:#e8d7e1;font-size:13px;line-height:1.6}
+.tryon-layout{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:20px;align-items:start;max-width:1080px;margin:0 auto}
+.tryon-panel{padding:clamp(15px,2.4vw,24px);border:1px solid #70485b;border-radius:18px;background:linear-gradient(145deg,#21121f,#170d17 80%);box-shadow:0 12px 34px #00018}
+.tryon-step{margin:0 0 14px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#d9b47d}
+.tryon-stage{min-height:320px;border-radius:14px;border:1px solid #654052;background:#100a10;overflow:hidden}
+.tryon-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.tryon-actions .button{min-height:44px}
+.tryon-tip{font-size:12px;line-height:1.6;color:#cdbbc8;margin:12px 0 0}
+.tryon-chosen{margin-top:12px;border-radius:12px;background:#fff9fc07;padding:12px}
+.tryon-price,.tryon-payment-area{margin-top:18px}
+@media(max-width:760px){.tryon-layout{grid-template-columns:1fr;gap:14px}.tryon-stage{min-height:260px}.tryon-panel{padding:16px}.tryon-main{padding:20px 13px 36px}}
+@media(max-width:420px){.tryon-main .wardrobe-hero h1,.tryon-main .wardrobe-hero h2{font-size:34px}.tryon-stage{min-height:220px}.tryon-actions{display:grid;grid-template-columns:1fr}.tryon-actions .button{width:100%}}
