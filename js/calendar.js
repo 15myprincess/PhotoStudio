@@ -21,10 +21,14 @@
     });
   };
   const scheduleBusyPaint = () => {
-    requestAnimationFrame(() => {
+    const paint = () => {
       paintBusyDays();
+      // FullCalendar may finish its own DOM pass after the event callback.
       requestAnimationFrame(paintBusyDays);
-    });
+      setTimeout(paintBusyDays, 80);
+      setTimeout(paintBusyDays, 250);
+    };
+    requestAnimationFrame(paint);
   };
 
   // <helpers>
