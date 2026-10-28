@@ -18,7 +18,7 @@
 <title>My Princess | Estudio Fotográfico</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=13"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"><link rel="stylesheet" href="css/calendar.css?v=16">
+<link rel="stylesheet" href="css/style.css?v=13"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"><link rel="stylesheet" href="css/calendar.css?v=17">
 
 <style>
 .account-indicator{display:inline-flex!important;align-items:center;gap:9px;padding:6px 10px!important;border:1px solid #d9a1bc;border-radius:30px;background:linear-gradient(120deg,#f28bb81c,#d9b47d12);min-width:max-content;flex-shrink:0}.account-avatar{width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;border:1px solid #e9b5cd;background:radial-gradient(circle at 30% 20%,#ffe5ef,#d84f8b);color:#321322;font-size:20px;box-shadow:0 0 14px #f28bb833}.account-greeting{display:flex;flex-direction:column;line-height:1.25;gap:3px}.account-greeting span{font-size:9px;color:#f5c4d9;letter-spacing:.5px}.account-greeting strong{font-size:10px;color:#fff7fb;font-weight:600;max-width:115px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.account-indicator.is-logged-in{border-color:#d9b47d;background:#d9b47d12}.account-indicator.is-logged-in .account-avatar{background:linear-gradient(135deg,#ffe7f1,#d9b47d);border-color:#ffe0b1}@media(max-width:900px){.header{gap:10px}.menu-toggle{order:3;display:block;flex:0 0 auto;padding:7px 4px}.account-indicator{order:2;margin-left:auto;margin-right:2px;padding:5px 8px!important;gap:7px}.account-avatar{width:32px;height:32px;flex-basis:32px}.account-greeting strong{max-width:105px}.nav{order:4}.brand{min-width:0}.brand>span:nth-child(2){font-size:29px}.brand small{font-size:6px;letter-spacing:1.4px}}
@@ -35,6 +35,53 @@
 .mp-success-card button{margin-top:10px;min-width:150px}
 @keyframes mpSuccessIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){.mp-success-card{animation:none}}
+</style>
+<style id="my-princess-calendar-final-theme">
+/* My Princess bespoke calendar skin: overrides FullCalendar base skin */
+#bookingCalendar .fc,
+#bookingCalendar .fc-view-harness,
+#bookingCalendar .fc-view,
+#bookingCalendar .fc-scrollgrid,
+#bookingCalendar .fc-scrollgrid table,
+#bookingCalendar .fc-scrollgrid-section,
+#bookingCalendar .fc-scrollgrid-section>td,
+#bookingCalendar .fc-daygrid-body,
+#bookingCalendar .fc-daygrid-body table,
+#bookingCalendar .fc-daygrid-day,
+#bookingCalendar .fc-daygrid-day-frame,
+#bookingCalendar .fc-daygrid-day-top,
+#bookingCalendar .fc-daygrid-day-bottom { background:transparent!important; }
+#bookingCalendar .fc-scrollgrid,
+#bookingCalendar .fc-scrollgrid td,
+#bookingCalendar .fc-scrollgrid th { border-color:rgba(239,184,209,.18)!important; }
+#bookingCalendar .fc-col-header,
+#bookingCalendar .fc-col-header table,
+#bookingCalendar .fc-col-header thead,
+#bookingCalendar .fc-col-header tr,
+#bookingCalendar .fc-col-header th,
+#bookingCalendar .fc-col-header .fc-scrollgrid-sync-inner { background:#3b1a31!important; }
+#bookingCalendar .fc-col-header-cell-cushion { color:#ffdbea!important;font-weight:700!important;letter-spacing:.06em!important;text-decoration:none!important; }
+#bookingCalendar .fc-daygrid-day-number { color:#ffedf5!important;text-decoration:none!important; }
+#bookingCalendar .fc-day-other .fc-daygrid-day-number { color:#98798c!important; }
+#bookingCalendar .fc-day-today { background:rgba(227,143,181,.12)!important; }
+#bookingCalendar .fc-day-today .fc-daygrid-day-number { background:linear-gradient(135deg,#ffe6f0,#d99ab9)!important;color:#35152a!important;border-radius:50%!important; }
+#bookingCalendar .fc-toolbar .fc-button,
+#bookingCalendar .fc-toolbar .fc-button-primary { background:linear-gradient(135deg,#9d456e,#4b203d)!important;background-color:#682b4b!important;color:#fff3f8!important;border:1px solid #d49ab6!important;border-radius:10px!important;box-shadow:0 4px 15px #0003!important;text-shadow:none!important; }
+#bookingCalendar .fc-toolbar .fc-button:hover:not(:disabled) { background:linear-gradient(135deg,#d46d9b,#81345b)!important; }
+#bookingCalendar .fc-toolbar .fc-button-active { background:linear-gradient(135deg,#ffe1ed,#d99ab9)!important;color:#35152a!important; }
+#bookingCalendar .fc-bg-event,
+#bookingCalendar .fc-daygrid-bg-harness .fc-bg-event,
+#bookingCalendar .fc-daygrid-day-bg .fc-bg-event { background:linear-gradient(135deg,#c15b88,#712543)!important;background-color:#9c3b66!important;opacity:.82!important;border:1px solid #f0b9d2!important;border-radius:7px!important;margin:3px!important; }
+#bookingCalendar .fc-daygrid-event,
+#bookingCalendar .fc-daygrid-block-event { background:linear-gradient(135deg,#b74c7b,#6d294b)!important;background-color:#8e365f!important;color:#fff4f9!important;border:1px solid rgba(255,218,234,.4)!important;border-radius:7px!important; }
+#bookingCalendar .fc-event-title,#bookingCalendar .fc-event-time { color:#fff4f9!important;font-weight:700!important; }
+#bookingCalendar .fc-toolbar-title { color:#ffe4ef!important;font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(22px,2.2vw,30px)!important;text-transform:capitalize!important; }
+#bookingCalendar .fc-daygrid-day-frame { min-height:46px!important; }
+@media(max-width:700px){
+ #bookingCalendar .fc-toolbar-title{font-size:21px!important}
+ #bookingCalendar .fc-toolbar .fc-button{padding:5px 8px!important;font-size:10px!important}
+ #bookingCalendar .fc-daygrid-day-frame{min-height:40px!important}
+}
 </style>
 </head>
 <body>
