@@ -11,6 +11,8 @@
 
   // Fechas ocupadas del rango visible en formato 'YYYY-MM-DD'
   const busyDates = new Set();
+  let availabilityLoaded = false;
+  let availabilityError = false;
   const setStatus = (text) => { if (statusEl) statusEl.textContent = text; };
 
   // FullCalendar puede crear/reutilizar las celdas después de que termina la petición.
@@ -112,8 +114,10 @@
     buttonText: { today: 'Hoy' },
     events: async (info, success, failure) => {
       if (!apiBase) {
+        availabilityLoaded = false;
+        availabilityError = true;
         success([]);
-        setStatus('Modo demostración: configura la API para ver disponibilidad.');
+        setStatus('No se puede comprobar la disponibilidad ahora. No selecciones fechas hasta recuperar la conexión.');
         return;
       }
       setStatus('Cargando disponibilidad…');
@@ -128,8 +132,14 @@
           const end = ev.end || ev.endDate || start;
           if (start) expandBusyDays(start, end).forEach((d) => busyDates.add(d));
         });
-        // Las fechas ocupadas se marcan directamente en cada celda; no usamos eventos de fondo de FullCalendar.
-        success([]);
+        availabilityLoaded = true;
+        availabilityError = false;
+        // Renderizamos también eventos de fondo nativos: no dependemos solo de añadir clases al DOM.
+        const backgroundEvents = [...busyDates].map((date) => ({
+          id: 'mp-busy-' + date, start: date, end: addDays(date, 1),
+          allDay: true, display: 'background', classNames: ['mp-busy-day'], title: 'OCUPADO'
+        }));
+        success(backgroundEvents);
         // No pintamos inmediatamente: success() hace que FullCalendar actualice su DOM.
         // Dos pasadas de animación garantizan que las celdas estén disponibles.
         scheduleBusyPaint();
@@ -138,6 +148,8 @@
           : 'Disponibilidad cargada desde el estudio: no hay fechas ocupadas en este mes.');
       } catch (err) {
         console.error('[My Princess] No se pudo cargar la disponibilidad:', err);
+        availabilityLoaded = false;
+        availabilityError = true;
         setStatus('No fue posible cargar la disponibilidad real. Inténtalo de nuevo en un momento.');
         failure(err);
       } finally {
@@ -155,7 +167,7 @@
       const clickedDate = info.dateStr; // Formato YYYY-MM-DD
 
       // REGLA: Si el día está ocupado, impedimos seleccionarlo
-      if (busyDates.has(clickedDate)) {
+      if (!availabilityLoaded || availabilityError) {\n        setStatus('Aún no se ha podido verificar la disponibilidad. Espera a que cargue e inténtalo de nuevo.');\n        alert('No se puede confirmar si esta fecha está libre todavía. Espera a que cargue el calendario e inténtalo de nuevo.');\n        return;\n      }\n      if (busyDates.has(clickedDate)) {
         setStatus(`Lo sentimos, el día ${clickedDate} ya está ocupado. Por favor, elige otra fecha.`);
         alert(`El día ${clickedDate} ya se encuentra reservado. Elige otra fecha disponible.`);
         return;
@@ -182,7 +194,7 @@
     if (busyDates.has(ymd)) return true;
     try {
       const data = await fetchAvailability(`${addDays(ymd, -1)}T00:00:00Z`, `${addDays(ymd, 2)}T00:00:00Z`);
-      return normalizeEvents(data).some((ev) => { if (!ev) return false; const start = ev.start || ev.startDate || ev.date || ev.dateTime; const end = ev.end || ev.endDate || start; return !!dateValue(start) && expandBusyDays(start, end).includes(ymd); });
+      const events = normalizeEvents(data);\n      return events.some((ev) => { if (!ev) return false; const start = ev.start || ev.startDate || ev.date || ev.dateTime; const end = ev.end || ev.endDate || start; return !!dateValue(start) && expandBusyDays(start, end).includes(ymd); });
     } catch (err) {
       console.error('[My Princess] No se pudo comprobar la fecha:', err);
       return null;
