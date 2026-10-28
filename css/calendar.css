@@ -99,3 +99,58 @@
  .calendar-legend{grid-template-columns:1fr;gap:8px!important;}
 }
 @media(prefers-reduced-motion:reduce){#bookingCalendar .fc *{transition:none!important}}
+
+
+/* FINAL POLISH — calendario couture legible en móvil y escritorio */
+.calendar-live-card{color:#fff0f7!important;}
+.calendar-live-card>p{margin:8px 0 12px!important;color:#d9bdcd!important;}
+#bookingCalendar{width:100%;max-width:100%;overflow:hidden!important;padding:12px!important;background:linear-gradient(145deg,rgba(17,8,18,.72),rgba(35,13,29,.88))!important;border:1px solid rgba(234,174,201,.26)!important;border-radius:20px!important;}
+#bookingCalendar .fc,
+#bookingCalendar .fc .fc-view-harness,
+#bookingCalendar .fc .fc-view-harness-active{background:transparent!important;color:#fff0f7!important;}
+#bookingCalendar .fc .fc-scrollgrid,
+#bookingCalendar .fc .fc-scrollgrid table,
+#bookingCalendar .fc .fc-scrollgrid-section>td{background:transparent!important;border-color:rgba(235,190,211,.16)!important;}
+#bookingCalendar .fc .fc-col-header,
+#bookingCalendar .fc .fc-col-header thead,
+#bookingCalendar .fc .fc-col-header tr,
+#bookingCalendar .fc .fc-col-header th{background:linear-gradient(180deg,#4b233e,#32172b)!important;}
+#bookingCalendar .fc .fc-col-header-cell{border-color:rgba(235,190,211,.15)!important;}
+#bookingCalendar .fc .fc-col-header-cell-cushion{display:inline-block;padding:8px 1px!important;color:#f6c9dd!important;font-size:10px!important;letter-spacing:.04em!important;}
+#bookingCalendar .fc .fc-daygrid-day,
+#bookingCalendar .fc .fc-daygrid-day-frame,
+#bookingCalendar .fc .fc-daygrid-day-top{background:transparent!important;}
+#bookingCalendar .fc .fc-daygrid-day{border-color:rgba(235,190,211,.15)!important;}
+#bookingCalendar .fc .fc-daygrid-day-number{color:#f8eaf2!important;}
+#bookingCalendar .fc .fc-day-other .fc-daygrid-day-number{color:#866d7c!important;}
+#bookingCalendar .fc .fc-day-past{opacity:.45!important;}
+#bookingCalendar .fc .fc-day-today{background:rgba(233,164,197,.10)!important;}
+#bookingCalendar .fc .fc-day-today .fc-daygrid-day-number{background:linear-gradient(145deg,#ffe0ed,#dca0bd)!important;color:#35152a!important;}
+#bookingCalendar .fc .fc-bg-event{opacity:.75!important;border-radius:7px!important;margin:3px!important;}
+#bookingCalendar .fc .fc-bg-event.mp-busy-day,
+#bookingCalendar .fc .fc-bg-event[style*="rgb(194, 65, 111)"],
+#bookingCalendar .fc .fc-bg-event[style*="rgb(195, 65, 111)"]{background:linear-gradient(135deg,#b94e78,#762b4e)!important;}
+#bookingCalendar .fc .fc-daygrid-day-events .fc-event{border:1px solid rgba(255,211,229,.3)!important;background:linear-gradient(135deg,#a94370,#71304f)!important;color:#fff4f9!important;}
+#bookingCalendar .fc .fc-daygrid-day-events .fc-event-title,
+#bookingCalendar .fc .fc-daygrid-day-events .fc-event-time{color:#fff4f9!important;}
+#bookingCalendar .fc .fc-daygrid-day-bottom{padding:0 3px 3px!important;}
+#bookingCalendar .fc .fc-toolbar-chunk{display:flex;align-items:center;gap:5px;}
+#bookingCalendar .fc .fc-toolbar-title{font-size:clamp(21px,2.2vw,29px)!important;white-space:normal!important;text-align:center;}
+#bookingCalendar .fc .fc-button{min-height:36px!important;}
+.calendar-legend{margin-top:14px!important;}
+@media(max-width:700px){
+ .calendar-live-card{padding:17px!important;}
+ #bookingCalendar{padding:8px 5px 6px!important;border-radius:16px!important;}
+ #bookingCalendar .fc .fc-toolbar{display:grid!important;grid-template-columns:1fr auto;row-gap:10px!important;align-items:center!important;}
+ #bookingCalendar .fc .fc-toolbar-chunk:first-child{grid-column:1;grid-row:1;}
+ #bookingCalendar .fc .fc-toolbar-chunk:nth-child(2){grid-column:1/-1;grid-row:2;justify-content:center;}
+ #bookingCalendar .fc .fc-toolbar-chunk:last-child{grid-column:2;grid-row:1;justify-content:flex-end;}
+ #bookingCalendar .fc .fc-toolbar-title{font-size:22px!important;}
+ #bookingCalendar .fc .fc-button{min-height:33px!important;padding:5px 8px!important;font-size:10px!important;}
+ #bookingCalendar .fc .fc-col-header-cell-cushion{font-size:9px!important;padding:7px 0!important;}
+ #bookingCalendar .fc .fc-daygrid-day-frame{min-height:43px!important;padding:1px!important;}
+ #bookingCalendar .fc .fc-daygrid-day-number{width:26px!important;height:26px!important;margin:1px auto!important;font-size:10px!important;}
+ #bookingCalendar .fc .fc-daygrid-day-events{margin-top:0!important;}
+ #bookingCalendar .fc .fc-bg-event{margin:2px!important;border-radius:5px!important;}
+ .calendar-legend{grid-template-columns:1fr!important;}
+}
