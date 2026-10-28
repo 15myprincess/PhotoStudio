@@ -29,9 +29,10 @@
  async function ensureProfile(user){
    const meta=user.user_metadata||{}, fullName=String(meta.full_name||$('fullName').value||user.email||'Clienta').trim().slice(0,120);
    const consent=meta.reminders_opt_in===true;
-   const {data:existing}=await sb.from('client_profiles').select('phone,identity_number,reminders_opt_in,full_name,quinceanera_name').eq('user_id',user.id).maybeSingle();
+   const {data:existing}=await sb.from('client_profiles').select('phone,identity_number,reminders_opt_in,full_name,quinceanera_name,guardian').eq('user_id',user.id).maybeSingle();
    const phone=String(meta.phone||existing?.phone||'').trim();
    const quinceaneraName=String(meta.quinceanera_name||existing?.quinceanera_name||'').trim();
+   const guardian=String(meta.guardian||existing?.guardian||'').trim();
    const identityNumber=String(meta.identity_number||existing?.identity_number||'').trim();
    const {error}=await sb.from('client_profiles').upsert({user_id:user.id,full_name:existing?.full_name||fullName,quinceanera_name:quinceaneraName,guardian,email:user.email||'',phone,identity_number:identityNumber,reminders_opt_in:existing?.reminders_opt_in??consent},{onConflict:'user_id'});
    if(error) console.warn('No se pudo sincronizar el perfil del cliente:',error.message);
