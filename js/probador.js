@@ -82,6 +82,7 @@
     [el.reqName, el.reqPhone, el.reqRef].forEach((i) => { i.disabled = state.busy; });
     el.chosen.textContent = state.selectedDresses.length ? `Vestidos seleccionados: ${state.selectedDresses.length} · Total: ${state.selectedDresses.length * 50} CUP` : 'Aún no has elegido vestidos.';
     const countLabel = $('#dressCountLabel'); if (countLabel) countLabel.textContent = String(state.selectedDresses.length);
+    if (el.priceLabel) el.priceLabel.textContent = (state.selectedDresses.length * 50) + ' CUP';
   }
   function setSelfie(dataUrl) {
     state.selfie = dataUrl;
@@ -224,7 +225,7 @@
   }
 
   // ───────────── Solicitud de montaje (correo al estudio) ─────────────
-  const tcfg = Object.assign({ priceLabel: '50 pesos', paymentInstructions: '', requirePaymentReference: true, deliveryHours: 24 }, window.MY_PRINCESS_TRYON || {});
+  const tcfg = Object.assign({ priceLabel: '50 CUP por vestido', paymentInstructions: '', requirePaymentReference: true, deliveryHours: 24 }, window.MY_PRINCESS_TRYON || {});
   // '+53 5123 4567' / '51234567' → '+5351234567'; devuelve null si no parece un teléfono.
   function normalizePhone(value) {
     const raw = String(value || '').replace(/[^\d+]/g, '');
