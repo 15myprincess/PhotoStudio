@@ -305,3 +305,15 @@
 #galeria .gallery-item:focus-visible{outline:2px solid #f4c6da;outline-offset:4px}
 @media(max-width:700px){#galeria.gallery{padding:58px 14px 68px}#galeria .section-heading{margin-bottom:25px}#galeria .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:clamp(145px,48vw,230px);gap:10px}#galeria .gallery-item,#galeria .gallery-item.tall{grid-column:span 1;grid-row:span 1;border-radius:4px 16px 4px 16px}#galeria .gallery-item:first-child{grid-column:span 2;grid-row:span 2}#galeria .gallery-item.wide{grid-column:span 2;grid-row:span 1}#galeria .gallery-item span{left:12px;bottom:12px;font-size:19px}#galeria .gallery-item span:after{margin-top:7px}}
 @media(prefers-reduced-motion:reduce){#galeria .gallery-item,#galeria .gallery-item img,#galeria .gallery-item span:after{transition:none!important}}
+
+
+/* My Princess — galería: composición editorial, sin exceso de adornos */
+.gallery{padding:clamp(46px,6vw,78px) clamp(16px,6vw,84px) clamp(50px,7vw,88px)}
+.gallery .section-heading{max-width:760px;margin:0 auto 28px;text-align:center}
+.gallery-grid{grid-template-columns:1.05fr 1fr 1fr;grid-template-rows:clamp(170px,22vw,260px) clamp(170px,22vw,260px);gap:12px;max-width:1180px;margin:0 auto}
+.gallery-item{border:1px solid #d9b47d44;border-radius:9px;background:#1b101a;box-shadow:0 8px 24px #0002}
+.gallery-item img{filter:saturate(.94);transition:transform .55s ease,filter .55s ease}
+.gallery-item:hover img{transform:scale(1.035);filter:saturate(1.04) brightness(.82)}
+.gallery-item .gallery-caption,.gallery-item figcaption{padding:34px 15px 13px;background:linear-gradient(transparent,#100810d9);font-size:clamp(16px,1.5vw,21px);line-height:1.15}
+@media(max-width:700px){.gallery{padding:42px 14px 52px}.gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,clamp(150px,31vw,205px));gap:9px}.gallery-item.tall{grid-row:span 2}.gallery-item.wide{grid-column:span 2}.gallery-item{border-radius:8px}}
+@media(prefers-reduced-motion:reduce){.gallery-item img{transition:none}}
