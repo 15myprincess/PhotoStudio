@@ -374,3 +374,13 @@
   background-position:center center!important;
   background-size:cover!important;
 }
+
+
+/* My Princess — encuadre móvil del hero: prioriza la mesa y el cuaderno. */
+@media (max-width: 760px) {
+  .hero-photo {
+    background-position: center 78% !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
