@@ -384,3 +384,31 @@
     transform: none !important;
   }
 }
+
+
+/* Hero v19: recorrido panorámico fluido, anclado a los bordes también en móvil. */
+.hero-photo{
+  background-position:left 48%!important;
+  background-size:auto 115%!important;
+  animation:mpHeroPan 32s ease-in-out infinite alternate!important;
+  will-change:background-position;
+}
+@keyframes mpHeroPan{
+  0%{background-position:left 48%}
+  100%{background-position:right 48%}
+}
+@media(max-width:760px){
+  .hero-photo{
+    background-position:left center!important;
+    background-size:auto 112%!important;
+    animation:mpHeroPanMobile 26s ease-in-out infinite alternate!important;
+    transform:none!important;
+  }
+  @keyframes mpHeroPanMobile{
+    0%{background-position:left center}
+    100%{background-position:right center}
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-photo{animation:none!important;background-position:center center!important}
+}
