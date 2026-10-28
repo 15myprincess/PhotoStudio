@@ -372,7 +372,8 @@
   }
 }
 
-/* My Princess: bajar 300 px la fotografía de la mujer con calendario solo en móvil. */
+/* My Princess: mantener la fotografía de la reserva alineada por abajo. */
+.booking-photo{background-position:center bottom!important;background-size:cover!important;}
 @media (max-width:760px){
-  .booking-photo{background-position:center calc(35% + 300px)!important;}
+  .booking-photo{background-position:center bottom!important;background-size:cover!important;}
 }
