@@ -412,3 +412,23 @@
 @media(prefers-reduced-motion:reduce){
   .hero-photo{animation:none!important;background-position:center center!important}
 }
+
+
+/* Hero móvil: recorrido panorámico real de borde a borde, sin quedarse centrado. */
+@media (max-width: 760px) {
+  .hero-photo {
+    background-size: auto 100% !important;
+    background-position: 0% 50% !important;
+    animation: mpHeroPanMobileV20 30s linear infinite alternate !important;
+    will-change: background-position;
+  }
+  @keyframes mpHeroPanMobileV20 {
+    from { background-position: 0% 50%; }
+    to   { background-position: 100% 50%; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  @media (max-width: 760px) {
+    .hero-photo { animation: none !important; background-position: 50% 50% !important; }
+  }
+}
