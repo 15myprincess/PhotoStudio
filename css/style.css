@@ -371,3 +371,8 @@
     animation: none !important;
   }
 }
+
+/* My Princess: bajar 300 px la fotografía de la mujer con calendario solo en móvil. */
+@media (max-width:760px){
+  .booking-photo{background-position:center calc(35% + 300px)!important;}
+}
