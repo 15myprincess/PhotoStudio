@@ -81,10 +81,13 @@
         (data.events || []).forEach((ev) => {
           if (ev && ev.start) expandBusyDays(ev.start, ev.end).forEach((d) => busyDates.add(d));
         });
-        // Un fondo por día ocupado (día completo): se ve igual para eventos con hora y de varios días.
-        success([...busyDates].map((d) => ({
-          start: d, allDay: true, display: 'background', classNames: ['mp-busy-day'], title: 'Ocupado'
-        })));
+        // Las fechas ocupadas se marcan directamente en cada celda; no usamos eventos de fondo de FullCalendar.
+        success([]);
+        calendarEl.querySelectorAll('.mp-busy-date').forEach((el) => el.classList.remove('mp-busy-date'));
+        busyDates.forEach((d) => {
+          const cell = calendarEl.querySelector(`.fc-daygrid-day[data-date="${d}"]`);
+          if (cell) cell.classList.add('mp-busy-date');
+        });
         setStatus(busyDates.size
           ? 'Disponibilidad cargada desde el estudio. Las fechas en vino están ocupadas.'
           : 'Disponibilidad cargada desde el estudio: no hay fechas ocupadas en este mes.');
@@ -95,6 +98,17 @@
       } finally {
         clearTimeout(wakeTimer);
       }
+    },
+    dayCellDidMount: (arg) => {
+      const date = arg.date.getFullYear() + '-' + pad(arg.date.getMonth() + 1) + '-' + pad(arg.date.getDate());
+      if (busyDates.has(date)) arg.el.classList.add('mp-busy-date');
+    },
+    datesSet: () => {
+      requestAnimationFrame(() => {
+        calendarEl.querySelectorAll('.fc-daygrid-day[data-date]').forEach((cell) => {
+          cell.classList.toggle('mp-busy-date', busyDates.has(cell.getAttribute('data-date')));
+        });
+      });
     },
     dateClick: (info) => {
       const clickedDate = info.dateStr; // Formato YYYY-MM-DD
