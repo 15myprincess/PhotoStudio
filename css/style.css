@@ -284,3 +284,24 @@
  #contratos .gem-card .details{min-width:0;width:100%;padding:9px 5px;font-size:9px}
 }
 @media(prefers-reduced-motion:reduce){#contratos .gem-card,#contratos .gem-card *{transition:none!important}}
+
+
+/* My Princess · galería editorial renovada */
+#galeria.gallery{position:relative;overflow:hidden;padding:clamp(64px,8vw,112px) clamp(16px,5vw,72px);background:radial-gradient(ellipse at 50% 0%,#482238 0%,#1b0e1a 44%,#100810 100%)}
+#galeria .section-heading{max-width:780px;margin:0 auto 38px;text-align:center}
+#galeria .section-heading h2{max-width:700px;margin:0 auto 12px;font:500 clamp(34px,5vw,58px)/1.05 'Cormorant Garamond',serif;color:#fff0f7}
+#galeria .section-heading>p:last-child{max-width:560px;margin:0 auto;color:#d7c0ce;font-size:12px}
+#galeria .gallery-grid{width:min(1120px,100%);margin:auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:clamp(100px,13vw,170px);gap:clamp(9px,1.4vw,18px)}
+#galeria .gallery-item{position:relative;display:block;min-width:0;min-height:0;grid-column:span 4;grid-row:span 2;padding:0;overflow:hidden;border:1px solid #d9b47d55;border-radius:5px 22px 5px 22px;background:#241321;cursor:zoom-in;isolation:isolate;box-shadow:0 16px 38px #0004;transition:transform .35s,border-color .35s,box-shadow .35s}
+#galeria .gallery-item.tall{grid-column:span 4;grid-row:span 3}
+#galeria .gallery-item.wide{grid-column:span 8;grid-row:span 2}
+#galeria .gallery-item img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.2,.7,.2,1),filter .4s;filter:saturate(.9)}
+#galeria .gallery-item:after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#10081000 38%,#100810d9 100%);pointer-events:none}
+#galeria .gallery-item span{position:absolute;z-index:2;left:18px;right:12px;bottom:16px;text-align:left;color:#fff5fa;font:500 clamp(17px,2vw,24px)/1.1 'Cormorant Garamond',serif;letter-spacing:.02em}
+#galeria .gallery-item span:after{content:"";display:block;width:35px;height:1px;margin-top:10px;background:#e6c38b;transition:width .3s}
+#galeria .gallery-item:hover{transform:translateY(-4px);border-color:#e6c38b;box-shadow:0 22px 50px #0007}
+#galeria .gallery-item:hover img{transform:scale(1.055);filter:saturate(1.08)}
+#galeria .gallery-item:hover span:after{width:68px}
+#galeria .gallery-item:focus-visible{outline:2px solid #f4c6da;outline-offset:4px}
+@media(max-width:700px){#galeria.gallery{padding:58px 14px 68px}#galeria .section-heading{margin-bottom:25px}#galeria .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:clamp(145px,48vw,230px);gap:10px}#galeria .gallery-item,#galeria .gallery-item.tall{grid-column:span 1;grid-row:span 1;border-radius:4px 16px 4px 16px}#galeria .gallery-item:first-child{grid-column:span 2;grid-row:span 2}#galeria .gallery-item.wide{grid-column:span 2;grid-row:span 1}#galeria .gallery-item span{left:12px;bottom:12px;font-size:19px}#galeria .gallery-item span:after{margin-top:7px}}
+@media(prefers-reduced-motion:reduce){#galeria .gallery-item,#galeria .gallery-item img,#galeria .gallery-item span:after{transition:none!important}}
