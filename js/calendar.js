@@ -6,7 +6,7 @@
   const statusEl = document.getElementById('calendarStatus');
   const dateInput = document.querySelector('#bookingForm [name="date"]');
   const config = window.MY_PRINCESS_CONFIG || {};
-  const apiBase = String(config.bookingApiBase || config.API_BASE_URL || '').replace(/\\/+$/, '');
+  const apiBase = String(config.bookingApiBase || config.API_BASE_URL || '').replace(/\/+$/, '');
   const busyDates = new Set();
   let availabilityLoaded = false;
   let availabilityError = false;
@@ -38,11 +38,11 @@
   const expandBusyDays = (startValue, endValue) => {
     const start = dateValue(startValue);
     const end = dateValue(endValue) || start;
-    if (!/^\\d{4}-\\d{2}-\\d{2}/.test(start)) return [];
+    if (!/^\d{4}-\d{2}-\d{2}/.test(start)) return [];
     const first = start.slice(0, 10);
     let last = end.slice(0, 10);
     // Google Calendar usa end exclusivo en eventos de día completo.
-    const endAtMidnight = end.length === 10 || /T00:00(:00(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2})?$/.test(end);
+    const endAtMidnight = end.length === 10 || /T00:00(:00(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?$/.test(end);
     if (endAtMidnight && last > first) last = addDays(last, -1);
     const result = [];
     for (let day = first, i = 0; day <= last && i < 62; day = addDays(day, 1), i++) result.push(day);
@@ -185,7 +185,7 @@
   scheduleBusyPaint();
 
   window.MP_checkDateBusy = async (ymd) => {
-    if (!apiBase || !/^\\d{4}-\\d{2}-\\d{2}$/.test(ymd)) return null;
+    if (!apiBase || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return null;
     if (busyDates.has(ymd)) return true;
     try {
       const data = await fetchAvailability(addDays(ymd, -1) + 'T00:00:00Z', addDays(ymd, 2) + 'T00:00:00Z');
