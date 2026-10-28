@@ -363,20 +363,14 @@
 }
 
 
-/* My Princess — encuadre móvil del hero: priorizar la modelo hacia la derecha. */
-@media (max-width: 600px) {
-  .hero-photo {
-    background-position: right center !important;
-    background-size: cover !important;
-    animation: none !important;
-  }
+/* My Princess: restaurar el encuadre original y centrar las fotografías. */
+.hero-photo{
+  background-position:center 40%;
 }
-
-/* My Princess: mantener la fotografía de la reserva alineada por abajo. */
-.booking-photo{background-position:center bottom!important;background-size:cover!important;}
 @media (max-width:760px){
-  .booking-photo{background-position:center bottom!important;background-size:cover!important;}
+  .hero-photo{background-position:center center;}
 }
-
-/* My Princess: desplazar 300 px hacia abajo la fotografía junto al formulario de reserva. */
-#reserva .booking-photo{background-position:center calc(50% + 300px)!important;}
+.booking-photo{
+  background-position:center center!important;
+  background-size:cover!important;
+}
