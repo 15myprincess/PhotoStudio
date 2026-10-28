@@ -1,4 +1,4 @@
-/* My Princess — calendario de reservas con bloqueo de días ocupados (v2). */
+/* My Princess — disponibilidad segura y marcas visibles del calendario. */
 (() => {
   const calendarEl = document.getElementById('bookingCalendar');
   if (!calendarEl || !window.FullCalendar) return;
@@ -6,100 +6,82 @@
   const statusEl = document.getElementById('calendarStatus');
   const dateInput = document.querySelector('#bookingForm [name="date"]');
   const config = window.MY_PRINCESS_CONFIG || {};
-  // Usa bookingApiBase o API_BASE_URL de forma segura
-  const apiBase = (config.bookingApiBase || config.API_BASE_URL || '').replace(/\/+$/, '');
-
-  // Fechas ocupadas del rango visible en formato 'YYYY-MM-DD'
+  const apiBase = String(config.bookingApiBase || config.API_BASE_URL || '').replace(/\\/+$/, '');
   const busyDates = new Set();
   let availabilityLoaded = false;
   let availabilityError = false;
-  const setStatus = (text) => { if (statusEl) statusEl.textContent = text; };
+  let requestVersion = 0;
 
-  // FullCalendar puede crear/reutilizar las celdas después de que termina la petición.
-  // Aplicamos las clases en un punto posterior al render y siempre que cambie el mes.
+  const setStatus = (message) => { if (statusEl) statusEl.textContent = message; };
+  const pad = (n) => String(n).padStart(2, '0');
+  const addDays = (ymd, n) => {
+    const [y, m, d] = String(ymd).slice(0, 10).split('-').map(Number);
+    const date = new Date(Date.UTC(y, m - 1, d + n));
+    return date.toISOString().slice(0, 10);
+  };
+  const dateValue = (v) => {
+    if (!v) return '';
+    if (typeof v === 'string') return v;
+    if (typeof v === 'object') return v.date || v.dateTime || v.datetime || v.value || '';
+    return '';
+  };
+  const normalizeEvents = (data) => {
+    if (Array.isArray(data)) return data;
+    for (const key of ['events', 'busy', 'busyDates', 'items']) {
+      if (Array.isArray(data?.[key])) {
+        return key === 'busyDates' ? data[key].map(v => typeof v === 'string' ? { start: v, end: v } : v) : data[key];
+      }
+    }
+    if (Array.isArray(data?.data?.events)) return data.data.events;
+    return [];
+  };
+  const expandBusyDays = (startValue, endValue) => {
+    const start = dateValue(startValue);
+    const end = dateValue(endValue) || start;
+    if (!/^\\d{4}-\\d{2}-\\d{2}/.test(start)) return [];
+    const first = start.slice(0, 10);
+    let last = end.slice(0, 10);
+    // Google Calendar usa end exclusivo en eventos de día completo.
+    const endAtMidnight = end.length === 10 || /T00:00(:00(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2})?$/.test(end);
+    if (endAtMidnight && last > first) last = addDays(last, -1);
+    const result = [];
+    for (let day = first, i = 0; day <= last && i < 62; day = addDays(day, 1), i++) result.push(day);
+    return result;
+  };
+
   const paintBusyDays = () => {
-    calendarEl.querySelectorAll('.fc-daygrid-day[data-date]').forEach((cell) => {
+    calendarEl.querySelectorAll('.fc-daygrid-day[data-date]').forEach(cell => {
       cell.classList.toggle('mp-busy-date', busyDates.has(cell.getAttribute('data-date')));
     });
   };
-  // Vigila reconstrucciones internas de FullCalendar que pueden borrar las clases visuales.
-  let paintObserver = null;
-  const observeCalendarCells = () => {
-    if (paintObserver || !window.MutationObserver) return;
-    paintObserver = new MutationObserver(() => paintBusyDays());
-    paintObserver.observe(calendarEl, { childList: true, subtree: true });
-  };
   const scheduleBusyPaint = () => {
-    const paint = () => {
-      paintBusyDays();
-      // FullCalendar may finish its own DOM pass after the event callback.
-      requestAnimationFrame(paintBusyDays);
-      setTimeout(paintBusyDays, 80);
-      setTimeout(paintBusyDays, 250);
-    };
-    requestAnimationFrame(paint);
+    requestAnimationFrame(paintBusyDays);
+    setTimeout(paintBusyDays, 50);
+    setTimeout(paintBusyDays, 200);
   };
+  if (window.MutationObserver) {
+    new MutationObserver(paintBusyDays).observe(calendarEl, { childList: true, subtree: true });
+  }
 
-  // <helpers>
-  const pad = (n) => String(n).padStart(2, '0');
-  const addDays = (ymd, n) => {
-    const [y, m, d] = ymd.split('-').map(Number);
-    const t = new Date(Date.UTC(y, m - 1, d + n));
-    return `${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`;
-  };
-  // Convierte un bloque ocupado de Google (día completo o con hora) en TODOS los días que toca.
-  // Google devuelve el fin como límite exclusivo: un evento de día completo del 22 llega como 22 → 23.
-  const normalizeEvents = (data) => {
-    if (Array.isArray(data)) return data;
-    if (Array.isArray(data?.events)) return data.events;
-    if (Array.isArray(data?.data?.events)) return data.data.events;
-    if (Array.isArray(data?.busy)) return data.busy;
-    if (Array.isArray(data?.busyDates)) return data.busyDates.map(date => typeof date === 'string' ? { start: date, end: date } : date);
-    return [];
-  };
-  // La API puede devolver fechas como texto ISO o como objetos de Google Calendar:
-  // { date: "YYYY-MM-DD" } para eventos de día completo y { dateTime: "..." } con hora.
-  const dateValue = (value) => {
-    if (!value) return '';
-    if (typeof value === 'string') return value;
-    if (typeof value === 'object') return value.date || value.dateTime || value.datetime || value.value || '';
-    return String(value);
-  };
-  const expandBusyDays = (startStr, endStr) => {
-    startStr = dateValue(startStr);
-    endStr = dateValue(endStr) || startStr;
-    if (!/^\d{4}-\d{2}-\d{2}/.test(startStr)) return [];
-    const first = startStr.slice(0, 10);
-    const end = String(endStr);
-    let last = end.slice(0, 10);
-    const endsAtMidnight = end.length === 10 || /T00:00(:00(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?$/.test(end);
-    if (endsAtMidnight && last > first) last = addDays(last, -1);
-    const days = [];
-    for (let day = first, i = 0; day <= last && i < 62; day = addDays(day, 1), i++) days.push(day);
-    return days;
-  };
-  // </helpers>
-
-  async function fetchAvailability(startIso, endIso) {
-    const url = `${apiBase}/availability?start=${encodeURIComponent(startIso)}&end=${encodeURIComponent(endIso)}`;
+  async function fetchAvailability(start, end) {
+    if (!apiBase) throw new Error('API de disponibilidad no configurada');
+    const url = apiBase + '/availability?start=' + encodeURIComponent(start) + '&end=' + encodeURIComponent(end);
     const attempt = async (timeoutMs) => {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
       try {
-        const res = await fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store', signal: ctrl.signal });
-        if (!res.ok) throw Object.assign(new Error(`HTTP ${res.status}`), { status: res.status });
-        return await res.json();
+        const response = await fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store', signal: controller.signal });
+        if (!response.ok) throw Object.assign(new Error('HTTP ' + response.status), { status: response.status });
+        return await response.json();
       } finally {
         clearTimeout(timer);
       }
     };
     try {
-      return await attempt(15000);
-    } catch (err) {
-      // Render (plan gratuito) se duerme: el primer intento puede fallar mientras despierta.
-      const transient = !err.status || [502, 503, 504].includes(err.status);
-      if (!transient) throw err;
-      return await attempt(20000);
+      return await attempt(10000);
+    } catch (error) {
+      if (error.status && ![502, 503, 504].includes(error.status)) throw error;
+      return await attempt(12000);
     }
   }
 
@@ -113,90 +95,108 @@
     headerToolbar: { left: 'prev,next', center: 'title', right: 'today' },
     buttonText: { today: 'Hoy' },
     events: async (info, success, failure) => {
+      const version = ++requestVersion;
+      availabilityLoaded = false;
+      availabilityError = false;
+      busyDates.clear();
+      paintBusyDays();
       if (!apiBase) {
+        availabilityError = true;
+        success([]);
+        setStatus('No se puede comprobar la disponibilidad: falta la conexión con el servidor.');
+        return;
+      }
+      setStatus('Consultando disponibilidad…');
+      const wakeTimer = setTimeout(() => setStatus('El servidor está tardando. Espera; las fechas no se habilitarán hasta verificarlas.'), 3000);
+      try {
+        const data = await fetchAvailability(info.startStr, info.endStr);
+        if (version !== requestVersion) return;
+        const events = normalizeEvents(data);
+        busyDates.clear();
+        for (const event of events) {
+          if (!event) continue;
+          const start = event.start || event.startDate || event.date || event.dateTime;
+          const end = event.end || event.endDate || start;
+          for (const day of expandBusyDays(start, end)) busyDates.add(day);
+        }
+        availabilityLoaded = true;
+        availabilityError = false;
+        const backgrounds = [...busyDates].map(day => ({
+          id: 'mp-busy-' + day, start: day, end: addDays(day, 1),
+          allDay: true, display: 'background', classNames: ['mp-busy-day'], title: 'OCUPADO'
+        }));
+        success(backgrounds);
+        scheduleBusyPaint();
+        setStatus(busyDates.size
+          ? 'Disponibilidad verificada. Los días en vino están ocupados.'
+          : 'Disponibilidad verificada: el servidor no devuelve días ocupados para este mes.');
+      } catch (error) {
+        if (version !== requestVersion) return;
+        console.error('[My Princess] Error consultando disponibilidad:', error);
         availabilityLoaded = false;
         availabilityError = true;
         success([]);
-        setStatus('No se puede comprobar la disponibilidad ahora. No selecciones fechas hasta recuperar la conexión.');
-        return;
-      }
-      setStatus('Conectando con el calendario…');
-      const wakeTimer = setTimeout(
-        () => setStatus('El servidor está tardando en responder. No selecciones una fecha todavía.'), 4000);
-      try {
-        const data = await fetchAvailability(info.startStr, info.endStr);
-        busyDates.clear();
-        normalizeEvents(data).forEach((ev) => {
-          if (!ev) return;
-          const start = ev.start || ev.startDate || ev.date || ev.dateTime;
-          const end = ev.end || ev.endDate || start;
-          if (start) expandBusyDays(start, end).forEach((d) => busyDates.add(d));
-        });
-        availabilityLoaded = true;
-        availabilityError = false;
-        // Renderizamos también eventos de fondo nativos: no dependemos solo de añadir clases al DOM.
-        const backgroundEvents = [...busyDates].map((date) => ({
-          id: 'mp-busy-' + date, start: date, end: addDays(date, 1),
-          allDay: true, display: 'background', classNames: ['mp-busy-day'], title: 'OCUPADO'
-        }));
-        success(backgroundEvents);
-        // No pintamos inmediatamente: success() hace que FullCalendar actualice su DOM.
-        // Dos pasadas de animación garantizan que las celdas estén disponibles.
-        scheduleBusyPaint();
-        setStatus(busyDates.size
-          ? 'Disponibilidad cargada desde el estudio. Las fechas en vino están ocupadas.'
-          : 'Disponibilidad cargada desde el estudio: no hay fechas ocupadas en este mes.');
-      } catch (err) {
-        console.error('[My Princess] No se pudo cargar la disponibilidad:', err);
-        availabilityLoaded = false;
-        availabilityError = true;
-        setStatus('No se pudo cargar la disponibilidad. Recarga la página; por seguridad no se aceptan fechas sin verificar.');
-        failure(err);
+        setStatus('No se pudo verificar la disponibilidad. Recarga o inténtalo de nuevo; no selecciones una fecha todavía.');
       } finally {
         clearTimeout(wakeTimer);
       }
     },
     dayCellDidMount: (arg) => {
-      const date = arg.date.getFullYear() + '-' + pad(arg.date.getMonth() + 1) + '-' + pad(arg.date.getDate());
-      if (busyDates.has(date)) arg.el.classList.add('mp-busy-date');
+      const day = arg.el.getAttribute('data-date');
+      if (day) arg.el.classList.toggle('mp-busy-date', busyDates.has(day));
     },
-    datesSet: () => {
-      scheduleBusyPaint();
-    },
-    dateClick: (info) => {
-      const clickedDate = info.dateStr; // Formato YYYY-MM-DD
-
-      // REGLA: Si el día está ocupado, impedimos seleccionarlo
-      if (!availabilityLoaded || availabilityError) {\n        setStatus('Aún no se ha podido verificar la disponibilidad. Espera a que cargue e inténtalo de nuevo.');\n        alert('No se puede confirmar si esta fecha está libre todavía. Espera a que cargue el calendario e inténtalo de nuevo.');\n        return;\n      }\n      if (busyDates.has(clickedDate)) {
-        setStatus(`Lo sentimos, el día ${clickedDate} ya está ocupado. Por favor, elige otra fecha.`);
-        alert(`El día ${clickedDate} ya se encuentra reservado. Elige otra fecha disponible.`);
+    datesSet: scheduleBusyPaint,
+    dateClick: async (info) => {
+      const day = info.dateStr;
+      if (!availabilityLoaded || availabilityError) {
+        setStatus('Todavía no se ha verificado la disponibilidad. Espera a que termine la carga.');
         return;
       }
-
-      // Si está libre, se pasa al input del formulario
+      if (busyDates.has(day)) {
+        setStatus('El día ' + day + ' está ocupado. Elige otra fecha.');
+        alert('El día ' + day + ' ya está reservado. Elige otra fecha disponible.');
+        return;
+      }
+      // Segunda comprobación contra el servidor antes de aceptar una fecha que no aparece ocupada.
+      setStatus('Verificando la fecha seleccionada…');
+      const isBusy = await window.MP_checkDateBusy(day);
+      if (isBusy === null) {
+        setStatus('No se pudo verificar esta fecha. Inténtalo de nuevo cuando haya conexión.');
+        return;
+      }
+      if (isBusy) {
+        busyDates.add(day);
+        paintBusyDays();
+        setStatus('El día ' + day + ' está ocupado. Elige otra fecha.');
+        alert('El día ' + day + ' ya está reservado. Elige otra fecha disponible.');
+        return;
+      }
       if (dateInput) {
-        dateInput.value = clickedDate;
+        dateInput.value = day;
+        dateInput.dispatchEvent(new Event('input', { bubbles: true }));
         dateInput.dispatchEvent(new Event('change', { bubbles: true }));
         dateInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-      setStatus(`Has seleccionado el ${clickedDate}. Recuerda que la fecha debe ser confirmada por el estudio.`);
+      setStatus('Fecha verificada: ' + day + '. La reserva queda pendiente de confirmación del estudio.');
     }
   });
 
   calendar.render();
-  observeCalendarCells();
   scheduleBusyPaint();
 
-  // Para validar cualquier fecha (también las escritas a mano en el formulario y de otros meses).
-  // Devuelve true = ocupada, false = libre, null = no se pudo comprobar.
   window.MP_checkDateBusy = async (ymd) => {
-    if (!apiBase || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return null;
+    if (!apiBase || !/^\\d{4}-\\d{2}-\\d{2}$/.test(ymd)) return null;
     if (busyDates.has(ymd)) return true;
     try {
-      const data = await fetchAvailability(`${addDays(ymd, -1)}T00:00:00Z`, `${addDays(ymd, 2)}T00:00:00Z`);
-      const events = normalizeEvents(data);\n      return events.some((ev) => { if (!ev) return false; const start = ev.start || ev.startDate || ev.date || ev.dateTime; const end = ev.end || ev.endDate || start; return !!dateValue(start) && expandBusyDays(start, end).includes(ymd); });
-    } catch (err) {
-      console.error('[My Princess] No se pudo comprobar la fecha:', err);
+      const data = await fetchAvailability(addDays(ymd, -1) + 'T00:00:00Z', addDays(ymd, 2) + 'T00:00:00Z');
+      return normalizeEvents(data).some(event => {
+        if (!event) return false;
+        const start = event.start || event.startDate || event.date || event.dateTime;
+        const end = event.end || event.endDate || start;
+        return !!dateValue(start) && expandBusyDays(start, end).includes(ymd);
+      });
+    } catch (error) {
+      console.error('[My Princess] No se pudo verificar ' + ymd + ':', error);
       return null;
     }
   };
