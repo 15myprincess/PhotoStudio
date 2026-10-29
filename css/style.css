@@ -568,3 +568,23 @@
   .benefits span{font-size:clamp(9px,.72vw,10px);}
   .benefits>div:last-child{grid-column:auto!important;border:0;}
 }
+
+
+/* My Princess — HERO ESTABLE: sin desplazamiento ni zoom para evitar franjas oscuras laterales. */
+.hero .hero-photo,
+#inicio.hero .hero-photo {
+  animation: none !important;
+  transform: none !important;
+  background-position: center 48% !important;
+  background-size: cover !important;
+  will-change: auto !important;
+}
+@media (max-width: 760px) {
+  .hero .hero-photo,
+  #inicio.hero .hero-photo {
+    animation: none !important;
+    transform: none !important;
+    background-position: center center !important;
+    background-size: cover !important;
+  }
+}
