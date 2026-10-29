@@ -432,3 +432,28 @@
     .hero-photo { animation: none !important; background-position: 50% 50% !important; }
   }
 }
+
+
+/* Hero v21: desplaza el encuadre 300 px hacia el centro y conserva el paneo animado. */
+.hero-photo{
+  background-position:calc(0% + 300px) 48%!important;
+  animation:mpHeroPanCenter300 32s ease-in-out infinite alternate-reverse!important;
+  will-change:background-position;
+}
+@keyframes mpHeroPanCenter300{
+  from{background-position:calc(0% + 300px) 48%}
+  to{background-position:calc(100% + 300px) 48%}
+}
+@media(max-width:760px){
+  .hero-photo{
+    background-position:calc(0% + 300px) 50%!important;
+    animation:mpHeroPanMobileCenter300 32s ease-in-out infinite alternate-reverse!important;
+  }
+  @keyframes mpHeroPanMobileCenter300{
+    from{background-position:calc(0% + 300px) 50%}
+    to{background-position:calc(100% + 300px) 50%}
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-photo{animation:none!important;background-position:calc(50% + 300px) 50%!important}
+}
