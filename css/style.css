@@ -457,3 +457,29 @@
 @media(prefers-reduced-motion:reduce){
   .hero-photo{animation:none!important;background-position:calc(50% + 300px) 50%!important}
 }
+
+
+/* Hero v22: encuadre desplazado 900 px a la izquierda y paneo lento continuo. */
+.hero-photo{
+  background-position:calc(0% - 900px) 48%!important;
+  animation:mpHeroPanLeft900 36s ease-in-out infinite alternate!important;
+  will-change:background-position;
+}
+@keyframes mpHeroPanLeft900{
+  from{background-position:calc(0% - 900px) 48%;}
+  to{background-position:calc(100% - 900px) 48%;}
+}
+@media(max-width:760px){
+  .hero-photo{
+    background-position:calc(0% - 900px) 50%!important;
+    animation:mpHeroPanMobileLeft900 36s ease-in-out infinite alternate!important;
+    background-size:auto 100%!important;
+  }
+  @keyframes mpHeroPanMobileLeft900{
+    from{background-position:calc(0% - 900px) 50%;}
+    to{background-position:calc(100% - 900px) 50%;}
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-photo{animation:none!important;background-position:calc(0% - 900px) 48%!important;}
+}
