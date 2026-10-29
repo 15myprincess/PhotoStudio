@@ -51,7 +51,15 @@
 
   const paintBusyDays = () => {
     calendarEl.querySelectorAll('.fc-daygrid-day[data-date]').forEach(cell => {
-      cell.classList.toggle('mp-busy-date', busyDates.has(cell.getAttribute('data-date')));
+      const busy = busyDates.has(cell.getAttribute('data-date'));
+      cell.classList.toggle('mp-busy-date', busy);
+      if (busy) {
+        cell.style.setProperty('background', 'linear-gradient(135deg,rgba(135,18,62,.92),rgba(75,20,48,.88))', 'important');
+        cell.style.setProperty('box-shadow', 'inset 0 0 0 2px #ff8db8', 'important');
+      } else {
+        cell.style.removeProperty('background');
+        cell.style.removeProperty('box-shadow');
+      }
     });
   };
   const scheduleBusyPaint = () => {
@@ -96,7 +104,6 @@
       availabilityLoaded = false;
       availabilityError = false;
       // Nunca se habilitan fechas mientras no haya una respuesta verificada.
-      busyDates.clear();
       paintBusyDays();
       if (!apiBase) {
         availabilityError = true;
