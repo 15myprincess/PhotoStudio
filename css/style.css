@@ -483,3 +483,34 @@
 @media(prefers-reduced-motion:reduce){
   .hero-photo{animation:none!important;background-position:calc(0% - 900px) 48%!important;}
 }
+
+
+/* Corrección definitiva del hero: evita franjas vacías causadas por el paneo con
+   background-size:auto y desplazamientos fijos en píxeles. Todas las capas
+   (degradado y fotografía) cubren siempre el contenedor completo. */
+.hero-photo{
+  inset:0!important;
+  background-size:cover!important;
+  background-position:center 48%!important;
+  background-repeat:no-repeat!important;
+  animation:mpHeroSafeDrift 34s ease-in-out infinite alternate!important;
+  transform:none!important;
+}
+@keyframes mpHeroSafeDrift{
+  from{background-position:48% 48%}
+  to{background-position:56% 52%}
+}
+@media(max-width:760px){
+  .hero-photo{
+    background-size:cover!important;
+    background-position:center 50%!important;
+    animation:mpHeroSafeDriftMobile 30s ease-in-out infinite alternate!important;
+  }
+  @keyframes mpHeroSafeDriftMobile{
+    from{background-position:46% 50%}
+    to{background-position:56% 52%}
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-photo{animation:none!important;background-position:center 50%!important;}
+}
