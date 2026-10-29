@@ -549,3 +549,11 @@
     transform:none!important;
   }
 }
+
+/* Ajuste solicitado: desplazar únicamente la fotografía del hero 300px a la izquierda en móvil. */
+@media (max-width:760px){
+  .hero-photo{
+    background-position:calc(50% + 300px) center!important;
+    animation:none!important;
+  }
+}
