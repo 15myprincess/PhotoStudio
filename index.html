@@ -114,7 +114,7 @@
 <input type="hidden" name="selectedDressIds" id="selectedDressIds" value="[]">
 <label>Método de pago preferido<select name="payment"><option>QR</option><option>Transferencia bancaria</option><option>Pago presencial</option></select></label><label>Notas (opcional)<textarea name="notes" rows="2" placeholder="Cuéntanos algún detalle especial"></textarea></label><button class="button pink submit" type="submit">Preparar solicitud <span>→</span></button><p class="form-note">La fecha no queda reservada hasta que el estudio confirme la disponibilidad. El plazo de pago de 24 horas comenzará después de la confirmación.</p><div id="bookingResult" class="result" hidden></div></form></div><aside class="calendar-card calendar-live-card">
 <h3>Calendario de disponibilidad</h3>
-<p id="calendarStatus" role="status">Cargando disponibilidad…</p>
+<p id="calendarStatus" role="status">Consultando disponibilidad…</p><button class="button outline calendar-retry" id="retryCalendarAvailability" type="button">Reintentar disponibilidad ↻</button>
 <div id="bookingCalendar" aria-label="Calendario de disponibilidad"></div>
 <div class="calendar-legend"><span><i class="available"></i>Disponible para consultar</span><span><i class="busy"></i>Fecha ocupada</span></div>
 <p class="form-note">Seleccionar una fecha solo prepara la solicitud; no confirma la reserva.</p>
@@ -125,7 +125,28 @@
 </main><footer class="footer"><a class="brand footer-brand" href="#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span><a href="#top" class="back-top" aria-label="Volver arriba">↑</a><small class="copyright">© <span id="year"></span> My Princess · Estudio Fotográfico</small></footer>
 <div class="modal" id="contractModal" aria-hidden="true"><div class="modal-panel"><button class="modal-close" aria-label="Cerrar">×</button><div class="modal-gem">✧</div><p class="eyebrow">CONTRATO FOTOGRÁFICO</p><h2 id="modalTitle">Cuarzo Rosa</h2><p id="modalDescription">Una experiencia pensada para guardar recuerdos inolvidables.</p><p class="modal-note">Contenido y precio por definir con el estudio.</p><a href="#reserva" class="button pink modal-reserve">Consultar este contrato →</a></div></div>
 <div class="lightbox" id="lightbox"><button aria-label="Cerrar imagen">×</button><img src="" alt="Vista ampliada"></div><a class="floating-whatsapp" href="#contacto" aria-label="Contactar">✆</a>
-<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js?v=13"></script><script src="js/calendar.js?v=20"></script><script src="js/my-princess-data.js?v=14"></script>
+<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js?v=13"></script><style id="mp-calendar-busy-fix">
+/* Estado ocupado: el fondo se pinta en la celda, por encima de las capas transparentes de FullCalendar. */
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date,
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-frame,
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-top,
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-events {
+  background:linear-gradient(145deg,rgba(190,57,112,.78),rgba(92,24,58,.88))!important;
+  background-color:#762747!important;
+}
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date {box-shadow:inset 0 0 0 2px #f0a7c7!important;position:relative!important}
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number {color:#fff1f7!important;font-weight:900!important}
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date:after {content:"OCUPADO";display:block;position:absolute;left:2px;right:2px;bottom:2px;z-index:8;text-align:center;color:#fff;font:900 7px/1.2 Arial,sans-serif;letter-spacing:.02em;pointer-events:none}
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-bg,
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-bg-harness {background:transparent!important;pointer-events:none}
+.calendar-retry{margin:0 0 10px;padding:7px 12px;font-size:12px}
+#calendarStatus{min-height:1.5em}
+@media(min-width:900px){
+  .booking{position:relative;z-index:2}
+  .booking-content,.calendar-card{position:relative;z-index:2}
+}
+</style>
+<script src="js/calendar.js?v=21"></script><script src="js/my-princess-data.js?v=14"></script>
 
 
 
