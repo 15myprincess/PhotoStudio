@@ -390,7 +390,7 @@
 .hero-photo{
   background-position:left 48%!important;
   background-size:auto 115%!important;
-  animation:mpHeroPan 32s ease-in-out infinite alternate!important;
+  animation:mpHeroPan 32s ease-in-out infinite alternate-reverse!important;
   will-change:background-position;
 }
 @keyframes mpHeroPan{
@@ -419,7 +419,7 @@
   .hero-photo {
     background-size: auto 100% !important;
     background-position: 0% 50% !important;
-    animation: mpHeroPanMobileV20 30s linear infinite alternate !important;
+    animation: mpHeroPanMobileV20 32s ease-in-out infinite alternate-reverse !important;
     will-change: background-position;
   }
   @keyframes mpHeroPanMobileV20 {
