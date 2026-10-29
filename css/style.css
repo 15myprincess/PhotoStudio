@@ -639,3 +639,14 @@
   #galeria .gallery-item.behind-camera{grid-column:2!important;grid-row:3 / span 2!important;}
   #galeria .gallery-item span{font-size:clamp(15px,4vw,19px)!important;left:10px!important;right:8px!important;bottom:10px!important;}
 }
+
+
+/* My Princess — intercambio de tamaños entre Escenografía y Detrás de cámaras */
+@media (min-width:701px){
+  #galeria .gallery-item:nth-child(3){grid-column:9 / span 4!important;grid-row:3 / span 1!important;}
+  #galeria .gallery-item.behind-camera{grid-column:9 / span 4!important;grid-row:1 / span 2!important;}
+}
+@media (max-width:700px){
+  #galeria .gallery-item:nth-child(3){grid-column:2!important;grid-row:3!important;}
+  #galeria .gallery-item.behind-camera{grid-column:2!important;grid-row:2 / span 2!important;}
+}
