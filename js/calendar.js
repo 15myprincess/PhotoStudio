@@ -77,12 +77,9 @@
         clearTimeout(timer);
       }
     };
-    try {
-      return await attempt(10000);
-    } catch (error) {
-      if (error.status && ![502, 503, 504].includes(error.status)) throw error;
-      return await attempt(12000);
-    }
+    // Un solo intento corto: evita que el calendario quede bloqueado casi medio minuto.
+    // Si Render está dormido, se informa del error y se permite reintentar manualmente.
+    return await attempt(9000);
   }
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -98,6 +95,7 @@
       const version = ++requestVersion;
       availabilityLoaded = false;
       availabilityError = false;
+      // Nunca se habilitan fechas mientras no haya una respuesta verificada.
       busyDates.clear();
       paintBusyDays();
       if (!apiBase) {
@@ -111,6 +109,9 @@
       try {
         const data = await fetchAvailability(info.startStr, info.endStr);
         if (version !== requestVersion) { success([]); return; }
+        if (data?.success === false || data?.ok === false || data?.error) {
+          throw new Error(data.error || 'El servidor no pudo verificar la disponibilidad');
+        }
         const events = normalizeEvents(data);
         busyDates.clear();
         for (const event of events) {
@@ -126,6 +127,7 @@
           allDay: true, display: 'background', classNames: ['mp-busy-day'], title: 'OCUPADO'
         }));
         success(backgrounds);
+        // Aplicar la clase directamente tras el render de FullCalendar y en los siguientes frames.
         scheduleBusyPaint();
         setStatus(busyDates.size
           ? 'Disponibilidad verificada. Los días en vino están ocupados.'
@@ -136,7 +138,7 @@
         availabilityLoaded = false;
         availabilityError = true;
         success([]);
-        setStatus('No se pudo verificar la disponibilidad. Recarga o inténtalo de nuevo; no selecciones una fecha todavía.');
+        setStatus('No se pudo comprobar la disponibilidad (máximo 9 s). Pulsa «Reintentar» o recarga la página; no selecciones fecha todavía.');
       } finally {
         clearTimeout(wakeTimer);
       }
@@ -183,6 +185,9 @@
 
   calendar.render();
   scheduleBusyPaint();
+  // Control explícito para recuperar el calendario sin recargar toda la página.
+  const retryButton = document.getElementById('retryCalendarAvailability');
+  if (retryButton) retryButton.addEventListener('click', () => calendar.refetchEvents());
 
   window.MP_checkDateBusy = async (ymd) => {
     if (!apiBase || !/^\d{4}-\d{2}-\d{2}$/.test(ymd)) return null;
