@@ -588,3 +588,12 @@
     background-size: cover !important;
   }
 }
+
+
+/* My Princess — ajuste solicitado del encuadre del HERO solo en móvil. */
+@media (max-width: 760px) {
+  .hero-photo {
+    background-position: calc(30%) center !important;
+    animation: none !important;
+  }
+}
