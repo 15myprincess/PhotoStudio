@@ -514,3 +514,38 @@
 @media(prefers-reduced-motion:reduce){
   .hero-photo{animation:none!important;background-position:center 50%!important;}
 }
+
+/* My Princess — restauración estable del hero: sin desplazamientos ni franjas laterales.
+   Se anula el paneo con píxeles fijos de versiones anteriores y se mantiene la foto
+   cubriendo todo el contenedor en escritorio y móvil. */
+.hero{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+}
+.hero-photo{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  background-size:cover!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+  animation:none!important;
+  transform:none!important;
+  will-change:auto!important;
+}
+.hero-vignette{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  pointer-events:none!important;
+}
+@media(max-width:760px){
+  .hero-photo{
+    background-size:cover!important;
+    background-position:center center!important;
+    animation:none!important;
+    transform:none!important;
+  }
+}
