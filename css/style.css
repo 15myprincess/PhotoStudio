@@ -557,3 +557,14 @@
     animation:none!important;
   }
 }
+
+
+/* Desktop: los seis beneficios quedan en una sola fila, sin que el último baje. */
+@media (min-width: 901px){
+  .benefits{grid-template-columns:repeat(6,minmax(0,1fr))!important;}
+  .benefits>div{min-width:0;gap:clamp(6px,.8vw,12px);padding:5px clamp(5px,.8vw,12px);}
+  .benefits .benefit-icon{width:clamp(32px,3vw,43px);height:clamp(32px,3vw,43px);flex:0 0 clamp(32px,3vw,43px);}
+  .benefits .benefit-icon svg{width:clamp(19px,1.8vw,25px);height:clamp(19px,1.8vw,25px);}
+  .benefits span{font-size:clamp(9px,.72vw,10px);}
+  .benefits>div:last-child{grid-column:auto!important;border:0;}
+}
