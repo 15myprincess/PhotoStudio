@@ -848,3 +848,90 @@
 #contractModal.modal-topacio .mp-modal-scroll-hint{border-color:#e9bd68;background:rgba(55,37,16,.96);color:#fff0d2}
 #contractModal.modal-topacio .mp-modal-scroll-hint b{color:#ffe0a0}
 .g4{--gem-accent:#e6ad43!important}
+
+
+/* Fondo de cada ventana emergente: siempre utiliza la paleta de su gema. */
+#contractModal.modal-aguamarina .modal-panel{
+ background:radial-gradient(ellipse at 50% 0%,#176b78 0%,#123b49 46%,#091b25 100%);
+ border-color:#69e8ed;box-shadow:0 24px 90px #000b,0 0 34px #35d9e855;
+}
+#contractModal.modal-aguamarina .modal-gem{color:#80f3f3}
+#contractModal.modal-aguamarina .eyebrow,#contractModal.modal-aguamarina .mp-contract-kicker{color:#8ceff0}
+#contractModal.modal-aguamarina #modalTitle{color:#d9ffff}
+#contractModal.modal-aguamarina .modal-note{color:#ffe0a0}
+#contractModal.modal-aguamarina .mp-contract-intro p{color:#e4ffff}
+#contractModal.modal-aguamarina .mp-contract-section{border-color:#347e88}
+#contractModal.modal-aguamarina .mp-contract-section h3{color:#8ceff0}
+#contractModal.modal-aguamarina .mp-contract-family{border-color:#55aeb4;background:#ffffff0a}
+#contractModal.modal-aguamarina .mp-contract-family-number{color:#ffe0a0}
+#contractModal.modal-aguamarina .mp-contract-family strong{color:#d9ffff}
+#contractModal.modal-aguamarina .mp-contract-family p{color:#c9eeee}
+#contractModal.modal-aguamarina .mp-modal-scroll-hint{border-color:#69e8ed;background:rgba(12,54,65,.96);color:#e4ffff}
+#contractModal.modal-aguamarina .mp-modal-scroll-hint b{color:#ffe0a0}
+
+/* Turmalina: rosa intenso con matices de piedra preciosa. */
+#contractModal.modal-turmalina .modal-panel{
+ background:radial-gradient(ellipse at 50% 0%,#79234f 0%,#42152f 46%,#1b0b18 100%);
+ border-color:#f47bb6;box-shadow:0 24px 90px #000b,0 0 34px #f04b9a55;
+}
+#contractModal.modal-turmalina .modal-gem{color:#ff8fc5}
+#contractModal.modal-turmalina .eyebrow,#contractModal.modal-turmalina .mp-contract-kicker{color:#ff9acb}
+#contractModal.modal-turmalina #modalTitle{color:#ffe0ef}
+#contractModal.modal-turmalina .modal-note{color:#ffe0a0}
+#contractModal.modal-turmalina .mp-contract-intro p{color:#ffeaf4}
+#contractModal.modal-turmalina .mp-contract-section{border-color:#985074}
+#contractModal.modal-turmalina .mp-contract-section h3{color:#ff9acb}
+
+/* Esmeralda: verde profundo y luminoso. */
+#contractModal.modal-esmeralda .modal-panel{
+ background:radial-gradient(ellipse at 50% 0%,#176348 0%,#123c30 46%,#081b16 100%);
+ border-color:#52e6ad;box-shadow:0 24px 90px #000b,0 0 34px #19e3a055;
+}
+#contractModal.modal-esmeralda .modal-gem{color:#70f3bd}
+#contractModal.modal-esmeralda .eyebrow,#contractModal.modal-esmeralda .mp-contract-kicker{color:#83f2c2}
+#contractModal.modal-esmeralda #modalTitle{color:#ddfff0}
+#contractModal.modal-esmeralda .modal-note{color:#ffe0a0}
+#contractModal.modal-esmeralda .mp-contract-intro p{color:#e7fff4}
+#contractModal.modal-esmeralda .mp-contract-section{border-color:#347c62}
+#contractModal.modal-esmeralda .mp-contract-section h3{color:#83f2c2}
+
+/* Zafiro: azul real profundo. */
+#contractModal.modal-zafiro .modal-panel{
+ background:radial-gradient(ellipse at 50% 0%,#174b86 0%,#142d50 46%,#081321 100%);
+ border-color:#70b8ff;box-shadow:0 24px 90px #000b,0 0 34px #268bff55;
+}
+#contractModal.modal-zafiro .modal-gem{color:#8bc5ff}
+#contractModal.modal-zafiro .eyebrow,#contractModal.modal-zafiro .mp-contract-kicker{color:#9bcfff}
+#contractModal.modal-zafiro #modalTitle{color:#e2f2ff}
+#contractModal.modal-zafiro .modal-note{color:#ffe0a0}
+#contractModal.modal-zafiro .mp-contract-intro p{color:#edf7ff}
+#contractModal.modal-zafiro .mp-contract-section{border-color:#426f9d}
+#contractModal.modal-zafiro .mp-contract-section h3{color:#9bcfff}
+
+/* Rubí: rojo carmesí. */
+#contractModal.modal-rubi .modal-panel{
+ background:radial-gradient(ellipse at 50% 0%,#801f35 0%,#481522 46%,#1c0a10 100%);
+ border-color:#ff7180;box-shadow:0 24px 90px #000b,0 0 34px #ff334c55;
+}
+#contractModal.modal-rubi .modal-gem{color:#ff8996}
+#contractModal.modal-rubi .eyebrow,#contractModal.modal-rubi .mp-contract-kicker{color:#ff9da7}
+#contractModal.modal-rubi #modalTitle{color:#ffe3e6}
+#contractModal.modal-rubi .modal-note{color:#ffe0a0}
+#contractModal.modal-rubi .mp-contract-intro p{color:#ffeff0}
+#contractModal.modal-rubi .mp-contract-section{border-color:#994254}
+#contractModal.modal-rubi .mp-contract-section h3{color:#ff9da7}
+
+/* Diamante: plata helada y blanco cristalino. */
+#contractModal.modal-diamante .modal-panel{
+ background:radial-gradient(ellipse at 50% 0%,#596276 0%,#303746 46%,#111722 100%);
+ border-color:#e5eaff;box-shadow:0 24px 90px #000b,0 0 34px #d9d7ff55;
+}
+#contractModal.modal-diamante .modal-gem{color:#f0f2ff}
+#contractModal.modal-diamante .eyebrow,#contractModal.modal-diamante .mp-contract-kicker{color:#e1e7ff}
+#contractModal.modal-diamante #modalTitle{color:#fff}
+#contractModal.modal-diamante .modal-note{color:#ffe6b3}
+#contractModal.modal-diamante .mp-contract-intro p{color:#f5f7ff}
+#contractModal.modal-diamante .mp-contract-section{border-color:#818ba1}
+#contractModal.modal-diamante .mp-contract-section h3{color:#e1e7ff}
+#contractModal.modal-diamante .mp-contract-family{border-color:#aeb8ce}
+#contractModal.modal-diamante .mp-contract-family-number{color:#ffe6b3}
