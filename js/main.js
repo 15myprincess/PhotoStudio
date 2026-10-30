@@ -155,7 +155,31 @@
         <span class="mp-contract-family-number">4</span>
         <div><strong>Fotografías familiares incluidas</strong><p>Hasta 4 de las 44 fotografías contratadas pueden ser familiares.</p></div>
       </section>`,
-    'Esmeralda':'Elegancia y cuidado de los detalles en cada recuerdo.',
+    'Esmeralda': `
+      <div class="mp-contract-intro">
+        <span class="mp-contract-kicker">CONTRATO N.º 06 · ELEGANCIA NATURAL</span>
+        <p>Una propuesta refinada que combina un álbum de gran formato, variedad de vestuarios y recuerdos impresos para atesorar cada instante de tus quince años.</p>
+      </div>
+      <section class="mp-contract-section">
+        <h3>El álbum de tus recuerdos</h3>
+        <ul><li><strong>Book fotográfico 9 × 12 pulgadas</strong>, con 40 fotografías impresas.</li><li>El book incluye <strong>laminado y guarda</strong>.</li><li>Las 40 fotografías contratadas también se entregan en formato digital.</li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Detalles para compartir</h3>
+        <ul><li><strong>1 afiche</strong> impreso en formato 20 × 24 pulgadas.</li><li><strong>8 postales</strong> para conservar y compartir tus recuerdos.</li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Tu experiencia de moda</h3>
+        <ul><li><strong>4 trajes de quinceañera.</strong></li><li><strong>6 vestuarios casuales.</strong></li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Una sesión al aire libre</h3>
+        <p>Las fotografías en exteriores son <strong>opcionales</strong>; puedes decidir si deseas incorporar este escenario a tu experiencia.</p>
+      </section>
+      <section class="mp-contract-family">
+        <span class="mp-contract-family-number">3</span>
+        <div><strong>Fotografías familiares incluidas</strong><p>Hasta 3 de las 40 fotografías contratadas pueden ser familiares.</p></div>
+      </section>`,
     'Zafiro':'Una experiencia de mayor nivel para una celebración majestuosa.',
     'Rubí':'Una propuesta exclusiva para dar protagonismo a tu historia.',
     'Diamante':'La joya de la corona: experiencia premium por definir con el estudio.'
@@ -189,11 +213,11 @@
     if (modalTitle) modalTitle.textContent = name;
     if (modalDescription) {
       const content = descriptions[name] || 'Una experiencia fotográfica especial.';
-      if (['Amatista','Cuarzo Rosa','Aguamarina','Topacio','Turmalina'].includes(name)) modalDescription.innerHTML = content;
+      if (['Amatista','Cuarzo Rosa','Aguamarina','Topacio','Turmalina','Esmeralda'].includes(name)) modalDescription.innerHTML = content;
       else modalDescription.textContent = content;
     }
     const modalNote = $('.modal-note');
-    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : name === 'Aguamarina' ? 'PRECIO DEL CONTRATO: 315 USD' : name === 'Topacio' ? 'PRECIO DEL CONTRATO: 300 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Turmalina' ? 'PRECIO DEL CONTRATO: 400 USD · FOTOS EN EXTERIOR OPCIONALES' : 'Contenido y precio por definir con el estudio.';
+    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : name === 'Aguamarina' ? 'PRECIO DEL CONTRATO: 315 USD' : name === 'Topacio' ? 'PRECIO DEL CONTRATO: 300 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Turmalina' ? 'PRECIO DEL CONTRATO: 400 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Esmeralda' ? 'PRECIO DEL CONTRATO: 430 USD · FOTOS EN EXTERIOR OPCIONALES' : 'Contenido y precio por definir con el estudio.';
     modal?.classList.toggle('modal-amatista', name === 'Amatista');
     modal?.classList.toggle('modal-cuarzo', name === 'Cuarzo Rosa');
     modal?.classList.toggle('modal-aguamarina', name === 'Aguamarina');
