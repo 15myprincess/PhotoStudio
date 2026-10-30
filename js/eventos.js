@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',function(){console.log('My Princess event gallery ready');});
