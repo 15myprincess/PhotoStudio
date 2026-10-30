@@ -41,7 +41,7 @@
   const modalTitle = $('#modalTitle');
   const modalDescription = $('#modalDescription');
   const descriptions = {
-    'Cuarzo Rosa':'La opción esencial para comenzar a crear recuerdos hermosos de tus quince años.',
+    'Cuarzo Rosa':'ÁLBUM FOTOGRÁFICO\\n• 24 fotografías impresas en tamaño 8 × 10 pulgadas.\\n• Las mismas 24 fotografías se entregan también en formato digital.\\n\\nPÓSTER\\n• 1 póster impreso de 12 × 18 pulgadas.\\n\\nVESTUARIO DE QUINCEAÑERA\\n• 3 vestidos proporcionados por el estudio.\\n\\nROPA CASUAL\\n• 5 cambios de ropa casual proporcionados por el estudio.\\n• También puedes traer ropa de tu preferencia.\\n\\nFOTOGRAFÍAS FAMILIARES\\n• Hasta 4 de las 24 fotografías pueden ser familiares.',
     'Amatista':'Una experiencia llena de encanto y detalles para conservar tu historia.',
     'Aguamarina':'Una propuesta serena, fresca y elegante para tu sesión fotográfica.',
     'Topacio':'Luz, personalidad y fotografías que resaltan tu estilo.',
@@ -78,7 +78,7 @@
     const name = button.dataset.contract || '';
     chooseContract(name);
     if (modalTitle) modalTitle.textContent = name;
-    if (modalDescription) modalDescription.textContent = descriptions[name] || 'Una experiencia fotográfica especial.';
+    if (modalDescription) modalDescription.textContent = descriptions[name] || 'Una experiencia fotográfica especial.';\n    const modalNote = $('.modal-note');\n    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : 'Contenido y precio por definir con el estudio.';
     modal?.classList.add('open'); modal?.setAttribute('aria-hidden', 'false');
   }));
   const closeModal = () => { modal?.classList.remove('open'); modal?.setAttribute('aria-hidden', 'true'); };
