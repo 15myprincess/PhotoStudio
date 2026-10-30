@@ -746,3 +746,36 @@
  #contractModal.modal-amatista .mp-contract-section h3{font-size:23px}
  #contractModal.modal-amatista .modal-description{font-size:16px}
 }
+
+
+/* Fichas de Cuarzo Rosa y Amatista: misma composición, lectura y navegación móvil. */
+#contractModal.modal-contract-detail .modal-panel{
+  position:relative;width:min(680px,100%);max-width:680px;max-height:min(88vh,900px);overflow-y:auto;
+  padding:clamp(26px,5vw,48px);text-align:left;scroll-behavior:smooth;overscroll-behavior:contain;
+  background:radial-gradient(ellipse at 50% 0%,#432354 0%,#211326 43%,#120b15 100%);
+  border:1px solid #b99bd0;box-shadow:0 24px 90px #000b,0 0 34px #9b6bc533;
+}
+#contractModal.modal-contract-detail .modal-gem{text-align:center;color:#d6b5f4;font-size:58px;line-height:1}
+#contractModal.modal-contract-detail .eyebrow{text-align:center;color:#d9b8f3;letter-spacing:.24em}
+#contractModal.modal-contract-detail #modalTitle{text-align:center;color:#f0dcff;font-size:clamp(38px,7vw,54px);margin:0 0 5px}
+#contractModal.modal-contract-detail .modal-note{text-align:center;color:#e6c99c;font-size:13px;letter-spacing:.16em;margin:12px 0 24px}
+#contractModal.modal-contract-detail .modal-description{color:#f8effb;font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;line-height:1.6}
+#contractModal.modal-contract-detail .mp-contract-intro{text-align:center;max-width:520px;margin:0 auto 24px}
+#contractModal.modal-contract-detail .mp-contract-kicker{font:600 9px Montserrat,Arial,sans-serif;letter-spacing:.2em;color:#d9b8f3}
+#contractModal.modal-contract-detail .mp-contract-intro p{font-style:italic;font-size:19px;color:#f4e8fb;margin:10px 0 0}
+#contractModal.modal-contract-detail .mp-contract-section{padding:17px 0;border-top:1px solid #795c87}
+#contractModal.modal-contract-detail .mp-contract-section h3{font:500 25px 'Cormorant Garamond',Georgia,serif;color:#e5c8ff;margin:0 0 8px}
+#contractModal.modal-contract-detail .mp-contract-section ul{padding-left:21px;margin:0}
+#contractModal.modal-contract-detail .mp-contract-section li{padding:3px 0}
+#contractModal.modal-contract-detail .mp-contract-section strong{color:#fff}
+#contractModal.modal-contract-detail .mp-contract-family{display:flex;align-items:center;gap:16px;padding:17px;border:1px solid #9272a7;border-radius:13px;background:#ffffff0a;margin:8px 0 22px}
+#contractModal.modal-contract-detail .mp-contract-family-number{font:500 42px 'Cormorant Garamond',serif;color:#e6c99c;min-width:42px;text-align:center}
+#contractModal.modal-contract-detail .mp-contract-family strong{color:#f0dcff}
+#contractModal.modal-contract-detail .mp-contract-family p{margin:3px 0 0;font-size:15px;color:#dfcfe7}
+#contractModal.modal-contract-detail .modal-reserve{display:flex;width:max-content;margin:0 auto}
+.mp-modal-scroll-hint{display:none;position:sticky;bottom:8px;z-index:5;width:max-content;max-width:100%;margin:18px auto 4px;padding:8px 15px;border:1px solid #d9b47d;border-radius:30px;background:rgba(35,18,43,.94);color:#f8e8ff;box-shadow:0 5px 20px #0007;text-align:center;pointer-events:none;gap:10px;align-items:center;font:600 10px Montserrat,Arial,sans-serif;letter-spacing:.06em}
+.mp-modal-scroll-hint.is-visible{display:flex;animation:mpScrollCue 1.8s ease-in-out infinite}
+.mp-modal-scroll-hint b{font-size:17px;color:#e6c99c;line-height:1}
+@keyframes mpScrollCue{0%,100%{transform:translateY(0);opacity:.88}50%{transform:translateY(4px);opacity:1}}
+@media(max-width:600px){#contractModal.modal-contract-detail{padding:10px}#contractModal.modal-contract-detail .modal-panel{max-height:92vh;padding:28px 19px 34px}#contractModal.modal-contract-detail .mp-contract-section h3{font-size:23px}#contractModal.modal-contract-detail .modal-description{font-size:16px}.mp-modal-scroll-hint{font-size:9px;padding:7px 12px}}
+@media(prefers-reduced-motion:reduce){.mp-modal-scroll-hint.is-visible{animation:none}}
