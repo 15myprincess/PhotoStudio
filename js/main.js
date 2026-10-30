@@ -130,7 +130,31 @@
         <span class="mp-contract-family-number">3</span>
         <div><strong>Fotografías familiares incluidas</strong><p>Hasta 3 de las 35 fotografías contratadas pueden ser familiares.</p></div>
       </section>`,
-    'Turmalina':'Una experiencia con más distinción para celebrar tu gran día.',
+    'Turmalina': `
+      <div class="mp-contract-intro">
+        <span class="mp-contract-kicker">CONTRATO N.º 05 · DISTINCIÓN Y MOVIMIENTO</span>
+        <p>Una experiencia amplia y versátil para celebrar tus quince años con variedad de looks, recuerdos impresos y fotografías que cuentan tu historia.</p>
+      </div>
+      <section class="mp-contract-section">
+        <h3>El álbum de tus recuerdos</h3>
+        <ul><li><strong>Book fotográfico 10 × 12 pulgadas</strong>, con 44 fotografías impresas.</li><li>Las 44 fotografías contratadas también se entregan en formato digital.</li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Detalles para compartir</h3>
+        <ul><li><strong>1 afiche</strong> impreso en formato 16 × 24 pulgadas.</li><li><strong>8 postales</strong> para conservar y compartir tus recuerdos.</li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Tu experiencia de moda</h3>
+        <ul><li><strong>4 trajes de quinceañera.</strong></li><li><strong>8 vestuarios casuales.</strong></li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Una experiencia en exteriores</h3>
+        <p>Las fotografías en exteriores son <strong>opcionales</strong>; puedes elegir si deseas incorporar este escenario a tu sesión.</p>
+      </section>
+      <section class="mp-contract-family">
+        <span class="mp-contract-family-number">4</span>
+        <div><strong>Fotografías familiares incluidas</strong><p>Hasta 4 de las 44 fotografías contratadas pueden ser familiares.</p></div>
+      </section>`,
     'Esmeralda':'Elegancia y cuidado de los detalles en cada recuerdo.',
     'Zafiro':'Una experiencia de mayor nivel para una celebración majestuosa.',
     'Rubí':'Una propuesta exclusiva para dar protagonismo a tu historia.',
@@ -165,11 +189,11 @@
     if (modalTitle) modalTitle.textContent = name;
     if (modalDescription) {
       const content = descriptions[name] || 'Una experiencia fotográfica especial.';
-      if (name === 'Amatista' || name === 'Cuarzo Rosa' || name === 'Aguamarina' || name === 'Topacio') modalDescription.innerHTML = content;
+      if (['Amatista','Cuarzo Rosa','Aguamarina','Topacio','Turmalina'].includes(name)) modalDescription.innerHTML = content;
       else modalDescription.textContent = content;
     }
     const modalNote = $('.modal-note');
-    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : name === 'Aguamarina' ? 'PRECIO DEL CONTRATO: 315 USD' : name === 'Topacio' ? 'PRECIO DEL CONTRATO: 300 USD · FOTOS EN EXTERIOR OPCIONALES' : 'Contenido y precio por definir con el estudio.';
+    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : name === 'Aguamarina' ? 'PRECIO DEL CONTRATO: 315 USD' : name === 'Topacio' ? 'PRECIO DEL CONTRATO: 300 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Turmalina' ? 'PRECIO DEL CONTRATO: 400 USD · FOTOS EN EXTERIOR OPCIONALES' : 'Contenido y precio por definir con el estudio.';
     modal?.classList.toggle('modal-amatista', name === 'Amatista');
     modal?.classList.toggle('modal-cuarzo', name === 'Cuarzo Rosa');
     modal?.classList.toggle('modal-aguamarina', name === 'Aguamarina');
