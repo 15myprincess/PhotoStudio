@@ -883,3 +883,20 @@
 #contractModal.modal-rubi .modal-gem,#contractModal.modal-rubi .eyebrow,#contractModal.modal-rubi .mp-contract-kicker,#contractModal.modal-rubi .mp-contract-section h3{color:#ffc0c9!important}
 #contractModal.modal-diamante .modal-gem,#contractModal.modal-diamante .eyebrow,#contractModal.modal-diamante .mp-contract-kicker,#contractModal.modal-diamante .mp-contract-section h3{color:#f7f8ff!important}
 
+
+
+/* Tarjeta independiente para las ofertas adicionales. */
+.mp-extra-card{--gem-accent:#d8b47c;--gem:#9a6b9d;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.mp-extra-card .mp-extra-card-icon{width:104px;height:104px;display:grid;place-items:center;margin:8px auto 15px;border-radius:50%;font:normal 64px/1 'Cormorant Garamond',Georgia,serif;color:#ffe6b0;background:radial-gradient(circle at 35% 25%,#f0d9a8 0%,#a87545 35%,#43263d 75%,#171018 100%);border:1px solid #e5c58e;box-shadow:0 0 28px #d7a85c55,inset 0 0 20px #fff4}
+.mp-extra-card h3{color:#f6dfb4}
+.mp-extra-card p{max-width:230px}
+#contractModal.modal-extras .modal-panel{background:radial-gradient(ellipse at 50% 0%,#72513e 0%,#38263a 48%,#171018 100%)!important;border:1px solid #e5c58e!important;box-shadow:0 24px 90px #000b,0 0 38px #d7a85c66!important}
+#contractModal.modal-extras .modal-gem,#contractModal.modal-extras .eyebrow,#contractModal.modal-extras #modalTitle,#contractModal.modal-extras .mp-contract-kicker,#contractModal.modal-extras .mp-contract-section h3{color:#ffe0a5!important}
+#contractModal.modal-extras .modal-note{color:#f5d8b0!important}
+#contractModal.modal-extras .mp-contract-intro p,#contractModal.modal-extras .mp-contract-section li{color:#fff6e9!important}
+#contractModal.modal-extras .mp-contract-section{border-color:#a47c61!important}
+#contractModal.modal-extras .mp-extra-price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px}
+#contractModal.modal-extras .mp-extra-price-grid p{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0;padding:9px 10px;border:1px solid #b28b6b66;border-radius:9px;background:#ffffff0b;color:#fff5e7;font-size:14px}
+#contractModal.modal-extras .mp-extra-price-grid strong{white-space:nowrap;color:#ffe0a5}
+#contractModal .modal-reserve[hidden]{display:none!important}
+@media(max-width:520px){#contractModal.modal-extras .mp-extra-price-grid{grid-template-columns:1fr}}
