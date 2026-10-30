@@ -844,3 +844,26 @@
 #contractModal.modal-aguamarina .mp-modal-scroll-hint{border-color:#91f5ed!important;background:rgba(8,65,76,.97)!important;color:#eafffd!important}
 #contractModal.modal-aguamarina .mp-modal-scroll-hint b{color:#ffe2a8!important}
 
+/* Esmeralda — ficha con fondo verde profundo y reflejos de la gema. */
+#contractModal.modal-esmeralda .modal-panel{
+  background:radial-gradient(ellipse at 50% 0%,#258b60 0%,#14583f 43%,#08271f 100%)!important;
+  border:1px solid #8df0bd!important;
+  box-shadow:0 24px 90px #000b,0 0 38px #36d58a88!important;
+}
+#contractModal.modal-esmeralda .modal-gem{color:#a5ffd0!important;text-shadow:0 0 24px #42e99a}
+#contractModal.modal-esmeralda .eyebrow,
+#contractModal.modal-esmeralda .mp-contract-kicker,
+#contractModal.modal-esmeralda .mp-contract-section h3{color:#a5ffd0!important}
+#contractModal.modal-esmeralda #modalTitle{color:#e0ffed!important}
+#contractModal.modal-esmeralda .modal-note{color:#ffe2a8!important}
+#contractModal.modal-esmeralda .modal-description,
+#contractModal.modal-esmeralda .mp-contract-intro p,
+#contractModal.modal-esmeralda .mp-contract-section li{color:#f0fff6!important}
+#contractModal.modal-esmeralda .mp-contract-section{border-color:#398b68!important}
+#contractModal.modal-esmeralda .mp-contract-family{border-color:#78dba8!important;background:#ffffff12!important}
+#contractModal.modal-esmeralda .mp-contract-family-number{color:#ffe2a8!important}
+#contractModal.modal-esmeralda .mp-contract-family strong{color:#e0ffed!important}
+#contractModal.modal-esmeralda .mp-contract-family p{color:#d1f5df!important}
+#contractModal.modal-esmeralda .mp-modal-scroll-hint{border-color:#8df0bd!important;background:rgba(8,65,44,.97)!important;color:#eafff2!important}
+#contractModal.modal-esmeralda .mp-modal-scroll-hint b{color:#ffe2a8!important}
+
