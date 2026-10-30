@@ -42,7 +42,28 @@
   const modalDescription = $('#modalDescription');
   const descriptions = {
     'Cuarzo Rosa':'ÁLBUM FOTOGRÁFICO\n• 24 fotografías impresas en tamaño 8 × 10 pulgadas.\n• Las mismas 24 fotografías se entregan también en formato digital.\n\nPÓSTER\n• 1 póster impreso de 12 × 18 pulgadas.\n\nVESTUARIO DE QUINCEAÑERA\n• 3 vestidos proporcionados por el estudio.\n\nROPA CASUAL\n• 5 cambios de ropa casual proporcionados por el estudio.\n• También puedes traer ropa de tu preferencia.\n\nFOTOGRAFÍAS FAMILIARES\n• Hasta 4 de las 24 fotografías pueden ser familiares.',
-    'Amatista':'Una experiencia llena de encanto y detalles para conservar tu historia.',
+    'Amatista': `
+      <div class="mp-contract-intro">
+        <span class="mp-contract-kicker">CONTRATO N.º 02 · ENCANTO Y DISTINCIÓN</span>
+        <p>Una celebración de belleza y elegancia, creada para convertir cada instante de tus quince años en un recuerdo eterno.</p>
+      </div>
+      <section class="mp-contract-section">
+        <h3>El álbum de tus recuerdos</h3>
+        <ul><li><strong>Book fotográfico 8 × 10 pulgadas</strong>, con una selección de 25 fotografías.</li><li>Las 25 fotografías contratadas también se entregan en formato digital y alta resolución.</li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Detalles que hacen la diferencia</h3>
+        <ul><li><strong>1 afiche</strong> impreso en formato 16 × 24 pulgadas.</li><li><strong>4 postales</strong> para conservar y compartir tus recuerdos.</li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Tu experiencia de moda</h3>
+        <ul><li><strong>3 trajes de quinceañera.</strong></li><li><strong>4 vestuarios casuales.</strong></li></ul>
+      </section>
+      <section class="mp-contract-family">
+        <span class="mp-contract-family-number">3</span>
+        <div><strong>Fotografías familiares incluidas</strong><p>Hasta 3 de las 25 fotografías contratadas pueden ser familiares.</p></div>
+      </section>`,
+
     'Aguamarina':'Una propuesta serena, fresca y elegante para tu sesión fotográfica.',
     'Topacio':'Luz, personalidad y fotografías que resaltan tu estilo.',
     'Turmalina':'Una experiencia con más distinción para celebrar tu gran día.',
@@ -78,9 +99,14 @@
     const name = button.dataset.contract || '';
     chooseContract(name);
     if (modalTitle) modalTitle.textContent = name;
-    if (modalDescription) modalDescription.textContent = descriptions[name] || 'Una experiencia fotográfica especial.';
+    if (modalDescription) {
+      const content = descriptions[name] || 'Una experiencia fotográfica especial.';
+      if (name === 'Amatista') modalDescription.innerHTML = content;
+      else modalDescription.textContent = content;
+    }
     const modalNote = $('.modal-note');
-    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : 'Contenido y precio por definir con el estudio.';
+    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : 'Contenido y precio por definir con el estudio.';
+    modal?.classList.toggle('modal-amatista', name === 'Amatista');
     modal?.classList.add('open'); modal?.setAttribute('aria-hidden', 'false');
   }));
   const closeModal = () => { modal?.classList.remove('open'); modal?.setAttribute('aria-hidden', 'true'); };
