@@ -651,3 +651,41 @@
   #galeria .gallery-item.behind-camera{grid-column:2!important;grid-row:2 / span 2!important;}
 }
 \n\n/* Ficha detallada del contrato Cuarzo Rosa en la ventana modal. */\n#modalDescription{white-space:pre-line;text-align:left;line-height:1.75;font-size:14px}\n#contractModal .modal-note{font-weight:700;letter-spacing:.08em;color:#d9b47d}\n
+
+/* My Princess — ajustes de estabilidad y diseño adaptable */
+.gem-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,20px)}
+.gem-card{min-width:0;overflow:hidden}
+.gem-card h3,.gem-card p{overflow-wrap:anywhere}
+.gem-card .gem img{max-width:100%;height:auto;object-fit:contain}
+@media(max-width:900px){
+  .gem-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .benefits{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:12px}
+  .benefits>div:nth-child(3n){border-right:0}
+  .hero-copy{width:min(620px,75%);margin-left:5%}
+}
+@media(max-width:600px){
+  .gem-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .gem-card{padding:12px 8px 14px}
+  .gem-card h3{font-size:clamp(16px,4.3vw,21px)}
+  .gem-card p{font-size:11px}
+  .gem-card .details{max-width:100%;white-space:normal}
+  .benefits{grid-template-columns:repeat(2,minmax(0,1fr));padding:16px 5%;row-gap:10px}
+  .benefits>div{border-right:1px solid #7a4b61}
+  .benefits>div:nth-child(2n){border-right:0}
+  .hero{min-height:560px}
+  .hero-copy{width:90%;margin:0 auto;padding:50px 0 75px}
+  .hero-note{right:4%;top:auto;bottom:78px;font-size:18px}
+}
+@media(max-width:380px){
+  .gem-grid{grid-template-columns:1fr}
+  .gem-card{display:grid;grid-template-columns:72px minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:12px;text-align:left;align-items:center}
+  .gem-card>.number{grid-column:1;grid-row:1/4;justify-self:center}
+  .gem-card .gem{grid-column:2;grid-row:1;width:64px;height:64px}
+  .gem-card h3,.gem-card p,.gem-card .details{grid-column:2}
+  .gem-card h3{margin:3px 0}
+  .gem-card p{margin:0 0 5px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-photo{animation:none!important;will-change:auto}
+  .reveal{opacity:1!important;transform:none!important;transition:none!important}
+}
