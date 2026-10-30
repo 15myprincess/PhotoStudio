@@ -343,7 +343,7 @@
     if (!modalPanel || !scrollHint) return;
     const canScroll = modalPanel.scrollHeight > modalPanel.clientHeight + 24;
     const atBottom = modalPanel.scrollTop + modalPanel.clientHeight >= modalPanel.scrollHeight - 18;
-    scrollHint.classList.toggle('is-visible', modal?.classList.contains('modal-contract-detail') && canScroll && !atBottom);
+    scrollHint.classList.toggle('is-visible', (modal?.classList.contains('modal-contract-detail') || modal?.classList.contains('modal-extras')) && canScroll && !atBottom);
   };
   modalPanel?.addEventListener('scroll', updateModalScrollHint, { passive: true });
   window.addEventListener('resize', updateModalScrollHint);
