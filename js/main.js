@@ -84,7 +84,27 @@
         <div><strong>Fotografías familiares incluidas</strong><p>Hasta 3 de las 25 fotografías contratadas pueden ser familiares.</p></div>
       </section>`,
 
-    'Aguamarina':'Una propuesta serena, fresca y elegante para tu sesión fotográfica.',
+    'Aguamarina': `
+      <div class="mp-contract-intro">
+        <span class="mp-contract-kicker">CONTRATO N.º 03 · FRESCURA Y ELEGANCIA</span>
+        <p>Una experiencia luminosa y sofisticada, inspirada en la serenidad del aguamarina, para conservar cada instante de tus quince años.</p>
+      </div>
+      <section class="mp-contract-section">
+        <h3>El álbum de tus recuerdos</h3>
+        <ul><li><strong>Book fotográfico 8 × 10 pulgadas</strong>, con 30 fotografías impresas.</li><li>El book incluye <strong>laminado y guarda</strong>.</li><li>Las 30 fotografías contratadas también se entregan en formato digital.</li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Detalles para compartir</h3>
+        <ul><li><strong>2 afiches</strong> impresos en formato 12 × 18 pulgadas cada uno.</li><li><strong>8 postales</strong> para conservar y compartir tus recuerdos.</li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Tu experiencia de moda</h3>
+        <ul><li><strong>4 trajes de quinceañera.</strong></li><li><strong>5 vestuarios casuales.</strong></li></ul>
+      </section>
+      <section class="mp-contract-family">
+        <span class="mp-contract-family-number">3</span>
+        <div><strong>Fotografías familiares incluidas</strong><p>Hasta 3 de las 30 fotografías contratadas pueden ser familiares.</p></div>
+      </section>`,
     'Topacio':'Luz, personalidad y fotografías que resaltan tu estilo.',
     'Turmalina':'Una experiencia con más distinción para celebrar tu gran día.',
     'Esmeralda':'Elegancia y cuidado de los detalles en cada recuerdo.',
@@ -121,14 +141,15 @@
     if (modalTitle) modalTitle.textContent = name;
     if (modalDescription) {
       const content = descriptions[name] || 'Una experiencia fotográfica especial.';
-      if (name === 'Amatista' || name === 'Cuarzo Rosa') modalDescription.innerHTML = content;
+      if (name === 'Amatista' || name === 'Cuarzo Rosa' || name === 'Aguamarina') modalDescription.innerHTML = content;
       else modalDescription.textContent = content;
     }
     const modalNote = $('.modal-note');
-    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : 'Contenido y precio por definir con el estudio.';
+    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : name === 'Aguamarina' ? 'PRECIO DEL CONTRATO: 315 USD' : 'Contenido y precio por definir con el estudio.';
     modal?.classList.toggle('modal-amatista', name === 'Amatista');
     modal?.classList.toggle('modal-cuarzo', name === 'Cuarzo Rosa');
-    modal?.classList.toggle('modal-contract-detail', name === 'Amatista' || name === 'Cuarzo Rosa');
+    modal?.classList.toggle('modal-aguamarina', name === 'Aguamarina');
+    modal?.classList.toggle('modal-contract-detail', name === 'Amatista' || name === 'Cuarzo Rosa' || name === 'Aguamarina');
     updateModalScrollHint();
     modal?.classList.add('open'); modal?.setAttribute('aria-hidden', 'false');
     requestAnimationFrame(updateModalScrollHint);
