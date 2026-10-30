@@ -935,3 +935,18 @@
 #contractModal.modal-diamante .mp-contract-section h3{color:#e1e7ff}
 #contractModal.modal-diamante .mp-contract-family{border-color:#aeb8ce}
 #contractModal.modal-diamante .mp-contract-family-number{color:#ffe6b3}
+
+/* Corrección definitiva: Aguamarina debe verse turquesa, nunca violeta. */
+#contractModal.modal-aguamarina .modal-panel{
+  background:radial-gradient(ellipse at 50% 0%,#238b98 0%,#145765 48%,#071f2b 100%)!important;
+  border:1px solid #75f2ef!important;
+  box-shadow:0 24px 90px #000b,0 0 38px #35d9e888!important;
+}
+#contractModal.modal-aguamarina .modal-gem,
+#contractModal.modal-aguamarina .eyebrow,
+#contractModal.modal-aguamarina .mp-contract-kicker,
+#contractModal.modal-aguamarina .mp-contract-section h3{color:#8ff8f1!important}
+#contractModal.modal-aguamarina #modalTitle{color:#d8fffc!important}
+#contractModal.modal-aguamarina .mp-contract-section{border-color:#347e88!important}
+#contractModal.modal-aguamarina .mp-contract-family{border-color:#65cbd0!important}
+#contractModal.modal-aguamarina .mp-modal-scroll-hint{border-color:#75f2ef!important;background:rgba(8,65,76,.97)!important}
