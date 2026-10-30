@@ -801,3 +801,29 @@
 #contractModal.modal-cuarzo .mp-contract-family p{color:#f0d9e3}
 #contractModal.modal-cuarzo .mp-modal-scroll-hint{border-color:#e2a9bf;background:rgba(55,27,42,.96);color:#ffeaf2}
 #contractModal.modal-cuarzo .mp-modal-scroll-hint b{color:#f1c99d}
+
+
+/* My Princess — fondos individuales de las nueve caras de gemas
+   Cada tarjeta recibe un fondo teñido con el color real de su piedra. */
+.gem-card{
+  background:
+    radial-gradient(ellipse at 50% 34%, color-mix(in srgb,var(--gem-accent) 48%,transparent),transparent 68%),
+    linear-gradient(155deg,
+      color-mix(in srgb,var(--gem-accent) 34%,#17101b) 0%,
+      color-mix(in srgb,var(--gem-accent) 22%,#100b13) 58%,
+      color-mix(in srgb,var(--gem-accent) 30%,#08070b) 100%) !important;
+  border-color:color-mix(in srgb,var(--gem-accent) 78%,white 22%) !important;
+  box-shadow:inset 0 0 28px color-mix(in srgb,var(--gem-accent) 26%,transparent),
+             0 5px 18px color-mix(in srgb,var(--gem-accent) 17%,transparent) !important;
+}
+.gem-card::before{display:none!important}
+.gem-card:hover{
+  background:
+    radial-gradient(ellipse at 50% 34%, color-mix(in srgb,var(--gem-accent) 58%,transparent),transparent 70%),
+    linear-gradient(155deg,
+      color-mix(in srgb,var(--gem-accent) 42%,#17101b),
+      color-mix(in srgb,var(--gem-accent) 30%,#100b13) 58%,
+      color-mix(in srgb,var(--gem-accent) 38%,#08070b)) !important;
+}
+.gem-card .number{background:color-mix(in srgb,var(--gem-accent) 28%,#08070b)!important}
+.g3{--gem-accent:#35d9e8}
