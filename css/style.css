@@ -779,3 +779,25 @@
 @keyframes mpScrollCue{0%,100%{transform:translateY(0);opacity:.88}50%{transform:translateY(4px);opacity:1}}
 @media(max-width:600px){#contractModal.modal-contract-detail{padding:10px}#contractModal.modal-contract-detail .modal-panel{max-height:92vh;padding:28px 19px 34px}#contractModal.modal-contract-detail .mp-contract-section h3{font-size:23px}#contractModal.modal-contract-detail .modal-description{font-size:16px}.mp-modal-scroll-hint{font-size:9px;padding:7px 12px}}
 @media(prefers-reduced-motion:reduce){.mp-modal-scroll-hint.is-visible{animation:none}}
+
+
+/* Cada ficha utiliza la paleta propia de la gema que representa. */
+#contractModal.modal-cuarzo .modal-panel{
+  background:radial-gradient(ellipse at 50% 0%,#75445b 0%,#3c2030 44%,#1b1018 100%);
+  border-color:#e2a9bf;
+  box-shadow:0 24px 90px #000b,0 0 34px #d987ad44;
+}
+#contractModal.modal-cuarzo .modal-gem{color:#f2b8d0}
+#contractModal.modal-cuarzo .eyebrow{color:#f0bfd3}
+#contractModal.modal-cuarzo #modalTitle{color:#ffe4ef}
+#contractModal.modal-cuarzo .modal-note{color:#f1c99d}
+#contractModal.modal-cuarzo .mp-contract-kicker{color:#f0bfd3}
+#contractModal.modal-cuarzo .mp-contract-intro p{color:#ffeaf2}
+#contractModal.modal-cuarzo .mp-contract-section{border-color:#98657b}
+#contractModal.modal-cuarzo .mp-contract-section h3{color:#ffc9df}
+#contractModal.modal-cuarzo .mp-contract-family{border-color:#c17f9e;background:#ffffff0a}
+#contractModal.modal-cuarzo .mp-contract-family-number{color:#f1c99d}
+#contractModal.modal-cuarzo .mp-contract-family strong{color:#ffe4ef}
+#contractModal.modal-cuarzo .mp-contract-family p{color:#f0d9e3}
+#contractModal.modal-cuarzo .mp-modal-scroll-hint{border-color:#e2a9bf;background:rgba(55,27,42,.96);color:#ffeaf2}
+#contractModal.modal-cuarzo .mp-modal-scroll-hint b{color:#f1c99d}
