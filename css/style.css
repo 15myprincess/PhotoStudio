@@ -694,3 +694,22 @@
   .hero-photo{animation:none!important;will-change:auto}
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
 }
+
+
+/* ESTABILIDAD: el contenido nunca debe depender de IntersectionObserver. */
+.reveal,.reveal.visible{
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+  transition:none!important;
+}
+/* Reducir trabajo de GPU en móviles y equipos modestos. */
+.petal-layer{display:none!important}
+.hero-photo,.gem,.gem-card .gem img{
+  animation:none!important;
+  will-change:auto!important;
+}
+.header,.modal,.lightbox,.calendar-live-card{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
