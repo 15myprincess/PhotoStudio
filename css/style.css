@@ -900,3 +900,34 @@
 #contractModal.modal-extras .mp-extra-price-grid strong{white-space:nowrap;color:#ffe0a5}
 #contractModal .modal-reserve[hidden]{display:none!important}
 @media(max-width:520px){#contractModal.modal-extras .mp-extra-price-grid{grid-template-columns:1fr}}
+
+
+/* Ofertas adicionales: el desplazamiento pertenece al modal, nunca al documento de fondo. */
+#contractModal.modal-extras{
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  overscroll-behavior:contain;
+  touch-action:pan-y;
+  -webkit-overflow-scrolling:touch;
+}
+#contractModal.modal-extras .modal-panel{
+  max-height:calc(100vh - 40px);
+  max-height:calc(100dvh - 40px);
+  overflow-y:auto!important;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  flex:0 0 auto;
+  margin:0 auto;
+}
+@media(max-width:600px){
+  #contractModal.modal-extras{padding:10px!important}
+  #contractModal.modal-extras .modal-panel{
+    max-height:calc(100vh - 20px);
+    max-height:calc(100dvh - 20px);
+    padding:28px 19px 34px;
+  }
+}
