@@ -867,3 +867,19 @@
 #contractModal.modal-esmeralda .mp-modal-scroll-hint{border-color:#8df0bd!important;background:rgba(8,65,44,.97)!important;color:#eafff2!important}
 #contractModal.modal-esmeralda .mp-modal-scroll-hint b{color:#ffe2a8!important}
 
+/* MY PRINCESS — fondos individuales e inconfundibles para las nueve fichas. */
+#contractModal.modal-cuarzo .modal-panel{background:radial-gradient(ellipse at 50% 0%,#a94f78 0%,#71334f 43%,#351729 100%)!important;border-color:#f3b5d0!important;box-shadow:0 24px 90px #000b,0 0 38px #f28bb877!important}
+#contractModal.modal-amatista .modal-panel{background:radial-gradient(ellipse at 50% 0%,#8544b5 0%,#51266f 43%,#241333 100%)!important;border-color:#d8b0ff!important;box-shadow:0 24px 90px #000b,0 0 38px #b77aff88!important}
+#contractModal.modal-aguamarina .modal-panel{background:radial-gradient(ellipse at 50% 0%,#36b9c2 0%,#176b78 43%,#082b36 100%)!important;border-color:#91f5ed!important;box-shadow:0 24px 90px #000b,0 0 38px #35d9e888!important}
+#contractModal.modal-topacio .modal-panel{background:radial-gradient(ellipse at 50% 0%,#c58a28 0%,#80551b 43%,#39230d 100%)!important;border-color:#ffdc8b!important;box-shadow:0 24px 90px #000b,0 0 38px #e9ae3f88!important}
+#contractModal.modal-turmalina .modal-panel{background:radial-gradient(ellipse at 50% 0%,#c52d79 0%,#791849 43%,#390d2a 100%)!important;border-color:#ff9bc9!important;box-shadow:0 24px 90px #000b,0 0 38px #ff4fa488!important}
+#contractModal.modal-esmeralda .modal-panel{background:radial-gradient(ellipse at 50% 0%,#258b60 0%,#14583f 43%,#08271f 100%)!important;border-color:#8df0bd!important;box-shadow:0 24px 90px #000b,0 0 38px #36d58a88!important}
+#contractModal.modal-zafiro .modal-panel{background:radial-gradient(ellipse at 50% 0%,#286ec0 0%,#174477 43%,#091d3b 100%)!important;border-color:#9bcaff!important;box-shadow:0 24px 90px #000b,0 0 38px #398cff88!important}
+#contractModal.modal-rubi .modal-panel{background:radial-gradient(ellipse at 50% 0%,#bd3048 0%,#741b30 43%,#350d1a 100%)!important;border-color:#ff9aaa!important;box-shadow:0 24px 90px #000b,0 0 38px #ff405c88!important}
+#contractModal.modal-diamante .modal-panel{background:radial-gradient(ellipse at 50% 0%,#aeb7ce 0%,#626d85 43%,#292f40 100%)!important;border-color:#f5f7ff!important;box-shadow:0 24px 90px #000b,0 0 42px #e8edff99!important}
+#contractModal.modal-topacio .modal-gem,#contractModal.modal-topacio .eyebrow,#contractModal.modal-topacio .mp-contract-kicker,#contractModal.modal-topacio .mp-contract-section h3{color:#ffe0a0!important}
+#contractModal.modal-turmalina .modal-gem,#contractModal.modal-turmalina .eyebrow,#contractModal.modal-turmalina .mp-contract-kicker,#contractModal.modal-turmalina .mp-contract-section h3{color:#ffc0df!important}
+#contractModal.modal-zafiro .modal-gem,#contractModal.modal-zafiro .eyebrow,#contractModal.modal-zafiro .mp-contract-kicker,#contractModal.modal-zafiro .mp-contract-section h3{color:#b9d9ff!important}
+#contractModal.modal-rubi .modal-gem,#contractModal.modal-rubi .eyebrow,#contractModal.modal-rubi .mp-contract-kicker,#contractModal.modal-rubi .mp-contract-section h3{color:#ffc0c9!important}
+#contractModal.modal-diamante .modal-gem,#contractModal.modal-diamante .eyebrow,#contractModal.modal-diamante .mp-contract-kicker,#contractModal.modal-diamante .mp-contract-section h3{color:#f7f8ff!important}
+
