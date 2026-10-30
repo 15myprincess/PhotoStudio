@@ -174,7 +174,12 @@
     modal?.classList.toggle('modal-cuarzo', name === 'Cuarzo Rosa');
     modal?.classList.toggle('modal-aguamarina', name === 'Aguamarina');
     modal?.classList.toggle('modal-topacio', name === 'Topacio');
-    modal?.classList.toggle('modal-contract-detail', name === 'Amatista' || name === 'Cuarzo Rosa' || name === 'Aguamarina' || name === 'Topacio');
+    modal?.classList.toggle('modal-turmalina', name === 'Turmalina');
+    modal?.classList.toggle('modal-esmeralda', name === 'Esmeralda');
+    modal?.classList.toggle('modal-zafiro', name === 'Zafiro');
+    modal?.classList.toggle('modal-rubi', name === 'Rubí');
+    modal?.classList.toggle('modal-diamante', name === 'Diamante');
+    modal?.classList.toggle('modal-contract-detail', ['Cuarzo Rosa','Amatista','Aguamarina','Topacio','Turmalina','Esmeralda','Zafiro','Rubí','Diamante'].includes(name));
     updateModalScrollHint();
     modal?.classList.add('open'); modal?.setAttribute('aria-hidden', 'false');
     requestAnimationFrame(updateModalScrollHint);
