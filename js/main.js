@@ -79,7 +79,8 @@
     chooseContract(name);
     if (modalTitle) modalTitle.textContent = name;
     if (modalDescription) modalDescription.textContent = descriptions[name] || 'Una experiencia fotográfica especial.';
-    const modalNote = $('.modal-note');\n    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : 'Contenido y precio por definir con el estudio.';
+    const modalNote = $('.modal-note');
+    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : 'Contenido y precio por definir con el estudio.';
     modal?.classList.add('open'); modal?.setAttribute('aria-hidden', 'false');
   }));
   const closeModal = () => { modal?.classList.remove('open'); modal?.setAttribute('aria-hidden', 'true'); };
