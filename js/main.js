@@ -230,6 +230,57 @@
         <span class="mp-contract-family-number">4</span>
         <div><strong>Fotografías familiares incluidas</strong><p>Hasta 4 de las 65 fotografías indicadas para este contrato pueden ser familiares.</p></div>
       </section>`,
+    'Ofertas adicionales': `
+      <div class="mp-contract-intro">
+        <span class="mp-contract-kicker">SERVICIOS Y PRODUCTOS COMPLEMENTARIOS</span>
+        <p>Personaliza tu experiencia fotográfica añadiendo productos, acabados y ampliaciones a tu contrato de fotobook.</p>
+      </div>
+      <section class="mp-contract-section">
+        <h3>Complementos para tu fotobook</h3>
+        <ul>
+          <li><strong>Guardas:</strong> 10 USD.</li>
+          <li><strong>Laminado:</strong> 4 USD por cada pliego.</li>
+          <li><strong>Estuche para book:</strong> 24 USD.</li>
+          <li><strong>Revista 9 × 12 pulgadas:</strong> 210 USD; incluye 25 fotos y 9 cambios de vestuario.</li>
+          <li><strong>Álbum personalizado:</strong> 30 USD.</li>
+          <li><strong>Llavero de acrílico transparente:</strong> 3 USD.</li>
+          <li><strong>Taza blanca de cerámica sublimada:</strong> 6 USD.</li>
+        </ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Fotos sueltas</h3>
+        <div class="mp-extra-price-grid">
+          <p>5 × 7 pulgadas <strong>4 USD</strong></p><p>12 × 18 pulgadas <strong>12 USD</strong></p>
+          <p>6 × 8 pulgadas <strong>5 USD</strong></p><p>12 × 36 pulgadas <strong>24 USD</strong></p>
+          <p>8 × 10 pulgadas <strong>6 USD</strong></p><p>16 × 24 pulgadas <strong>18 USD</strong></p>
+          <p>8 × 12 pulgadas <strong>6 USD</strong></p><p>20 × 24 pulgadas <strong>24 USD</strong></p>
+          <p>10 × 12 pulgadas <strong>8 USD</strong></p><p>24 × 32 pulgadas <strong>30 USD</strong></p>
+          <p>10 × 15 pulgadas <strong>9 USD</strong></p><p>24 × 39 pulgadas <strong>35 USD</strong></p>
+        </div>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Lienzos enmarcados</h3>
+        <div class="mp-extra-price-grid">
+          <p>16 × 24 pulgadas <strong>30 USD</strong></p><p>20 × 24 pulgadas <strong>35 USD</strong></p>
+          <p>24 × 32 pulgadas <strong>40 USD</strong></p><p>24 × 39 pulgadas <strong>45 USD</strong></p>
+          <p>36 × 50 pulgadas <strong>70 USD</strong></p><p>36 × 60 pulgadas <strong>80 USD</strong></p>
+        </div>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Lienzos no enmarcados</h3>
+        <div class="mp-extra-price-grid">
+          <p>16 × 24 pulgadas <strong>15 USD</strong></p><p>20 × 24 pulgadas <strong>20 USD</strong></p>
+          <p>24 × 32 pulgadas <strong>25 USD</strong></p><p>24 × 29 pulgadas <strong>30 USD</strong></p>
+          <p>36 × 50 pulgadas <strong>50 USD</strong></p><p>36 × 60 pulgadas <strong>60 USD</strong></p>
+        </div>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Colgantes en lienzo con soporte de acrílico</h3>
+        <div class="mp-extra-price-grid">
+          <p>16 × 24 pulgadas <strong>30 USD</strong></p><p>24 × 39 pulgadas <strong>45 USD</strong></p>
+          <p>36 × 50 pulgadas <strong>70 USD</strong></p><p>36 × 60 pulgadas <strong>80 USD</strong></p>
+        </div>
+      </section>`,
     'Diamante':'La joya de la corona: experiencia premium por definir con el estudio.'
   };
   const saveDraftLight = () => {
@@ -261,11 +312,11 @@
     if (modalTitle) modalTitle.textContent = name;
     if (modalDescription) {
       const content = descriptions[name] || 'Una experiencia fotográfica especial.';
-      if (['Amatista','Cuarzo Rosa','Aguamarina','Topacio','Turmalina','Esmeralda','Zafiro','Rubí'].includes(name)) modalDescription.innerHTML = content;
+      if (['Amatista','Cuarzo Rosa','Aguamarina','Topacio','Turmalina','Esmeralda','Zafiro','Rubí','Ofertas adicionales'].includes(name)) modalDescription.innerHTML = content;
       else modalDescription.textContent = content;
     }
     const modalNote = $('.modal-note');
-    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : name === 'Aguamarina' ? 'PRECIO DEL CONTRATO: 315 USD' : name === 'Topacio' ? 'PRECIO DEL CONTRATO: 300 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Turmalina' ? 'PRECIO DEL CONTRATO: 400 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Esmeralda' ? 'PRECIO DEL CONTRATO: 430 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Zafiro' ? 'PRECIO DEL CONTRATO: 570 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Rubí' ? 'PRECIO DEL CONTRATO: 780 USD · FOTOS EN EXTERIOR OPCIONALES' : 'Contenido y precio por definir con el estudio.';
+    if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : name === 'Aguamarina' ? 'PRECIO DEL CONTRATO: 315 USD' : name === 'Topacio' ? 'PRECIO DEL CONTRATO: 300 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Turmalina' ? 'PRECIO DEL CONTRATO: 400 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Esmeralda' ? 'PRECIO DEL CONTRATO: 430 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Zafiro' ? 'PRECIO DEL CONTRATO: 570 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Rubí' ? 'PRECIO DEL CONTRATO: 780 USD · FOTOS EN EXTERIOR OPCIONALES' : name === 'Ofertas adicionales' ? 'PRECIOS EN USD · PRODUCTOS Y SERVICIOS OPCIONALES' : 'Contenido y precio por definir con el estudio.';
     modal?.classList.toggle('modal-amatista', name === 'Amatista');
     modal?.classList.toggle('modal-cuarzo', name === 'Cuarzo Rosa');
     modal?.classList.toggle('modal-aguamarina', name === 'Aguamarina');
@@ -275,6 +326,9 @@
     modal?.classList.toggle('modal-zafiro', name === 'Zafiro');
     modal?.classList.toggle('modal-rubi', name === 'Rubí');
     modal?.classList.toggle('modal-diamante', name === 'Diamante');
+    modal?.classList.toggle('modal-extras', name === 'Ofertas adicionales');
+    const reserveLink = $('.modal-reserve');
+    if (reserveLink) reserveLink.hidden = name === 'Ofertas adicionales';
     modal?.classList.toggle('modal-contract-detail', ['Cuarzo Rosa','Amatista','Aguamarina','Topacio','Turmalina','Esmeralda','Zafiro','Rubí','Diamante'].includes(name));
     updateModalScrollHint();
     modal?.classList.add('open'); modal?.setAttribute('aria-hidden', 'false');
