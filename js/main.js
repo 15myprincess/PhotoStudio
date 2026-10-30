@@ -130,6 +130,7 @@
     modal?.classList.toggle('modal-contract-detail', name === 'Amatista' || name === 'Cuarzo Rosa');
     updateModalScrollHint();
     modal?.classList.add('open'); modal?.setAttribute('aria-hidden', 'false');
+    requestAnimationFrame(updateModalScrollHint);
   }));
   const scrollHint = document.createElement('div');
   scrollHint.className = 'mp-modal-scroll-hint';
