@@ -820,3 +820,27 @@
 .gem-card .number{
   background:rgba(8,7,11,.45)!important;
 }
+
+/* Aguamarina — fondo de la ficha en el tono turquesa propio de la gema. */
+#contractModal.modal-aguamarina .modal-panel{
+  background:radial-gradient(ellipse at 50% 0%,#36b9c2 0%,#176b78 43%,#082b36 100%)!important;
+  border:1px solid #91f5ed!important;
+  box-shadow:0 24px 90px #000b,0 0 38px #35d9e888!important;
+}
+#contractModal.modal-aguamarina .modal-gem{color:#a6fff7!important;text-shadow:0 0 24px #43e9e0}
+#contractModal.modal-aguamarina .eyebrow,
+#contractModal.modal-aguamarina .mp-contract-kicker,
+#contractModal.modal-aguamarina .mp-contract-section h3{color:#a6fff7!important}
+#contractModal.modal-aguamarina #modalTitle{color:#e0fffc!important}
+#contractModal.modal-aguamarina .modal-note{color:#ffe2a8!important}
+#contractModal.modal-aguamarina .modal-description,
+#contractModal.modal-aguamarina .mp-contract-intro p,
+#contractModal.modal-aguamarina .mp-contract-section li{color:#f0fffe!important}
+#contractModal.modal-aguamarina .mp-contract-section{border-color:#398e98!important}
+#contractModal.modal-aguamarina .mp-contract-family{border-color:#75dfe0!important;background:#ffffff12!important}
+#contractModal.modal-aguamarina .mp-contract-family-number{color:#ffe2a8!important}
+#contractModal.modal-aguamarina .mp-contract-family strong{color:#e0fffc!important}
+#contractModal.modal-aguamarina .mp-contract-family p{color:#d1f5f2!important}
+#contractModal.modal-aguamarina .mp-modal-scroll-hint{border-color:#91f5ed!important;background:rgba(8,65,76,.97)!important;color:#eafffd!important}
+#contractModal.modal-aguamarina .mp-modal-scroll-hint b{color:#ffe2a8!important}
+
