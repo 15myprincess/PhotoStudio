@@ -127,6 +127,7 @@
     const modalNote = $('.modal-note');
     if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : 'Contenido y precio por definir con el estudio.';
     modal?.classList.toggle('modal-amatista', name === 'Amatista');
+    modal?.classList.toggle('modal-cuarzo', name === 'Cuarzo Rosa');
     modal?.classList.toggle('modal-contract-detail', name === 'Amatista' || name === 'Cuarzo Rosa');
     updateModalScrollHint();
     modal?.classList.add('open'); modal?.setAttribute('aria-hidden', 'false');
