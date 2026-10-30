@@ -41,7 +41,27 @@
   const modalTitle = $('#modalTitle');
   const modalDescription = $('#modalDescription');
   const descriptions = {
-    'Cuarzo Rosa':'ÁLBUM FOTOGRÁFICO\n• 24 fotografías impresas en tamaño 8 × 10 pulgadas.\n• Las mismas 24 fotografías se entregan también en formato digital.\n\nPÓSTER\n• 1 póster impreso de 12 × 18 pulgadas.\n\nVESTUARIO DE QUINCEAÑERA\n• 3 vestidos proporcionados por el estudio.\n\nROPA CASUAL\n• 5 cambios de ropa casual proporcionados por el estudio.\n• También puedes traer ropa de tu preferencia.\n\nFOTOGRAFÍAS FAMILIARES\n• Hasta 4 de las 24 fotografías pueden ser familiares.',
+    'Cuarzo Rosa': `
+      <div class="mp-contract-intro">
+        <span class="mp-contract-kicker">CONTRATO N.º 01 · ESENCIAL Y ROMÁNTICO</span>
+        <p>Una experiencia delicada para celebrar tus quince años y conservar los momentos que merecen acompañarte siempre.</p>
+      </div>
+      <section class="mp-contract-section">
+        <h3>El álbum de tus recuerdos</h3>
+        <ul><li><strong>Book fotográfico 8 × 10 pulgadas</strong>, con 24 fotografías impresas.</li><li>Las mismas 24 fotografías se entregan también en formato digital.</li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Un detalle para atesorar</h3>
+        <ul><li><strong>1 póster</strong> impreso en formato 12 × 18 pulgadas.</li></ul>
+      </section>
+      <section class="mp-contract-section">
+        <h3>Tu experiencia de moda</h3>
+        <ul><li><strong>3 vestidos de quinceañera</strong> proporcionados por el estudio.</li><li><strong>5 cambios de ropa casual</strong> proporcionados por el estudio. También puedes traer prendas de tu preferencia.</li></ul>
+      </section>
+      <section class="mp-contract-family">
+        <span class="mp-contract-family-number">4</span>
+        <div><strong>Fotografías familiares incluidas</strong><p>Hasta 4 de las 24 fotografías contratadas pueden ser familiares.</p></div>
+      </section>`,
     'Amatista': `
       <div class="mp-contract-intro">
         <span class="mp-contract-kicker">CONTRATO N.º 02 · ENCANTO Y DISTINCIÓN</span>
@@ -101,14 +121,29 @@
     if (modalTitle) modalTitle.textContent = name;
     if (modalDescription) {
       const content = descriptions[name] || 'Una experiencia fotográfica especial.';
-      if (name === 'Amatista') modalDescription.innerHTML = content;
+      if (name === 'Amatista' || name === 'Cuarzo Rosa') modalDescription.innerHTML = content;
       else modalDescription.textContent = content;
     }
     const modalNote = $('.modal-note');
     if (modalNote) modalNote.textContent = name === 'Cuarzo Rosa' ? 'PRECIO DEL CONTRATO: 200 USD' : name === 'Amatista' ? 'PRECIO DEL CONTRATO: 250 USD' : 'Contenido y precio por definir con el estudio.';
     modal?.classList.toggle('modal-amatista', name === 'Amatista');
+    modal?.classList.toggle('modal-contract-detail', name === 'Amatista' || name === 'Cuarzo Rosa');
+    updateModalScrollHint();
     modal?.classList.add('open'); modal?.setAttribute('aria-hidden', 'false');
   }));
+  const scrollHint = document.createElement('div');
+  scrollHint.className = 'mp-modal-scroll-hint';
+  scrollHint.innerHTML = '<span>Desliza para descubrir más</span><b aria-hidden="true">↓</b>';
+  const modalPanel = $('.modal-panel', modal || document);
+  modalPanel?.append(scrollHint);
+  const updateModalScrollHint = () => {
+    if (!modalPanel || !scrollHint) return;
+    const canScroll = modalPanel.scrollHeight > modalPanel.clientHeight + 24;
+    const atBottom = modalPanel.scrollTop + modalPanel.clientHeight >= modalPanel.scrollHeight - 18;
+    scrollHint.classList.toggle('is-visible', modal?.classList.contains('modal-contract-detail') && canScroll && !atBottom);
+  };
+  modalPanel?.addEventListener('scroll', updateModalScrollHint, { passive: true });
+  window.addEventListener('resize', updateModalScrollHint);
   const closeModal = () => { modal?.classList.remove('open'); modal?.setAttribute('aria-hidden', 'true'); };
   $('.modal-close')?.addEventListener('click', closeModal);
   modal?.addEventListener('click', e => { if (e.target === modal) closeModal(); });
