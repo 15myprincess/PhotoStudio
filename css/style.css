@@ -1001,3 +1001,12 @@ html{scroll-padding-top:90px}
     background-position: 29% center !important;
   }
 }
+
+
+/* AJUSTE DEFINITIVO: prevalece sobre las reglas anteriores del HERO en móvil. */
+@media screen and (max-width: 760px) {
+  html body #inicio.hero .hero-photo,
+  html body .hero#inicio .hero-photo {
+    background-position: 29% 50% !important;
+  }
+}
