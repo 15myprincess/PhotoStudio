@@ -330,8 +330,8 @@
           <label>Hora aproximada (opcional)<input id="reqTime" type="time"></label>
           <label>Referencia o número de operación<input id="reqRef" maxlength="100" placeholder="Número que aparece en el comprobante; si no aparece, escribe No aparece"></label>
           <label>Aplicación o banco utilizado<input id="reqBank" maxlength="80" placeholder="Transfermóvil, banco… " required></label>
-          <label>Comprobante de pago (imagen)<input id="reqProof" type="file" accept="image/*,.pdf" required></label>
-          <p class="instructions-fine-print">La imagen del comprobante se adjuntará manualmente al chat de WhatsApp. No envíes PIN, contraseña ni códigos de seguridad.</p>
+          <label>Comprobante de pago (imagen o PDF)<input id="reqProof" type="file" accept="image/*,.pdf" required></label>
+          <p class="instructions-fine-print"><strong>¿Cómo conseguir tu comprobante?</strong> Después de pagar por Transfermóvil, espera el mensaje que confirma que la operación se completó. Haz una captura de pantalla o tómale una foto a ese mensaje. Luego pulsa el campo de comprobante, abre la galería de tu teléfono y selecciona la captura o foto (también puedes elegir un PDF). El comprobante se compartirá por WhatsApp junto con tu selfie y las fotos de los vestidos seleccionados. Si tu teléfono no permite adjuntar todos los archivos automáticamente, podrás adjuntarlos manualmente desde Galería o Descargas. No envíes PIN, contraseñas ni códigos de seguridad.</p>
           <button class="button pink tryon-generate" type="submit" id="requestBtn" disabled>✉ Solicitar mi montaje</button>
         </form>
         <button class="button outline tryon-generate tryon-preview-btn" type="button" id="previewBtn" disabled>Ver vista previa rápida</button>
@@ -496,20 +496,25 @@
     const requestBtn = document.getElementById('requestBtn');
     const originalText = requestBtn ? requestBtn.textContent : '';
     if (requestBtn) { requestBtn.disabled = true; requestBtn.textContent = 'Preparando descargas…'; }
-    setRequestMessage('Preparando las dos imágenes. Si el navegador pregunta, permite las descargas múltiples.');
+    setRequestMessage('Preparando tu selfie, las fotos de los vestidos y el comprobante de pago…');
 
     try {
-      // Descargamos ambas imágenes antes de abrir WhatsApp para no dejar una solicitud a medias.
+      // Preparamos todos los archivos: selfie + cada vestido + comprobante de pago.
+      // En móviles compatibles, Web Share permite entregarlos juntos al selector de WhatsApp.
       const selfieBlob = await imageToBlob(selfieImg);
       const dressBlobs = await Promise.all(dressImgs.map(imageToBlob));
       const selfieExt = extensionFor(selfieBlob.type);
-      downloadBlob(selfieBlob, 'My-Princess-selfie.' + selfieExt);
+      const shareFiles = [
+        new File([selfieBlob], 'My-Princess-selfie.' + selfieExt, { type: selfieBlob.type || 'image/jpeg' })
+      ];
       for (let i = 0; i < dressBlobs.length; i++) {
         const ext = extensionFor(dressBlobs[i].type);
-        setTimeout(() => downloadBlob(dressBlobs[i], 'My-Princess-vestido-' + (i + 1) + '.' + ext), 500 + i * 700);
+        shareFiles.push(new File([dressBlobs[i]], 'My-Princess-vestido-' + (i + 1) + '.' + ext, { type: dressBlobs[i].type || 'image/jpeg' }));
       }
-      const dressNames = dressImgs.map((img, i) => (i + 1) + '. ' + (img.alt || 'Vestido seleccionado ' + (i + 1))).join('\n');
+      const proofName = proof.name || ('My-Princess-comprobante.' + (proof.type === 'application/pdf' ? 'pdf' : 'jpg'));
+      shareFiles.push(new File([proof], proofName, { type: proof.type || 'application/octet-stream' }));
 
+      const dressNames = dressImgs.map((img, i) => (i + 1) + '. ' + (img.alt || 'Vestido seleccionado ' + (i + 1))).join('\\n');
       const message = [
         '¡Hola, My Princess! Deseo solicitar mi montaje de 15 años.',
         '',
@@ -526,14 +531,39 @@
         '',
         'Vestidos:', dressNames,
         '',
-        'Archivos descargados: selfie y ' + dressImgs.length + ' vestido(s).',
-        '',
-        'Adjunto la selfie, todas las fotos de los vestidos y el comprobante de pago desde la galería/Descargas. El estudio verificará el ingreso real antes de comenzar. Muchas gracias.'
-      ].join('\n');
-      const whatsappUrl = 'https://wa.me/5352512369?text=' + encodeURIComponent(message);
-      setRequestMessage('¡Listo! Se descargaron la selfie y los vestidos. En WhatsApp adjunta todos esos archivos y el comprobante antes de enviar el mensaje.');
-      // Abrir en la misma pestaña evita que algunos navegadores móviles bloqueen la ventana emergente.
-      setTimeout(() => { window.location.href = whatsappUrl; }, 1100);
+        'Archivos que acompaño: selfie, ' + dressImgs.length + ' foto(s) de vestido(s) y comprobante de pago.',
+        'El comprobante corresponde al mensaje de Transfermóvil que confirma la operación completada. El estudio verificará el ingreso real antes de comenzar. Muchas gracias.'
+      ].join('\\n');
+
+      let shared = false;
+      try {
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: shareFiles })) {
+          await navigator.share({
+            title: 'Solicitud de montaje - My Princess',
+            text: message,
+            files: shareFiles
+          });
+          shared = true;
+          setRequestMessage('Se abrió el menú para compartir tu solicitud. Selecciona WhatsApp y comprueba que aparezcan adjuntos tu selfie, las fotos de los vestidos y el comprobante antes de enviar.');
+        }
+      } catch (shareError) {
+        if (shareError && shareError.name === 'AbortError') {
+          setRequestMessage('Compartir fue cancelado. Cuando quieras, pulsa de nuevo “Solicitar mi montaje” para volver a intentarlo.', true);
+          return;
+        }
+        console.warn('[My Princess] No se pudo compartir todos los archivos automáticamente:', shareError);
+      }
+
+      if (!shared) {
+        // Respaldo para navegadores sin compartir archivos: descargar TODOS los archivos
+        // y abrir WhatsApp con el texto para que la clienta los adjunte desde Galería/Descargas.
+        shareFiles.forEach((file, index) => {
+          setTimeout(() => downloadBlob(file, file.name), index * 650);
+        });
+        const whatsappUrl = 'https://wa.me/5352512369?text=' + encodeURIComponent(message);
+        setRequestMessage('Tu selfie, las fotos de los vestidos y el comprobante se están descargando. WhatsApp se abrirá con el mensaje preparado: adjunta todos los archivos desde Galería o Descargas antes de enviarlo.');
+        setTimeout(() => { window.location.href = whatsappUrl; }, 1400);
+      }
     } catch (error) {
       console.error('[My Princess] No se pudieron preparar las imágenes:', error);
       setRequestMessage('No se pudieron descargar ambas imágenes. ' + (error && error.message ? error.message : 'Comprueba tu conexión e inténtalo otra vez.'), true);
