@@ -1046,18 +1046,20 @@ html{scroll-padding-top:90px}
   }
 }
 
-/* HERO + BENEFICIOS: prolongar la fotografía detrás de Beneficios en móvil. */
+/* HERO móvil: un único fondo fotográfico continuo detrás de Hero y Beneficios. */
 @media screen and (max-width: 760px) {
+  html body #inicio.hero {
+    overflow: visible !important;
+    background: transparent !important;
+  }
+  html body #inicio.hero .hero-photo {
+    height: calc(100% + 190px) !important;
+    bottom: auto !important;
+    background-position: 29% 50% !important;
+  }
   html body .benefits {
-    background:
-      linear-gradient(
-        to bottom,
-        rgba(18, 9, 17, .58) 0%,
-        rgba(18, 9, 17, .70) 48%,
-        rgba(18, 9, 17, .82) 100%
-      ),
-      url('../images/hero/hero.webp') 29% 68% / cover no-repeat !important;
-    border-top: 1px solid rgba(231, 141, 182, .65);
-    border-bottom: 1px solid rgba(231, 141, 182, .65);
+    background: transparent !important;
+    border-top: 1px solid rgba(231, 141, 182, .55);
+    border-bottom: 1px solid rgba(231, 141, 182, .55);
   }
 }
