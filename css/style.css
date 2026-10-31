@@ -1173,3 +1173,36 @@ html{scroll-padding-top:90px}
                 inset 0 1px rgba(255,255,255,.10) !important;
   }
 }
+
+
+/* MY PRINCESS — Hero de gran formato para monitores Full HD, 2K y 4K.
+   La altura crece con el viewport, conservando la composición y el fondo compartido. */
+@media screen and (min-width: 761px) {
+  .hero-benefits-shell #inicio.hero {
+    min-height: clamp(760px, 88svh, 1900px) !important;
+    min-height: clamp(760px, 88vh, 1900px) !important;
+    display: flex;
+    align-items: center;
+  }
+  .hero-benefits-shell #inicio.hero .hero-copy {
+    width: min(58vw, 1120px);
+    max-width: 1120px;
+    padding-top: clamp(70px, 7vh, 150px);
+    padding-bottom: clamp(90px, 9vh, 180px);
+  }
+  .hero-benefits-shell #inicio.hero .hero-copy h1 {
+    font-size: clamp(88px, 7.2vw, 168px);
+    line-height: .98;
+  }
+  .hero-benefits-shell #inicio.hero .hero-copy h2 {
+    font-size: clamp(34px, 2.65vw, 62px);
+  }
+  .hero-benefits-shell .benefits {
+    max-width: 1720px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: calc(100% - clamp(48px, 10vw, 180px));
+    padding-top: clamp(20px, 2vw, 34px);
+    padding-bottom: clamp(20px, 2vw, 34px);
+  }
+}
