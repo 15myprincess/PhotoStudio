@@ -330,8 +330,7 @@
           <label>Hora aproximada (opcional)<input id="reqTime" type="time"></label>
           <label>Referencia o número de operación<input id="reqRef" maxlength="100" placeholder="Número que aparece en el comprobante; si no aparece, escribe No aparece"></label>
           <label>Aplicación o banco utilizado<input id="reqBank" maxlength="80" placeholder="Transfermóvil, banco… " required></label>
-          <label>Comprobante de pago (imagen o PDF)<input id="reqProof" type="file" accept="image/*,.pdf" required></label>
-          <p class="instructions-fine-print"><strong>¿Cómo conseguir tu comprobante?</strong> Después de pagar por Transfermóvil, espera el mensaje que confirma que la operación se completó. Haz una captura de pantalla o tómale una foto a ese mensaje. Luego pulsa el campo de comprobante, abre la galería de tu teléfono y selecciona la captura o foto (también puedes elegir un PDF). El comprobante se compartirá por WhatsApp junto con tu selfie y las fotos de los vestidos seleccionados. Si tu teléfono no permite adjuntar todos los archivos automáticamente, podrás adjuntarlos manualmente desde Galería o Descargas. No envíes PIN, contraseñas ni códigos de seguridad.</p>
+          <p class="instructions-fine-print"><strong>Recuerda adjuntar tu comprobante de pago:</strong> Después de pagar por Transfermóvil, espera el mensaje que confirma que la operación se completó y haz una captura de pantalla o tómale una foto. Cuando se abra WhatsApp, adjunta manualmente esa imagen desde la galería de tu teléfono, junto con la selfie y las fotos de los vestidos que se descargarán. Comprueba que estén todos los archivos antes de enviar tu solicitud. No envíes PIN, contraseñas ni códigos de seguridad.</p>
           <button class="button pink tryon-generate" type="submit" id="requestBtn" disabled>✉ Solicitar mi montaje</button>
         </form>
         <button class="button outline tryon-generate tryon-preview-btn" type="button" id="previewBtn" disabled>Ver vista previa rápida</button>
@@ -458,7 +457,6 @@
     const time = document.getElementById('reqTime').value || 'No indicada';
     const ref = document.getElementById('reqRef').value.trim() || 'No aparece';
     const bank = document.getElementById('reqBank').value.trim();
-    const proof = document.getElementById('reqProof').files[0];
     const selfieImg = document.getElementById('selfiePreview');
     const dressImgs = selectedDressImages();
     const expectedAmount = dressImgs.length * 50;
@@ -468,8 +466,8 @@
       consentCheck?.focus();
       return;
     }
-    if (!name || !phone || !sender || !date || !bank || !proof || !Number.isFinite(amount)) {
-      setRequestMessage('Completa tus datos y adjunta el comprobante de pago.', true);
+    if (!name || !phone || !sender || !date || !bank || !Number.isFinite(amount)) {
+      setRequestMessage('Completa todos tus datos para continuar.', true);
       return;
     }
     if (!dressImgs.length) {
@@ -478,10 +476,6 @@
     }
     if (amount !== expectedAmount) {
       setRequestMessage('El importe debe ser ' + expectedAmount + ' CUP (' + dressImgs.length + ' vestidos × 50 CUP).', true);
-      return;
-    }
-    if (!proof.type.startsWith('image/') && proof.type !== 'application/pdf') {
-      setRequestMessage('Adjunta una imagen o un PDF del comprobante.', true);
       return;
     }
     if (!selfieImg || selfieImg.hidden || !selfieImg.src) {
@@ -496,10 +490,10 @@
     const requestBtn = document.getElementById('requestBtn');
     const originalText = requestBtn ? requestBtn.textContent : '';
     if (requestBtn) { requestBtn.disabled = true; requestBtn.textContent = 'Preparando descargas…'; }
-    setRequestMessage('Preparando tu selfie, las fotos de los vestidos y el comprobante de pago…');
+    setRequestMessage('Preparando tu selfie y las fotos de los vestidos…');
 
     try {
-      // Preparamos todos los archivos: selfie + cada vestido + comprobante de pago.
+      // Preparamos los archivos que la página puede descargar/compartir: selfie + cada vestido.
       // En móviles compatibles, Web Share permite entregarlos juntos al selector de WhatsApp.
       const selfieBlob = await imageToBlob(selfieImg);
       const dressBlobs = await Promise.all(dressImgs.map(imageToBlob));
@@ -511,9 +505,6 @@
         const ext = extensionFor(dressBlobs[i].type);
         shareFiles.push(new File([dressBlobs[i]], 'My-Princess-vestido-' + (i + 1) + '.' + ext, { type: dressBlobs[i].type || 'image/jpeg' }));
       }
-      const proofName = proof.name || ('My-Princess-comprobante.' + (proof.type === 'application/pdf' ? 'pdf' : 'jpg'));
-      shareFiles.push(new File([proof], proofName, { type: proof.type || 'application/octet-stream' }));
-
       const dressNames = dressImgs.map((img, i) => (i + 1) + '. ' + (img.alt || 'Vestido seleccionado ' + (i + 1))).join('\n');
       const message = [
         '¡Hola, My Princess! Deseo solicitar mi montaje de 15 años.',
@@ -531,8 +522,8 @@
         '',
         'Vestidos:', dressNames,
         '',
-        'Archivos que acompaño: selfie, ' + dressImgs.length + ' foto(s) de vestido(s) y comprobante de pago.',
-        'El comprobante corresponde al mensaje de Transfermóvil que confirma la operación completada. El estudio verificará el ingreso real antes de comenzar. Muchas gracias.'
+        'Archivos que acompaño: selfie y ' + dressImgs.length + ' foto(s) de vestido(s). El comprobante de pago lo adjuntaré manualmente desde la galería.',
+        'Adjunto también una captura o foto del mensaje de Transfermóvil que confirma la operación completada. El estudio verificará el ingreso real antes de comenzar. Muchas gracias.'
       ].join('\n');
 
       let shared = false;
@@ -544,7 +535,7 @@
             files: shareFiles
           });
           shared = true;
-          setRequestMessage('Se abrió el menú para compartir tu solicitud. Selecciona WhatsApp y comprueba que aparezcan adjuntos tu selfie, las fotos de los vestidos y el comprobante antes de enviar.');
+          setRequestMessage('Se abrió el menú para compartir. Selecciona WhatsApp; allí adjunta también manualmente el comprobante desde la galería antes de enviar.');
         }
       } catch (shareError) {
         if (shareError && shareError.name === 'AbortError') {
@@ -555,13 +546,13 @@
       }
 
       if (!shared) {
-        // Respaldo para navegadores sin compartir archivos: descargar TODOS los archivos
-        // y abrir WhatsApp con el texto para que la clienta los adjunte desde Galería/Descargas.
+        // Respaldo para navegadores sin compartir archivos: descargar selfie y vestidos
+        // y abrir WhatsApp para que la clienta adjunte también el comprobante manualmente.
         shareFiles.forEach((file, index) => {
           setTimeout(() => downloadBlob(file, file.name), index * 650);
         });
         const whatsappUrl = 'https://wa.me/5352512369?text=' + encodeURIComponent(message);
-        setRequestMessage('Tu selfie, las fotos de los vestidos y el comprobante se están descargando. WhatsApp se abrirá con el mensaje preparado: adjunta todos los archivos desde Galería o Descargas antes de enviarlo.');
+        setRequestMessage('Tu selfie y las fotos de los vestidos se están descargando. WhatsApp se abrirá con el mensaje preparado: adjunta esos archivos y también el comprobante desde la galería antes de enviar.');
         setTimeout(() => { window.location.href = whatsappUrl; }, 1400);
       }
     } catch (error) {
