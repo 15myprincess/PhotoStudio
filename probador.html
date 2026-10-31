@@ -514,7 +514,7 @@
       const proofName = proof.name || ('My-Princess-comprobante.' + (proof.type === 'application/pdf' ? 'pdf' : 'jpg'));
       shareFiles.push(new File([proof], proofName, { type: proof.type || 'application/octet-stream' }));
 
-      const dressNames = dressImgs.map((img, i) => (i + 1) + '. ' + (img.alt || 'Vestido seleccionado ' + (i + 1))).join('\\n');
+      const dressNames = dressImgs.map((img, i) => (i + 1) + '. ' + (img.alt || 'Vestido seleccionado ' + (i + 1))).join('\n');
       const message = [
         '¡Hola, My Princess! Deseo solicitar mi montaje de 15 años.',
         '',
@@ -533,7 +533,7 @@
         '',
         'Archivos que acompaño: selfie, ' + dressImgs.length + ' foto(s) de vestido(s) y comprobante de pago.',
         'El comprobante corresponde al mensaje de Transfermóvil que confirma la operación completada. El estudio verificará el ingreso real antes de comenzar. Muchas gracias.'
-      ].join('\\n');
+      ].join('\n');
 
       let shared = false;
       try {
