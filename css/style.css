@@ -1206,3 +1206,89 @@ html{scroll-padding-top:90px}
     padding-bottom: clamp(20px, 2vw, 34px);
   }
 }
+
+
+/* MY PRINCESS — legibilidad premium del Hero: degradado profundo solo abajo
+   y tipografía luminosa con sombra suave para separarla de la fotografía. */
+.hero-benefits-shell::before {
+  background-image:
+    linear-gradient(
+      to top,
+      rgba(15, 5, 17, .88) 0%,
+      rgba(15, 5, 17, .66) 13%,
+      rgba(15, 5, 17, .34) 29%,
+      rgba(15, 5, 17, .12) 47%,
+      rgba(15, 5, 17, .025) 67%,
+      rgba(15, 5, 17, 0) 82%
+    ),
+    url('../images/hero/hero.webp') !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+@media screen and (min-width: 761px) {
+  .hero-benefits-shell::before {
+    background-position: center 43%, center 43% !important;
+  }
+}
+@media screen and (max-width: 760px) {
+  .hero-benefits-shell::before {
+    background-position: 29% 38%, 29% 38% !important;
+  }
+}
+.hero-benefits-shell #inicio.hero .hero-copy {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+  text-shadow: 0 2px 12px rgba(20, 4, 17, .82),
+               0 5px 24px rgba(20, 4, 17, .48);
+}
+.hero-benefits-shell #inicio.hero .hero-copy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -18px -24px;
+  pointer-events: none;
+  border-radius: 28px;
+  background: radial-gradient(
+    ellipse at 38% 48%,
+    rgba(18, 5, 18, .34) 0%,
+    rgba(18, 5, 18, .20) 48%,
+    rgba(18, 5, 18, 0) 78%
+  );
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.5px);
+}
+.hero-benefits-shell #inicio.hero .hero-copy h1 {
+  color: #fff8fc !important;
+  -webkit-text-stroke: .35px rgba(255, 225, 240, .48);
+  text-shadow:
+    0 2px 3px rgba(28, 5, 23, .95),
+    0 0 14px rgba(255, 191, 224, .82),
+    0 0 34px rgba(255, 117, 190, .48),
+    0 8px 24px rgba(20, 3, 17, .75) !important;
+}
+.hero-benefits-shell #inicio.hero .hero-copy h2,
+.hero-benefits-shell #inicio.hero .hero-copy .intro,
+.hero-benefits-shell #inicio.hero .hero-note {
+  color: #fffafd !important;
+  text-shadow:
+    0 2px 4px rgba(20, 3, 18, .98),
+    0 0 12px rgba(35, 7, 28, .82),
+    0 5px 18px rgba(20, 3, 18, .82) !important;
+}
+.hero-benefits-shell #inicio.hero .hero-copy .eyebrow {
+  color: #ffe7f2 !important;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-shadow: 0 2px 7px rgba(20, 3, 18, .98),
+               0 0 12px rgba(255, 160, 208, .5) !important;
+}
+.hero-benefits-shell #inicio.hero .hero-crown {
+  color: #ffe5b5 !important;
+  text-shadow: 0 0 12px rgba(255, 218, 164, .95),
+               0 3px 8px rgba(20, 3, 18, .9) !important;
+}
+.hero-benefits-shell #inicio.hero .hero-scroll {
+  color: #fff4fa !important;
+  text-shadow: 0 2px 8px rgba(20, 3, 18, .95) !important;
+}
