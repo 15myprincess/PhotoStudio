@@ -1063,3 +1063,59 @@ html{scroll-padding-top:90px}
     border-bottom: 1px solid rgba(231, 141, 182, .55);
   }
 }
+
+
+/* MY PRINCESS — composición móvil corregida: Hero y Beneficios comparten
+   una sola fotografía, sin superposición ni una segunda imagen en Beneficios. */
+@media screen and (max-width: 760px) {
+  .hero-benefits-shell {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #170b16;
+  }
+  .hero-benefits-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(
+        to top,
+        rgba(8, 5, 12, .48) 0%,
+        rgba(8, 5, 12, .20) 34%,
+        rgba(8, 5, 12, .04) 68%,
+        rgba(8, 5, 12, .10) 100%
+      ),
+      url('../images/hero/hero.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 29% 38%;
+  }
+  .hero-benefits-shell #inicio.hero {
+    min-height: 600px;
+    overflow: visible !important;
+    background: transparent !important;
+  }
+  .hero-benefits-shell #inicio.hero .hero-photo {
+    display: none !important;
+  }
+  .hero-benefits-shell #inicio.hero .hero-vignette {
+    display: none !important;
+  }
+  .hero-benefits-shell #inicio.hero .hero-copy {
+    padding-top: 92px !important;
+    padding-bottom: 84px !important;
+  }
+  .hero-benefits-shell .benefits {
+    margin: 0 12px 18px !important;
+    background: rgba(35, 15, 31, .48) !important;
+    -webkit-backdrop-filter: blur(8px) saturate(115%);
+    backdrop-filter: blur(8px) saturate(115%);
+    border: 1px solid rgba(255, 190, 218, .52) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 12px 32px rgba(0,0,0,.20),
+                inset 0 1px rgba(255,255,255,.10) !important;
+  }
+}
