@@ -108,7 +108,7 @@
   /* ... tus otros estilos ... */
   .hero-photo {
     background-image: linear-gradient(0deg,#100810 0%,#100810dd 24%,#10081020 75%), url('../images/hero/hero.webp');
-    background-position: center center; /* Cambiado para centrar la imagen en móviles */
+    background-position: 65% center !important; /* Cambiado para centrar la imagen en móviles */
   }
   /* ... */
 }
