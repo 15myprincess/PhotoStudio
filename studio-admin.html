@@ -40,7 +40,7 @@
 </section><section id="adminApp" class="hidden"><div id="stats" class="stats"></div><section class="card"><div class="navtabs" id="navtabs"><button class="btn active" data-view="requests">Solicitudes</button><button class="btn secondary" data-view="clients">Clientes</button><button class="btn secondary" data-view="projects">Contratos y entregas</button><button class="btn secondary" data-view="messages">Notas y mensajes</button></div><div id="viewTitle" class="title" style="font-size:32px;margin:18px 0 6px">Solicitudes</div><p id="viewHelp" class="sub">Organiza solicitudes por estado y conserva el historial.</p><div id="requestFilters" class="actions"><label style="min-width:180px;flex:1">Buscar cliente, correo o contrato<input id="search" type="search" placeholder="Nombre, correo, fecha…"></label><label style="min-width:150px;flex:1">Organizar<select id="periodView"><option value="day">Por día</option><option value="week">Por semana</option><option value="month" selected>Por mes</option><option value="all">Todas las fechas</option></select></label><label style="min-width:180px;flex:1">Estado<select id="filter"><option value="all">Todas las solicitudes activas</option><option value="pending">Pendientes</option><option value="approved">Aprobadas</option><option value="rejected">Denegadas</option><option value="cancelled">Canceladas</option><option value="archived">Denegadas archivadas</option></select></label></div></section><section id="cleanupPanel" class="card"><h3 style="font:600 24px Cormorant Garamond,serif;color:var(--gold);margin:0">Limpieza del historial</h3><p class="muted">Revisa las solicitudes archivadas antiguas. No se borra nada automáticamente.</p><div class="actions"><label style="min-width:145px;flex:1">Antigüedad mínima<select id="cleanupAge"><option value="30">30 días</option><option value="60">60 días</option><option value="90" selected>90 días</option><option value="180">180 días</option><option value="365">1 año</option></select></label><button class="btn secondary" id="previewCleanup">Revisar antiguas</button></div><p id="cleanupStatus" class="muted"></p><div id="cleanupResults" class="list"></div></section><div id="clientList" class="list hidden"></div><div id="projectList" class="list hidden"></div><div id="messageList" class="list hidden"></div></section><p class="note">Flujo recomendado: revisa los datos y la disponibilidad antes de aprobar. La confirmación del calendario depende de que el backend y Google Calendar estén configurados correctamente.</p>
 <section id="list" class="list"></section>
 </main><div id="requestModal" class="request-modal" hidden><section class="request-modal-panel" role="dialog" aria-modal="true"><div class="request-modal-head"><div><h2 id="modalName">Solicitud</h2><p id="modalStatus" class="muted"></p></div><button class="modal-close" id="closeModal" aria-label="Cerrar">×</button></div><div id="modalDetails" class="modal-details"></div><label>Nota del estudio<textarea id="modalNote" placeholder="Mensaje opcional para la clienta"></textarea></label><div id="modalActions" class="actions"></div></section></div>
-<script src="js/config.js?v=20261031-admin2"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js?v=20261031-workspace3"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (async()=>{
 const cfg=window.MY_PRINCESS_CONFIG||{},$=id=>document.getElementById(id),api=(cfg.bookingApiBase||cfg.API_BASE_URL||'').replace(/\/+$/,'');
@@ -87,42 +87,47 @@ $('refresh').addEventListener('click',load);$('previewCleanup').addEventListener
 @media(max-width:540px){#mpCatalogPanel .mp-formgrid{grid-template-columns:1fr}}
 </style>
 
-<section id="mpCatalogPanel" class="card hidden">
- <div class="actions" style="justify-content:space-between"><div><h2 style="font:600 34px 'Cormorant Garamond';color:var(--pink);margin:0">Administrar contenido</h2><p class="mp-help">Galería de eventos y catálogo de contratos. Cuenta autorizada: my.princess.foto.studio@gmail.com</p></div><button class="btn secondary" id="mpBackCatalog">Volver al panel</button></div>
- <div class="navtabs"><button class="btn" id="mpTabAlbums">Álbumes y fotografías</button><button class="btn secondary" id="mpTabPackages">Contratos y paquetes</button></div>
- <p id="mpCatalogStatus" class="status" role="status">Preparando administrador…</p>
- <div id="mpAlbumsArea">
-  <div class="mp-grid">
-   <form id="mpAlbumForm" class="mp-item">
-    <h3 id="mpAlbumFormTitle">Crear álbum</h3><input type="hidden" name="id">
-    <label>Nombre del álbum<input name="title" required maxlength="90" placeholder="Ej. Sesión primavera"></label>
-    <label>Descripción<textarea name="description" rows="2"></textarea></label>
-    <div class="mp-formgrid"><label>Categoría<select name="category"><option value="temporada">Temporadas</option><option value="celebracion">Celebraciones</option><option value="sesion">Sesiones especiales</option></select></label><label>Etiqueta<input name="season_label" placeholder="TODO EL AÑO"></label></div>
-    <label>Portada (opcional)<input name="cover" type="file" accept="image/jpeg,image/png,image/webp"></label>
-    <label class="mp-inline"><input name="active" type="checkbox" checked style="width:auto"> Publicar álbum</label>
-    <div class="mp-actions"><button class="btn" type="submit">Guardar álbum</button><button class="btn secondary" id="mpResetAlbum" type="button">Limpiar</button></div>
-   </form>
-   <form id="mpUploadForm" class="mp-item">
-    <h3>Subir fotografías</h3>
-    <label>Álbum<select name="album_id" required></select></label>
-    <label>Seleccionar fotos<input name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple required></label>
-    <p class="mp-help">JPG, PNG o WEBP. Máximo 12 MB por imagen. Se subirán al almacenamiento del estudio.</p>
-    <button class="btn" type="submit">Subir fotografías</button>
-   </form>
-  </div>
-  <hr class="mp-separator"><h3 style="font:600 27px 'Cormorant Garamond';color:var(--gold)">Álbumes publicados y borradores</h3><div id="mpAlbumList" class="mp-grid"></div>
-  <hr class="mp-separator"><h3 style="font:600 27px 'Cormorant Garamond';color:var(--gold)">Fotografías del álbum seleccionado</h3><div id="mpPhotoList" class="mp-grid"></div>
- </div>
- <div id="mpPackagesArea" class="hidden">
-  <form id="mpPackageForm" class="mp-item">
-   <h3 id="mpPackageFormTitle">Crear contrato</h3><input type="hidden" name="id"><div class="mp-formgrid">
-    <label>Nombre de la gema<input name="name" required maxlength="70"></label><label>Precio (USD)<input name="price_usd" type="number" min="0" step="0.01" required></label>
+<section id="mpCatalogPanel" class="card hidden mp-workspace">
+ <div class="mp-workspace-head"><div><span class="mp-eyebrow">MY PRINCESS · ESTUDIO</span><h2>Centro de contenido</h2><p>Administra tus contratos, colecciones y fotografías desde un mismo espacio.</p></div><button class="btn secondary" id="mpBackCatalog" type="button">← Volver al panel</button></div>
+ <nav class="mp-workspace-tabs" role="tablist" aria-label="Secciones de contenido">
+  <button type="button" class="mp-worktab active" id="mpTabPackages" role="tab" aria-selected="true" aria-controls="mpPackagesArea"><span>♢</span><b>Contratos</b><small>Paquetes y precios</small></button>
+  <button type="button" class="mp-worktab" id="mpTabAlbums" role="tab" aria-selected="false" aria-controls="mpAlbumsArea"><span>▧</span><b>Álbumes</b><small>Colecciones y portadas</small></button>
+  <button type="button" class="mp-worktab" id="mpTabPhotos" role="tab" aria-selected="false" aria-controls="mpPhotosArea"><span>▣</span><b>Fotografías</b><small>Subir y organizar fotos</small></button>
+ </nav>
+ <p id="mpCatalogStatus" class="status mp-work-status" role="status">Preparando administrador…</p>
+ <div id="mpPackagesArea" class="mp-work-area" role="tabpanel" aria-labelledby="mpTabPackages">
+  <div class="mp-section-heading"><div><span>CATÁLOGO COMERCIAL</span><h3>Contratos y paquetes</h3><p>Actualiza las gemas, precios y prestaciones que ofrece el estudio.</p></div><span class="mp-count" id="mpPackageCount">9 paquetes</span></div>
+  <form id="mpPackageForm" class="mp-editor">
+   <div class="mp-editor-title"><h3 id="mpPackageFormTitle">Crear contrato</h3><span>EDITOR DE CONTRATOS</span></div><input type="hidden" name="id"><div class="mp-formgrid">
+    <label>Nombre de la gema<input name="name" required maxlength="70" placeholder="Ej. Amatista"></label><label>Precio (USD)<input name="price_usd" type="number" min="0" step="0.01" required placeholder="0.00"></label>
     <label>Cantidad de fotografías<input name="included_photos" type="number" min="0" step="1" required></label><label>Vestidos del estudio<input name="included_studio_dresses" type="number" min="0" step="1" required></label>
-   </div><label>Descripción y prestaciones<textarea name="description" rows="4"></textarea></label><label class="mp-inline"><input name="active" type="checkbox" checked style="width:auto"> Contrato visible para nuevas reservas</label>
-   <div class="mp-actions"><button class="btn" type="submit">Guardar contrato</button><button class="btn secondary" type="button" id="mpResetPackage">Nuevo / limpiar</button></div>
+   </div><label>Descripción y prestaciones<textarea name="description" rows="3" placeholder="Describe lo que incluye este contrato…"></textarea></label><label class="mp-check"><input name="active" type="checkbox" checked> Contrato visible para nuevas reservas</label>
+   <div class="mp-actions"><button class="btn" type="submit">Guardar contrato</button><button class="btn secondary" type="button" id="mpResetPackage">＋ Nuevo / limpiar</button></div>
   </form>
-  <p class="mp-help">Para retirar un paquete se desactiva. Así se conservan las reservas antiguas y su historial. Mantén los nueve paquetes de gemas activos según la oferta vigente.</p>
-  <div id="mpPackageList" class="mp-grid"></div>
+  <div class="mp-section-heading mp-list-heading"><div><span>OFERTA VIGENTE</span><h3>Paquetes registrados</h3></div></div><div id="mpPackageList" class="mp-grid"></div>
+  <p class="mp-help mp-footnote">Los contratos se desactivan en lugar de eliminarse para conservar el historial de las reservas anteriores.</p>
+ </div>
+ <div id="mpAlbumsArea" class="mp-work-area hidden" role="tabpanel" aria-labelledby="mpTabAlbums">
+  <div class="mp-section-heading"><div><span>GALERÍA PÚBLICA</span><h3>Álbumes y colecciones</h3><p>Crea colecciones, cambia sus portadas y decide cuáles se muestran en la web.</p></div></div>
+  <form id="mpAlbumForm" class="mp-editor">
+   <div class="mp-editor-title"><h3 id="mpAlbumFormTitle">Crear álbum</h3><span>EDITOR DE COLECCIONES</span></div><input type="hidden" name="id">
+   <label>Nombre del álbum<input name="title" required maxlength="90" placeholder="Ej. Sesión primavera"></label>
+   <label>Descripción<textarea name="description" rows="2" placeholder="Una breve descripción de la colección…"></textarea></label>
+   <div class="mp-formgrid"><label>Categoría<select name="category"><option value="temporada">Temporadas</option><option value="celebracion">Celebraciones</option><option value="sesion">Sesiones especiales</option></select></label><label>Etiqueta<input name="season_label" placeholder="TODO EL AÑO"></label></div>
+   <label>Portada (opcional)<input name="cover" type="file" accept="image/jpeg,image/png,image/webp"></label><label class="mp-check"><input name="active" type="checkbox" checked> Publicar álbum en la galería</label>
+   <div class="mp-actions"><button class="btn" type="submit">Guardar álbum</button><button class="btn secondary" id="mpResetAlbum" type="button">＋ Limpiar</button></div>
+  </form>
+  <div class="mp-section-heading mp-list-heading"><div><span>TUS COLECCIONES</span><h3>Álbumes publicados y borradores</h3></div></div><div id="mpAlbumList" class="mp-grid"></div>
+ </div>
+ <div id="mpPhotosArea" class="mp-work-area hidden" role="tabpanel" aria-labelledby="mpTabPhotos">
+  <div class="mp-section-heading"><div><span>ARCHIVO FOTOGRÁFICO</span><h3>Fotografías de tus álbumes</h3><p>Selecciona una colección para subir, ordenar o eliminar sus imágenes.</p></div></div>
+  <div class="mp-editor mp-upload-editor"><form id="mpUploadForm">
+   <div class="mp-editor-title"><h3>Subir fotografías</h3><span>CARGA MÚLTIPLE</span></div>
+   <label>Álbum de destino<select name="album_id" required></select></label>
+   <label>Seleccionar fotografías<input name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple required></label>
+   <p class="mp-help">Formatos JPG, PNG o WEBP · Máximo 12 MB por imagen.</p><button class="btn" type="submit">↑ Subir fotografías</button>
+  </form></div>
+  <div class="mp-section-heading mp-list-heading"><div><span>CONTENIDO DEL ÁLBUM</span><h3>Imágenes seleccionadas</h3></div></div><div id="mpPhotoList" class="mp-grid"></div>
  </div>
 </section>
 <script>
@@ -147,8 +152,8 @@ $('refresh').addEventListener('click',load);$('previewCleanup').addEventListener
  function resetPackage(){const f=$('mpPackageForm');f.reset();f.elements.id.value='';f.elements.active.checked=true;$('mpPackageFormTitle').textContent='Crear contrato';}
  open.addEventListener('click',async()=>{document.querySelectorAll('#adminApp>#stats,#adminApp>section.card,#adminApp>#clientList,#adminApp>#projectList,#adminApp>#messageList,#list,#list').forEach(x=>x.classList.add('hidden'));panel.classList.remove('hidden');open.classList.add('hidden');try{await auth();say('Cuenta autorizada. Cargando galería y contratos…');await Promise.all([loadAlbums(),loadPackages()]);say('Administrador listo.');}catch(e){say(e.message);}});
  $('mpBackCatalog').addEventListener('click',()=>{panel.classList.add('hidden');open.classList.remove('hidden');document.querySelectorAll('#adminApp>#stats,#adminApp>section.card,#list').forEach(x=>x.classList.remove('hidden'));});
- $('mpTabAlbums').addEventListener('click',()=>{$('mpAlbumsArea').classList.remove('hidden');$('mpPackagesArea').classList.add('hidden');$('mpTabAlbums').classList.add('active');$('mpTabPackages').classList.remove('active')});
- $('mpTabPackages').addEventListener('click',()=>{$('mpPackagesArea').classList.remove('hidden');$('mpAlbumsArea').classList.add('hidden');$('mpTabPackages').classList.add('active');$('mpTabAlbums').classList.remove('active')});
+ function showCatalogTab(name){const map={packages:'mpPackagesArea',albums:'mpAlbumsArea',photos:'mpPhotosArea'},tabs={packages:'mpTabPackages',albums:'mpTabAlbums',photos:'mpTabPhotos'};Object.keys(map).forEach(k=>{$(map[k]).classList.toggle('hidden',k!==name);$(tabs[k]).classList.toggle('active',k===name);$(tabs[k]).setAttribute('aria-selected',k===name?'true':'false');});if(name==='photos'&&selectedAlbum){$('mpUploadForm').elements.album_id.value=selectedAlbum;loadPhotos();}}
+ $('mpTabPackages').addEventListener('click',()=>showCatalogTab('packages'));$('mpTabAlbums').addEventListener('click',()=>showCatalogTab('albums'));$('mpTabPhotos').addEventListener('click',()=>showCatalogTab('photos'));
  $('mpResetAlbum').addEventListener('click',resetAlbum);$('mpResetPackage').addEventListener('click',resetPackage);
  $('mpAlbumForm').addEventListener('submit',async e=>{e.preventDefault();try{await auth();const f=e.currentTarget,d=new FormData(f),id=d.get('id'),title=d.get('title').trim(),payload={title,slug:slug(title),description:d.get('description'),category:d.get('category'),season_label:d.get('season_label'),active:f.elements.active.checked,updated_at:new Date().toISOString()};if(!payload.slug)throw Error('Escribe un nombre válido.');const image=f.elements.cover.files[0];if(image){if(image.size>12*1024*1024)throw Error('La portada supera 12 MB.');const path=filePath(image,'covers');const up=await sb.storage.from('eventos').upload(path,image,{upsert:false,contentType:image.type});if(up.error)throw up.error;payload.cover_path=path;}if(id){const q=await sb.from('event_albums').update(payload).eq('id',id);if(q.error)throw q.error;}else{payload.sort_order=albums.length+1;const q=await sb.from('event_albums').insert(payload);if(q.error)throw q.error;}resetAlbum();await loadAlbums();say('Álbum guardado correctamente.');}catch(err){say('No se pudo guardar el álbum: '+err.message)}});
  $('mpUploadForm').addEventListener('submit',async e=>{e.preventDefault();try{await auth();const f=e.currentTarget,albumId=f.elements.album_id.value,files=Array.from(f.elements.photos.files);if(!albumId||!files.length)throw Error('Selecciona un álbum y al menos una foto.');for(const file of files){if(!/^image\/(jpeg|png|webp)$/.test(file.type)||file.size>12*1024*1024)throw Error(file.name+' no es JPG, PNG o WEBP de hasta 12 MB.');}let order=photos.length;for(const file of files){const path=filePath(file,'albums/'+albumId);const up=await sb.storage.from('eventos').upload(path,file,{contentType:file.type,upsert:false});if(up.error)throw up.error;const ins=await sb.from('event_photos').insert({album_id:albumId,image_path:path,alt_text:file.name.replace(/\.[^.]+$/,''),sort_order:++order});if(ins.error)throw ins.error;}selectedAlbum=albumId;await loadPhotos();say(files.length+' fotografía(s) subida(s).');f.reset();f.elements.album_id.value=albumId;}catch(err){say('Error al subir: '+err.message)}});
@@ -159,4 +164,45 @@ $('refresh').addEventListener('click',load);$('previewCleanup').addEventListener
  $('mpPackageList').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;try{await auth();const p=packages.find(x=>x.id===(b.dataset.editPackage||b.dataset.togglePackage));if(b.dataset.editPackage){const f=$('mpPackageForm');for(const k of ['id','name','price_usd','included_photos','included_studio_dresses','description'])f.elements[k].value=p[k]??'';f.elements.active.checked=p.active;$('mpPackageFormTitle').textContent='Editar '+p.name;f.scrollIntoView({behavior:'smooth',block:'center'});}else if(b.dataset.togglePackage){const q=await sb.from('contract_packages').update({active:!p.active}).eq('id',p.id);if(q.error)throw q.error;await loadPackages();say(p.active?'Contrato desactivado. El historial se conserva.':'Contrato activado.');}}catch(err){say(err.message)}});
 })();
 </script>
+
+<style>
+#mpCatalogPanel.mp-workspace{padding:clamp(14px,2.5vw,30px);border:1px solid rgba(222,160,190,.28);background:radial-gradient(ellipse at 10% 0%,rgba(151,69,111,.16),transparent 42%),linear-gradient(145deg,#1b101a,#100b12 70%);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.28)}
+#mpCatalogPanel .mp-workspace-head{display:flex;justify-content:space-between;align-items:center;gap:18px;padding-bottom:22px;border-bottom:1px solid rgba(226,174,196,.18)}
+#mpCatalogPanel .mp-eyebrow,#mpCatalogPanel .mp-section-heading>div>span{font-size:10px;letter-spacing:2px;color:#d9a4bd;font-weight:700}
+#mpCatalogPanel .mp-workspace-head h2{font:600 clamp(30px,4vw,42px) 'Cormorant Garamond',serif;color:#f5c8d9;margin:4px 0}
+#mpCatalogPanel .mp-workspace-head p,#mpCatalogPanel .mp-section-heading p{color:#cbb4c1;margin:3px 0;font-size:13px}
+#mpCatalogPanel .mp-workspace-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0 14px}
+#mpCatalogPanel .mp-worktab{display:grid;grid-template-columns:34px 1fr;grid-template-rows:auto auto;align-items:center;text-align:left;gap:1px 10px;padding:13px 15px;border:1px solid rgba(224,165,192,.2);border-radius:15px;background:rgba(255,255,255,.035);color:#e9d5df;cursor:pointer;transition:.2s}
+#mpCatalogPanel .mp-worktab>span{grid-row:1/3;font-size:25px;color:#dba8c0;text-align:center}
+#mpCatalogPanel .mp-worktab b{font-size:14px;color:#fff}
+#mpCatalogPanel .mp-worktab small{font-size:11px;color:#bda6b3}
+#mpCatalogPanel .mp-worktab.active{background:linear-gradient(135deg,rgba(155,77,116,.38),rgba(103,48,79,.24));border-color:#d59ab6;box-shadow:inset 0 0 0 1px rgba(255,205,224,.08),0 7px 22px rgba(0,0,0,.16)}
+#mpCatalogPanel .mp-work-area{animation:mpFade .22s ease}
+#mpCatalogPanel .mp-section-heading{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:22px 0 14px}
+#mpCatalogPanel .mp-section-heading h3{font:600 29px 'Cormorant Garamond',serif;color:#f4c4d8;margin:3px 0}
+#mpCatalogPanel .mp-editor{max-width:900px;padding:20px;border:1px solid rgba(221,164,190,.25);border-radius:17px;background:rgba(255,255,255,.045);margin:14px 0 24px}
+#mpCatalogPanel .mp-editor-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+#mpCatalogPanel .mp-editor-title h3{font:600 24px 'Cormorant Garamond',serif;color:#f2c2d5;margin:0}
+#mpCatalogPanel .mp-editor-title span{font-size:9px;letter-spacing:1.5px;color:#c99bb1}
+#mpCatalogPanel label{display:block;color:#e8d5df;font-size:12px;margin:10px 0}
+#mpCatalogPanel input:not([type=checkbox]),#mpCatalogPanel textarea,#mpCatalogPanel select{display:block;width:100%;margin-top:5px;padding:11px 12px;border:1px solid rgba(222,170,193,.25);border-radius:10px;background:#100b12;color:#fff;font:inherit;box-sizing:border-box}
+#mpCatalogPanel input[type=file]{font-size:11px}
+#mpCatalogPanel .mp-formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}
+#mpCatalogPanel .mp-check{display:flex;align-items:center;gap:9px}
+#mpCatalogPanel .mp-check input{accent-color:#c77f9f;width:16px;height:16px}
+#mpCatalogPanel .mp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:13px}
+#mpCatalogPanel .mp-item{border:1px solid rgba(222,170,193,.22);border-radius:15px;padding:14px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.02));min-width:0}
+#mpCatalogPanel .mp-item img{width:100%;height:155px;object-fit:cover;border-radius:10px;background:#211520}
+#mpCatalogPanel .mp-item h3{color:#f3bfd5;font:600 23px 'Cormorant Garamond',serif;margin:8px 0}
+#mpCatalogPanel .mp-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+#mpCatalogPanel .mp-actions button{font-size:11px;padding:8px 11px}
+#mpCatalogPanel .mp-help{color:#cdb5c2;font-size:12px;line-height:1.6}
+#mpCatalogPanel .mp-list-heading{margin-top:28px;padding-top:16px;border-top:1px solid rgba(222,170,193,.14)}
+#mpCatalogPanel .mp-footnote{margin-top:18px}
+#mpCatalogPanel .mp-danger{background:#512039;color:#ffe7f0;border-color:#a34f73}
+#mpCatalogPanel .mp-upload-editor{max-width:650px}
+#mpCatalogPanel .mp-work-status{margin:14px 0}
+@keyframes mpFade{from{opacity:.65;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(max-width:620px){#mpCatalogPanel .mp-workspace-head{align-items:flex-start;flex-direction:column}#mpCatalogPanel .mp-workspace-tabs{gap:6px}#mpCatalogPanel .mp-worktab{grid-template-columns:1fr;text-align:center;padding:10px 5px;gap:2px}#mpCatalogPanel .mp-worktab>span{grid-row:auto;font-size:21px}#mpCatalogPanel .mp-worktab b{font-size:12px}#mpCatalogPanel .mp-worktab small{font-size:9px}#mpCatalogPanel .mp-formgrid{grid-template-columns:1fr}#mpCatalogPanel .mp-editor{padding:14px}}
+</style>
 </body></html>
