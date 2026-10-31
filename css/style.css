@@ -993,3 +993,11 @@ html{scroll-padding-top:90px}
   -webkit-backdrop-filter:blur(16px) saturate(135%);
   backdrop-filter:blur(16px) saturate(135%);
 }
+
+
+/* HERO móvil: posición horizontal solicitada para la fotografía de fondo. */
+@media (max-width: 760px) {
+  .hero-photo {
+    background-position: 29% center !important;
+  }
+}
