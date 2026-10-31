@@ -1010,3 +1010,17 @@ html{scroll-padding-top:90px}
     background-position: 29% 50% !important;
   }
 }
+
+
+/* HERO móvil: retirar únicamente los degradados oscuros superpuestos a la fotografía. */
+@media screen and (max-width: 760px) {
+  html body #inicio.hero .hero-photo {
+    background-image: url('../images/hero/hero.webp') !important;
+    background-position: 29% 50% !important;
+    background-size: cover !important;
+  }
+  html body #inicio.hero .hero-vignette {
+    background: none !important;
+    opacity: 0 !important;
+  }
+}
