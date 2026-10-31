@@ -931,3 +931,31 @@
     padding:28px 19px 34px;
   }
 }
+
+
+/* MY PRINCESS — acabado de cristal translúcido para todas las fichas de contrato. */
+#contractModal.modal-contract-detail .modal-panel{
+  --mp-glass-color:#a94f78;
+  background:
+    radial-gradient(ellipse at 50% 0%,
+      color-mix(in srgb,var(--mp-glass-color) 68%,transparent) 0%,
+      color-mix(in srgb,var(--mp-glass-color) 43%,transparent) 48%,
+      rgba(12,10,18,.68) 100%)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(145%);
+  backdrop-filter:blur(22px) saturate(145%);
+  border:1px solid color-mix(in srgb,var(--mp-glass-color) 72%,white)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.24),
+    inset 0 0 32px rgba(255,255,255,.055),
+    0 24px 90px rgba(0,0,0,.48),
+    0 0 38px color-mix(in srgb,var(--mp-glass-color) 42%,transparent)!important;
+}
+#contractModal.modal-cuarzo.modal-contract-detail .modal-panel{--mp-glass-color:#d879a2}
+#contractModal.modal-amatista.modal-contract-detail .modal-panel{--mp-glass-color:#9854c5}
+#contractModal.modal-aguamarina.modal-contract-detail .modal-panel{--mp-glass-color:#35c4ca}
+#contractModal.modal-topacio.modal-contract-detail .modal-panel{--mp-glass-color:#d99a35}
+#contractModal.modal-turmalina.modal-contract-detail .modal-panel{--mp-glass-color:#d83d91}
+#contractModal.modal-esmeralda.modal-contract-detail .modal-panel{--mp-glass-color:#35a875}
+#contractModal.modal-zafiro.modal-contract-detail .modal-panel{--mp-glass-color:#397fce}
+#contractModal.modal-rubi.modal-contract-detail .modal-panel{--mp-glass-color:#d4435c}
+#contractModal.modal-diamante.modal-contract-detail .modal-panel{--mp-glass-color:#b9c4dc}
