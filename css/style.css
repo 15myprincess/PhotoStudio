@@ -1292,3 +1292,28 @@ html{scroll-padding-top:90px}
   color: #fff4fa !important;
   text-shadow: 0 2px 8px rgba(20, 3, 18, .95) !important;
 }
+
+
+/* MY PRINCESS — suavizar la transición del velo y recuperar luminosidad de la foto.
+   Se elimina la placa con blur detrás del texto, responsable del borde visible. */
+.hero-benefits-shell::before {
+  background-image:
+    linear-gradient(
+      to top,
+      rgba(15, 5, 17, .64) 0%,
+      rgba(15, 5, 17, .48) 9%,
+      rgba(15, 5, 17, .31) 22%,
+      rgba(15, 5, 17, .17) 38%,
+      rgba(15, 5, 17, .075) 55%,
+      rgba(15, 5, 17, .025) 72%,
+      rgba(15, 5, 17, 0) 90%,
+      rgba(15, 5, 17, 0) 100%
+    ),
+    url('../images/hero/hero.webp') !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+.hero-benefits-shell #inicio.hero .hero-copy::before {
+  content: none !important;
+  display: none !important;
+}
