@@ -985,3 +985,11 @@ html{scroll-padding-top:90px}
 #contractModal.modal .modal-close{
   z-index:3001!important;
 }
+
+
+/* MY PRINCESS — barra de navegación más translúcida, conservando el desenfoque. */
+.header{
+  background:rgba(16,8,16,.46)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(135%);
+  backdrop-filter:blur(16px) saturate(135%);
+}
