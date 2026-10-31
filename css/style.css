@@ -976,3 +976,12 @@ html{scroll-padding-top:90px}
   .header{position:sticky!important;top:0!important;height:68px}
   html{scroll-padding-top:78px}
 }
+
+
+/* Las ventanas de detalle de contratos deben quedar por encima del encabezado y menú. */
+#contractModal.modal{
+  z-index:3000!important;
+}
+#contractModal.modal .modal-close{
+  z-index:3001!important;
+}
