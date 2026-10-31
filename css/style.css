@@ -1024,3 +1024,24 @@ html{scroll-padding-top:90px}
     opacity: 0 !important;
   }
 }
+
+/* HERO móvil: degradado suave desde abajo hacia arriba, sin oscurecer los laterales. */
+@media screen and (max-width: 760px) {
+  html body #inicio.hero .hero-photo {
+    background-image:
+      linear-gradient(
+        to top,
+        rgba(8, 5, 12, .30) 0%,
+        rgba(8, 5, 12, .17) 24%,
+        rgba(8, 5, 12, .06) 46%,
+        rgba(8, 5, 12, 0) 66%
+      ),
+      url('../images/hero/hero.webp') !important;
+    background-position: center bottom, 29% 50% !important;
+    background-size: cover, cover !important;
+  }
+  html body #inicio.hero .hero-vignette {
+    background: none !important;
+    opacity: 0 !important;
+  }
+}
