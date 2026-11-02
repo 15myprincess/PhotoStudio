@@ -53,13 +53,8 @@
     calendarEl.querySelectorAll('.fc-daygrid-day[data-date]').forEach(cell => {
       const busy = busyDates.has(cell.getAttribute('data-date'));
       cell.classList.toggle('mp-busy-date', busy);
-      if (busy) {
-        cell.style.setProperty('background', 'linear-gradient(135deg,rgba(135,18,62,.92),rgba(75,20,48,.88))', 'important');
-        cell.style.setProperty('box-shadow', 'inset 0 0 0 2px #ff8db8', 'important');
-      } else {
-        cell.style.removeProperty('background');
-        cell.style.removeProperty('box-shadow');
-      }
+      // La apariencia se controla por CSS: solo se colorea el círculo del número.
+      cell.removeAttribute('style');
     });
   };
   const scheduleBusyPaint = () => {
@@ -129,11 +124,9 @@
         }
         availabilityLoaded = true;
         availabilityError = false;
-        const backgrounds = [...busyDates].map(day => ({
-          id: 'mp-busy-' + day, start: day, end: addDays(day, 1),
-          allDay: true, display: 'background', classNames: ['mp-busy-day'], title: 'OCUPADO'
-        }));
-        success(backgrounds);
+        // No dibujar eventos de fondo: FullCalendar los estiraba y mostraba como bloques.
+        // Las fechas ocupadas se marcan mediante la clase mp-busy-date en cada celda.
+        success([]);
         // Aplicar la clase directamente tras el render de FullCalendar y en los siguientes frames.
         scheduleBusyPaint();
         setStatus(busyDates.size
