@@ -133,7 +133,7 @@
         // Aplicar la clase directamente tras el render de FullCalendar y en los siguientes frames.
         scheduleBusyPaint();
         setStatus(busyDates.size
-          ? 'Disponibilidad verificada. Los días en vino están ocupados.'
+          ? 'Disponibilidad verificada. Los días marcados en rosa están ocupados.'
           : 'Disponibilidad verificada: el servidor no devuelve días ocupados para este mes.');
       } catch (error) {
         if (version !== requestVersion) { success([]); return; }
