@@ -93,6 +93,8 @@
     height: 'auto',
     selectable: false,
     fixedWeekCount: false,
+    expandRows: false,
+    contentHeight: 'auto',
     headerToolbar: { left: 'prev,next', center: 'title', right: 'today' },
     buttonText: { today: 'Hoy' },
     events: async (info, success, failure) => {
