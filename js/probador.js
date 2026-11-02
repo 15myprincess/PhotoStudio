@@ -144,7 +144,15 @@
     const scale = Math.min(1, MAX_SIDE / Math.max(sw, sh));
     const c = document.createElement('canvas');
     c.width = Math.round(sw * scale); c.height = Math.round(sh * scale);
-    c.getContext('2d').drawImage(v, sx, sy, sw, sh, 0, 0, c.width, c.height);
+    const ctx = c.getContext('2d');
+    // La cámara frontal se muestra reflejada en pantalla (scaleX(-1));
+    // aplicamos el mismo reflejo al archivo capturado para que la selfie
+    // guardada coincida exactamente con lo que la usuaria ve en el visor.
+    if (state.cameraFacing === 'user') {
+      ctx.translate(c.width, 0);
+      ctx.scale(-1, 1);
+    }
+    ctx.drawImage(v, sx, sy, sw, sh, 0, 0, c.width, c.height);
     setSelfie(c.toDataURL('image/jpeg', 0.88));
     stopCamera();
     updateUi();
