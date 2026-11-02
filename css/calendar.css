@@ -601,3 +601,50 @@
   #bookingCalendar .fc .fc-col-header-cell-cushion{font-size:8px!important;}
   .calendar-legend{font-size:8px!important;padding:9px 7px!important;}
 }
+
+
+/* MOBILE FIX v22 — limita la altura real de cada semana en FullCalendar */
+@media (max-width:700px){
+  #bookingCalendar .fc .fc-view-harness,
+  #bookingCalendar .fc .fc-view,
+  #bookingCalendar .fc .fc-daygrid,
+  #bookingCalendar .fc .fc-daygrid-body,
+  #bookingCalendar .fc .fc-daygrid-body table{
+    height:auto!important;
+    min-height:0!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-body tr{
+    height:70px!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-day,
+  #bookingCalendar .fc .fc-daygrid-day-frame{
+    height:70px!important;
+    min-height:70px!important;
+    max-height:70px!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-day-frame{
+    overflow:hidden!important;
+    padding:2px 1px!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-day-events,
+  #bookingCalendar .fc .fc-daygrid-day-bottom{
+    min-height:0!important;
+    height:0!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-day-number{
+    width:26px!important;height:26px!important;
+    margin:1px auto!important;font-size:10px!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-bg-harness{
+    inset:2px!important;
+  }
+}
+@media(max-width:380px){
+  #bookingCalendar .fc .fc-daygrid-body tr,
+  #bookingCalendar .fc .fc-daygrid-day,
+  #bookingCalendar .fc .fc-daygrid-day-frame{
+    height:62px!important;min-height:62px!important;max-height:62px!important;
+  }
+}
