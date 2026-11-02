@@ -1317,3 +1317,33 @@ html{scroll-padding-top:90px}
   content: none !important;
   display: none !important;
 }
+
+
+/* MY PRINCESS — evita que la columna del calendario ensanche la página */
+html, body { max-width: 100%; overflow-x: clip; }
+.booking {
+  grid-template-columns: minmax(0,.9fr) minmax(0,1.15fr) minmax(0,.75fr);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.booking > *, .booking-content, .calendar-card, .calendar-live-card,
+#bookingCalendar, #bookingCalendar * {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.calendar-live-card { overflow: hidden; }
+@media (max-width: 1100px) {
+  .booking { grid-template-columns: minmax(0,.7fr) minmax(0,1.3fr); }
+}
+@media (max-width: 760px) {
+  .booking { grid-template-columns: minmax(0,1fr); }
+  .calendar-card, .calendar-live-card {
+    width: calc(100% - 28px) !important;
+    margin: 0 14px 22px !important;
+    justify-self: center;
+  }
+  .booking-photo, .booking-content { min-width: 0; width: 100%; }
+}
