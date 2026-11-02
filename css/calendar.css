@@ -1173,3 +1173,78 @@
     font-size: 9px !important;
   }
 }
+
+
+/* MY PRINCESS v28 — versión ultra compacta: menos altura vertical */
+@media (max-width: 760px) {
+  html body #bookingCalendar .fc .fc-toolbar {
+    margin: 0 0 1px !important;
+    gap: 0 2px !important;
+  }
+  html body #bookingCalendar .fc .fc-toolbar-title {
+    font-size: 15px !important;
+    line-height: 1 !important;
+  }
+  html body #bookingCalendar .fc .fc-button {
+    min-height: 21px !important;
+    padding: 2px 5px !important;
+    font-size: 8px !important;
+  }
+  html body #bookingCalendar .fc .fc-button .fc-icon {
+    font-size: 10px !important;
+  }
+  html body #bookingCalendar .fc .fc-col-header-cell-cushion {
+    padding: 0 !important;
+    font-size: 6px !important;
+    line-height: 1 !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-body tr,
+  html body #bookingCalendar .fc .fc-daygrid-day,
+  html body #bookingCalendar .fc .fc-daygrid-day-frame {
+    height: 23px !important;
+    min-height: 23px !important;
+    max-height: 23px !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day-frame {
+    padding: 0 !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day-number {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    font-size: 9px !important;
+    line-height: 1 !important;
+  }
+  html body .booking .calendar-live-card .calendar-legend {
+    gap: 2px 7px !important;
+    margin: 2px 0 !important;
+    padding: 4px 3px !important;
+    font-size: 6px !important;
+    line-height: 1 !important;
+  }
+  html body .booking .calendar-live-card .calendar-legend i {
+    width: 6px !important;
+    height: 6px !important;
+    min-width: 6px !important;
+  }
+  html body .booking .calendar-live-card > .form-note {
+    margin: 1px 0 0 !important;
+    font-size: 6px !important;
+    line-height: 1.1 !important;
+  }
+}
+@media (max-width: 380px) {
+  html body #bookingCalendar .fc .fc-daygrid-body tr,
+  html body #bookingCalendar .fc .fc-daygrid-day,
+  html body #bookingCalendar .fc .fc-daygrid-day-frame {
+    height: 21px !important;
+    min-height: 21px !important;
+    max-height: 21px !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day-number {
+    width: 17px !important;
+    height: 17px !important;
+    min-width: 17px !important;
+    font-size: 8px !important;
+  }
+}
