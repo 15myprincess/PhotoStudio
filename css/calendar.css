@@ -944,3 +944,17 @@
     font-size: 12px !important;
   }
 }
+
+
+/* Leyenda alineada con los indicadores del calendario */
+.calendar-legend i.today { background:#8bd5a9 !important; }
+.calendar-legend i.busy { background:#e98bb5 !important; }
+.calendar-legend i.available {
+  background:transparent !important;
+  border:1px solid rgba(255,240,247,.72) !important;
+  box-sizing:border-box !important;
+}
+@media(max-width:760px) {
+  .calendar-live-card .calendar-legend { grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
+  .calendar-live-card .calendar-legend span { justify-content:center !important; }
+}
