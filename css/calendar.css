@@ -805,3 +805,142 @@
     width:29px!important;height:29px!important;min-width:29px!important;font-size:13px!important;
   }
 }
+
+
+/* MY PRINCESS v25 — calendario tipo móvil: números y círculos, sin bloques */
+@media (max-width: 760px) {
+  html body #bookingCalendar,
+  html body .calendar-live-card,
+  html body #bookingCalendar .fc,
+  html body #bookingCalendar .fc-view-harness,
+  html body #bookingCalendar .fc-view,
+  html body #bookingCalendar .fc-scrollgrid,
+  html body #bookingCalendar .fc-scrollgrid table {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  html body .booking,
+  html body .booking > *,
+  html body .calendar-live-card {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  html body #bookingCalendar {
+    overflow: hidden !important;
+    padding: 6px 2px !important;
+    margin-inline: auto !important;
+  }
+  html body #bookingCalendar .fc .fc-scrollgrid,
+  html body #bookingCalendar .fc .fc-scrollgrid-section,
+  html body #bookingCalendar .fc .fc-scrollgrid-section > td,
+  html body #bookingCalendar .fc .fc-daygrid-body,
+  html body #bookingCalendar .fc .fc-daygrid-body table {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-body tr,
+  html body #bookingCalendar .fc .fc-daygrid-day,
+  html body #bookingCalendar .fc .fc-daygrid-day-frame {
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+    box-sizing: border-box !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day-frame {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    padding: 3px 0 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day-top {
+    display: flex !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day-number {
+    float: none !important;
+    display: grid !important;
+    place-items: center !important;
+    width: 29px !important;
+    height: 29px !important;
+    min-width: 29px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    color: #fff0f7 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day-events,
+  html body #bookingCalendar .fc .fc-daygrid-day-bottom,
+  html body #bookingCalendar .fc .fc-daygrid-bg-harness,
+  html body #bookingCalendar .fc .fc-daygrid-day-bg,
+  html body #bookingCalendar .fc .fc-bg-event,
+  html body #bookingCalendar .fc .fc-daygrid-event-harness {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day.mp-busy-date,
+  html body #bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-frame {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day.mp-busy-date:before,
+  html body #bookingCalendar .fc .fc-daygrid-day.mp-busy-date:after {
+    content: none !important;
+    display: none !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number {
+    background: linear-gradient(145deg,#ffd9e8,#e98bb5) !important;
+    color: #59213e !important;
+    font-weight: 900 !important;
+    box-shadow: 0 2px 8px rgba(220,105,157,.24) !important;
+  }
+  html body #bookingCalendar .fc .fc-day-today {
+    background: transparent !important;
+  }
+  html body #bookingCalendar .fc .fc-day-today .fc-daygrid-day-number {
+    background: linear-gradient(145deg,#d8f6e4,#8bd5a9) !important;
+    color: #173d2b !important;
+    font-weight: 900 !important;
+    box-shadow: 0 2px 8px rgba(94,190,133,.25) !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day.mp-busy-date.fc-day-today .fc-daygrid-day-number {
+    background: linear-gradient(145deg,#d8f6e4,#8bd5a9) !important;
+    color: #173d2b !important;
+  }
+  html body #bookingCalendar .fc .fc-day-other .fc-daygrid-day-number {
+    opacity: .38 !important;
+  }
+}
+@media (max-width: 380px) {
+  html body #bookingCalendar .fc .fc-daygrid-body tr,
+  html body #bookingCalendar .fc .fc-daygrid-day,
+  html body #bookingCalendar .fc .fc-daygrid-day-frame {
+    height: 41px !important;
+    min-height: 41px !important;
+    max-height: 41px !important;
+  }
+  html body #bookingCalendar .fc .fc-daygrid-day-number {
+    width: 27px !important;
+    height: 27px !important;
+    min-width: 27px !important;
+    font-size: 12px !important;
+  }
+}
