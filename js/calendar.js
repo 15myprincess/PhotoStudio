@@ -54,7 +54,8 @@
       const busy = busyDates.has(cell.getAttribute('data-date'));
       cell.classList.toggle('mp-busy-date', busy);
       // La apariencia se controla por CSS: solo se colorea el círculo del número.
-      cell.removeAttribute('style');
+      cell.style.removeProperty('background');
+      cell.style.removeProperty('box-shadow');
     });
   };
   const scheduleBusyPaint = () => {
