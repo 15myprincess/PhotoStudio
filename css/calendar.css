@@ -648,3 +648,88 @@
     height:62px!important;min-height:62px!important;max-height:62px!important;
   }
 }
+
+
+/* MY PRINCESS MOBILE COUTURE v23 — compacto, centrado y sin desbordamientos */
+@media (max-width:700px){
+  .calendar-live-card{min-width:0!important;max-width:100%!important;overflow:hidden!important}
+  #bookingCalendar{
+    box-sizing:border-box!important;width:100%!important;max-width:100%!important;
+    padding:8px 5px!important;margin:9px auto!important;
+    border-radius:16px!important;overflow:hidden!important;
+  }
+  #bookingCalendar .fc,
+  #bookingCalendar .fc-view-harness,
+  #bookingCalendar .fc-view,
+  #bookingCalendar .fc-daygrid,
+  #bookingCalendar .fc-scrollgrid,
+  #bookingCalendar .fc-scrollgrid table{
+    width:100%!important;max-width:100%!important;min-width:0!important;
+    box-sizing:border-box!important;
+  }
+  #bookingCalendar .fc .fc-toolbar{gap:5px!important;margin-bottom:7px!important;padding-bottom:7px!important}
+  #bookingCalendar .fc .fc-toolbar-title{font-size:clamp(20px,5.5vw,25px)!important;line-height:1.05!important}
+  #bookingCalendar .fc .fc-col-header-cell{padding:5px 0!important}
+  #bookingCalendar .fc .fc-col-header-cell-cushion{font-size:9px!important;letter-spacing:0!important}
+  #bookingCalendar .fc .fc-daygrid-body,
+  #bookingCalendar .fc .fc-daygrid-body table{height:auto!important;min-height:0!important}
+  #bookingCalendar .fc .fc-daygrid-body tr{
+    height:56px!important;min-height:56px!important;max-height:56px!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-day,
+  #bookingCalendar .fc .fc-daygrid-day-frame{
+    height:56px!important;min-height:56px!important;max-height:56px!important;
+    box-sizing:border-box!important;overflow:hidden!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-day-frame{padding:3px 0!important}
+  #bookingCalendar .fc .fc-daygrid-day-top{display:flex!important;justify-content:center!important}
+  #bookingCalendar .fc .fc-daygrid-day-number{
+    float:none!important;display:grid!important;place-items:center!important;
+    width:31px!important;height:31px!important;min-width:31px!important;
+    margin:1px auto!important;padding:0!important;border-radius:50%!important;
+    color:#fbeaf2!important;font-size:14px!important;font-weight:700!important;
+    line-height:1!important;text-decoration:none!important;
+  }
+  /* El fondo de eventos ocupados no debe convertirse en una barra vertical */
+  #bookingCalendar .fc .fc-daygrid-bg-harness .fc-bg-event,
+  #bookingCalendar .fc .fc-daygrid-day-bg .fc-bg-event{
+    display:none!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-day-events,
+  #bookingCalendar .fc .fc-daygrid-day-bottom{
+    display:none!important;height:0!important;min-height:0!important;
+    margin:0!important;padding:0!important;
+  }
+  /* Hoy: círculo verde suave */
+  #bookingCalendar .fc .fc-day-today .fc-daygrid-day-number{
+    background:linear-gradient(145deg,#c9f2dc,#78c99d)!important;
+    color:#173d2b!important;font-weight:900!important;
+    box-shadow:0 0 0 2px rgba(167,230,193,.16),0 3px 9px rgba(95,190,135,.22)!important;
+  }
+  /* Ocupado: círculo rosa, con fondo de celda discreto */
+  #bookingCalendar .fc .fc-daygrid-day.mp-busy-date{
+    border-radius:8px!important;
+    background:rgba(196,91,139,.12)!important;
+    box-shadow:inset 0 0 0 1px rgba(235,151,190,.32)!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number{
+    background:linear-gradient(145deg,#f6b4d0,#d96b9d)!important;
+    color:#541b39!important;font-weight:900!important;
+    box-shadow:0 2px 8px rgba(214,91,145,.24)!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-day.mp-busy-date:after{display:none!important;content:none!important}
+  #bookingCalendar .fc .fc-day-past{opacity:.48!important}
+  .calendar-legend{gap:7px!important;padding:9px!important}
+}
+@media(max-width:380px){
+  #bookingCalendar{padding:6px 3px!important}
+  #bookingCalendar .fc .fc-daygrid-body tr,
+  #bookingCalendar .fc .fc-daygrid-day,
+  #bookingCalendar .fc .fc-daygrid-day-frame{
+    height:51px!important;min-height:51px!important;max-height:51px!important;
+  }
+  #bookingCalendar .fc .fc-daygrid-day-number{
+    width:28px!important;height:28px!important;min-width:28px!important;font-size:13px!important;
+  }
+  #bookingCalendar .fc .fc-col-header-cell-cushion{font-size:8px!important}
+}
