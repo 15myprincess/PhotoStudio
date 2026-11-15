@@ -79,7 +79,7 @@
  async function startSocialLogin(provider,button){
   const buttons=[$('facebookLoginBtn'),$('googleLoginBtn')];buttons.forEach(b=>{if(b)b.disabled=true});
   setMsg(provider==='google'?'Conectando con Google…':'Conectando con Facebook…');
-  const redirectTo=location.origin+location.pathname+location.search;
+  const redirectTo='https://15princess.github.io/PhotoStudio/cuenta.html';
   try{
    const {error}=await sb.auth.signInWithOAuth({provider,options:{redirectTo,queryParams:provider==='google'?{prompt:'select_account'}:undefined}});
    if(error)throw error;
