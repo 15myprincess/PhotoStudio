@@ -678,3 +678,96 @@ body:has(.shell) .btn:not(.ghost):not(.danger),body:has(.wrap) .btn:not(.seconda
 body:has(.shell) .btn.gold{background:linear-gradient(120deg,#e3c99f,#c6a477)!important;color:#2a2029!important}
 body:has(.shell) .field,body:has(.shell) .note,body:has(.wrap) input,
 body:has(.wrap) select,body:has(.wrap) textarea{background:#19151d!important;color:#f7f1f3!important}
+
+
+/* MY PRINCESS — contraste definitivo para Reserva y Sobre nosotros.
+   Se limita a estas secciones; no modifica la lógica del formulario ni del calendario. */
+html body section.booking#reserva{
+  background:linear-gradient(135deg,#211a26 0%,#2a202c 52%,#1b1720 100%)!important;
+  color:#f7f1f3!important;
+  border-top:1px solid rgba(198,164,119,.34)!important;
+  border-bottom:1px solid rgba(198,164,119,.28)!important;
+}
+html body #reserva .booking-content,
+html body #reserva .booking-content form,
+html body #reserva .booking-content label{
+  color:#f1e8ed!important;
+}
+html body #reserva .booking-content h2,
+html body #reserva .booking-content h3,
+html body #reserva .booking-content .form-section-title{
+  color:#ead1dc!important;
+}
+html body #reserva .booking-content .eyebrow{color:#d9b989!important}
+html body #reserva .booking-content .muted,
+html body #reserva .booking-content .form-note,
+html body #reserva .booking-content .dress-picker-label .form-note,
+html body #reserva .booking-content #identityPrivacyNote{
+  color:#d8cbd3!important;
+}
+html body #reserva .booking-content input,
+html body #reserva .booking-content select,
+html body #reserva .booking-content textarea{
+  background:#17131b!important;
+  color:#fff8fb!important;
+  border:1px solid rgba(198,164,119,.42)!important;
+}
+html body #reserva .booking-content input::placeholder,
+html body #reserva .booking-content textarea::placeholder{
+  color:#b9aab4!important;opacity:1!important;
+}
+html body #reserva .booking-content select option{
+  background:#211b26!important;color:#fff8fb!important;
+}
+html body #reserva .booking-content input:focus,
+html body #reserva .booking-content select:focus,
+html body #reserva .booking-content textarea:focus{
+  border-color:#dfb8c7!important;
+  box-shadow:0 0 0 3px rgba(201,143,168,.2)!important;
+}
+html body #reserva .booking-content .selected-dress-summary,
+html body #reserva .booking-content .result{
+  color:#f7f1f3!important;
+  background:#302637!important;
+  border-color:rgba(198,164,119,.34)!important;
+}
+html body #reserva .calendar-live-card{color:#f7f1f3!important}
+html body #reserva .calendar-live-card h3{color:#ead1dc!important}
+html body #reserva .calendar-live-card>p,
+html body #reserva .calendar-live-card .form-note{color:#d8cbd3!important}
+
+/* Sobre nosotros: superficie Royal oscura y tarjetas con texto de alto contraste. */
+html body section.about#nosotros{
+  background:linear-gradient(125deg,#211a26 0%,#2a202c 54%,#1b1720 100%)!important;
+  color:#f7f1f3!important;
+  border-top:1px solid rgba(198,164,119,.22)!important;
+}
+html body #nosotros .about-copy,
+html body #nosotros .about-copy p,
+html body #nosotros .team-card{
+  color:#f1e8ed!important;
+}
+html body #nosotros .about-copy .eyebrow{color:#d9b989!important}
+html body #nosotros .about-copy h2,
+html body #nosotros .about-copy h3,
+html body #nosotros .team-card h3{
+  color:#ead1dc!important;
+}
+html body #nosotros .about-copy>p:not(.eyebrow),
+html body #nosotros .team-card p{
+  color:#d8cbd3!important;
+}
+html body #nosotros .team-card{
+  background:linear-gradient(145deg,#302637,#241d2a)!important;
+  border:1px solid rgba(198,164,119,.3)!important;
+  box-shadow:0 12px 28px rgba(0,0,0,.2)!important;
+}
+html body #nosotros .team-card img{
+  border-bottom:1px solid rgba(198,164,119,.22);
+}
+@media(max-width:760px){
+  html body section.booking#reserva{background:linear-gradient(160deg,#211a26,#1b1720)!important}
+  html body section.about#nosotros{background:linear-gradient(160deg,#211a26,#1b1720)!important}
+  html body #nosotros .team-grid{gap:10px!important}
+  html body #nosotros .team-card p{font-size:10px!important;line-height:1.45!important}
+}
