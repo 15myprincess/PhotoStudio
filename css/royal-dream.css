@@ -1,0 +1,196 @@
+/* MY PRINCESS · ROYAL DREAM
+   Capa visual global. No modifica HTML funcional ni lógica de reservas/autenticación. */
+:root{
+ --mp-plum:#160d16;--mp-plum-2:#261525;--mp-plum-3:#382039;
+ --mp-rose:#d889aa;--mp-rose-light:#f1c3d7;--mp-champagne:#b98a53;
+ --mp-ivory:#fff7f2;--mp-muted:#dfcbd5;--mp-line:rgba(185,138,83,.38);
+ --mp-shadow:0 22px 65px rgba(7,3,8,.34);
+}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+ color:var(--mp-ivory)!important;
+ background:
+  radial-gradient(ellipse at 8% -8%,rgba(216,137,170,.17),transparent 34%),
+  radial-gradient(ellipse at 96% 16%,rgba(185,138,83,.10),transparent 28%),
+  linear-gradient(145deg,#160d16 0%,#1e1220 48%,#120b14 100%)!important;
+}
+body:before{
+ content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.22;
+ background-image:radial-gradient(1px 1px at 12% 22%,#f5d9b0 50%,transparent 100%),radial-gradient(1px 1px at 76% 18%,#f1c3d7 50%,transparent 100%),radial-gradient(1.5px 1.5px at 88% 72%,#d9b47d 50%,transparent 100%),radial-gradient(1px 1px at 35% 84%,#f1c3d7 50%,transparent 100%);
+ background-size:310px 280px,390px 350px,460px 410px,520px 470px;
+}
+::selection{background:#d889aa;color:#241322}
+a{transition:color .25s ease}
+:focus-visible{outline:2px solid #e6bd83!important;outline-offset:3px!important}
+.header,.account-nav{
+ background:linear-gradient(100deg,rgba(22,13,22,.97),rgba(38,21,37,.94),rgba(22,13,22,.97))!important;
+ border-bottom:1px solid rgba(185,138,83,.42)!important;
+ box-shadow:0 8px 30px rgba(8,3,9,.22);
+}
+.brand,.brand>span:nth-child(2),.footer-brand{color:var(--mp-rose-light)!important}
+.brand .crown,.crown,.hero-crown{color:#e2bd83!important;text-shadow:0 0 22px rgba(185,138,83,.48)}
+.nav a:hover,.nav .active,.account-nav a:hover{color:#f0c6d8!important}
+.nav-cta,.button,.btn,.events-hero-cta{
+ border-color:rgba(245,211,164,.72)!important;
+ background:linear-gradient(118deg,#e9b9cc 0%,#d889aa 48%,#b87999 100%)!important;
+ color:#291728!important;
+ box-shadow:0 8px 24px rgba(216,137,170,.19),inset 0 1px rgba(255,255,255,.55);
+}
+.nav-cta:hover,.button:hover,.btn:hover,.events-hero-cta:hover{
+ filter:brightness(1.08);box-shadow:0 12px 32px rgba(216,137,170,.3),0 0 0 1px rgba(232,195,145,.22);
+}
+.button.outline,.btn.secondary,.btn.ghost,.outline{
+ background:rgba(255,247,242,.045)!important;color:#f4dce6!important;
+ border:1px solid rgba(185,138,83,.5)!important;box-shadow:none!important;
+}
+h1,h2,h3,h4,.title,.hero h2,.section-title,.events-hero h1,.collection-intro h2{
+ text-wrap:pretty;
+}
+.eyebrow{color:#dfb77c!important;letter-spacing:.19em}
+.hero{
+ background-color:#1b1020!important;
+}
+.hero-photo{
+ filter:saturate(.9) contrast(1.04);
+}
+.hero-vignette{
+ background:
+  radial-gradient(ellipse at 70% 40%,rgba(216,137,170,.08),transparent 42%),
+  linear-gradient(90deg,#160d16 0%,rgba(22,13,22,.88) 26%,rgba(22,13,22,.12) 67%,rgba(22,13,22,.62) 100%)!important;
+}
+.hero h1{color:#f2c4d8!important;text-shadow:0 5px 30px rgba(216,137,170,.34),0 0 42px rgba(185,138,83,.18)!important}
+.hero-note{color:#e8c38e!important}
+.benefits,.hero-benefits-shell{
+ background-color:transparent;
+}
+section[id],main>section{scroll-margin-top:92px}
+.card,.package-card,.contract-card,.calendar-live-card,.account-card,.event-item,
+.events-hero-image,.album-dialog,.event-note,.collection-intro,.toolbar-panel,.request,
+.stat,.status-board,.request-modal-panel{
+ border-color:var(--mp-line)!important;
+ box-shadow:var(--mp-shadow);
+}
+.card,.package-card,.contract-card,.calendar-live-card,.account-card,.event-item,
+.toolbar-panel,.request,.stat,.status-board{
+ background:linear-gradient(145deg,rgba(54,31,53,.94),rgba(25,15,27,.97))!important;
+}
+.card:hover,.package-card:hover,.contract-card:hover,.request:hover{
+ border-color:rgba(232,190,139,.72)!important;
+ box-shadow:0 24px 60px rgba(7,3,8,.42),0 0 28px rgba(216,137,170,.10);
+}
+input,select,textarea,.field,.note{
+ background-color:rgba(19,11,21,.92)!important;color:#fff7f2!important;
+ border-color:rgba(185,138,83,.42)!important;
+}
+input::placeholder,textarea::placeholder{color:#bda8b7!important}
+input:focus,select:focus,textarea:focus,.field:focus{
+ border-color:#d889aa!important;box-shadow:0 0 0 3px rgba(216,137,170,.16)!important;
+}
+label,.muted,.sub,.small-note,.social-note{color:#dfcbd5!important}
+.account-page{background:transparent!important}
+.account-main h1,.account-main h2,.account-main h3{color:#efc4d6}
+.account-nav a{color:#efc4d6!important}
+.account-card{backdrop-filter:blur(14px)}
+.event-item strong,.request h2,.request-mini .mini-name{color:#efc4d6!important}
+.status-tag,.pill,.date,.note{color:#e8c38e}
+.events-page{background:transparent!important}
+.events-hero{
+ background:
+  radial-gradient(ellipse at 80% 18%,rgba(185,138,83,.14),transparent 35%),
+  linear-gradient(135deg,#1d1220,#160d16 72%)!important;
+ border-bottom:1px solid rgba(185,138,83,.24);
+}
+.events-hero h1,.collection-intro h2{color:#f0c7d8!important}
+.events-hero h1 em,.collection-intro h2 em{color:#dfb77c!important}
+.event-toolbar{border-color:rgba(185,138,83,.3)!important}
+.filter-chip{
+ border-color:rgba(185,138,83,.42)!important;background:rgba(255,247,242,.045)!important;color:#f6e8ee!important;
+}
+.filter-chip.active,.filter-chip:hover{background:linear-gradient(120deg,#e9b9cc,#d889aa)!important;color:#291728!important}
+.album-dialog{background:linear-gradient(145deg,#382039,#1b1020)!important}
+.album-close{border-radius:10px!important;border-color:rgba(185,138,83,.55)!important}
+.vestuario-page{background:transparent!important}
+.vestuario-page .header{background:rgba(22,13,22,.97)!important}
+.dress-card,.dress-item,.viewer-panel,.tryon-card,.tryon-payment-area,
+.contract-selector,.package-selector,.selection-summary{
+ border-color:rgba(185,138,83,.42)!important;
+}
+.mp-viewer-close,.mp-viewer-arrow{
+ border-color:rgba(185,138,83,.65)!important;
+ background:linear-gradient(145deg,rgba(38,21,37,.96),rgba(22,13,22,.96))!important;
+ color:#f1c3d7!important;
+ box-shadow:0 8px 24px rgba(0,0,0,.3)!important;
+}
+#bookingCalendar{
+ border-color:rgba(185,138,83,.46)!important;
+ box-shadow:0 12px 32px rgba(12,5,13,.18)!important;
+}
+#bookingCalendar .fc .fc-toolbar-title{color:#75465e!important}
+#bookingCalendar .fc .fc-toolbar .fc-button,
+#bookingCalendar .fc .fc-toolbar .fc-button-primary{
+ border-color:#dfbd91!important;
+ background:linear-gradient(120deg,#f4e3e8,#e8c5d3)!important;color:#4a2a40!important;
+}
+#bookingCalendar .fc .fc-day-today .fc-daygrid-day-number{background:#e7bfd0!important;color:#4a2a40!important}
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number{background:#f0d9df!important;color:#70445b!important}
+#bookingCalendar .fc .fc-bg-event,#bookingCalendar .fc .fc-daygrid-event{
+ background:linear-gradient(120deg,#c887a5,#9b6381)!important;border-color:#e5c39b!important;
+}
+#bookingCalendar .fc .fc-event-title,#bookingCalendar .fc .fc-event-time{color:#fff8f3!important}
+.mp-bottom-nav{
+ background:linear-gradient(105deg,rgba(22,13,22,.98),rgba(48,28,48,.98),rgba(22,13,22,.98))!important;
+ border:1px solid rgba(185,138,83,.46)!important;
+ box-shadow:0 -12px 35px rgba(5,2,7,.35),0 0 24px rgba(216,137,170,.08)!important;
+ backdrop-filter:blur(18px);
+}
+.mp-bottom-nav a{color:#e8d5df!important}
+.mp-bottom-nav a.active,.mp-bottom-nav a[aria-current="page"]{color:#f0c18a!important}
+.petal-layer i{background:linear-gradient(145deg,#f0c3d6,#d889aa)!important;box-shadow:0 0 12px rgba(216,137,170,.22)}
+/* Admin: conserva su jerarquía de panel, pero adopta la misma identidad. */
+body:has(.shell),body:has(.wrap){
+ background:
+  radial-gradient(ellipse at 8% 0%,rgba(216,137,170,.16),transparent 34%),
+  radial-gradient(ellipse at 96% 18%,rgba(185,138,83,.1),transparent 28%),
+  linear-gradient(145deg,#160d16,#211426 58%,#120b14)!important;
+}
+body:has(.shell) .topbar,body:has(.wrap) .top{
+ border-color:rgba(185,138,83,.36)!important;
+}
+body:has(.shell) .brand h1,body:has(.wrap) .title,body:has(.shell) .intro h2,
+body:has(.shell) .results-head h3,body:has(.wrap) .request h2{color:#efc4d6!important}
+body:has(.shell) .stat,body:has(.shell) .request,body:has(.shell) .toolbar-panel,
+body:has(.shell) .loginbox,body:has(.wrap) .card,body:has(.wrap) .stat{
+ background:linear-gradient(145deg,rgba(54,31,53,.96),rgba(25,15,27,.98))!important;
+ border-color:rgba(185,138,83,.4)!important;
+}
+body:has(.shell) .crest{border-color:#c49a69;color:#e6c18d;background:linear-gradient(145deg,#d9b47d22,#d889aa14)}
+body:has(.shell) .btn:not(.ghost):not(.danger),body:has(.wrap) .btn:not(.secondary){
+ background:linear-gradient(120deg,#e9b9cc,#d889aa 58%,#b87999)!important;color:#291728!important;border-color:#e8c59a!important;
+}
+body:has(.shell) .btn.gold{background:linear-gradient(120deg,#f1d9ad,#b98a53)!important;color:#281b11!important}
+body:has(.shell) .field,body:has(.shell) .note,body:has(.wrap) input,body:has(.wrap) select,body:has(.wrap) textarea{
+ background:#160e18!important;border-color:rgba(185,138,83,.42)!important;color:#fff7f2!important;
+}
+body:has(.shell) .pill,body:has(.wrap) .pill{border-color:rgba(185,138,83,.5)!important}
+@media(hover:hover) and (pointer:fine){
+ .button,.btn,.nav-cta,.mp-viewer-arrow,.mp-viewer-close{transition:transform .28s ease,box-shadow .28s ease,filter .28s ease}
+ .card:hover,.package-card:hover,.contract-card:hover{transform:translateY(-4px)}
+}
+@media(max-width:760px){
+ body{background:linear-gradient(155deg,#1d1220 0%,#160d16 54%,#120b14 100%)!important}
+ .hero{min-height:590px}
+ .hero-copy{width:min(92%,540px)!important;margin:0 auto!important;padding:58px 12px 86px!important}
+ .hero h1{font-size:clamp(62px,17vw,88px)!important}
+ .hero-note{right:5%;top:auto;bottom:62px;font-size:18px;line-height:1.2}
+ .header{padding-left:14px!important;padding-right:14px!important}
+ .account-card,.card,.calendar-live-card,.request,.toolbar-panel{border-radius:17px!important}
+ .mp-bottom-nav{padding-bottom:max(8px,env(safe-area-inset-bottom))!important}
+ .events-hero{padding-left:18px!important;padding-right:18px!important}
+ .events-hero-image{border-radius:18px!important}
+ .account-main{padding-top:25px!important}
+ body:has(.shell) .shell,body:has(.wrap) .wrap{padding-left:12px!important;padding-right:12px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+@media print{body:before{display:none!important}}
