@@ -97,11 +97,21 @@
   }
   function renderPackageOptions() {
     if (!packageSelect) return;
+    const gemstoneOrder = ["Cuarzo Rosa", "Amatista", "Aguamarina", "Topacio", "Turmalina", "Esmeralda", "Zafiro", "Rubí", "Diamante"];
+    packages.sort((a, b) => {
+      const ai = gemstoneOrder.indexOf(a.name);
+      const bi = gemstoneOrder.indexOf(b.name);
+      return (ai < 0 ? 999 : ai) - (bi < 0 ? 999 : bi) || String(a.name).localeCompare(String(b.name), "es");
+    });
     packageSelect.innerHTML = '<option value="">Elige un contrato</option>' +
-      packages.map(p => `<option value="${escapeHtml(p.name)}">${escapeHtml(p.name)} · ${Number(p.included_studio_dresses || 0)} vestido(s)</option>`).join("");
+      packages.map(p => {
+        const unavailable = p.active === false;
+        const label = `${escapeHtml(p.name)} · ${Number(p.included_studio_dresses || 0)} vestido(s)${unavailable ? " · No disponible" : ""}`;
+        return `<option value="${escapeHtml(p.name)}"${unavailable ? " disabled" : ""}>${label}</option>`;
+      }).join("");
     const params = new URLSearchParams(location.search);
     const requested = (params.get("contrato") || params.get("contract") || params.get("package") || packageName || "").trim();
-    const initial = packages.find(p => p.name === requested) || null;
+    const initial = packages.find(p => p.name === requested && p.active !== false) || null;
     if (initial) {
       packageSelect.value = initial.name;
       setPackage(initial, {clearIfChanged: false});
@@ -124,7 +134,7 @@
     }
     const sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
     const [packageResult, dressResult] = await Promise.all([
-      sb.from("contract_packages").select("id,name,included_studio_dresses,active").eq("active", true).order("name"),
+      sb.from("contract_packages").select("id,name,included_studio_dresses,active"),
       sb.from("dresses").select("id,code,name,color,size,description,image_path,status").eq("status", "available").order("code")
     ]);
     if (packageResult.error) {
