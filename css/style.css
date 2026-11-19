@@ -1410,3 +1410,34 @@ body{padding-bottom:76px}
   .mp-bottom-nav{display:none!important}
   body{padding-bottom:0}
 }
+
+
+/* Barra inferior fija: reserva espacio real para que el contenido no quede oculto. */
+@media(max-width:760px){
+  .mp-bottom-nav{
+    position:fixed!important;
+    z-index:5000;
+    bottom:0!important;
+    left:0!important;
+    right:0!important;
+    transform:none!important;
+    width:100%!important;
+    max-width:none!important;
+    border-left:0!important;
+    border-right:0!important;
+    border-bottom:0!important;
+    border-radius:16px 16px 0 0!important;
+    padding:7px 4px calc(7px + env(safe-area-inset-bottom))!important;
+    box-sizing:border-box;
+  }
+  body{
+    padding-bottom:calc(64px + env(safe-area-inset-bottom))!important;
+    scroll-padding-bottom:calc(72px + env(safe-area-inset-bottom));
+  }
+  html{scroll-padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+}
+@media(max-width:390px){
+  @media(max-width:760px){
+    body{padding-bottom:calc(62px + env(safe-area-inset-bottom))!important}
+  }
+}
