@@ -1,0 +1,55 @@
+/* MY PRINCESS · ROYAL FLOW
+   Transiciones orgánicas y luminosas entre secciones. Solo presentación. */
+.mp-flow-section{
+  position:relative;
+  scroll-margin-top:88px;
+  --mp-flow-tone:rgba(220,165,190,.20);
+}
+.mp-flow-section::before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  pointer-events:none;
+  top:0;left:0;right:0;height:clamp(30px,5vw,62px);
+  opacity:.78;
+  background:
+    radial-gradient(ellipse 42% 72% at 18% 0%,rgba(225,185,204,.18),transparent 76%),
+    radial-gradient(ellipse 38% 70% at 82% 0%,rgba(204,164,111,.15),transparent 78%),
+    linear-gradient(180deg,rgba(225,185,204,.055),transparent 92%);
+  clip-path:ellipse(78% 100% at 50% 0%);
+  transform:translateY(-1px);
+  transition:opacity .8s ease,filter .8s ease;
+}
+.mp-flow-section::after{
+  content:"";
+  position:absolute;
+  z-index:3;
+  pointer-events:none;
+  top:0;left:8%;width:84%;height:1px;
+  opacity:.62;
+  background:linear-gradient(90deg,transparent,rgba(232,194,211,.48) 22%,rgba(218,185,133,.62) 50%,rgba(232,194,211,.42) 78%,transparent);
+  box-shadow:0 0 13px rgba(218,185,133,.18);
+  transform:scaleX(.72);
+  transform-origin:center;
+  transition:transform 1.2s cubic-bezier(.2,.7,.2,1),opacity .8s ease;
+}
+.mp-flow-section.mp-flow-seen::before{opacity:1;filter:saturate(1.12)}
+.mp-flow-section.mp-flow-seen::after{transform:scaleX(1);opacity:.9}
+.mp-flow-section.mp-flow-alt::before{
+  background:
+    radial-gradient(ellipse 46% 74% at 78% 0%,rgba(218,185,133,.16),transparent 76%),
+    radial-gradient(ellipse 40% 70% at 20% 0%,rgba(225,185,204,.17),transparent 78%),
+    linear-gradient(180deg,rgba(218,185,133,.045),transparent 92%);
+}
+.mp-flow-section > :first-child{position:relative}
+.mp-flow-section .mp-flow-image{
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 86%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 86%,transparent 100%);
+}
+@media(max-width:700px){
+  .mp-flow-section::before{height:34px;opacity:.62}
+  .mp-flow-section::after{left:12%;width:76%;opacity:.48}
+}
+@media(prefers-reduced-motion:reduce){
+  .mp-flow-section::before,.mp-flow-section::after{transition:none}
+}
