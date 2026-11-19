@@ -172,6 +172,7 @@
 
 <link rel="stylesheet" href="css/royal-dream.css?v=20261119-3">
   <link rel="stylesheet" href="css/royal-effects.css?v=2">
+  <link rel="stylesheet" href="css/royal-flow.css?v=1">
 </head>
 <body>
 <div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -292,5 +293,6 @@
 <script>
 (()=>{const modal=document.getElementById('studioVideoModal'),trigger=document.getElementById('openStudioVideo'),closeBtn=document.getElementById('closeStudioVideo'),frame=document.getElementById('studioVideoFrame');if(!modal||!trigger||!closeBtn||!frame)return;let previousFocus=null;const open=event=>{event?.preventDefault();previousFocus=document.activeElement;modal.hidden=false;frame.src=frame.dataset.embed;document.body.style.overflow='hidden';closeBtn.focus()};const close=()=>{if(modal.hidden)return;modal.hidden=true;frame.src='about:blank';document.body.style.overflow='';previousFocus?.focus?.()};trigger.addEventListener('click',open);closeBtn.addEventListener('click',close);modal.addEventListener('click',event=>{if(event.target===modal)close()});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!modal.hidden)close()})})();
 </script>
-  <script src="js/royal-effects.js?v=1" defer></script>
+  <script src="js/royal-effects.js?v=1" defer>
+  <script src="js/royal-flow.js?v=1" defer></script></script>
 </body></html>
