@@ -515,3 +515,166 @@ html body .booking .calendar-live-card #calendarStatus{
   html body .booking .calendar-live-card>h3{font-size:18px!important}
   html body .booking #bookingCalendar .fc .fc-toolbar-title{font-size:17px!important}
 }
+
+
+/* MY PRINCESS · PALETA ROYAL EQUILIBRADA
+   Capa cromática unificada. Conserva geometría, componentes y comportamiento. */
+:root{
+  --mp-plum:#17131b;
+  --mp-plum-2:#211b26;
+  --mp-plum-3:#302637;
+  --mp-rose:#c98fa8;
+  --mp-rose-light:#e3c1cf;
+  --mp-champagne:#c6a477;
+  --mp-ivory:#f7f1f3;
+  --mp-muted:#d0c4cd;
+  --mp-line:rgba(198,164,119,.28);
+  --mp-shadow:0 16px 42px rgba(5,3,8,.24);
+  --ink:#17131b;--ink2:#211b26;--pink:#c98fa8;--pink2:#ad718b;
+  --blush:#f0dce4;--gold:#c6a477;--white:#f7f1f3;--muted:#d0c4cd;--line:#574452;
+}
+html,body{background-color:#17131b!important}
+body{
+  color:#f7f1f3!important;
+  background:linear-gradient(145deg,#17131b 0%,#1d1822 52%,#151219 100%)!important;
+}
+body:before{opacity:.075!important}
+.header,.account-nav,.vestuario-page .header{
+  background:rgba(27,22,31,.97)!important;
+  border-bottom:1px solid rgba(198,164,119,.24)!important;
+  box-shadow:0 5px 20px rgba(0,0,0,.16)!important;
+}
+.brand,.brand>span:nth-child(2),.footer-brand{color:#dfb8c7!important}
+.brand small{color:#cfc1ca!important}
+.brand .crown,.crown,.hero-crown{color:#c6a477!important;text-shadow:none!important}
+.nav a,.account-nav a{color:#e5dbe1!important}
+.nav a:hover,.nav .active,.account-nav a:hover{color:#e3c1cf!important}
+h1,h2,h3,h4,.section-title,.events-hero h1,.collection-intro h2{
+  color:#eadde4;
+}
+.eyebrow{color:#c6a477!important}
+.hero{background-color:#1d1822!important}
+.hero-vignette{
+  background:linear-gradient(90deg,rgba(23,19,27,.97) 0%,rgba(23,19,27,.82) 34%,rgba(23,19,27,.16) 72%,rgba(23,19,27,.55) 100%)!important;
+}
+.hero h1{color:#ead1dc!important;text-shadow:0 3px 20px rgba(0,0,0,.24)!important}
+.hero-note{color:#d7b58b!important}
+.card,.package-card,.contract-card,.calendar-live-card,.account-card,.event-item,
+.toolbar-panel,.request,.stat,.status-board,.gem-card,.team-card,.location-block,
+.contact-block,.event-note,.collection-intro,.album-dialog,.request-modal-panel{
+  background:linear-gradient(145deg,#29222e,#211b26)!important;
+  border-color:rgba(198,164,119,.25)!important;
+  box-shadow:0 12px 30px rgba(4,2,7,.20)!important;
+}
+.card:hover,.package-card:hover,.contract-card:hover,.request:hover{
+  border-color:rgba(198,164,119,.48)!important;
+  box-shadow:0 16px 36px rgba(4,2,7,.26)!important;
+}
+.nav-cta,.button,.btn,.events-hero-cta{
+  background:linear-gradient(120deg,#dfb8c7,#c98fa8)!important;
+  color:#2a2029!important;
+  border:1px solid rgba(226,197,163,.58)!important;
+  box-shadow:0 5px 15px rgba(201,143,168,.12)!important;
+}
+.nav-cta:hover,.button:hover,.btn:hover,.events-hero-cta:hover{
+  filter:brightness(1.045)!important;
+  box-shadow:0 8px 20px rgba(201,143,168,.18)!important;
+}
+.button.outline,.btn.secondary,.btn.ghost,.outline{
+  background:rgba(247,241,243,.035)!important;
+  color:#e9dce3!important;
+  border:1px solid rgba(198,164,119,.34)!important;
+  box-shadow:none!important;
+}
+input,select,textarea,.field,.note{
+  background:#19151d!important;color:#f7f1f3!important;
+  border-color:rgba(198,164,119,.28)!important;
+}
+input::placeholder,textarea::placeholder{color:#a99aa5!important}
+input:focus,select:focus,textarea:focus,.field:focus{
+  border-color:#c98fa8!important;
+  box-shadow:0 0 0 3px rgba(201,143,168,.12)!important;
+}
+label,.muted,.sub,.small-note,.social-note{color:#d0c4cd!important}
+.footer{background:#151219!important;border-top:1px solid rgba(198,164,119,.2)!important}
+.events-hero{
+  background:linear-gradient(135deg,#29222e,#17131b 78%)!important;
+  border-color:rgba(198,164,119,.2)!important;
+}
+.events-hero h1,.collection-intro h2{color:#ead1dc!important}
+.events-hero h1 em,.collection-intro h2 em{color:#c6a477!important}
+.filter-chip{
+  background:rgba(247,241,243,.035)!important;
+  border-color:rgba(198,164,119,.25)!important;color:#e9dce3!important;
+}
+.filter-chip.active,.filter-chip:hover{
+  background:#c98fa8!important;color:#2a2029!important;
+}
+.account-page{background:transparent!important}
+.account-main h1,.account-main h2,.account-main h3{color:#ead1dc!important}
+.account-card{backdrop-filter:blur(12px)}
+.events-page,.vestuario-page{background:transparent!important}
+.dress-card,.dress-item,.viewer-panel,.tryon-card,.tryon-payment-area,
+.contract-selector,.package-selector,.selection-summary{
+  background-color:#211b26!important;border-color:rgba(198,164,119,.25)!important;
+}
+.mp-viewer-close,.mp-viewer-arrow{
+  background:#29222e!important;color:#e3c1cf!important;
+  border-color:rgba(198,164,119,.38)!important;box-shadow:none!important;
+}
+.mp-bottom-nav{
+  background:rgba(27,22,31,.97)!important;
+  border-color:rgba(198,164,119,.28)!important;
+  box-shadow:0 -8px 24px rgba(0,0,0,.22)!important;
+}
+.mp-bottom-nav a{color:#d8cbd3!important}
+.mp-bottom-nav a.active,.mp-bottom-nav a[aria-current=page]{color:#c6a477!important}
+.petal-layer i{background:linear-gradient(145deg,#dfb8c7,#c98fa8)!important;box-shadow:0 0 8px rgba(201,143,168,.12)!important}
+/* Calendario: mantiene el formato compacto elegido; solo armoniza los tonos. */
+html body .booking .calendar-live-card{
+  background:#211b26!important;border-color:rgba(198,164,119,.27)!important;
+}
+html body .booking #bookingCalendar{
+  background:#19151d!important;border-color:rgba(198,164,119,.2)!important;
+}
+html body .booking #bookingCalendar .fc .fc-toolbar-title{color:#eadde4!important}
+html body .booking #bookingCalendar .fc .fc-button,
+html body .booking #bookingCalendar .fc .fc-button-primary{
+  background:#302637!important;color:#eadde4!important;
+  border-color:rgba(198,164,119,.3)!important;
+}
+html body .booking #bookingCalendar .fc .fc-button-active{
+  background:#dfb8c7!important;color:#2a2029!important;
+}
+html body .booking #bookingCalendar .fc .fc-col-header-cell,
+html body .booking #bookingCalendar .fc .fc-col-header-cell .fc-scrollgrid-sync-inner{
+  background:#29222e!important;
+}
+html body .booking #bookingCalendar .fc .fc-col-header-cell-cushion{color:#d8c5cf!important}
+html body .booking #bookingCalendar .fc .fc-daygrid-day-number{color:#f0e8ed!important}
+html body .booking #bookingCalendar .fc .fc-day-today .fc-daygrid-day-number{
+  background:#c6a477!important;color:#241b22!important;
+}
+html body .booking #bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number{
+  background:#c98fa8!important;color:#2b1d27!important;
+}
+html body .booking .calendar-live-card .calendar-legend{color:#d0c4cd!important;border-color:rgba(198,164,119,.18)!important}
+html body .booking .calendar-live-card #calendarStatus{color:#d0c4cd!important}
+/* Administración: misma paleta sin alterar controles ni estructura del panel. */
+body:has(.shell),body:has(.wrap){
+  background:linear-gradient(145deg,#17131b,#211b26 58%,#151219)!important;
+}
+body:has(.shell) .stat,body:has(.shell) .request,body:has(.shell) .toolbar-panel,
+body:has(.shell) .loginbox,body:has(.wrap) .card,body:has(.wrap) .stat{
+  background:linear-gradient(145deg,#29222e,#211b26)!important;
+  border-color:rgba(198,164,119,.25)!important;
+}
+body:has(.shell) .brand h1,body:has(.wrap) .title,body:has(.shell) .intro h2,
+body:has(.shell) .results-head h3,body:has(.wrap) .request h2{color:#ead1dc!important}
+body:has(.shell) .btn:not(.ghost):not(.danger),body:has(.wrap) .btn:not(.secondary){
+  background:linear-gradient(120deg,#dfb8c7,#c98fa8)!important;color:#2a2029!important;
+  border-color:rgba(226,197,163,.58)!important;
+}
+body:has(.shell) .btn.gold{background:linear-gradient(120deg,#e3c99f,#c6a477)!important;color:#2a2029!important}
+body:has(.shell) .field,body:has(.shell) .note,body:has(.wrap) input,
+body:has(.wrap) select,body:has(.wrap) textarea{background:#19151d!important;color:#f7f1f3!important}
