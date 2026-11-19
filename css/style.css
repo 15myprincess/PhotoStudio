@@ -1459,3 +1459,19 @@ body{padding-bottom:76px}
   }
   main,footer{scroll-margin-bottom:calc(90px + env(safe-area-inset-bottom))}
 }
+
+
+/* Barra inferior fija y opaca: reserva espacio para que el contenido no pase por debajo. */
+@media(max-width:760px){
+  .mp-bottom-nav{
+    position:fixed!important;z-index:5000!important;
+    bottom:calc(8px + env(safe-area-inset-bottom))!important;
+    background:linear-gradient(135deg,#321b2d 0%,#1b101a 100%)!important;
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+    box-shadow:0 8px 28px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.12)!important;
+  }
+  html{scroll-padding-bottom:100px}
+  body{padding-bottom:calc(96px + env(safe-area-inset-bottom))!important}
+  main{padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+}
+@media(min-width:761px){.mp-bottom-nav{display:none!important}body{padding-bottom:0!important}}
