@@ -194,3 +194,136 @@ body:has(.shell) .pill,body:has(.wrap) .pill{border-color:rgba(185,138,83,.5)!im
  *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 @media print{body:before{display:none!important}}
+
+
+/* ROYAL DREAM · CALENDARIO — acabado oscuro real, sin superficies blancas */
+html body .booking .calendar-live-card{
+  background:
+    radial-gradient(ellipse at 12% 0%,rgba(216,137,170,.17),transparent 38%),
+    radial-gradient(ellipse at 100% 100%,rgba(185,138,83,.10),transparent 34%),
+    linear-gradient(145deg,#2b192b 0%,#1b111f 58%,#160d18 100%)!important;
+  border:1px solid rgba(205,157,111,.55)!important;
+}
+html body .booking .calendar-live-card h3{color:#f4cadb!important}
+html body .booking .calendar-live-card #calendarStatus{color:#e8cfdb!important}
+html body .booking #bookingCalendar{
+  background:linear-gradient(145deg,#180f1b,#211323)!important;
+  border:1px solid rgba(198,153,111,.38)!important;
+  border-radius:18px!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.035),0 12px 30px rgba(0,0,0,.24)!important;
+  padding:12px!important;
+}
+html body .booking #bookingCalendar .fc,
+html body .booking #bookingCalendar .fc-view-harness,
+html body .booking #bookingCalendar .fc-view,
+html body .booking #bookingCalendar .fc-scrollgrid,
+html body .booking #bookingCalendar .fc-scrollgrid table,
+html body .booking #bookingCalendar .fc-scrollgrid-section,
+html body .booking #bookingCalendar .fc-scrollgrid-section>td,
+html body .booking #bookingCalendar .fc-daygrid-body,
+html body .booking #bookingCalendar .fc-daygrid-body table{
+  background:transparent!important;
+  --fc-page-bg-color:#1b1120;
+  --fc-neutral-bg-color:rgba(255,247,242,.035);
+  --fc-border-color:rgba(205,166,135,.20);
+  color:#fff3f7!important;
+}
+html body .booking #bookingCalendar .fc-scrollgrid,
+html body .booking #bookingCalendar .fc-scrollgrid td,
+html body .booking #bookingCalendar .fc-scrollgrid th{
+  border-color:rgba(205,166,135,.22)!important;
+}
+html body .booking #bookingCalendar .fc-col-header,
+html body .booking #bookingCalendar .fc-col-header thead,
+html body .booking #bookingCalendar .fc-col-header tr,
+html body .booking #bookingCalendar .fc-col-header th,
+html body .booking #bookingCalendar .fc-col-header .fc-scrollgrid-sync-inner{
+  background:linear-gradient(180deg,#563047,#382039)!important;
+}
+html body .booking #bookingCalendar .fc-col-header-cell-cushion{
+  color:#f4cddd!important;font-weight:700!important;letter-spacing:.07em!important;
+}
+html body .booking #bookingCalendar .fc-daygrid-day,
+html body .booking #bookingCalendar .fc-daygrid-day-frame,
+html body .booking #bookingCalendar .fc-daygrid-day-top,
+html body .booking #bookingCalendar .fc-daygrid-day-bottom,
+html body .booking #bookingCalendar .fc-daygrid-day-events,
+html body .booking #bookingCalendar .fc-daygrid-day-bg{
+  background:transparent!important;
+}
+html body .booking #bookingCalendar .fc-daygrid-day{
+  background:rgba(255,247,242,.018)!important;
+  transition:background .2s ease,box-shadow .2s ease!important;
+}
+html body .booking #bookingCalendar .fc-daygrid-day:nth-child(even){
+  background:rgba(216,137,170,.035)!important;
+}
+html body .booking #bookingCalendar .fc-daygrid-day:hover{
+  background:rgba(216,137,170,.13)!important;
+  box-shadow:inset 0 0 0 1px rgba(216,137,170,.25)!important;
+}
+html body .booking #bookingCalendar .fc-daygrid-day-number{
+  color:#f8eaf1!important;font-weight:600!important;
+}
+html body .booking #bookingCalendar .fc-day-other .fc-daygrid-day-number{
+  color:#987f91!important;opacity:.65!important;
+}
+html body .booking #bookingCalendar .fc-day-today,
+html body .booking #bookingCalendar .fc-day-today .fc-daygrid-day-frame{
+  background:rgba(185,138,83,.12)!important;
+}
+html body .booking #bookingCalendar .fc-day-today .fc-daygrid-day-number{
+  background:linear-gradient(145deg,#f7dfb5,#c99b65)!important;
+  color:#2b1924!important;font-weight:900!important;
+  box-shadow:0 0 0 3px rgba(201,155,101,.15),0 3px 12px rgba(0,0,0,.22)!important;
+}
+html body .booking #bookingCalendar .fc-daygrid-day.mp-busy-date{
+  background:rgba(216,137,170,.10)!important;
+  box-shadow:inset 0 0 0 1px rgba(216,137,170,.28)!important;
+}
+html body .booking #bookingCalendar .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number{
+  background:linear-gradient(145deg,#f2bfd5,#c66f98)!important;
+  color:#351629!important;font-weight:900!important;
+  box-shadow:0 2px 9px rgba(216,137,170,.24)!important;
+}
+html body .booking #bookingCalendar .fc-bg-event,
+html body .booking #bookingCalendar .fc-daygrid-bg-harness .fc-bg-event{
+  background:linear-gradient(135deg,rgba(190,83,126,.88),rgba(111,39,76,.94))!important;
+  border:1px solid rgba(244,197,216,.38)!important;opacity:.86!important;
+}
+html body .booking #bookingCalendar .fc-daygrid-event,
+html body .booking #bookingCalendar .fc-daygrid-block-event{
+  background:linear-gradient(120deg,#bd7394,#75405d)!important;
+  border:1px solid rgba(244,197,216,.45)!important;color:#fff7fa!important;
+}
+html body .booking #bookingCalendar .fc-toolbar-title{
+  color:#f5d5e2!important;text-shadow:0 2px 18px rgba(216,137,170,.18)!important;
+}
+html body .booking #bookingCalendar .fc-toolbar .fc-button,
+html body .booking #bookingCalendar .fc-toolbar .fc-button-primary{
+  background:linear-gradient(125deg,#70405c,#3d233d)!important;
+  color:#fff1f6!important;border:1px solid rgba(205,157,111,.62)!important;
+  border-radius:9px!important;box-shadow:0 4px 12px rgba(0,0,0,.22)!important;
+}
+html body .booking #bookingCalendar .fc-toolbar .fc-button:hover:not(:disabled){
+  background:linear-gradient(125deg,#a65e82,#68405f)!important;
+}
+html body .booking #bookingCalendar .fc-toolbar .fc-button-active{
+  background:linear-gradient(125deg,#efd0dd,#d69bb5)!important;color:#321a2b!important;
+}
+html body .booking .calendar-legend{
+  background:rgba(255,247,242,.035)!important;
+  border:1px solid rgba(205,157,111,.25)!important;
+  color:#ead8e1!important;
+}
+html body .booking .calendar-legend i.today{background:#c99b65!important}
+html body .booking .calendar-legend i.busy{background:#d889aa!important}
+html body .booking .calendar-legend i.available{
+  background:transparent!important;border:1px solid #f1dce6!important;
+}
+@media(max-width:760px){
+  html body .booking #bookingCalendar{padding:7px 4px!important}
+  html body .booking #bookingCalendar .fc-daygrid-day{border-radius:5px!important}
+  html body .booking #bookingCalendar .fc-daygrid-day-number{font-size:11px!important}
+  html body .booking .calendar-legend{font-size:9px!important}
+}
