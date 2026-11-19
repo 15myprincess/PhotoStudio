@@ -1539,3 +1539,38 @@ body{padding-bottom:76px}
 @media screen and (min-width:761px){
   .mp-bottom-nav{display:none!important}
 }
+
+
+/* MY PRINCESS — PORTAFOLIO MÓVIL COMPACTO
+   Cuadrícula sin solapamientos, huecos ni márgenes verticales excesivos. */
+@media screen and (max-width:700px){
+  html body #galeria.gallery{padding:32px 13px 36px!important;margin:0!important}
+  html body #galeria .section-heading{margin:0 auto 16px!important;padding:0 5px!important}
+  html body #galeria .section-heading .eyebrow{margin:0 0 5px!important;font-size:9px!important;letter-spacing:2.2px!important}
+  html body #galeria .section-heading h2{font-size:clamp(27px,7.2vw,36px)!important;line-height:1.08!important;margin:0 auto 7px!important}
+  html body #galeria .section-heading>p:last-child{font-size:10px!important;line-height:1.4!important;margin:0 auto!important}
+  html body #galeria .gallery-grid{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-rows:repeat(3,clamp(128px,39vw,185px))!important;
+    grid-auto-rows:clamp(128px,39vw,185px)!important;gap:8px!important;
+    margin:0 auto!important;padding:0!important;align-content:start!important;
+  }
+  html body #galeria .gallery-item,
+  html body #galeria .gallery-item.tall,
+  html body #galeria .gallery-item.wide,
+  html body #galeria .gallery-item.square,
+  html body #galeria .gallery-item.behind-camera{
+    grid-column:auto!important;grid-row:auto!important;min-width:0!important;min-height:0!important;
+    width:100%!important;height:100%!important;margin:0!important;border-radius:5px 14px 5px 14px!important;
+  }
+  html body #galeria .gallery-item:first-child{grid-column:1!important;grid-row:1 / span 2!important}
+  html body #galeria .gallery-item:nth-child(2){grid-column:2!important;grid-row:1!important}
+  html body #galeria .gallery-item:nth-child(3){grid-column:2!important;grid-row:2!important}
+  html body #galeria .gallery-item:nth-child(4){grid-column:1!important;grid-row:3!important}
+  html body #galeria .gallery-item.behind-camera{grid-column:2!important;grid-row:3!important}
+  html body #galeria .gallery-item img{width:100%!important;height:100%!important;object-fit:cover!important}
+  html body #galeria .gallery-item span{
+    left:8px!important;right:7px!important;bottom:8px!important;padding:20px 5px 5px!important;
+    font-size:clamp(13px,3.7vw,16px)!important;line-height:1.12!important;
+  }
+}
