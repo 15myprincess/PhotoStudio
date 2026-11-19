@@ -88,6 +88,88 @@
  #bookingCalendar .fc-daygrid-day-frame{min-height:40px!important}
 }
 </style>
+
+<style id="my-princess-minimal-calendar-polish">
+/* Calendario minimalista, femenino y legible */
+.calendar-live-card{
+  border:1px solid rgba(232,180,203,.34)!important;
+  border-radius:22px!important;
+  background:linear-gradient(145deg,rgba(57,29,48,.96),rgba(24,13,23,.98))!important;
+  box-shadow:0 18px 48px rgba(0,0,0,.22)!important;
+}
+.calendar-live-card:before{content:none!important}
+.calendar-live-card h3{font-size:clamp(26px,3vw,34px)!important;letter-spacing:.01em}
+.calendar-live-card h3:before{width:3px;height:27px;border-radius:2px;background:#e9b7cd!important;box-shadow:none!important}
+#bookingCalendar{
+  padding:clamp(10px,2vw,18px)!important;
+  border:1px solid rgba(236,193,211,.28)!important;
+  border-radius:17px!important;
+  background:linear-gradient(160deg,#fff9fc,#f8edf3)!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.12)!important;
+}
+#bookingCalendar .fc{color:#604357!important;font-size:12px!important}
+#bookingCalendar .fc .fc-toolbar{margin-bottom:15px!important;gap:10px!important}
+#bookingCalendar .fc .fc-toolbar-title{color:#75445f!important;font-family:'Cormorant Garamond',serif!important;font-size:clamp(24px,3vw,32px)!important;font-weight:600!important;letter-spacing:.01em!important}
+#bookingCalendar .fc .fc-toolbar .fc-button,
+#bookingCalendar .fc .fc-toolbar .fc-button-primary{
+  min-height:36px!important;padding:7px 12px!important;border-radius:8px!important;
+  border:1px solid #e3bfd0!important;background:#fff!important;color:#89546f!important;
+  box-shadow:none!important;text-shadow:none!important;font-size:10px!important;font-weight:600!important;
+}
+#bookingCalendar .fc .fc-toolbar .fc-button:hover:not(:disabled){background:#f8e6ef!important;border-color:#d79bb7!important;color:#713c59!important}
+#bookingCalendar .fc .fc-toolbar .fc-button:focus{box-shadow:0 0 0 3px rgba(207,135,169,.18)!important}
+#bookingCalendar .fc .fc-col-header th,
+#bookingCalendar .fc .fc-col-header-cell,
+#bookingCalendar .fc .fc-col-header-cell .fc-scrollgrid-sync-inner{background:transparent!important;border-color:#ecdce5!important}
+#bookingCalendar .fc .fc-col-header-cell-cushion{padding:8px 1px!important;color:#a16d88!important;font-size:9px!important;letter-spacing:.07em!important;font-weight:700!important}
+#bookingCalendar .fc .fc-scrollgrid,
+#bookingCalendar .fc .fc-scrollgrid td,
+#bookingCalendar .fc .fc-scrollgrid th{border-color:#eddee6!important}
+#bookingCalendar .fc .fc-daygrid-day,
+#bookingCalendar .fc .fc-daygrid-day-frame,
+#bookingCalendar .fc .fc-daygrid-day-top{background:transparent!important}
+#bookingCalendar .fc .fc-daygrid-day-number{color:#75536a!important;font-size:11px!important;font-weight:500!important;text-decoration:none!important}
+#bookingCalendar .fc .fc-day-other .fc-daygrid-day-number{color:#c7b3bf!important}
+#bookingCalendar .fc .fc-day-past{opacity:.38!important}
+#bookingCalendar .fc .fc-day-today{background:rgba(224,166,192,.12)!important}
+#bookingCalendar .fc .fc-day-today .fc-daygrid-day-number{
+  width:27px;height:27px;margin:2px auto;border-radius:50%;
+  display:grid;place-items:center;background:#e9bfd1!important;color:#65364f!important;
+  box-shadow:none!important;font-weight:700!important
+}
+#bookingCalendar .fc .fc-daygrid-day:hover{background:rgba(222,164,190,.12)!important}
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number{
+  background:#f1cbdc!important;color:#713d58!important;box-shadow:none!important;font-weight:700!important
+}
+#bookingCalendar .fc .fc-daygrid-day.mp-busy-date.fc-day-today .fc-daygrid-day-number{background:#d9a4bd!important;color:#542b43!important}
+#bookingCalendar .fc .fc-daygrid-body tr,
+#bookingCalendar .fc .fc-daygrid-day,
+#bookingCalendar .fc .fc-daygrid-day-frame{min-height:47px!important;height:auto!important;max-height:none!important}
+#bookingCalendar .fc .fc-daygrid-day-frame{padding:3px 0!important}
+#bookingCalendar .fc .fc-bg-event{border-radius:5px!important}
+.calendar-live-card .calendar-legend{border:1px solid rgba(232,180,203,.22)!important;background:rgba(255,255,255,.035)!important;border-radius:12px!important}
+@media(max-width:760px){
+ .calendar-live-card{padding:16px!important;border-radius:18px!important}
+ #bookingCalendar{padding:9px 6px!important;margin:12px 0!important;border-radius:13px!important}
+ #bookingCalendar .fc .fc-toolbar{display:grid!important;grid-template-columns:1fr auto!important;grid-template-areas:"left right" "title title"!important;gap:7px 4px!important;margin-bottom:9px!important}
+ #bookingCalendar .fc .fc-toolbar-chunk:first-child{grid-area:left!important;justify-self:start!important}
+ #bookingCalendar .fc .fc-toolbar-chunk:nth-child(2){grid-area:title!important;justify-self:center!important}
+ #bookingCalendar .fc .fc-toolbar-chunk:last-child{grid-area:right!important;justify-self:end!important}
+ #bookingCalendar .fc .fc-toolbar-title{font-size:23px!important;line-height:1.1!important}
+ #bookingCalendar .fc .fc-toolbar .fc-button{min-height:32px!important;padding:5px 9px!important;font-size:9px!important;border-radius:7px!important}
+ #bookingCalendar .fc .fc-col-header-cell-cushion{font-size:8px!important;padding:6px 0!important}
+ #bookingCalendar .fc .fc-daygrid-body tr,
+ #bookingCalendar .fc .fc-daygrid-day,
+ #bookingCalendar .fc .fc-daygrid-day-frame{height:auto!important;min-height:42px!important;max-height:none!important}
+ #bookingCalendar .fc .fc-daygrid-day-frame{padding:2px 0!important}
+ #bookingCalendar .fc .fc-daygrid-day-number{font-size:10px!important}
+ #bookingCalendar .fc .fc-day-today .fc-daygrid-day-number,
+ #bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number{width:25px;height:25px}
+ .calendar-live-card .calendar-legend{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;gap:8px 13px!important;font-size:9px!important;padding:9px!important}
+}
+@media(prefers-reduced-motion:reduce){#bookingCalendar *{transition:none!important}}
+</style>
+
 </head>
 <body>
 <div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
