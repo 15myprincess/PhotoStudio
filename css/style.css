@@ -1574,3 +1574,15 @@ body{padding-bottom:76px}
     font-size:clamp(13px,3.7vw,16px)!important;line-height:1.12!important;
   }
 }
+
+/* My Princess · Portada responsive administrable: encuadres independientes PC/móvil */
+.hero-photo{
+ background-image:linear-gradient(90deg,#100810 0%,#100810e8 25%,#10081025 60%,#10081070 100%),var(--mp-bg-image-desktop,url('../images/hero-princesa.svg'))!important;
+ background-position:center, var(--mp-bg-position-x-desktop,50%) var(--mp-bg-position-y-desktop,40%)!important;
+}
+@media(max-width:760px){
+ .hero-photo{
+  background-image:linear-gradient(180deg,#10081016 0%,#10081030 36%,#100810c9 100%),var(--mp-bg-image-mobile,var(--mp-bg-image-desktop,url('../images/hero-princesa.svg')))!important;
+  background-position:center, var(--mp-bg-position-x-mobile,var(--mp-bg-position-x-desktop,50%)) var(--mp-bg-position-y-mobile,var(--mp-bg-position-y-desktop,50%))!important;
+ }
+}
