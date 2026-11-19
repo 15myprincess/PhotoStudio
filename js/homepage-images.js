@@ -3,7 +3,11 @@
  const cfg=window.MY_PRINCESS_CONFIG||{};
  if(!window.supabase||!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY)return;
  const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
- function publicUrl(path){return sb.storage.from("eventos").getPublicUrl(path).data.publicUrl;}
+ function publicUrl(path){
+  const base=sb.storage.from("eventos").getPublicUrl(path).data.publicUrl;
+  const join=base.includes("?")?"&":"?";
+  return base+join+"mpv="+encodeURIComponent(path.split("/").pop()||String(Date.now()));
+ }
  async function apply(){
   try{
    const {data,error}=await sb.from("gallery_hero_settings").select("homepage_images").eq("id",true).maybeSingle();
