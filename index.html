@@ -148,7 +148,7 @@
 (()=>{const nav=document.querySelector('.mp-bottom-nav');if(!nav)return;const links=[...nav.querySelectorAll('[data-section]')];const sections=links.map(a=>document.getElementById(a.dataset.section)).filter(Boolean);const activate=id=>links.forEach(a=>{if(a.dataset.section===id){a.classList.add('is-active');a.setAttribute('aria-current','location')}else{a.classList.remove('is-active');a.removeAttribute('aria-current')}});if('IntersectionObserver'in window){const io=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible)activate(visible.target.id)},{rootMargin:'-22% 0px -58% 0px',threshold:[0,.15,.35,.6]});sections.forEach(s=>io.observe(s))}nav.addEventListener('click',e=>{const a=e.target.closest('a[data-section]');if(a)activate(a.dataset.section)});if(location.hash)activate(location.hash.slice(1))})();
 </script>
 <script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js?v=23"></script>
-<script src="js/calendar.js?v=22"></script><script src="js/my-princess-data.js?v=14"></script><script src="js/homepage-images.js?v=1"></script>
+<script src="js/calendar.js?v=22"></script><script src="js/my-princess-data.js?v=15"></script><script src="js/homepage-images.js?v=1"></script>
 
 
 
