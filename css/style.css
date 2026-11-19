@@ -1376,3 +1376,37 @@ body{padding-bottom:76px}
  body{padding-bottom:68px}
 }
 @media(prefers-reduced-motion:reduce){.mp-bottom-nav a{transition:none}}
+
+
+/* Navegación inferior: exclusiva para móviles */
+.mp-bottom-nav{display:none}
+@media(max-width:760px){
+  .mp-bottom-nav{
+    display:grid;
+    grid-template-columns:repeat(10,minmax(0,1fr));
+    width:calc(100% - 16px);
+    max-width:560px;
+    left:50%;
+    bottom:max(8px,env(safe-area-inset-bottom));
+    padding:6px 4px;
+    border:1px solid rgba(236,184,207,.58);
+    border-radius:18px;
+    background:linear-gradient(135deg,rgba(38,17,34,.94),rgba(18,9,17,.96));
+    box-shadow:0 10px 32px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.12);
+  }
+  .mp-bottom-nav a{min-height:40px}
+  .mp-bottom-nav a+a{border-left:1px solid rgba(232,190,211,.24)}
+  .mp-bottom-nav svg{width:19px;height:19px;stroke-width:1.55}
+  body{padding-bottom:78px}
+  /* El acceso flotante antiguo a contacto se sustituye por la navegación inferior. */
+  .floating-whatsapp{display:none!important}
+}
+@media(max-width:390px){
+  .mp-bottom-nav{width:calc(100% - 10px);padding:5px 2px}
+  .mp-bottom-nav a{min-height:38px}
+  .mp-bottom-nav svg{width:17px;height:17px;stroke-width:1.6}
+}
+@media(min-width:761px){
+  .mp-bottom-nav{display:none!important}
+  body{padding-bottom:0}
+}
