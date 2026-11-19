@@ -1515,3 +1515,27 @@ body{padding-bottom:76px}
   .mp-bottom-nav{display:none!important}
   body{padding-bottom:0!important}
 }
+
+
+/* MY PRINCESS — barra móvil completamente al ras del borde inferior, sin margen ni relleno inferior extra. */
+@media screen and (max-width:760px){
+  .mp-bottom-nav{
+    position:fixed!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    transform:none!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:8px 5px!important;
+    border-left:0!important;
+    border-right:0!important;
+    border-bottom:0!important;
+    border-radius:16px 16px 0 0!important;
+    box-sizing:border-box!important;
+  }
+}
+@media screen and (min-width:761px){
+  .mp-bottom-nav{display:none!important}
+}
