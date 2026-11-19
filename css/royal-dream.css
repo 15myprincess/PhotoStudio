@@ -442,3 +442,76 @@ html body .booking .calendar-live-card .calendar-legend i{width:7px!important;he
   html body .booking #bookingCalendar .fc .fc-daygrid-day-frame{height:28px!important;min-height:28px!important;max-height:28px!important}
   html body .booking #bookingCalendar .fc .fc-daygrid-day-number{width:20px!important;height:20px!important;font-size:8px!important}
 }
+
+
+/* ROYAL MINIMAL · CALENDARIO OSCURO COMPACTO
+   Solo presentación: no altera FullCalendar ni los flujos de reserva. */
+html body .booking .calendar-live-card{
+  max-width:600px!important;
+  padding:13px 14px 11px!important;
+  border:1px solid rgba(201,161,123,.34)!important;
+  border-radius:15px!important;
+  background:#1b121d!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.18)!important;
+}
+html body .booking .calendar-live-card>h3{
+  color:#f0d6e1!important;font-size:20px!important;
+  font-weight:600!important;letter-spacing:.01em!important;
+}
+html body .booking #bookingCalendar{
+  background:#17101a!important;
+  border:1px solid rgba(201,161,123,.20)!important;
+  border-radius:11px!important;
+}
+html body .booking #bookingCalendar .fc .fc-toolbar-title{
+  color:#f4e8ee!important;text-shadow:none!important;
+  font-family:inherit!important;font-weight:600!important;
+}
+html body .booking #bookingCalendar .fc .fc-button,
+html body .booking #bookingCalendar .fc .fc-button-primary{
+  background:#302032!important;color:#ead8e1!important;
+  border:1px solid rgba(201,161,123,.34)!important;
+  border-radius:7px!important;box-shadow:none!important;
+}
+html body .booking #bookingCalendar .fc .fc-button:hover:not(:disabled){
+  background:#493047!important;
+}
+html body .booking #bookingCalendar .fc .fc-daygrid-day{
+  background:transparent!important;
+}
+html body .booking #bookingCalendar .fc .fc-daygrid-day:hover{
+  background:rgba(216,137,170,.075)!important;
+  box-shadow:inset 0 0 0 1px rgba(216,137,170,.16)!important;
+}
+html body .booking #bookingCalendar .fc .fc-col-header-cell-cushion{
+  color:#cdb4c2!important;letter-spacing:.025em!important;
+}
+html body .booking #bookingCalendar .fc .fc-daygrid-day-number{
+  color:#f2e8ed!important;font-weight:500!important;
+}
+html body .booking #bookingCalendar .fc .fc-day-today{
+  background:rgba(185,138,83,.075)!important;
+}
+html body .booking #bookingCalendar .fc .fc-day-today .fc-daygrid-day-number{
+  background:#c9a16f!important;color:#241923!important;
+  box-shadow:none!important;
+}
+html body .booking #bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number{
+  background:#d889aa!important;color:#301827!important;
+  box-shadow:none!important;
+}
+html body .booking .calendar-live-card .calendar-legend{
+  background:transparent!important;
+  border:0!important;border-top:1px solid rgba(201,161,123,.18)!important;
+  border-radius:0!important;color:#d9c8d1!important;
+}
+html body .booking .calendar-live-card #calendarStatus{
+  color:#cdbbc5!important;
+}
+@media(max-width:760px){
+  html body .booking .calendar-live-card{
+    max-width:420px!important;padding:10px 9px 8px!important;
+  }
+  html body .booking .calendar-live-card>h3{font-size:18px!important}
+  html body .booking #bookingCalendar .fc .fc-toolbar-title{font-size:17px!important}
+}
