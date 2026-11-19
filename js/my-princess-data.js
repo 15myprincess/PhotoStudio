@@ -145,6 +145,16 @@
     }
   }
 
+  // Si la navegación comenzó en Vestuario, el contrato elegido allí tiene prioridad
+  // al volver al formulario, incluso si todavía no existía un borrador previo.
+  try {
+    const wardrobePackage = String(sessionStorage.getItem('mp_package_name') || '').trim();
+    if (wardrobePackage && contractSelect) {
+      const matchingOption = [...contractSelect.options].find(option => option.value.trim() === wardrobePackage || option.textContent.trim() === wardrobePackage);
+      if (matchingOption) contractSelect.value = matchingOption.value;
+    }
+  } catch (e) { console.warn('No se pudo recuperar el contrato elegido en Vestuario:', e); }
+
   // Restaura primero el borrador y después actualiza el resumen/contexto de la galería.
   try {
     const draft = JSON.parse(sessionStorage.getItem('mp_booking_draft') || 'null');
@@ -168,7 +178,7 @@
   window.addEventListener('pagehide', saveDraft);
   window.addEventListener('beforeunload', saveDraft);
   updateSummary();
-  if (contractSelect?.value) setGalleryContext();
+  if (contractSelect?.value) setGalleryContext({clearIfChanged: false});
   saveDraft();
   autofillFromAccount();
   // También cubre el caso de que la persona inicie sesión mientras la página sigue abierta.
