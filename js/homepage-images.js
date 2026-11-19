@@ -16,6 +16,14 @@
    const desktopHero=images.hero_desktop?.path?images.hero_desktop:images.hero;
    const mobileHero=images.hero_mobile||{};
    applyBackground(".hero-photo",desktopHero,"-desktop");
+   const shell=document.querySelector(".hero-benefits-shell");
+   if(shell){
+    applyBackground(".hero-benefits-shell",desktopHero,"-desktop");
+    const shellMobileSource=mobileHero.path?mobileHero.path:desktopHero?.path;
+    if(shellMobileSource)shell.style.setProperty("--mp-bg-image-mobile","url("+JSON.stringify(publicUrl(shellMobileSource))+")");
+    shell.style.setProperty("--mp-bg-position-x-mobile",(mobileHero.position_x??desktopHero?.position_x??50)+"%");
+    shell.style.setProperty("--mp-bg-position-y-mobile",(mobileHero.position_y??desktopHero?.position_y??50)+"%");
+   }
    const heroEl=document.querySelector(".hero-photo");
    if(heroEl){
     const mobileSource=mobileHero.path?mobileHero.path:desktopHero?.path;
