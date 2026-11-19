@@ -771,3 +771,66 @@ html body #nosotros .team-card img{
   html body #nosotros .team-grid{gap:10px!important}
   html body #nosotros .team-card p{font-size:10px!important;line-height:1.45!important}
 }
+
+
+/* MY PRINCESS · GEMAS ILUMINADAS
+   Polvo dorado, reflejos de cristal y halo de luz detrás de cada gema. */
+#contratos .gem-card{
+  overflow:hidden;isolation:isolate;
+  border-color:color-mix(in srgb,var(--gem-accent,#c6a477) 42%,rgba(198,164,119,.35))!important;
+  background:radial-gradient(ellipse at 50% 34%,color-mix(in srgb,var(--gem-accent,#e9e7ff) 12%,transparent),transparent 54%),linear-gradient(150deg,rgba(49,37,49,.94),rgba(24,19,29,.98))!important;
+  box-shadow:inset 0 0 30px rgba(218,190,139,.045),0 12px 30px rgba(0,0,0,.2)!important;
+}
+#contratos .gem-card::before{
+  content:"";position:absolute;z-index:0;inset:0;pointer-events:none;opacity:.58;
+  background:
+    radial-gradient(circle at 13% 21%,rgba(255,231,185,.88) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 82% 16%,rgba(255,245,220,.8) 0 1px,transparent 1.9px),
+    radial-gradient(circle at 24% 68%,rgba(255,222,166,.7) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 88% 76%,rgba(255,236,198,.72) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 52% 12%,rgba(255,255,255,.7) 0 .8px,transparent 1.7px),
+    radial-gradient(circle at 70% 52%,rgba(255,222,170,.68) 0 .8px,transparent 1.7px);
+  animation:mpGemDust 8s ease-in-out infinite alternate;
+}
+#contratos .gem-card::after{
+  content:"";position:absolute;z-index:0;pointer-events:none;width:72%;height:48%;left:14%;top:22%;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,231,190,.12),color-mix(in srgb,var(--gem-accent,#e9e7ff) 10%,transparent) 36%,transparent 72%);
+  filter:blur(13px);opacity:.72;animation:mpGemHalo 5.5s ease-in-out infinite alternate;
+}
+#contratos .gem-card>*{position:relative;z-index:1}
+#contratos .gem-card .gem{
+  position:relative;isolation:isolate;overflow:visible;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 54%,color-mix(in srgb,var(--gem-accent,#e9e7ff) 20%,transparent),transparent 69%);
+  filter:drop-shadow(0 0 12px color-mix(in srgb,var(--gem-accent,#e9e7ff) 28%,transparent));
+}
+#contratos .gem-card .gem::before{
+  content:"";position:absolute;z-index:0;inset:4% 9%;border-radius:50%;pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 25%,#fff7df 0 1px,transparent 2px),
+    radial-gradient(circle at 78% 18%,#ffe7b5 0 1px,transparent 2px),
+    radial-gradient(circle at 84% 72%,#fff 0 1px,transparent 2px),
+    radial-gradient(circle at 25% 78%,#f8dca8 0 1px,transparent 2px),
+    radial-gradient(ellipse at center,rgba(255,239,206,.13),transparent 67%);
+  opacity:.8;animation:mpGemTwinkle 4.8s ease-in-out infinite;
+}
+#contratos .gem-card .gem img{
+  position:relative;z-index:1;
+  filter:drop-shadow(0 0 9px color-mix(in srgb,var(--gem-accent,#e9e7ff) 50%,transparent)) drop-shadow(0 0 20px rgba(255,224,176,.16));
+}
+#contratos .gem-card:hover{
+  border-color:color-mix(in srgb,var(--gem-accent,#e9e7ff) 68%,#f5dfb7)!important;
+  box-shadow:inset 0 0 36px rgba(255,225,176,.07),0 18px 38px rgba(0,0,0,.28),0 0 22px color-mix(in srgb,var(--gem-accent,#e9e7ff) 14%,transparent)!important;
+}
+#contratos .gem-card:hover .gem::before{opacity:1}
+#contratos .g9 .gem{filter:drop-shadow(0 0 16px rgba(255,246,220,.42))}
+@keyframes mpGemDust{0%{opacity:.28;transform:translate3d(-2px,2px,0)}100%{opacity:.72;transform:translate3d(2px,-3px,0)}}
+@keyframes mpGemHalo{0%{transform:scale(.88);opacity:.42}100%{transform:scale(1.12);opacity:.88}}
+@keyframes mpGemTwinkle{0%,100%{opacity:.38;transform:scale(.96)}48%{opacity:.95;transform:scale(1.04)}}
+@media(max-width:760px){
+  #contratos .gem-card::before{opacity:.42}
+  #contratos .gem-card::after{filter:blur(16px);opacity:.55}
+  #contratos .gem-card .gem::before{opacity:.62}
+}
+@media(prefers-reduced-motion:reduce){
+  #contratos .gem-card::before,#contratos .gem-card::after,#contratos .gem-card .gem::before{animation:none!important}
+}
