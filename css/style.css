@@ -1591,3 +1591,24 @@ body{padding-bottom:76px}
   background-position:center, var(--mp-bg-position-x-mobile,var(--mp-bg-position-x-desktop,50%)) var(--mp-bg-position-y-mobile,var(--mp-bg-position-y-desktop,50%))!important;
  }
 }
+
+/* MY PRINCESS — FIX FINAL: la portada responsive usa exclusivamente las imágenes configuradas en Administración.
+   El fondo antiguo estaba en .hero-benefits-shell::before y ocultaba .hero-photo, especialmente en móvil. */
+.hero-benefits-shell::before{
+ background-image:
+  linear-gradient(90deg,rgba(12,5,13,.72) 0%,rgba(12,5,13,.34) 34%,rgba(12,5,13,.10) 68%,rgba(12,5,13,.30) 100%),
+  linear-gradient(to bottom,rgba(12,5,13,.10) 0%,rgba(12,5,13,.02) 58%,rgba(12,5,13,.36) 100%),
+  var(--mp-bg-image-desktop,url('../images/hero-princesa.svg'))!important;
+ background-repeat:no-repeat!important;
+ background-size:cover,cover,cover!important;
+ background-position:center,center,var(--mp-bg-position-x-desktop,50%) var(--mp-bg-position-y-desktop,50%)!important;
+}
+@media(max-width:760px){
+ .hero-benefits-shell::before{
+  background-image:
+   linear-gradient(to top,rgba(8,5,12,.48) 0%,rgba(8,5,12,.20) 34%,rgba(8,5,12,.04) 68%,rgba(8,5,12,.10) 100%),
+   var(--mp-bg-image-mobile,var(--mp-bg-image-desktop,url('../images/hero-princesa.svg')))!important;
+  background-size:cover,cover!important;
+  background-position:center,var(--mp-bg-position-x-mobile,var(--mp-bg-position-x-desktop,50%)) var(--mp-bg-position-y-mobile,var(--mp-bg-position-y-desktop,50%))!important;
+ }
+}
