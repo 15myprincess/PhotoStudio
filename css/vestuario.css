@@ -66,3 +66,12 @@
 @media(max-width:650px){.wardrobe-main{padding:20px 13px 115px}.wardrobe-hero{margin:8px auto 24px;padding:28px 16px}.wardrobe-hero h1{font-size:clamp(43px,12vw,62px)}.wardrobe-controls{grid-template-columns:1fr;padding:14px;gap:12px}.wardrobe-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.dress-info{padding:12px}.dress-info h2{font-size:21px}.dress-info p,.dress-info small{font-size:10px}.wardrobe-sticky{bottom:8px;width:calc(100% - 16px);padding:10px 12px;gap:8px}.wardrobe-sticky #selectionCounter{font-size:10px;max-width:44%}.wardrobe-sticky .button{padding:11px 12px;font-size:10px;gap:8px}}
 @media(max-width:360px){.wardrobe-grid{grid-template-columns:1fr}.dress-photo{aspect-ratio:4/3}.wardrobe-sticky{align-items:stretch}.wardrobe-sticky .button{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.dress-card,.dress-photo img{transition:none!important}}
+
+
+/* Selector de contrato integrado en Vestuario: permite iniciar la selección desde esta página. */
+.wardrobe-contract-picker{display:grid;justify-items:center;gap:9px;max-width:560px;margin:18px auto 0}
+.wardrobe-contract-picker>label{color:#f5dce8;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.wardrobe-contract-picker select{width:min(100%,430px);min-height:48px;padding:12px 42px 12px 15px;border:1px solid #d9b47d99;border-radius:12px;background:#1b0e1a;color:#fff7fb;font:500 13px Montserrat, sans-serif;box-shadow:0 8px 24px #0003}
+.wardrobe-contract-picker select:focus{outline:2px solid #f2b8d1;outline-offset:2px}
+.wardrobe-contract-picker .wardrobe-package{margin:2px auto 0}
+@media(max-width:620px){.wardrobe-contract-picker{width:100%;padding:0 2px}.wardrobe-contract-picker select{width:100%}}
