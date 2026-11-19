@@ -1,0 +1,17 @@
+/* MY PRINCESS · ROYAL DREAM AMBIENCE */
+:root{--mp-ambient-pink:rgba(226,170,198,.24);--mp-ambient-gold:rgba(218,190,139,.20)}
+html{background-color:#17131b}
+body{position:relative;isolation:isolate}
+#mp-ambient-effects{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;contain:strict;opacity:.9}
+body>*:not(#mp-ambient-effects){position:relative;z-index:1}
+#mp-ambient-effects .mp-glow{position:absolute;width:clamp(220px,38vw,560px);height:clamp(220px,38vw,560px);border-radius:50%;filter:blur(65px);opacity:.20;will-change:transform}
+#mp-ambient-effects .mp-glow-one{top:-18%;left:-12%;background:radial-gradient(circle,var(--mp-ambient-pink),transparent 68%);animation:mpGlowDrift 19s ease-in-out infinite alternate}
+#mp-ambient-effects .mp-glow-two{right:-15%;bottom:-24%;background:radial-gradient(circle,var(--mp-ambient-gold),transparent 68%);animation:mpGlowDrift 23s ease-in-out infinite alternate-reverse}
+#mp-ambient-effects .mp-petal{position:absolute;top:-12vh;left:var(--x);width:var(--size);height:calc(var(--size)*1.48);border-radius:85% 12% 80% 18%;background:linear-gradient(145deg,rgba(255,230,240,.82),rgba(202,133,167,.38) 58%,rgba(166,104,143,.16));box-shadow:0 0 12px rgba(255,208,229,.13);opacity:0;transform:rotate(var(--rot));animation:mpPetalFall var(--duration) linear var(--delay) infinite;will-change:transform,opacity}
+#mp-ambient-effects .mp-sparkle{position:absolute;left:var(--x);top:var(--y);width:var(--size);height:var(--size);border-radius:50%;background:#ffe9f2;box-shadow:0 0 5px 2px rgba(255,221,237,.35),0 0 16px 4px rgba(213,161,190,.18);opacity:0;animation:mpTwinkle var(--duration) ease-in-out var(--delay) infinite}
+#mp-ambient-effects .mp-sparkle::after{content:"";position:absolute;left:50%;top:50%;width:1px;height:calc(var(--size)*3.4);background:linear-gradient(transparent,rgba(255,232,242,.75),transparent);transform:translate(-50%,-50%)}
+@keyframes mpPetalFall{0%{opacity:0;transform:translate3d(0,-4vh,0) rotate(var(--rot))}10%{opacity:.62}48%{transform:translate3d(var(--sway),52vh,0) rotate(calc(var(--rot) + 170deg))}88%{opacity:.45}100%{opacity:0;transform:translate3d(calc(var(--sway)*-.55),112vh,0) rotate(calc(var(--rot) + 330deg))}}
+@keyframes mpTwinkle{0%,100%{opacity:0;transform:scale(.45)}45%{opacity:.7;transform:scale(1.15)}60%{opacity:.25;transform:scale(.7)}}
+@keyframes mpGlowDrift{0%{transform:translate3d(-3%,0,0) scale(.92)}100%{transform:translate3d(7%,8%,0) scale(1.12)}}
+@media(max-width:700px){#mp-ambient-effects .mp-glow{filter:blur(48px);opacity:.16}#mp-ambient-effects .mp-petal{opacity:0;animation-duration:calc(var(--duration)*1.18)}}
+@media(prefers-reduced-motion:reduce){#mp-ambient-effects .mp-glow,#mp-ambient-effects .mp-petal,#mp-ambient-effects .mp-sparkle{animation:none!important}#mp-ambient-effects .mp-petal{display:none}#mp-ambient-effects .mp-sparkle{opacity:.22}}
