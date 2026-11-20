@@ -57,3 +57,18 @@
 @media(max-width:900px){.reserve-layout{grid-template-columns:1fr}.reserve-calendar-card{position:static;order:-1}.reserve-calendar-card #bookingCalendar{max-width:620px;margin-inline:auto}.reserve-calendar-card{padding:18px}}
 @media(max-width:600px){.reserve-hero{min-height:290px;padding:58px 18px 44px;background-position:center 35%}.reserve-main{padding:25px 12px 40px}.reserve-intro{margin-bottom:20px}.reserve-form-card{padding:14px;border-radius:18px}.reserve-steps{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-bottom:16px}.reserve-step{display:grid;justify-items:center;text-align:center;gap:5px;padding:8px 3px}.reserve-step b{width:25px;height:25px;flex-basis:25px}.reserve-step span{font-size:8px}.reserve-stage{padding:14px 11px;border-radius:14px}.reserve-fields{grid-template-columns:1fr;gap:11px}.reserve-fields .span-2{grid-column:auto}.reserve-form input,.reserve-form select{min-height:44px}.reserve-submit-row{display:grid}.reserve-submit-row .submit{width:100%;justify-self:stretch}.reserve-calendar-card{border-radius:18px}.reserve-calendar-card #bookingCalendar{padding:8px 5px}.reserve-footer-note{font-size:15px}}
 @media(prefers-reduced-motion:reduce){.reserve-hero,.reserve-stage,.reserve-step{animation:none!important;transition:none!important}}
+
+
+/* Fechas ocupadas: deshabilitadas en el calendario de la página de reserva */
+.booking-page .reserve-calendar-card #bookingCalendar .fc .fc-daygrid-day.mp-busy-date {
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  opacity: .58 !important;
+}
+.booking-page .reserve-calendar-card #bookingCalendar .fc .fc-daygrid-day.mp-busy-date:hover {
+  background: transparent !important;
+}
+.booking-page .reserve-calendar-card #bookingCalendar .fc .fc-daygrid-day.mp-busy-date .fc-daygrid-day-number {
+  cursor: not-allowed !important;
+  text-decoration: line-through !important;
+}
