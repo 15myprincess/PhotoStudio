@@ -40,7 +40,7 @@
 .reserve-submit-row{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding-top:2px}
 .reserve-submit-row .submit{min-height:48px;padding:13px 22px;border-radius:13px;font-size:11px;box-shadow:0 9px 25px rgba(201,143,168,.2)}
 .reserve-submit-row .form-note{flex:1;min-width:180px}
-.reserve-calendar-card{position:sticky;top:18px;padding:22px}
+.reserve-calendar-card{position:sticky;top:18px;padding:22px;margin:0!important;align-self:start}
 .reserve-calendar-card h3{font:500 27px 'Cormorant Garamond',Georgia,serif;color:#f0d8e2;margin:0 0 5px}
 .reserve-calendar-card>p{font-size:10px;line-height:1.6;color:#c7b9c4}
 .reserve-calendar-card #calendarStatus{padding:10px 12px;border:1px solid rgba(227,193,207,.15);border-radius:10px;background:rgba(255,255,255,.035)}
