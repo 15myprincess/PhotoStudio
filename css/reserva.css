@@ -72,3 +72,36 @@
   cursor: not-allowed !important;
   text-decoration: line-through !important;
 }
+
+
+/* Encabezado de reserva: avatar compacto junto al menú */
+.booking-page .header .account-indicator{
+  position:relative;display:inline-flex!important;align-items:center;justify-content:center;
+  width:43px;height:43px;min-width:43px;padding:3px!important;margin:0 2px 0 auto;
+  border:1px solid rgba(198,164,119,.55);border-radius:50%;
+  background:rgba(255,255,255,.06);flex:0 0 43px;order:2;
+  box-shadow:0 3px 14px rgba(0,0,0,.18);text-decoration:none;
+}
+.booking-page .header .account-avatar{
+  display:grid;place-items:center;width:35px;height:35px;flex:0 0 35px;
+  overflow:hidden;border-radius:50%;border:1px solid rgba(227,193,207,.55);
+  background-color:#3a2938;background-position:center;background-size:cover;
+  color:#f7e5ed;font-size:19px;line-height:1;
+}
+.booking-page .header .account-online-dot{
+  position:absolute;right:0;bottom:0;width:11px;height:11px;border:2px solid #211b26;
+  border-radius:50%;background:#8b858a;z-index:2;
+}
+.booking-page .header .account-indicator.is-logged-in .account-online-dot{
+  background:#35d477;box-shadow:0 0 9px rgba(53,212,119,.65);
+}
+.booking-page .header .menu-toggle{order:3;flex:0 0 auto;margin-left:0}
+.booking-page .header .nav{order:4}
+@media(max-width:900px){
+  .booking-page .header{display:flex;align-items:center;gap:9px}
+  .booking-page .header .brand{order:1;min-width:0}
+  .booking-page .header .account-indicator{width:38px;height:38px;min-width:38px;flex-basis:38px;margin-left:auto;margin-right:0}
+  .booking-page .header .account-avatar{width:31px;height:31px;flex-basis:31px}
+  .booking-page .header .menu-toggle{order:3;display:block;margin-left:0;padding:7px 4px}
+  .booking-page .header .nav{order:4}
+}
