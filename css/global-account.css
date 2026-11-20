@@ -1,0 +1,11 @@
+/* My Princess · encabezado y cuenta globales */
+.mp-global-account{order:2;position:relative;display:inline-flex!important;align-items:center;justify-content:center;width:42px;height:42px;min-width:42px;padding:0!important;margin:0 2px 0 auto!important;border:1px solid rgba(198,164,119,.72)!important;border-radius:50%!important;background:linear-gradient(145deg,#2b202d,#17131b)!important;box-shadow:0 3px 15px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.08);text-decoration:none;flex:0 0 42px;z-index:1002}
+.mp-global-account .account-avatar{display:grid!important;place-items:center;width:100%;height:100%;border:0!important;border-radius:50%;background:linear-gradient(135deg,#e3c1cf,#c6a477)!important;background-position:center!important;background-size:cover!important;color:#382432!important;font:600 19px Montserrat,sans-serif;overflow:hidden;box-shadow:none!important}
+.mp-global-account .account-online-dot{position:absolute;right:-1px;bottom:0;width:11px;height:11px;border:2px solid #211b26;border-radius:50%;background:#8e8790;box-shadow:0 0 0 1px rgba(255,255,255,.14)}
+.mp-global-account.is-logged-in .account-online-dot{background:#35d477;box-shadow:0 0 9px rgba(53,212,119,.65)}
+.header>.menu-toggle{order:3;flex:0 0 auto}
+.header>.nav,.header>.nav-dropdown{order:4}
+.header>.brand{order:1}
+@media(min-width:901px){.header>.nav,.header>.nav-dropdown{order:2}.header>.mp-global-account{order:3;margin-left:8px!important}.header>.menu-toggle{display:none!important}}
+@media(max-width:900px){.header{gap:9px}.header>.brand{min-width:0;flex:1 1 auto}.header>.mp-global-account{margin-left:auto!important}.header>.menu-toggle{margin-left:0}}
+@media(max-width:420px){.mp-global-account{width:38px;height:38px;min-width:38px;flex-basis:38px}.header{padding-left:12px;padding-right:12px}}
