@@ -18,7 +18,7 @@
 <title>My Princess | Estudio Fotográfico</title>
 <link rel="preconnect" href="https://my-princess-calendar-backend.onrender.com" crossorigin><link rel="preconnect" href="https://lkfxhnrcjxswdmghqtvk.supabase.co" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20261119-9"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"><link rel="stylesheet" href="css/calendar.css?v=28">
+<link rel="stylesheet" href="css/style.css?v=20261119-10"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.css"><link rel="stylesheet" href="css/calendar.css?v=29">
 
 <style>
 .account-indicator{display:inline-flex!important;align-items:center;gap:9px;padding:6px 10px!important;border:1px solid #d9a1bc;border-radius:30px;background:linear-gradient(120deg,#f28bb81c,#d9b47d12);min-width:max-content;flex-shrink:0}.account-avatar{width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;border:1px solid #e9b5cd;background:radial-gradient(circle at 30% 20%,#ffe5ef,#d84f8b);color:#321322;font-size:20px;box-shadow:0 0 14px #f28bb833}.account-greeting{display:flex;flex-direction:column;line-height:1.25;gap:3px}.account-greeting span{font-size:9px;color:#f5c4d9;letter-spacing:.5px}.account-greeting strong{font-size:10px;color:#fff7fb;font-weight:600;max-width:115px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.account-indicator.is-logged-in{border-color:#d9b47d;background:#d9b47d12}.account-indicator.is-logged-in .account-avatar{background:linear-gradient(135deg,#ffe7f1,#d9b47d);border-color:#ffe0b1}@media(max-width:900px){.header{gap:10px}.menu-toggle{order:3;display:block;flex:0 0 auto;padding:7px 4px}.account-indicator{order:2;margin-left:auto;margin-right:2px;padding:5px 8px!important;gap:7px}.account-avatar{width:32px;height:32px;flex-basis:32px}.account-greeting strong{max-width:105px}.nav{order:4}.brand{min-width:0}.brand>span:nth-child(2){font-size:29px}.brand small{font-size:6px;letter-spacing:1.4px}}
@@ -170,9 +170,9 @@
 @media(prefers-reduced-motion:reduce){#bookingCalendar *{transition:none!important}}
 </style>
 
-<link rel="stylesheet" href="css/royal-dream.css?v=20261119-3">
-  <link rel="stylesheet" href="css/royal-effects.css?v=2">
-  <link rel="stylesheet" href="css/royal-flow.css?v=2">
+<link rel="stylesheet" href="css/royal-dream.css?v=20261119-4">
+  <link rel="stylesheet" href="css/royal-effects.css?v=3">
+  <link rel="stylesheet" href="css/royal-flow.css?v=3">
 </head>
 <body>
 <div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -212,8 +212,8 @@
 </main><footer class="footer"><a class="brand footer-brand" href="#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span><a href="#top" class="back-top" aria-label="Volver arriba">↑</a><small class="copyright">© <span id="year"></span> My Princess · Estudio Fotográfico</small></footer>
 <div class="modal" id="contractModal" aria-hidden="true"><div class="modal-panel"><button class="modal-close" aria-label="Cerrar">×</button><div class="modal-gem">✧</div><p class="eyebrow">CONTRATO FOTOGRÁFICO</p><h2 id="modalTitle">Cuarzo Rosa</h2><div id="modalDescription" class="modal-description">Una experiencia pensada para guardar recuerdos inolvidables.</div><p class="modal-note">Consulta el contenido y precio de este contrato.</p><a href="reserva.html" class="button pink modal-reserve">Consultar este contrato →</a></div></div>
 <div class="lightbox" id="lightbox"><button aria-label="Cerrar imagen">×</button><img src="" alt="Vista ampliada"></div>
-<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js?v=23"></script>
-<script src="js/calendar.js?v=22"></script><script src="js/my-princess-data.js?v=15"></script><script src="js/homepage-images.js?v=6"></script>
+<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js?v=24"></script>
+<script src="js/calendar.js?v=23"></script><script src="js/my-princess-data.js?v=16"></script><script src="js/homepage-images.js?v=7"></script>
 
 
 
@@ -273,6 +273,6 @@
 <script>
 (()=>{const modal=document.getElementById('studioVideoModal'),trigger=document.getElementById('openStudioVideo'),closeBtn=document.getElementById('closeStudioVideo'),frame=document.getElementById('studioVideoFrame');if(!modal||!trigger||!closeBtn||!frame)return;let previousFocus=null;const open=event=>{event?.preventDefault();previousFocus=document.activeElement;modal.hidden=false;frame.src=frame.dataset.embed;document.body.style.overflow='hidden';closeBtn.focus()};const close=()=>{if(modal.hidden)return;modal.hidden=true;frame.src='about:blank';document.body.style.overflow='';previousFocus?.focus?.()};trigger.addEventListener('click',open);closeBtn.addEventListener('click',close);modal.addEventListener('click',event=>{if(event.target===modal)close()});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!modal.hidden)close()})})();
 </script>
-  <script src="js/royal-effects.js?v=1" defer>
-  <script src="js/royal-flow.js?v=2" defer></script></script>
+  <script src="js/royal-effects.js?v=2" defer>
+  <script src="js/royal-flow.js?v=3" defer></script></script>
 </body></html>
