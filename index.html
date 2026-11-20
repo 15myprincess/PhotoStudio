@@ -174,10 +174,11 @@
   <link rel="stylesheet" href="css/royal-effects.css?v=3">
   <link rel="stylesheet" href="css/royal-flow.css?v=3">
 <link rel="stylesheet" href="css/portfolio-links.css?v=1">
+<link rel="stylesheet" href="css/global-account.css?v=1">
 </head>
 <body>
 <div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<header class="header" id="top"><a class="brand" href="#inicio"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button><a href="cuenta.html" class="account-indicator" id="accountIndicator" aria-label="Mi cuenta"><span class="account-avatar" id="accountAvatar" aria-hidden="true">♙</span><span class="account-greeting"><span id="accountHello">Mi cuenta</span><strong id="accountUserName">Iniciar sesión</strong></span></a><nav class="nav"><a class="active" href="#inicio">Inicio</a><a href="#contratos">Contratos</a><a href="vestuario.html">Vestuario</a><a href="probador.html">Probador</a><a href="#nosotros">Acerca de</a><a href="eventos.html">Galería de eventos</a><a href="#ubicacion">Cómo llegar</a><a href="#contacto">Contacto</a><a class="nav-cta" href="reserva.html">▦ &nbsp; Reserva tu fecha</a></nav></header>
+<header class="header" id="top"><a class="brand" href="#inicio"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button><a href="cuenta.html" class="account-indicator mp-global-account" id="accountIndicator" aria-label="Mi cuenta"><span class="account-avatar" id="accountAvatar" aria-hidden="true">♙</span><span class="account-online-dot" id="accountOnlineDot" aria-label="Desconectado"></span></a><nav class="nav"><a class="active" href="#inicio">Inicio</a><a href="#contratos">Contratos</a><a href="vestuario.html">Vestuario</a><a href="probador.html">Probador</a><a href="#nosotros">Acerca de</a><a href="eventos.html">Galería de eventos</a><a href="#ubicacion">Cómo llegar</a><a href="#contacto">Contacto</a><a class="nav-cta" href="reserva.html">▦ &nbsp; Reserva tu fecha</a></nav></header>
 <main>
 <div class="hero-benefits-shell">
 <section class="hero" id="inicio"><div class="hero-photo"></div><div class="hero-vignette"></div><div class="hero-copy reveal"><div class="hero-crown">♛</div><p class="eyebrow">ESTUDIO FOTOGRÁFICO</p><h1>My Princess</h1><h2>Capturamos la magia<br>de tus 15 años</h2><p class="intro">Porque cada princesa tiene una historia,<br>y nosotros la contamos en imágenes…</p><a class="button pink" href="#contratos">Descubre nuestros contratos <span>↗</span></a></div><div class="hero-note">Los mejores<br>momentos<br>merecen ser<br>eternos <b>♡</b></div><div class="hero-scroll">DESLIZA PARA DESCUBRIR <span>↓</span></div></section>
@@ -229,52 +230,12 @@
 </main><footer class="footer"><a class="brand footer-brand" href="#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span><a href="#top" class="back-top" aria-label="Volver arriba">↑</a><small class="copyright">© <span id="year"></span> My Princess · Estudio Fotográfico</small></footer>
 <div class="modal" id="contractModal" aria-hidden="true"><div class="modal-panel"><button class="modal-close" aria-label="Cerrar">×</button><div class="modal-gem">✧</div><p class="eyebrow">CONTRATO FOTOGRÁFICO</p><h2 id="modalTitle">Cuarzo Rosa</h2><div id="modalDescription" class="modal-description">Una experiencia pensada para guardar recuerdos inolvidables.</div><p class="modal-note">Consulta el contenido y precio de este contrato.</p><a href="reserva.html" class="button pink modal-reserve">Consultar este contrato →</a></div></div>
 <div class="lightbox" id="lightbox"><button aria-label="Cerrar imagen">×</button><img src="" alt="Vista ampliada"></div>
-<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js?v=24"></script>
+<script src="js/config.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/global-account.js?v=1"></script><script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script><script src="js/main.js?v=24"></script>
 <script src="js/calendar.js?v=23"></script><script src="js/my-princess-data.js?v=16"></script><script src="js/homepage-images.js?v=7"></script>
 
 
 
-<script>
-(() => {
-  const indicator = document.getElementById('accountIndicator');
-  const hello = document.getElementById('accountHello');
-  const nameEl = document.getElementById('accountUserName');
-  const avatar = document.getElementById('accountAvatar');
-  const cfg = window.MY_PRINCESS_CONFIG || {};
-  if (!indicator || !window.supabase || !cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) return;
-  const sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
-  function setLoggedOut() {
-    indicator.classList.remove('is-logged-in');
-    hello.textContent = 'Bienvenido';
-    nameEl.textContent = 'Mi cuenta';
-    avatar.textContent = '♙';
-    indicator.setAttribute('aria-label', 'Iniciar sesión o crear una cuenta');
-  }
-  async function refreshAccount(user) {
-    if (!user) { setLoggedOut(); return; }
-    const meta = user.user_metadata || {};
-    let displayName = String(meta.full_name || meta.name || '').trim();
-    try {
-      const { data: profile } = await sb.from('client_profiles').select('full_name').eq('user_id', user.id).maybeSingle();
-      if (profile?.full_name) displayName = String(profile.full_name).trim();
-    } catch (e) { console.warn('No se pudo leer el nombre del perfil:', e); }
-    if (!displayName) displayName = String(user.email || '').split('@')[0] || 'Cliente';
-    const firstName = displayName.split(/\\s+/)[0];
-    hello.textContent = '¡Hola!';
-    nameEl.textContent = firstName;
-    avatar.textContent = firstName.charAt(0).toLocaleUpperCase('es');
-    indicator.classList.add('is-logged-in');
-    indicator.setAttribute('aria-label', 'Sesión iniciada: ' + displayName + '. Abrir mi cuenta');
-    indicator.title = 'Sesión iniciada como ' + displayName;
-  }
-  sb.auth.getSession().then(({data}) => refreshAccount(data.session?.user || null)).catch(setLoggedOut);
-  sb.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED' || event === 'SIGNED_OUT') {
-      setTimeout(() => refreshAccount(session?.user || null), 0);
-    }
-  });
-})();
-</script>
+
 
 <div id="bookingSuccessModal" class="mp-success-overlay" role="dialog" aria-modal="true" aria-labelledby="bookingSuccessTitle" hidden><div class="mp-success-card"><button type="button" class="mp-success-close" id="bookingSuccessClose" aria-label="Cerrar">×</button><div class="mp-success-icon">♡</div><h2 id="bookingSuccessTitle">¡Gracias por tu solicitud!</h2><p>Gracias por enviar tu reserva. En un plazo de 24 horas recibirás una respuesta para realizar el pago de la reserva. Una vez efectuado el pago y confirmado por el estudio, tus días quedarán aprobados.</p><p>Muchas gracias por enviarnos tu solicitud.</p><p class="mp-success-ref" id="bookingSuccessReference"></p><button type="button" class="button pink" id="bookingSuccessOk">Entendido</button></div></div>
 <style>.mp-success-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(12,5,12,.78);backdrop-filter:blur(8px)}.mp-success-overlay[hidden]{display:none!important}.mp-success-card{position:relative;width:min(100%,470px);padding:34px 26px;border:1px solid #d6a2b8;border-radius:22px;background:linear-gradient(145deg,#fff8fc,#f7e5ee);color:#48243a;text-align:center;box-shadow:0 22px 80px #0008;animation:mpSuccessIn .25s ease-out}.mp-success-card h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:36px;color:#8c3d65;margin:8px 0 14px}.mp-success-card p{line-height:1.65}.mp-success-icon{font-size:38px;color:#b65d89}.mp-success-close{position:absolute;right:12px;top:8px;border:0;background:transparent;color:#8c3d65;font-size:30px;cursor:pointer}.mp-success-ref{font-size:12px;color:#765466;overflow-wrap:anywhere}@keyframes mpSuccessIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}@media(prefers-reduced-motion:reduce){.mp-success-card{animation:none}}</style>
