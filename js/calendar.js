@@ -53,6 +53,15 @@
     calendarEl.querySelectorAll('.fc-daygrid-day[data-date]').forEach(cell => {
       const busy = busyDates.has(cell.getAttribute('data-date'));
       cell.classList.toggle('mp-busy-date', busy);
+      // Las fechas ocupadas quedan deshabilitadas también a nivel de interacción y accesibilidad.
+      if (busy) {
+        cell.setAttribute('aria-disabled', 'true');
+        cell.setAttribute('aria-label', 'Fecha ocupada: ' + cell.getAttribute('data-date'));
+        cell.setAttribute('title', 'Fecha ocupada');
+      } else {
+        cell.removeAttribute('aria-disabled');
+        cell.removeAttribute('title');
+      }
       // La apariencia se controla por CSS: solo se colorea el círculo del número.
       cell.style.removeProperty('background');
       cell.style.removeProperty('box-shadow');
@@ -148,7 +157,15 @@
     },
     dayCellDidMount: (arg) => {
       const day = arg.el.getAttribute('data-date');
-      if (day) arg.el.classList.toggle('mp-busy-date', busyDates.has(day));
+      if (day) {
+        const busy = busyDates.has(day);
+        arg.el.classList.toggle('mp-busy-date', busy);
+        if (busy) {
+          arg.el.setAttribute('aria-disabled', 'true');
+          arg.el.setAttribute('aria-label', 'Fecha ocupada: ' + day);
+          arg.el.setAttribute('title', 'Fecha ocupada');
+        }
+      }
     },
     datesSet: scheduleBusyPaint,
     dateClick: async (info) => {
