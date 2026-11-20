@@ -12,14 +12,14 @@
 <link rel="stylesheet" href="css/royal-dream.css?v=20261119-5">
 <link rel="stylesheet" href="css/royal-effects.css?v=3">
 <link rel="stylesheet" href="css/royal-flow.css?v=3">
-<link rel="stylesheet" href="css/reserva.css?v=3">
+<link rel="stylesheet" href="css/reserva.css?v=4">
 </head>
 <body class="booking-page">
 <div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 <header class="header" id="top">
 <a class="brand" href="index.html"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a>
 <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
-<a href="cuenta.html" class="account-indicator" id="accountIndicator" aria-label="Mi cuenta"><span class="account-avatar" id="accountAvatar" aria-hidden="true">♙</span><span class="account-greeting"><span id="accountHello">Mi cuenta</span><strong id="accountUserName">Iniciar sesión</strong></span></a>
+<a href="cuenta.html" class="account-indicator" id="accountIndicator" aria-label="Mi cuenta"><span class="account-avatar" id="accountAvatar" aria-hidden="true">♙</span><span class="account-online-dot" id="accountOnlineDot" aria-label="Desconectado"></span></a>
 <nav class="nav"><a href="index.html">Inicio</a><a href="index.html#contratos">Contratos</a><a href="vestuario.html">Vestuario</a><a href="probador.html">Probador</a><a href="eventos.html">Galería</a><a class="nav-cta active" href="reserva.html">Reserva tu fecha</a></nav>
 </header>
 <main>
@@ -105,7 +105,7 @@
 <script src="js/my-princess-data.js?v=17"></script>
 <script>
 (()=>{const modal=document.getElementById('bookingSuccessModal');if(!modal)return;const close=()=>{modal.hidden=true};document.getElementById('bookingSuccessClose')?.addEventListener('click',close);document.getElementById('bookingSuccessOk')?.addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});window.MP_showBookingSuccess=(reference)=>{const ref=document.getElementById('bookingSuccessReference');if(ref)ref.textContent=reference?'Referencia de solicitud: '+reference:'';modal.hidden=false;document.getElementById('bookingSuccessOk')?.focus()}})();
-(()=>{const indicator=document.getElementById('accountIndicator'),hello=document.getElementById('accountHello'),nameEl=document.getElementById('accountUserName'),avatar=document.getElementById('accountAvatar'),cfg=window.MY_PRINCESS_CONFIG||{};if(!indicator||!window.supabase||!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY)return;const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);function loggedOut(){indicator.classList.remove('is-logged-in');hello.textContent='Bienvenido';nameEl.textContent='Mi cuenta';avatar.textContent='♙'}async function refresh(user){if(!user){loggedOut();return}const meta=user.user_metadata||{};let display=String(meta.full_name||meta.name||'').trim();try{const{data}=await sb.from('client_profiles').select('full_name').eq('user_id',user.id).maybeSingle();if(data?.full_name)display=String(data.full_name).trim()}catch(e){console.warn(e)}if(!display)display=String(user.email||'').split('@')[0]||'Cliente';const first=display.split(/\s+/)[0];hello.textContent='¡Hola!';nameEl.textContent=first;avatar.textContent=first.charAt(0).toLocaleUpperCase('es');indicator.classList.add('is-logged-in')}sb.auth.getSession().then(({data})=>refresh(data.session?.user||null)).catch(loggedOut);sb.auth.onAuthStateChange((event,session)=>{if(['SIGNED_IN','TOKEN_REFRESHED','USER_UPDATED','SIGNED_OUT'].includes(event))setTimeout(()=>refresh(session?.user||null),0)})})();
+(()=>{const indicator=document.getElementById('accountIndicator'),avatar=document.getElementById('accountAvatar'),dot=document.getElementById('accountOnlineDot'),cfg=window.MY_PRINCESS_CONFIG||{};if(!indicator||!avatar||!window.supabase||!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY)return;const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);function loggedOut(){indicator.classList.remove('is-logged-in');avatar.textContent='♙';avatar.style.backgroundImage='';dot?.setAttribute('aria-label','Desconectado');indicator.setAttribute('aria-label','Iniciar sesión o crear una cuenta')}function refresh(user){if(!user){loggedOut();return}const meta=user.user_metadata||{},photo=String(meta.avatar_url||meta.picture||meta.photo_url||'').trim();avatar.textContent=photo?'':'♙';avatar.style.backgroundImage=photo?'url("'+photo.replace(/["\\\\)]/g,'')+'")':'';indicator.classList.add('is-logged-in');dot?.setAttribute('aria-label','Conectado');indicator.setAttribute('aria-label','Sesión iniciada. Abrir mi cuenta');indicator.title='Mi cuenta · Sesión iniciada'}sb.auth.getSession().then(({data})=>refresh(data.session?.user||null)).catch(loggedOut);sb.auth.onAuthStateChange((event,session)=>{if(['SIGNED_IN','TOKEN_REFRESHED','USER_UPDATED','SIGNED_OUT'].includes(event))setTimeout(()=>refresh(session?.user||null),0)})})();;
 </script>
 <script src="js/royal-effects.js?v=2" defer></script>
 <script src="js/royal-flow.js?v=3" defer></script>
