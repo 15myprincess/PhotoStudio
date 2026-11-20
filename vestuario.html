@@ -9,13 +9,14 @@
 <link rel="stylesheet" href="css/royal-dream.css?v=20261119-1">
   <link rel="stylesheet" href="css/royal-effects.css?v=2">
   <link rel="stylesheet" href="css/royal-flow.css?v=2">
+<link rel="stylesheet" href="css/global-account.css?v=1">
 </head>
 <body class="vestuario-page">
 <header class="header compact-header">
   <a class="brand" href="index.html#inicio"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a>
   <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navDropdown">☰</button>
   <nav class="nav-dropdown" id="navDropdown" aria-label="Navegación principal">
-    <a href="index.html#contratos">Contratos</a><a class="active" href="vestuario.html">Vestuario</a><a href="probador.html">Probador</a><a href="cuenta.html">Mi cuenta</a><a class="nav-cta" href="reserva.html">Volver a la solicitud</a>
+    <a href="index.html">Inicio</a><a href="index.html#contratos">Contratos</a><a class="active" href="vestuario.html">Vestuario</a><a href="probador.html">Probador</a><a href="eventos.html">Galería</a><a class="nav-cta" href="reserva.html">Reserva tu fecha</a>
   </nav>
 </header>
 <main class="wardrobe-main">
@@ -26,7 +27,7 @@
   <div class="wardrobe-sticky"><span id="selectionCounter">0 vestidos seleccionados</span><button class="button pink" id="confirmDresses" type="button" disabled>Confirmar selección →</button></div>
 </main>
 <footer class="footer"><a class="brand footer-brand" href="index.html#top"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span></footer>
-<script src="js/config.js?v=13"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+<script src="js/config.js?v=13"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="js/global-account.js?v=1"></script><script>
 /* Recupera el contrato de la URL si sessionStorage no lo conserva. Debe ir antes de vestuario.js. */
 (() => {
   try {
