@@ -1,0 +1,59 @@
+/* My Princess · Reserva Royal */
+.booking-page{min-height:100vh;background:radial-gradient(ellipse at 50% 0%,rgba(198,164,119,.12),transparent 38%),#17131b;color:#f7f1f3;padding-bottom:70px}
+.reserve-hero{position:relative;isolation:isolate;overflow:hidden;min-height:330px;display:grid;place-items:center;text-align:center;padding:70px 20px 58px;background:linear-gradient(90deg,rgba(16,10,18,.88),rgba(16,10,18,.38)),url('../images/reserva-princesa.webp') center 38%/cover}
+.reserve-hero:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 35%,rgba(198,164,119,.2),transparent 52%)}
+.reserve-hero__inner{max-width:760px;margin:auto}
+.reserve-hero__crown{display:inline-grid;place-items:center;width:54px;height:54px;border:1px solid rgba(198,164,119,.72);border-radius:50%;color:#e3c1cf;font-size:27px;box-shadow:0 0 35px rgba(198,164,119,.2);margin-bottom:14px}
+.reserve-hero .eyebrow{color:#d7b88f;letter-spacing:.24em;font-size:10px}
+.reserve-hero h1{font:500 clamp(42px,7vw,72px)/.98 'Cormorant Garamond',Georgia,serif;color:#f5dce6;margin:8px 0 14px;text-shadow:0 5px 28px #0009}
+.reserve-hero p:not(.eyebrow){max-width:570px;margin:auto;color:#f2e7ed;font-size:13px;line-height:1.8}
+.reserve-breadcrumb{display:flex;justify-content:center;gap:9px;align-items:center;margin-top:22px;font-size:10px;color:#e4cbd7}
+.reserve-breadcrumb a{color:#e3c1cf;text-decoration:none}
+.reserve-main{max-width:1420px;margin:0 auto;padding:clamp(22px,4vw,52px) clamp(14px,3vw,38px)}
+.reserve-intro{text-align:center;max-width:760px;margin:0 auto 28px}
+.reserve-intro .eyebrow{color:#c6a477;letter-spacing:.22em;font-size:9px}
+.reserve-intro h2{font:500 clamp(31px,4vw,44px)/1.05 'Cormorant Garamond',Georgia,serif;color:#f0d8e2;margin:6px 0 9px}
+.reserve-intro p{font-size:12px;line-height:1.7;color:#cfc4cd}
+.reserve-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.8fr);gap:22px;align-items:start}
+.reserve-form-card,.reserve-calendar-card{border:1px solid rgba(198,164,119,.3);border-radius:23px;background:linear-gradient(145deg,rgba(42,33,44,.97),rgba(27,23,32,.98));box-shadow:0 22px 60px rgba(0,0,0,.23),inset 0 1px rgba(255,255,255,.045)}
+.reserve-form-card{padding:clamp(18px,3vw,34px)}
+.reserve-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 25px}
+.reserve-step{display:flex;align-items:center;gap:8px;min-width:0;padding:10px 9px;border:1px solid rgba(227,193,207,.14);border-radius:12px;background:rgba(255,255,255,.025)}
+.reserve-step b{display:grid;place-items:center;flex:0 0 27px;width:27px;height:27px;border-radius:50%;background:rgba(198,164,119,.15);border:1px solid rgba(198,164,119,.45);color:#e7cda8;font:600 12px Montserrat,sans-serif}
+.reserve-step span{font-size:9px;line-height:1.25;color:#d7cbd4}
+.reserve-form{display:grid;gap:17px}
+.reserve-stage{padding:18px 17px;border:1px solid rgba(227,193,207,.13);border-radius:17px;background:linear-gradient(135deg,rgba(255,255,255,.035),rgba(255,255,255,.012))}
+.reserve-stage__heading{display:flex;align-items:center;gap:11px;margin:0 0 15px}
+.reserve-stage__number{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border:1px solid rgba(198,164,119,.55);border-radius:12px;color:#e3c1cf;background:rgba(198,164,119,.1);font:600 13px Montserrat,sans-serif}
+.reserve-stage__heading h3{margin:0;color:#f0d8e2;font:600 22px/1.1 'Cormorant Garamond',Georgia,serif}
+.reserve-stage__heading p{margin:3px 0 0;color:#bfb2bd;font-size:9px}
+.reserve-form label{display:grid;gap:6px;color:#e7dce3;font-size:10px;font-weight:600}
+.reserve-form input,.reserve-form select,.reserve-form textarea{width:100%;min-height:43px;padding:11px 12px;border:1px solid rgba(227,193,207,.25);border-radius:10px;background:#fdf8fb;color:#382b35;font:500 12px Montserrat,sans-serif;outline:none}
+.reserve-form textarea{min-height:88px;resize:vertical}
+.reserve-form input:focus,.reserve-form select:focus,.reserve-form textarea:focus{border-color:#c6a477;box-shadow:0 0 0 3px rgba(198,164,119,.17)}
+.reserve-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.reserve-fields .span-2{grid-column:1/-1}
+.reserve-form .form-note{color:#bfb2bd;font-size:9px;line-height:1.55}
+.reserve-form .dress-picker-label{margin-top:3px}
+.reserve-form .dress-picker-button{display:inline-flex;justify-self:start;align-items:center;margin:2px 0 0;padding:10px 14px;border-radius:10px;color:#f1dce5;border-color:rgba(198,164,119,.55);font-size:10px;text-decoration:none}
+.reserve-form .selected-dress-summary{display:block;padding:9px 11px;border-radius:9px;background:rgba(198,164,119,.08);border:1px solid rgba(198,164,119,.18);font-size:10px;color:#e8d6df}
+.reserve-submit-row{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding-top:2px}
+.reserve-submit-row .submit{min-height:48px;padding:13px 22px;border-radius:13px;font-size:11px;box-shadow:0 9px 25px rgba(201,143,168,.2)}
+.reserve-submit-row .form-note{flex:1;min-width:180px}
+.reserve-calendar-card{position:sticky;top:18px;padding:22px}
+.reserve-calendar-card h3{font:500 27px 'Cormorant Garamond',Georgia,serif;color:#f0d8e2;margin:0 0 5px}
+.reserve-calendar-card>p{font-size:10px;line-height:1.6;color:#c7b9c4}
+.reserve-calendar-card #calendarStatus{padding:10px 12px;border:1px solid rgba(227,193,207,.15);border-radius:10px;background:rgba(255,255,255,.035)}
+.reserve-calendar-card .calendar-retry{font-size:9px;padding:8px 12px;margin:0 0 10px}
+.reserve-calendar-card #bookingCalendar{padding:10px 7px;border-radius:14px;background:#fff9fc;color:#604357}
+.reserve-calendar-card .calendar-legend{display:flex;flex-wrap:wrap;gap:9px 13px;margin-top:14px;font-size:9px;color:#d9cbd5}
+.reserve-calendar-card .calendar-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.reserve-calendar-card .calendar-legend .today{background:#e9bfd1}.reserve-calendar-card .calendar-legend .busy{background:#bd6d91}.reserve-calendar-card .calendar-legend .available{background:#a7b99a}
+.reserve-security-note{display:flex;gap:10px;align-items:flex-start;margin-top:17px;padding:13px;border-radius:12px;background:rgba(198,164,119,.07);border:1px solid rgba(198,164,119,.18);color:#d7c9d2;font-size:9px;line-height:1.6}
+.reserve-security-note b{color:#e3c1cf;font-size:15px}
+.reserve-footer-note{text-align:center;margin:30px auto 0;color:#bfb2bd;font:italic 17px 'Cormorant Garamond',Georgia,serif}
+.reserve-back-home{display:inline-flex;align-items:center;gap:8px;color:#e3c1cf;text-decoration:none;font-size:10px;margin-top:10px}
+.reserve-back-home:hover{color:#fff}
+@media(max-width:900px){.reserve-layout{grid-template-columns:1fr}.reserve-calendar-card{position:static;order:-1}.reserve-calendar-card #bookingCalendar{max-width:620px;margin-inline:auto}.reserve-calendar-card{padding:18px}}
+@media(max-width:600px){.reserve-hero{min-height:290px;padding:58px 18px 44px;background-position:center 35%}.reserve-main{padding:25px 12px 40px}.reserve-intro{margin-bottom:20px}.reserve-form-card{padding:14px;border-radius:18px}.reserve-steps{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin-bottom:16px}.reserve-step{display:grid;justify-items:center;text-align:center;gap:5px;padding:8px 3px}.reserve-step b{width:25px;height:25px;flex-basis:25px}.reserve-step span{font-size:8px}.reserve-stage{padding:14px 11px;border-radius:14px}.reserve-fields{grid-template-columns:1fr;gap:11px}.reserve-fields .span-2{grid-column:auto}.reserve-form input,.reserve-form select{min-height:44px}.reserve-submit-row{display:grid}.reserve-submit-row .submit{width:100%;justify-self:stretch}.reserve-calendar-card{border-radius:18px}.reserve-calendar-card #bookingCalendar{padding:8px 5px}.reserve-footer-note{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.reserve-hero,.reserve-stage,.reserve-step{animation:none!important;transition:none!important}}
