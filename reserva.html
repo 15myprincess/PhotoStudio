@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="css/royal-dream.css?v=20261119-5">
 <link rel="stylesheet" href="css/royal-effects.css?v=3">
 <link rel="stylesheet" href="css/royal-flow.css?v=3">
-<link rel="stylesheet" href="css/reserva.css?v=2">
+<link rel="stylesheet" href="css/reserva.css?v=3">
 </head>
 <body class="booking-page">
 <div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -101,7 +101,7 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script>
 <script src="js/main.js?v=25"></script>
-<script src="js/calendar.js?v=24"></script>
+<script src="js/calendar.js?v=25"></script>
 <script src="js/my-princess-data.js?v=17"></script>
 <script>
 (()=>{const modal=document.getElementById('bookingSuccessModal');if(!modal)return;const close=()=>{modal.hidden=true};document.getElementById('bookingSuccessClose')?.addEventListener('click',close);document.getElementById('bookingSuccessOk')?.addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});window.MP_showBookingSuccess=(reference)=>{const ref=document.getElementById('bookingSuccessReference');if(ref)ref.textContent=reference?'Referencia de solicitud: '+reference:'';modal.hidden=false;document.getElementById('bookingSuccessOk')?.focus()}})();
