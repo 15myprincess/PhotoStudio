@@ -1689,3 +1689,18 @@ body{padding-bottom:76px}
   background-image:linear-gradient(to top,rgba(8,5,12,.48),rgba(8,5,12,.04)),var(--mp-bg-image-mobile,var(--mp-bg-image-desktop,linear-gradient(135deg,#281b29,#100810)))!important;
  }
 }
+
+
+/* Invitación Royal a la nueva página de reservas */
+.reserve-invitation{position:relative;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);min-height:440px;overflow:hidden;background:radial-gradient(ellipse at 70% 20%,rgba(198,164,119,.12),transparent 45%),linear-gradient(130deg,#211a25,#17131b);border-top:1px solid rgba(198,164,119,.28);border-bottom:1px solid rgba(198,164,119,.22)}
+.reserve-invitation__photo{min-height:440px!important;background-position:center,var(--mp-bg-position-x,50%) var(--mp-bg-position-y,50%)!important}
+.reserve-invitation__copy{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:clamp(34px,6vw,78px);color:#f7f1f3}
+.reserve-invitation__copy .eyebrow{color:#c6a477;font-size:9px;letter-spacing:.23em}
+.reserve-invitation__ornament{display:grid;place-items:center;width:42px;height:42px;margin:9px 0 13px;border:1px solid rgba(198,164,119,.58);border-radius:50%;color:#e3c1cf;font-size:22px;box-shadow:0 0 25px rgba(198,164,119,.14)}
+.reserve-invitation__copy h2{margin:0 0 12px;color:#f1dce5;font:500 clamp(34px,4.2vw,52px)/1.02 'Cormorant Garamond',Georgia,serif}
+.reserve-invitation__copy>p:not(.eyebrow){max-width:550px;color:#d1c5ce;font-size:12px;line-height:1.85}
+.reserve-invitation__copy ul{display:grid;gap:8px;margin:10px 0 22px;padding:0;list-style:none;color:#e4d8e0;font-size:10px}
+.reserve-invitation__copy li:before{content:"✦";margin-right:9px;color:#c6a477}
+.reserve-invitation__cta{display:inline-flex;align-items:center;gap:12px;min-height:47px;padding:13px 22px;border-radius:13px;box-shadow:0 12px 30px rgba(201,143,168,.18)}
+.reserve-invitation__copy>small{margin-top:12px;color:#a99ba7;font-size:9px}
+@media(max-width:760px){.reserve-invitation{grid-template-columns:1fr}.reserve-invitation__photo{min-height:270px!important;height:270px!important}.reserve-invitation__copy{padding:30px 22px 36px}.reserve-invitation__copy h2{font-size:38px}.reserve-invitation__copy>p:not(.eyebrow){font-size:11px}.reserve-invitation__copy ul{font-size:9px}}
