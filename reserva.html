@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#17131B">
+<meta name="description" content="Solicita tu fecha especial con My Princess. Consulta el calendario, elige tu contrato y prepara tu reserva de quinceañera.">
+<title>Reserva tu fecha | My Princess</title>
+<link rel="preconnect" href="https://my-princess-calendar-backend.onrender.com" crossorigin><link rel="preconnect" href="https://lkfxhnrcjxswdmghqtvk.supabase.co" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20261119-9">
+<link rel="stylesheet" href="css/calendar.css?v=28">
+<link rel="stylesheet" href="css/royal-dream.css?v=20261119-4">
+<link rel="stylesheet" href="css/royal-effects.css?v=2">
+<link rel="stylesheet" href="css/royal-flow.css?v=2">
+<link rel="stylesheet" href="css/reserva.css?v=1">
+</head>
+<body class="booking-page">
+<div class="petal-layer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<header class="header" id="top">
+<a class="brand" href="index.html"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a>
+<button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+<a href="cuenta.html" class="account-indicator" id="accountIndicator" aria-label="Mi cuenta"><span class="account-avatar" id="accountAvatar" aria-hidden="true">♙</span><span class="account-greeting"><span id="accountHello">Mi cuenta</span><strong id="accountUserName">Iniciar sesión</strong></span></a>
+<nav class="nav"><a href="index.html">Inicio</a><a href="index.html#contratos">Contratos</a><a href="vestuario.html">Vestuario</a><a href="probador.html">Probador</a><a href="eventos.html">Galería</a><a class="nav-cta active" href="reserva.html">Reserva tu fecha</a></nav>
+</header>
+<main>
+<section class="reserve-hero">
+<div class="reserve-hero__inner">
+<span class="reserve-hero__crown">♛</span>
+<p class="eyebrow">EL COMIENZO DE UN RECUERDO ETERNO</p>
+<h1>Tu sueño comienza aquí</h1>
+<p>Cuéntanos cómo imaginas ese día tan especial. Te acompañaremos paso a paso para preparar una experiencia digna de una princesa.</p>
+<div class="reserve-breadcrumb"><a href="index.html">Inicio</a><span>✦</span><span>Solicitud de reserva</span></div>
+</div>
+</section>
+<div class="reserve-main">
+<div class="reserve-intro">
+<p class="eyebrow">MY PRINCESS · RESERVAS</p>
+<h2>Diseñemos juntas tu día inolvidable</h2>
+<p>Completa tus datos, selecciona el contrato y consulta el calendario. Tu solicitud será revisada por nuestro equipo antes de confirmar la fecha.</p>
+</div>
+<div class="reserve-layout">
+<section class="reserve-form-card" aria-label="Formulario de solicitud de reserva">
+<div class="reserve-steps" aria-label="Etapas de la solicitud">
+<div class="reserve-step"><b>1</b><span>Tus datos</span></div><div class="reserve-step"><b>2</b><span>La quinceañera</span></div><div class="reserve-step"><b>3</b><span>Tu experiencia</span></div><div class="reserve-step"><b>4</b><span>Confirmación</span></div>
+</div>
+<form id="bookingForm" class="reserve-form">
+<section class="reserve-stage">
+<div class="reserve-stage__heading"><span class="reserve-stage__number">01</span><div><h3>¿Quién realiza la solicitud?</h3><p>Datos de contacto de la persona titular de la cuenta</p></div></div>
+<div class="reserve-fields">
+<label class="span-2">Nombre de quien solicita<input name="requesterName" autocomplete="name" maxlength="120" placeholder="Nombre y apellidos de quien solicita"></label>
+<label class="span-2">Teléfono de contacto<input name="phone" required type="tel" autocomplete="tel" placeholder="Teléfono o WhatsApp de contacto"></label>
+</div>
+<p class="form-note">El correo electrónico de tu cuenta se asociará automáticamente a la solicitud.</p>
+</section>
+<section class="reserve-stage">
+<div class="reserve-stage__heading"><span class="reserve-stage__number">02</span><div><h3>La protagonista de esta historia</h3><p>Información de la quinceañera</p></div></div>
+<div class="reserve-fields">
+<label>Nombre completo de la quinceañera<input name="client" required autocomplete="off" placeholder="Nombre y apellidos"></label>
+<label>Padre, madre o tutor (si corresponde)<input name="guardian" autocomplete="off" placeholder="Nombre del representante"></label>
+<label class="span-2">Carné de identidad de la quinceañera<input name="identityNumber" id="identityNumber" type="text" inputmode="numeric" autocomplete="off" required minlength="11" maxlength="11" pattern="[0-9]{11}" title="Introduce los 11 dígitos del carné de identidad cubano" placeholder="11 dígitos, sin espacios ni guiones" aria-describedby="identityPrivacyNote"><span id="identityPrivacyNote" class="form-note">Dato obligatorio para identificar y controlar la solicitud. Se guardará en el registro privado del estudio y solo debe consultarlo personal autorizado. No lo incluyas en mensajes públicos.</span></label>
+</div>
+</section>
+<section class="reserve-stage">
+<div class="reserve-stage__heading"><span class="reserve-stage__number">03</span><div><h3>Elige tu experiencia</h3><p>Fecha, contrato y detalles de tu sesión</p></div></div>
+<div class="reserve-fields">
+<label>Fecha deseada<input name="date" type="date" required></label>
+<label>Contrato<select name="contract" required><option value="">Elige un contrato</option><option>Cuarzo Rosa</option><option>Amatista</option><option>Aguamarina</option><option>Topacio</option><option>Turmalina</option><option>Esmeralda</option><option>Zafiro</option><option>Rubí</option><option>Diamante</option></select></label>
+<label class="span-2 dress-picker-label">Vestidos del estudio<span class="form-note">Selecciona primero tu contrato y después elige los vestidos incluidos en él. La ropa casual o elegante no forma parte de esta galería.</span><a class="button outline dress-picker-button" id="openDressGallery" href="vestuario.html">Elegir vestidos del estudio ↗</a><span id="selectedDressSummary" class="selected-dress-summary" aria-live="polite">Aún no has seleccionado vestidos.</span></label>
+<input type="hidden" name="selectedDressIds" id="selectedDressIds" value="[]">
+<label>Método de pago preferido<select name="payment"><option>QR</option><option>Transferencia bancaria</option><option>Pago presencial</option></select></label>
+<label class="span-2">Notas adicionales (opcional)<textarea name="notes" rows="3" placeholder="Cuéntanos algún detalle especial que debamos conocer"></textarea></label>
+</div>
+</section>
+<section class="reserve-stage">
+<div class="reserve-stage__heading"><span class="reserve-stage__number">04</span><div><h3>Revisa y envía tu solicitud</h3><p>Un último paso para comenzar a crear tus recuerdos</p></div></div>
+<div class="reserve-submit-row"><button class="button pink submit" type="submit">Enviar solicitud de reserva <span>→</span></button><p class="form-note">La fecha no queda reservada hasta que el estudio confirme su disponibilidad. El plazo de pago de 24 horas comenzará después de la confirmación.</p></div>
+<div id="bookingResult" class="result" hidden></div>
+</section>
+</form>
+<div class="reserve-security-note"><b>✧</b><span>Tus datos personales se utilizan exclusivamente para gestionar la solicitud de reserva. La fecha se verificará con el calendario antes de enviar la petición.</span></div>
+</section>
+<aside class="reserve-calendar-card calendar-card calendar-live-card">
+<h3>Calendario de disponibilidad</h3>
+<p>Consulta los días ocupados y selecciona una fecha libre. La disponibilidad se comprueba nuevamente antes de enviar tu solicitud.</p>
+<p id="calendarStatus" role="status">Consultando disponibilidad…</p>
+<button class="button outline calendar-retry" id="retryCalendarAvailability" type="button">Reintentar disponibilidad ↻</button>
+<div id="bookingCalendar" aria-label="Calendario de disponibilidad"></div>
+<div class="calendar-legend"><span><i class="today"></i>Día actual</span><span><i class="busy"></i>Fecha ocupada</span><span><i class="available"></i>Disponible</span></div>
+<p class="form-note">Seleccionar una fecha solo prepara la solicitud; no confirma la reserva.</p>
+</aside>
+</div>
+<p class="reserve-footer-note">Cada detalle cuenta. Estamos aquí para ayudarte a hacerlo realidad. ♡</p>
+<div style="text-align:center"><a class="reserve-back-home" href="index.html">← Volver a descubrir My Princess</a></div>
+</div>
+</main>
+<footer class="footer"><a class="brand footer-brand" href="index.html"><span class="crown">♛</span><span>My Princess</span><small>ESTUDIO FOTOGRÁFICO</small></a><p>Más que fotos, son recuerdos para siempre ♡</p><span>Camagüey, Cuba</span><small class="copyright">© <span id="year"></span> My Princess · Estudio Fotográfico</small></footer>
+<div id="bookingSuccessModal" class="mp-success-overlay" role="dialog" aria-modal="true" aria-labelledby="bookingSuccessTitle" hidden><div class="mp-success-card"><button type="button" class="mp-success-close" id="bookingSuccessClose" aria-label="Cerrar">×</button><div class="mp-success-icon">♡</div><h2 id="bookingSuccessTitle">¡Gracias por tu solicitud!</h2><p>Gracias por enviar tu reserva. En un plazo de 24 horas recibirás una respuesta para realizar el pago de la reserva. Una vez efectuado el pago y confirmado por el estudio, tus días quedarán aprobados.</p><p>Muchas gracias por enviarnos tu solicitud.</p><p class="mp-success-ref" id="bookingSuccessReference"></p><button type="button" class="button pink" id="bookingSuccessOk">Entendido</button></div></div>
+<style>.mp-success-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(12,5,12,.78);backdrop-filter:blur(8px)}.mp-success-overlay[hidden]{display:none!important}.mp-success-card{position:relative;width:min(100%,470px);padding:34px 26px;border:1px solid #d6a2b8;border-radius:22px;background:linear-gradient(145deg,#fff8fc,#f7e5ee);color:#48243a;text-align:center;box-shadow:0 22px 80px #0008;animation:mpSuccessIn .25s ease-out}.mp-success-card h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:36px;color:#8c3d65;margin:8px 0 14px}.mp-success-card p{line-height:1.65}.mp-success-icon{font-size:38px;color:#b65d89}.mp-success-close{position:absolute;right:12px;top:8px;border:0;background:transparent;color:#8c3d65;font-size:30px;cursor:pointer}.mp-success-ref{font-size:12px;color:#765466;overflow-wrap:anywhere}@keyframes mpSuccessIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}@media(prefers-reduced-motion:reduce){.mp-success-card{animation:none}}</style>
+<script src="js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script>
+<script src="js/main.js?v=24"></script>
+<script src="js/calendar.js?v=23"></script>
+<script src="js/my-princess-data.js?v=16"></script>
+<script>
+(()=>{const modal=document.getElementById('bookingSuccessModal');if(!modal)return;const close=()=>{modal.hidden=true};document.getElementById('bookingSuccessClose')?.addEventListener('click',close);document.getElementById('bookingSuccessOk')?.addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});window.MP_showBookingSuccess=(reference)=>{const ref=document.getElementById('bookingSuccessReference');if(ref)ref.textContent=reference?'Referencia de solicitud: '+reference:'';modal.hidden=false;document.getElementById('bookingSuccessOk')?.focus()}})();
+(()=>{const indicator=document.getElementById('accountIndicator'),hello=document.getElementById('accountHello'),nameEl=document.getElementById('accountUserName'),avatar=document.getElementById('accountAvatar'),cfg=window.MY_PRINCESS_CONFIG||{};if(!indicator||!window.supabase||!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY)return;const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);function loggedOut(){indicator.classList.remove('is-logged-in');hello.textContent='Bienvenido';nameEl.textContent='Mi cuenta';avatar.textContent='♙'}async function refresh(user){if(!user){loggedOut();return}const meta=user.user_metadata||{};let display=String(meta.full_name||meta.name||'').trim();try{const{data}=await sb.from('client_profiles').select('full_name').eq('user_id',user.id).maybeSingle();if(data?.full_name)display=String(data.full_name).trim()}catch(e){console.warn(e)}if(!display)display=String(user.email||'').split('@')[0]||'Cliente';const first=display.split(/\s+/)[0];hello.textContent='¡Hola!';nameEl.textContent=first;avatar.textContent=first.charAt(0).toLocaleUpperCase('es');indicator.classList.add('is-logged-in')}sb.auth.getSession().then(({data})=>refresh(data.session?.user||null)).catch(loggedOut);sb.auth.onAuthStateChange((event,session)=>{if(['SIGNED_IN','TOKEN_REFRESHED','USER_UPDATED','SIGNED_OUT'].includes(event))setTimeout(()=>refresh(session?.user||null),0)})})();
+</script>
+<script src="js/royal-effects.js?v=1" defer></script>
+<script src="js/royal-flow.js?v=2" defer></script>
+</body></html>
