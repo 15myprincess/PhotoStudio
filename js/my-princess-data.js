@@ -230,7 +230,7 @@
       });
       const body=await response.json().catch(()=>({}));
       if(!response.ok) throw new Error(body.error||'No se pudo enviar la solicitud.');
-      const reference=body.requestId||body.id||'recibida';
+      const reference=body.referenceCode||'Solicitud recibida';
       if(result){result.hidden=true;result.textContent='';}
       showBookingSuccess(reference,date,packageName);
       if(button) setContactWhatsAppState(button);
