@@ -40,7 +40,7 @@
 <section class="card"><p id="status" class="status" role="status">Comprobando sesión…</p>
 <form id="loginForm" class="hidden"><label>Correo del estudio<input id="email" type="email" autocomplete="username" required></label><label>Contraseña<input id="password" type="password" autocomplete="current-password" required minlength="8"></label><div class="actions"><button class="btn" type="submit">Iniciar sesión</button></div><p class="muted">Usa una cuenta ya creada en Supabase y autorizada en ADMIN_EMAILS de Render. Esta página no crea administradores.</p></form>
 <div id="toolbar" class="actions hidden"><button class="btn" id="refresh">↻ Actualizar</button><button class="btn secondary" id="exportCsv">↓ Exportar CSV</button><button class="btn secondary" id="printRequests">▤ Imprimir</button><button class="btn secondary" id="logout">Cerrar sesión</button><button id="mpOpenCatalog" class="btn secondary" type="button">Galería y paquetes ✦</button></div>
-</section><section id="adminApp" class="hidden"><div id="stats" class="stats"></div><section class="card"><div class="navtabs" id="navtabs"><button class="btn active" data-view="requests">Solicitudes</button><button class="btn secondary" data-view="clients">Clientes</button><button class="btn secondary" data-view="projects">Contratos y entregas</button><button class="btn secondary" data-view="messages">Notas y mensajes</button></div><div id="viewTitle" class="title" style="font-size:32px;margin:18px 0 6px">Solicitudes</div><p id="viewHelp" class="sub">Organiza solicitudes por estado y conserva el historial.</p><div id="requestFilters" class="actions"><label style="min-width:180px;flex:1">Buscar cliente, correo o contrato<input id="search" type="search" placeholder="Nombre, correo, fecha…"></label><label style="min-width:150px;flex:1">Organizar<select id="periodView"><option value="day">Por día</option><option value="week">Por semana</option><option value="month" selected>Por mes</option><option value="all">Todas las fechas</option></select></label><label style="min-width:180px;flex:1">Estado<select id="filter"><option value="all">Todas las solicitudes activas</option><option value="pending">Pendientes</option><option value="approved">Aprobadas</option><option value="rejected">Denegadas</option><option value="cancelled">Canceladas</option><option value="archived">Denegadas archivadas</option></select></label></div></section><section id="cleanupPanel" class="card"><h3 style="font:600 24px Cormorant Garamond,serif;color:var(--gold);margin:0">Limpieza del historial</h3><p class="muted">Revisa las solicitudes archivadas antiguas. No se borra nada automáticamente.</p><div class="actions"><label style="min-width:145px;flex:1">Antigüedad mínima<select id="cleanupAge"><option value="30">30 días</option><option value="60">60 días</option><option value="90" selected>90 días</option><option value="180">180 días</option><option value="365">1 año</option></select></label><button class="btn secondary" id="previewCleanup">Revisar antiguas</button></div><p id="cleanupStatus" class="muted"></p><div id="cleanupResults" class="list"></div></section><div id="clientList" class="list hidden"></div><div id="projectList" class="list hidden"></div><div id="messageList" class="list hidden"></div></section><p class="note">Flujo recomendado: revisa los datos y la disponibilidad antes de aprobar. La confirmación del calendario depende de que el backend y Google Calendar estén configurados correctamente.</p>
+</section><section id="adminApp" class="hidden"><div id="stats" class="stats"></div><section class="card"><div class="navtabs" id="navtabs"><button class="btn active" data-view="requests">Solicitudes</button><button class="btn secondary" data-view="clients">Clientes</button><button class="btn secondary" data-view="projects">Contratos y entregas</button><button class="btn secondary" data-view="messages">Notas y mensajes</button></div><div id="viewTitle" class="title" style="font-size:32px;margin:18px 0 6px">Solicitudes</div><p id="viewHelp" class="sub">Organiza solicitudes por estado y conserva el historial.</p><div id="requestFilters" class="actions"><label style="min-width:180px;flex:1">Buscar cliente, correo o contrato<input id="search" type="search" placeholder="Nombre, correo, fecha…"></label><label style="min-width:150px;flex:1">Organizar<select id="periodView"><option value="day">Por día</option><option value="week">Por semana</option><option value="month" selected>Por mes</option><option value="all">Todas las fechas</option></select></label><label style="min-width:180px;flex:1">Estado<select id="filter"><option value="all">Todas las solicitudes activas</option><option value="pending">Pendientes</option><option value="approved">Aprobadas</option><option value="rejected">Denegadas</option><option value="cancelled">Canceladas</option><option value="archived">Denegadas archivadas</option></select></label></div></section><section id="cleanupPanel" class="card"><h3 style="font:600 24px Cormorant Garamond,serif;color:var(--gold);margin:0">Limpieza del historial</h3><p class="muted">Revisa las solicitudes archivadas antiguas. No se borra nada automáticamente.</p><div class="actions"><label style="min-width:145px;flex:1">Antigüedad mínima<select id="cleanupAge"><option value="30">30 días</option><option value="60">60 días</option><option value="90" selected>90 días</option><option value="180">180 días</option><option value="365">1 año</option></select></label><button class="btn secondary" id="previewCleanup">Revisar antiguas</button></div><p id="cleanupStatus" class="muted"></p><div id="cleanupResults" class="list"></div></section><div id="clientList" class="list hidden"></div><div id="projectList" class="hidden"></div><div id="messageList" class="list hidden"></div></section><p class="note">Flujo recomendado: revisa los datos y la disponibilidad antes de aprobar. La confirmación del calendario depende de que el backend y Google Calendar estén configurados correctamente.</p>
 <section id="list" class="list"></section>
 </main><div id="requestModal" class="request-modal" hidden><section class="request-modal-panel" role="dialog" aria-modal="true"><div class="request-modal-head"><div><h2 id="modalName">Solicitud</h2><p id="modalStatus" class="muted"></p></div><button class="modal-close" id="closeModal" aria-label="Cerrar">×</button></div><div id="modalDetails" class="modal-details"></div><label>Nota del estudio<textarea id="modalNote" placeholder="Mensaje opcional para la clienta"></textarea></label><div id="modalActions" class="actions"></div></section></div>
 <script src="js/config.js?v=20261031-workspace3"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -49,11 +49,62 @@
 const cfg=window.MY_PRINCESS_CONFIG||{},$=id=>document.getElementById(id),api=(cfg.bookingApiBase||cfg.API_BASE_URL||'').replace(/\/+$/,'');
 if(!window.supabase||!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY){$('status').textContent='No se pudo cargar la configuración de acceso.';return}
 const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);let token='',requests=[];
-const labels={pending:'Pendiente',approved:'Aprobada por el estudio',rejected:'Denegada',cancelled:'Cancelada',confirmed:'Confirmada'};let currentView='requests';
+const labels={pending:'Pendiente',approved:'Aprobada por el estudio',rejected:'Denegada',cancelled:'Cancelada',confirmed:'Confirmada'};let currentView='requests',projectDate=new Date(),projectPeriod='month',projectLayout='calendar',projectStatus='active',projectSearch='';
 function setStatus(s){$('status').textContent=s}
 function setView(view){currentView=view;['list','clientList','projectList','messageList','requestFilters'].forEach(id=>$(id).classList.add('hidden'));$('viewTitle').textContent=({requests:'Solicitudes',clients:'Clientes',projects:'Contratos y entregas',messages:'Notas y mensajes'})[view];$('viewHelp').textContent=({requests:'Organiza solicitudes por estado y conserva el historial.',clients:'Listado de clientes derivados de las solicitudes registradas.',projects:'Vista inicial de contratos; el seguimiento por etapas será el siguiente módulo.',messages:'Notas del estudio guardadas en cada solicitud y mensajes asociados.'})[view];$('requestFilters').classList.toggle('hidden',view!=='requests');$(view==='requests'?'list':view==='clients'?'clientList':view==='projects'?'projectList':'messageList').classList.remove('hidden');document.querySelectorAll('#navtabs button').forEach(b=>{b.classList.toggle('active',b.dataset.view===view);b.classList.toggle('secondary',b.dataset.view!==view)});if(view==='requests')render();else if(view==='clients')renderClients();else if(view==='projects')renderProjects();else renderMessages()}
 function renderClients(){const root=$('clientList');root.replaceChildren();const map=new Map();requests.forEach(x=>{const key=x.user_id||x.client_email||x.id;if(!map.has(key))map.set(key,{...x,total:0,latest:x.created_at});const c=map.get(key);c.total++;if((x.created_at||'')>(c.latest||'')){c.latest=x.created_at;c.lastRequest=x}});if(!map.size){root.append(el('section','card','Todavía no hay clientes registrados en las solicitudes.'));return}map.forEach(c=>{const card=el('article','card request');card.append(el('h2','',c.client_name||'Cliente sin nombre'),el('span','pill',c.total+' solicitud(es)'),el('div','details','Correo: '+(c.client_email||'—')+'\\nTeléfono: '+(c.client_phone||c.phone||'—')+'\\nÚltima solicitud: '+(c.latest?new Date(c.latest).toLocaleDateString('es'):'—')+'\\nContrato reciente: '+(c.contract_name||'—')));root.append(card)})}
-function renderProjects(){const root=$('projectList');root.replaceChildren();const items=requests.filter(x=>['approved','confirmed'].includes(x.status)&&!x.archived_at);if(!items.length){root.append(el('section','card','No hay contratos aprobados para mostrar todavía.'));return}items.forEach(x=>{const card=el('article','card request');card.append(el('h2','',x.client_name||'Cliente'),el('span','pill','Reserva aprobada'),el('div','details','Fecha de sesión: '+(x.event_date||'—')+'\\nContrato: '+(x.contract_name||'—')+'\\nCorreo: '+(x.client_email||'—')),el('p','note','Seguimiento de edición, álbum y fecha de entrega: pendiente de implementar en el siguiente módulo.'));root.append(card)})}
+function renderProjects(){
+ const root=$('projectList');root.replaceChildren();
+ const items=requests.filter(x=>!x.archived_at&&['pending','approved','confirmed'].includes(x.status)&&x.event_date);
+ const filtered=items.filter(x=>{
+  const statusOk=projectStatus==='active'||(projectStatus==='pending'?x.status==='pending':['approved','confirmed'].includes(x.status));
+  const q=projectSearch.trim().toLowerCase();
+  return statusOk&&(!q||[x.client_name,x.client_email,x.contract_name,x.phone,x.reference_code,x.event_date].join(' ').toLowerCase().includes(q));
+ }).sort((a,b)=>(a.event_date||'').localeCompare(b.event_date||'')||(a.client_name||'').localeCompare(b.client_name||''));
+ const dateOnly=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate(),12);
+ const parseDate=v=>{const p=String(v||'').split('-').map(Number);return p.length===3?new Date(p[0],p[1]-1,p[2],12):null};
+ const key=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+ const same=(a,b)=>key(a)===key(b);
+ const monthName=d=>d.toLocaleDateString('es',{month:'long',year:'numeric'});
+ const dayName=d=>d.toLocaleDateString('es',{weekday:'long',day:'numeric',month:'long'});
+ const byDate=new Map();filtered.forEach(x=>{if(!byDate.has(x.event_date))byDate.set(x.event_date,[]);byDate.get(x.event_date).push(x)});
+ const head=el('section','mp-project-head');
+ const intro=el('div','');intro.append(el('span','mp-project-eyebrow','AGENDA DEL ESTUDIO'),el('h2','','Contratos y eventos'),el('p','muted','Cada sesión, en su fecha y con toda la información a mano.'));
+ const controls=el('div','mp-project-controls');
+ const nav=el('div','mp-project-nav');
+ const prev=el('button','btn secondary','‹');prev.type='button';prev.setAttribute('aria-label','Periodo anterior');prev.onclick=()=>{const d=new Date(projectDate);if(projectPeriod==='month')d.setMonth(d.getMonth()-1);else if(projectPeriod==='week')d.setDate(d.getDate()-7);else d.setDate(d.getDate()-1);projectDate=dateOnly(d);renderProjects()};
+ const today=el('button','btn secondary','Hoy');today.type='button';today.onclick=()=>{projectDate=dateOnly(new Date());renderProjects()};
+ const next=el('button','btn secondary','›');next.type='button';next.setAttribute('aria-label','Periodo siguiente');next.onclick=()=>{const d=new Date(projectDate);if(projectPeriod==='month')d.setMonth(d.getMonth()+1);else if(projectPeriod==='week')d.setDate(d.getDate()+7);else d.setDate(d.getDate()+1);projectDate=dateOnly(d);renderProjects()};
+ const periodLabel=el('strong','mp-project-period',projectPeriod==='month'?monthName(projectDate):projectPeriod==='week'?'Semana del '+dayName(new Date(projectDate.getFullYear(),projectDate.getMonth(),projectDate.getDate()-(projectDate.getDay()+6)%7,12)):dayName(projectDate));
+ nav.append(prev,today,next,periodLabel);
+ const filters=el('div','mp-project-filters');
+ const period=el('select','');[['month','Mes'],['week','Semana'],['day','Día']].forEach(([v,t])=>{const o=el('option','',t);o.value=v;o.selected=projectPeriod===v;period.append(o)});period.setAttribute('aria-label','Periodo del calendario');period.onchange=()=>{projectPeriod=period.value;renderProjects()};
+ const status=el('select','');[['active','Todos los eventos activos'],['pending','Pendientes'],['approved','Aprobados y confirmados']].forEach(([v,t])=>{const o=el('option','',t);o.value=v;o.selected=projectStatus===v;status.append(o)});status.setAttribute('aria-label','Filtrar por estado');status.onchange=()=>{projectStatus=status.value;renderProjects()};
+ const search=el('input','');search.type='search';search.placeholder='Buscar quinceañera, contrato o referencia…';search.value=projectSearch;search.setAttribute('aria-label','Buscar eventos');search.oninput=()=>{projectSearch=search.value;renderProjects()};
+ filters.append(period,status,search);
+ const layout=el('div','mp-project-layout');const cal=el('button','btn','▦ Calendario');cal.type='button';cal.classList.toggle('secondary',projectLayout!=='calendar');cal.onclick=()=>{projectLayout='calendar';renderProjects()};const list=el('button','btn','☷ Lista');list.type='button';list.classList.toggle('secondary',projectLayout!=='list');list.onclick=()=>{projectLayout='list';renderProjects()};layout.append(cal,list);
+ const count=el('span','mp-project-count',filtered.length+' evento(s)');
+ controls.append(nav,filters,layout,count);head.append(intro,controls);root.append(head);
+ const body=el('div','mp-project-body');
+ const eventCard=(x,compact=false)=>{const card=el('article','mp-event-card'+(compact?' compact':''));card.tabIndex=0;card.setAttribute('role','button');const top=el('div','mp-event-top');top.append(el('span','mp-event-ref',x.reference_code||'Sin referencia'),el('span','pill',labels[x.status]||x.status));card.append(top,el('h3','',x.client_name||'Quinceañera sin nombre'),el('p','mp-event-contract',x.contract_name||'Contrato por definir'));const info=el('div','mp-event-info');info.append(el('span','', '✦ '+x.event_date),el('span','', '☎ '+(x.phone||x.client_phone||'Sin teléfono')),el('span','', '✉ '+(x.client_email||'Sin correo')),el('span','', 'Pago: '+(x.payment_method||'Por confirmar')));card.append(info);if(!compact&&x.notes)card.append(el('p','mp-event-note','Nota: '+x.notes));const open=()=>openRequest(x);card.onclick=open;card.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}};return card};
+ if(!filtered.length){body.append(el('section','card','No hay eventos para este periodo o filtro. Las solicitudes con fecha aparecerán aquí cuando estén activas.'));root.append(body);return}
+ if(projectLayout==='list'){
+  let lastMonth='',lastDay='';
+  filtered.forEach(x=>{const d=parseDate(x.event_date);if(!d)return;const m=monthName(d);if(m!==lastMonth){body.append(el('h3','mp-project-month',m));lastMonth=m;lastDay=''}if(x.event_date!==lastDay){body.append(el('div','mp-project-day',dayName(d)));lastDay=x.event_date}body.append(eventCard(x))});
+ }else if(projectPeriod==='month'){
+  const first=new Date(projectDate.getFullYear(),projectDate.getMonth(),1,12),offset=(first.getDay()+6)%7,startDate=new Date(first);startDate.setDate(first.getDate()-offset);
+  const grid=el('div','mp-month-grid');['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].forEach(t=>grid.append(el('div','mp-weekday',t)));
+  const days=new Date(projectDate.getFullYear(),projectDate.getMonth()+1,0).getDate(),cells=Math.ceil((offset+days)/7)*7;
+  for(let i=0;i<cells;i++){const d=new Date(startDate);d.setDate(startDate.getDate()+i);const cell=el('div','mp-day-cell'+(d.getMonth()!==projectDate.getMonth()?' outside':'')+(same(d,new Date())?' today':''));const dateButton=el('button','mp-day-number',String(d.getDate()));dateButton.type='button';dateButton.onclick=()=>{projectDate=dateOnly(d);projectPeriod='day';renderProjects()};cell.append(dateButton);const ev=byDate.get(key(d))||[];ev.slice(0,3).forEach(x=>cell.append(eventCard(x,true)));if(ev.length>3)cell.append(el('span','mp-more-events','+'+(ev.length-3)+' más'));grid.append(cell)}
+  body.append(grid);
+ }else{
+  let startDate=dateOnly(projectDate),days=1;if(projectPeriod==='week'){startDate.setDate(startDate.getDate()-(startDate.getDay()+6)%7);days=7}
+  const grid=el('div','mp-period-grid'+(days===1?' one-day':''));
+  for(let i=0;i<days;i++){const d=new Date(startDate);d.setDate(startDate.getDate()+i);const col=el('section','mp-period-day'+(same(d,new Date())?' today':''));col.append(el('h3','',dayName(d)));const ev=byDate.get(key(d))||[];if(!ev.length)col.append(el('p','muted','Sin eventos'));ev.forEach(x=>col.append(eventCard(x)));grid.append(col)}
+  body.append(grid);
+ }
+ root.append(body);
+}
 function renderMessages(){const root=$('messageList');root.replaceChildren();const items=requests.filter(x=>x.admin_note);if(!items.length){root.append(el('section','card','Todavía no hay notas del estudio. Puedes escribir una nota en una solicitud y guardarla al actualizar su estado.'));return}items.forEach(x=>{const card=el('article','card request');card.append(el('h2','',x.client_name||'Cliente'),el('span','pill',labels[x.status]||x.status),el('div','details',x.admin_note),el('p','muted',(x.client_email||'')+' · '+(x.event_date||'')));root.append(card)})}
 async function apiCall(path,opts={}){const res=await fetch(api+path,{...opts,headers:{Accept:'application/json',...(opts.body?{'Content-Type':'application/json'}:{}),Authorization:'Bearer '+token,...opts.headers}});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data.error||data.message||(res.status===403?'Tu correo no está autorizado. Configura ADMIN_EMAILS en Render.':'Error al comunicarse con el servidor.'));return data}
 function el(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n}
@@ -383,4 +434,49 @@ body{background:radial-gradient(ellipse at 12% -8%,#51253f 0,transparent 38%),ra
 
   <script src="js/royal-effects.js?v=1" defer>
   <script src="js/royal-flow.js?v=2" defer></script></script>
+
+<style id="mp-project-calendar">
+#projectList{min-width:0}
+.mp-project-head{padding:clamp(15px,2.2vw,25px);border:1px solid rgba(217,189,130,.24);border-radius:20px;background:linear-gradient(145deg,rgba(47,27,44,.98),rgba(20,13,23,.98));margin:4px 0 16px}
+.mp-project-eyebrow{font-size:10px;letter-spacing:2px;color:#d9bd82;font-weight:700}
+.mp-project-head h2{font:600 clamp(30px,4vw,42px) 'Cormorant Garamond',serif;color:#f2bfd3;margin:4px 0}
+.mp-project-head p{margin:0}
+.mp-project-controls{display:grid;grid-template-columns:1fr auto;gap:12px;margin-top:18px;align-items:center}
+.mp-project-nav,.mp-project-filters,.mp-project-layout{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mp-project-period{font:600 20px 'Cormorant Garamond',serif;color:#f1d4df;margin:0 8px}
+.mp-project-filters{grid-column:1/-1}
+.mp-project-filters select,.mp-project-filters input{width:auto;min-width:160px;flex:1;margin:0}
+.mp-project-filters input{min-width:220px}
+.mp-project-count{font-size:11px;color:#d9bd82;white-space:nowrap}
+.mp-project-body{min-width:0}
+.mp-project-month{font:600 25px 'Cormorant Garamond',serif;color:#e8bfd0;border-bottom:1px solid rgba(217,189,130,.2);padding:12px 4px 7px;margin:16px 0 8px}
+.mp-project-day{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#d9bd82;margin:12px 4px 7px}
+.mp-month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.mp-weekday{text-align:center;padding:9px 2px;color:#d9bd82;font-size:10px;letter-spacing:.6px;text-transform:uppercase}
+.mp-day-cell{min-width:0;min-height:145px;padding:7px;border:1px solid rgba(225,174,197,.13);border-radius:12px;background:linear-gradient(145deg,rgba(42,26,43,.92),rgba(22,15,25,.96))}
+.mp-day-cell.outside{opacity:.43}
+.mp-day-cell.today,.mp-period-day.today{border-color:rgba(217,189,130,.65);box-shadow:inset 0 0 0 1px rgba(217,189,130,.15)}
+.mp-day-number{border:0;background:transparent;color:#f4dce7;font-weight:700;cursor:pointer;padding:3px 6px;border-radius:7px;margin-bottom:5px}
+.mp-day-number:hover{background:rgba(217,189,130,.18)}
+.mp-event-card{min-width:0;padding:13px;margin:7px 0;border:1px solid rgba(224,171,196,.2);border-radius:13px;background:linear-gradient(145deg,rgba(53,32,52,.96),rgba(28,18,31,.98));cursor:pointer;transition:transform .18s,border-color .18s}
+.mp-event-card:hover{transform:translateY(-2px);border-color:#d9a4bd}
+.mp-event-card.compact{padding:7px;margin:4px 0;border-radius:8px}
+.mp-event-top{display:flex;justify-content:space-between;gap:6px;align-items:center;flex-wrap:wrap}
+.mp-event-ref{font-size:9px;color:#d9bd82;letter-spacing:.4px}
+.mp-event-card h3{font:600 21px 'Cormorant Garamond',serif;color:#f4c5d8;margin:6px 0 1px;overflow-wrap:anywhere}
+.mp-event-card.compact h3{font:600 12px/1.2 Montserrat,sans-serif;margin:3px 0}
+.mp-event-contract{font-size:11px;color:#e5c4d2;margin:0 0 8px}
+.mp-event-card.compact .mp-event-contract{display:none}
+.mp-event-info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 10px;color:#d9c4cf;font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+.mp-event-card.compact .mp-event-info{display:none}
+.mp-event-note{font-size:11px;color:#d9bd82;margin:8px 0 0}
+.mp-more-events{display:block;font-size:9px;color:#e6c78f;padding:3px}
+.mp-period-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:9px}
+.mp-period-grid.one-day{grid-template-columns:minmax(0,1fr)}
+.mp-period-day{min-width:0;padding:12px;border:1px solid rgba(225,174,197,.16);border-radius:14px;background:rgba(30,19,32,.7)}
+.mp-period-day h3{font:600 19px 'Cormorant Garamond',serif;color:#f0c4d5;margin:0 0 10px}
+.mp-period-day .mp-event-info{grid-template-columns:1fr}
+@media(max-width:850px){.mp-project-controls{grid-template-columns:1fr}.mp-project-filters{grid-column:auto}.mp-period-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mp-period-grid.one-day{grid-template-columns:1fr}.mp-day-cell{min-height:120px}}
+@media(max-width:560px){.mp-project-nav{width:100%}.mp-project-period{flex:1;text-align:center;font-size:18px}.mp-project-filters{display:grid;grid-template-columns:1fr 1fr}.mp-project-filters input{grid-column:1/-1;min-width:0}.mp-project-filters select{min-width:0;width:100%}.mp-month-grid{gap:3px}.mp-weekday{font-size:8px;padding:6px 0}.mp-day-cell{min-height:90px;padding:3px;border-radius:8px}.mp-day-number{font-size:10px;margin:0;padding:2px 4px}.mp-event-card.compact{padding:4px;margin:3px 0}.mp-event-card.compact h3{font-size:9px}.mp-event-card.compact .mp-event-top .pill{font-size:8px;padding:2px 4px}.mp-event-ref{font-size:7px}.mp-more-events{font-size:8px}.mp-period-grid{grid-template-columns:1fr}.mp-event-info{grid-template-columns:1fr}}
+</style>
 </body></html>
