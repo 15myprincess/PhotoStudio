@@ -211,7 +211,7 @@
     sessionStorage.setItem("mp_package_name", packageName);
     sessionStorage.setItem("mp_package_id", packageId);
     sessionStorage.setItem("mp_dress_limit", String(packageLimit));
-    location.href = "index.html#reserva";
+    location.href = "reserva.html#bookingForm";
   });
   load();
 })();
