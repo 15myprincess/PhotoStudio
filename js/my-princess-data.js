@@ -99,6 +99,18 @@
     url.searchParams.set('contrato', name);
     galleryLink.href = url.pathname.split('/').pop() + url.search;
   });
+  function normalizePaymentPreference(value) {
+    const raw = String(value || '').trim();
+    const legacy = raw.toLowerCase();
+    if (['qr', 'transferencia bancaria', 'transferencia'].includes(legacy)) return 'coordinar';
+    if (['pago presencial', 'pago presencial en el estudio'].includes(legacy)) return 'presencial';
+    if (['transferencia mediante transfermóvil', 'transfermovil'].includes(legacy)) return 'transfermovil';
+    if (['transferencia mediante enzona', 'enzona'].includes(legacy)) return 'enzona';
+    if (['transferencia desde la banca remota', 'banca_remota'].includes(legacy)) return 'banca_remota';
+    if (['prefiero coordinar el método con el estudio', 'coordinar'].includes(legacy)) return 'coordinar';
+    return raw;
+  }
+
   function saveDraft() {
     const draft = {};
     for (const key of ['requesterName','client','guardian','phone','identityNumber','date','contract','payment','notes']) {
@@ -130,7 +142,7 @@
         phone: profile?.phone || meta.phone || '',
         identityNumber: profile?.identity_number || meta.identity_number || '',
         contract: meta.preferred_contract || '',
-        payment: meta.preferred_payment || '',
+        payment: normalizePaymentPreference(meta.preferred_payment || ''),
         notes: meta.booking_notes || ''
       };
       for (const [key, value] of Object.entries(values)) {
@@ -150,7 +162,7 @@
     const draft = JSON.parse(sessionStorage.getItem('mp_booking_draft') || 'null');
     if (draft) {
       for (const key of ['requesterName','client','guardian','phone','identityNumber','date','contract','payment','notes']) {
-        if (form.elements[key] && typeof draft[key] === 'string') form.elements[key].value = draft[key];
+        if (form.elements[key] && typeof draft[key] === 'string') form.elements[key].value = key === 'payment' ? normalizePaymentPreference(draft[key]) : draft[key];
       }
       // La selección confirmada más reciente de la galería tiene prioridad sobre
       // la copia anterior guardada en el borrador antes de entrar a vestuario.html.
@@ -201,13 +213,13 @@
     const identityNumber = String(data.get('identityNumber') || '').replace(/\D/g, '');
     const date = String(data.get('date') || '');
     const packageName = String(data.get('contract') || '').trim();
-    const paymentMethod = String(data.get('payment') || '').trim();
+    const paymentMethod = normalizePaymentPreference(data.get('payment'));
     const notes = String(data.get('notes') || '').trim();
     const dressIds = getSelectedIds();
     const dressNames = (() => { try { return JSON.parse(sessionStorage.getItem('mp_selected_dress_codes') || '[]'); } catch { return []; } })();
     const draft = {requesterName, client:name, guardian, phone, identityNumber, date, contract:packageName, payment:paymentMethod, notes, dressIds, dressNames};
     sessionStorage.setItem('mp_booking_draft', JSON.stringify(draft));
-    if (!name || !phone || !identityNumber || !date || !packageName) { if(result)result.textContent='Completa nombre, teléfono, carné de identidad, fecha y contrato.'; return; }
+    if (!name || !phone || !identityNumber || !date || !packageName || !paymentMethod) { if(result)result.textContent='Completa nombre, teléfono, carné de identidad, fecha, contrato y método de pago preferido.'; return; }
     if (!/^\d{11}$/.test(identityNumber)) { if(result)result.textContent='El carné de identidad debe contener exactamente 11 dígitos, sin espacios ni guiones.'; form.elements.identityNumber?.focus(); return; }
     if (date < new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString().slice(0,10)) { if(result)result.textContent='Selecciona una fecha de hoy o futura.'; return; }
     if (!cfg.API_BASE_URL || cfg.API_BASE_URL.includes('PEGA_AQUI')) { if(result)result.textContent='Falta configurar API_BASE_URL en js/config.js. No se ha enviado la solicitud.'; return; }
