@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="css/royal-dream.css?v=20261119-5">
 <link rel="stylesheet" href="css/royal-effects.css?v=3">
 <link rel="stylesheet" href="css/royal-flow.css?v=3">
-<link rel="stylesheet" href="css/reserva.css?v=4">
+<link rel="stylesheet" href="css/reserva.css?v=5">
 <link rel="stylesheet" href="css/global-account.css?v=1">
 </head>
 <body class="booking-page">
@@ -68,7 +68,7 @@
 <label>Contrato<select name="contract" required><option value="">Elige un contrato</option><option>Cuarzo Rosa</option><option>Amatista</option><option>Aguamarina</option><option>Topacio</option><option>Turmalina</option><option>Esmeralda</option><option>Zafiro</option><option>Rubí</option><option>Diamante</option></select></label>
 <label class="span-2 dress-picker-label">Vestidos del estudio<span class="form-note">Selecciona primero tu contrato y después elige los vestidos incluidos en él. La ropa casual o elegante no forma parte de esta galería.</span><a class="button outline dress-picker-button" id="openDressGallery" href="vestuario.html">Elegir vestidos del estudio ↗</a><span id="selectedDressSummary" class="selected-dress-summary" aria-live="polite">Aún no has seleccionado vestidos.</span></label>
 <input type="hidden" name="selectedDressIds" id="selectedDressIds" value="[]">
-<label>Método de pago preferido<select name="payment"><option>QR</option><option>Transferencia bancaria</option><option>Pago presencial</option></select></label>
+<label class="span-2">¿Cómo prefieres realizar el pago?<select name="payment" required><option value="">Selecciona tu preferencia</option><option value="presencial">Pago presencial en el estudio</option><option value="transfermovil">Transferencia mediante Transfermóvil</option><option value="enzona">Transferencia mediante EnZona</option><option value="banca_remota">Transferencia desde la banca remota</option><option value="coordinar">Prefiero coordinar el método con el estudio</option></select><span class="form-note">Esta selección solo indica tu preferencia. El equipo de My Princess coordinará contigo los detalles del pago y la confirmación de la reserva. No necesitas realizar ningún pago al enviar este formulario.</span></label>
 <label class="span-2">Notas adicionales (opcional)<textarea name="notes" rows="3" placeholder="Cuéntanos algún detalle especial que debamos conocer"></textarea></label>
 </div>
 </section>
@@ -103,7 +103,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.19/locales/es.global.min.js"></script>
 <script src="js/main.js?v=25"></script>
 <script src="js/calendar.js?v=25"></script>
-<script src="js/my-princess-data.js?v=18"></script>
+<script src="js/my-princess-data.js?v=19"></script>
 <script>
 (()=>{const modal=document.getElementById('bookingSuccessModal');if(!modal)return;let currentReference='';const close=()=>{modal.hidden=true};document.getElementById('bookingSuccessClose')?.addEventListener('click',close);document.getElementById('bookingSuccessOk')?.addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});document.getElementById('bookingSuccessCopy')?.addEventListener('click',async()=>{const status=document.getElementById('bookingSuccessCopyStatus');try{await navigator.clipboard.writeText(currentReference);if(status)status.textContent='Referencia copiada. Guárdala para consultar tu solicitud.';}catch{if(status)status.textContent='No se pudo copiar automáticamente. Puedes seleccionar y copiar el código.';}});window.MP_showBookingSuccess=(reference)=>{currentReference=String(reference||'');const ref=document.getElementById('bookingSuccessReference');if(ref)ref.textContent=currentReference?'MY PRINCESS · REFERENCIA DE TU SOLICITUD\n'+currentReference:'';const status=document.getElementById('bookingSuccessCopyStatus');if(status)status.textContent='Conserva este código para consultar tu solicitud o contactar con el estudio.';modal.hidden=false;document.getElementById('bookingSuccessOk')?.focus()}})();
 (()=>{const indicator=document.getElementById('accountIndicator'),avatar=document.getElementById('accountAvatar'),dot=document.getElementById('accountOnlineDot'),cfg=window.MY_PRINCESS_CONFIG||{};if(!indicator||!avatar||!window.supabase||!cfg.SUPABASE_URL||!cfg.SUPABASE_ANON_KEY)return;const sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);function loggedOut(){indicator.classList.remove('is-logged-in');avatar.textContent='♙';avatar.style.backgroundImage='';dot?.setAttribute('aria-label','Desconectado');indicator.setAttribute('aria-label','Iniciar sesión o crear una cuenta')}function refresh(user){if(!user){loggedOut();return}const meta=user.user_metadata||{},photo=String(meta.avatar_url||meta.picture||meta.photo_url||'').trim();avatar.textContent=photo?'':'♙';avatar.style.backgroundImage=photo?'url("'+photo.replace(/["\\\\)]/g,'')+'")':'';indicator.classList.add('is-logged-in');dot?.setAttribute('aria-label','Conectado');indicator.setAttribute('aria-label','Sesión iniciada. Abrir mi cuenta');indicator.title='Mi cuenta · Sesión iniciada'}sb.auth.getSession().then(({data})=>refresh(data.session?.user||null)).catch(loggedOut);sb.auth.onAuthStateChange((event,session)=>{if(['SIGNED_IN','TOKEN_REFRESHED','USER_UPDATED','SIGNED_OUT'].includes(event))setTimeout(()=>refresh(session?.user||null),0)})})();;
