@@ -1,0 +1,188 @@
+/* MY PRINCESS · CONTRATOS ROYAL
+   Presentación premium de las gemas y precios. No altera la lógica de contratación. */
+.contracts .gem-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:clamp(14px,2vw,24px)!important;
+  max-width:1180px;
+  margin:0 auto;
+  align-items:stretch;
+}
+.contracts .gem-card{
+  --card-accent:var(--gem-accent,#d889aa);
+  min-width:0;
+  min-height:310px;
+  padding:clamp(17px,2vw,25px)!important;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  overflow:hidden;
+  isolation:isolate;
+  border:1px solid color-mix(in srgb,var(--card-accent) 38%,#b98a53 62%)!important;
+  border-radius:22px!important;
+  background:
+    radial-gradient(ellipse at 50% 16%,color-mix(in srgb,var(--card-accent) 15%,transparent),transparent 48%),
+    linear-gradient(150deg,rgba(54,34,52,.96),rgba(25,16,27,.98) 70%)!important;
+  box-shadow:0 15px 38px rgba(5,2,8,.22),inset 0 1px 0 rgba(255,255,255,.07)!important;
+  transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease!important;
+}
+.contracts .gem-card:before{
+  content:"";
+  position:absolute;
+  inset:7px;
+  z-index:-1;
+  border:1px solid rgba(230,198,164,.13);
+  border-radius:16px;
+  pointer-events:none;
+}
+.contracts .gem-card:after{
+  content:"";
+  position:absolute;
+  width:180px;height:180px;
+  top:-115px;right:-95px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(232,194,159,.12),transparent 70%);
+  pointer-events:none;
+}
+.contracts .gem-card:hover{
+  transform:translateY(-7px)!important;
+  border-color:color-mix(in srgb,var(--card-accent) 62%,#e5c69d 38%)!important;
+  box-shadow:0 22px 48px rgba(5,2,8,.34),0 0 24px color-mix(in srgb,var(--card-accent) 12%,transparent)!important;
+}
+.contracts .gem-card .number{
+  width:27px;height:27px;
+  margin:0 0 7px auto!important;
+  color:#e8c99f;
+  border:1px solid rgba(214,181,137,.48)!important;
+  background:rgba(185,138,83,.09);
+  font:600 11px Montserrat,sans-serif;
+}
+.contracts .gem-card .gem{
+  width:100%;
+  height:126px!important;
+  display:grid;
+  place-items:center;
+  margin:0 0 12px!important;
+  filter:drop-shadow(0 12px 15px rgba(0,0,0,.35))!important;
+  animation:none!important;
+}
+.contracts .gem-card .gem img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  mix-blend-mode:screen;
+  filter:drop-shadow(0 0 13px color-mix(in srgb,var(--gem-accent,#d889aa) 36%,transparent));
+  transition:transform .45s ease,filter .45s ease;
+}
+.contracts .gem-card:hover .gem img{
+  transform:scale(1.075) translateY(-2px);
+  filter:drop-shadow(0 0 19px color-mix(in srgb,var(--gem-accent,#d889aa) 48%,transparent));
+}
+.contracts .gem-card h3{
+  width:100%;
+  margin:0 0 10px!important;
+  color:#fff7f2!important;
+  font:600 clamp(23px,2.1vw,29px)/1.05 'Cormorant Garamond',Georgia,serif!important;
+  letter-spacing:.015em;
+  text-align:center;
+}
+.contracts .gem-card p{
+  width:100%;
+  min-height:38px;
+  margin:0 0 13px!important;
+  color:#ddc8d2!important;
+  font:500 10px/1.5 Montserrat,Arial,sans-serif!important;
+  letter-spacing:.08em;
+  text-align:center;
+  text-transform:uppercase;
+}
+.contracts .gem-card p small{
+  display:block;
+  margin-top:5px;
+  color:#c9b6c0!important;
+  font:400 9px/1.45 Montserrat,Arial,sans-serif!important;
+  letter-spacing:.015em;
+  text-transform:none;
+}
+.contracts .gem-card .mp-card-price{
+  display:inline-flex;
+  align-items:baseline;
+  justify-content:center;
+  gap:6px;
+  min-width:150px;
+  margin:0 auto 15px;
+  padding:8px 17px 9px;
+  border:1px solid rgba(220,190,145,.48);
+  border-radius:999px;
+  color:#f5d9ad;
+  background:linear-gradient(120deg,rgba(185,138,83,.16),rgba(227,193,207,.08));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 5px 16px rgba(0,0,0,.14);
+  font:600 24px/1 'Cormorant Garamond',Georgia,serif;
+  letter-spacing:.015em;
+  white-space:nowrap;
+}
+.contracts .gem-card .mp-card-price small{
+  color:#e4c99f;
+  font:600 9px/1 Montserrat,Arial,sans-serif;
+  letter-spacing:.12em;
+}
+.contracts .gem-card .details{
+  width:min(100%,190px);
+  min-height:39px;
+  margin:auto 0 0!important;
+  padding:9px 16px!important;
+  border:1px solid rgba(225,190,151,.55)!important;
+  border-radius:999px!important;
+  color:#f8e8ed!important;
+  background:linear-gradient(110deg,rgba(216,137,170,.16),rgba(185,138,83,.11))!important;
+  font:600 10px Montserrat,Arial,sans-serif!important;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  transition:background .25s ease,color .25s ease,border-color .25s ease!important;
+}
+.contracts .gem-card .details:hover{
+  color:#281a27!important;
+  border-color:#e8c99f!important;
+  background:linear-gradient(110deg,#edc4d5,#d7b78b)!important;
+}
+.contracts .gem-card.mp-extra-card{
+  justify-content:center;
+}
+.contracts .gem-card.mp-extra-card .mp-extra-card-icon{
+  display:grid;place-items:center;
+  width:116px;height:116px;
+  margin:13px 0 17px;
+  border:1px solid rgba(220,190,145,.38);
+  border-radius:50%;
+  color:#e8c99f;
+  background:radial-gradient(circle,rgba(185,138,83,.17),rgba(216,137,170,.06) 62%,transparent 70%);
+  font-size:52px;
+}
+.contracts .section-footnote{
+  max-width:760px;
+  margin:26px auto 0!important;
+  color:#cbb8c2!important;
+  font-size:11px!important;
+  line-height:1.8;
+}
+@media(max-width:760px){
+  .contracts .gem-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+  .contracts .gem-card{min-height:295px;padding:14px 11px 16px!important;border-radius:18px!important}
+  .contracts .gem-card .gem{height:105px!important;margin-bottom:9px!important}
+  .contracts .gem-card h3{font-size:23px!important;margin-bottom:8px!important}
+  .contracts .gem-card p{font-size:9px!important;min-height:35px;margin-bottom:10px!important}
+  .contracts .gem-card .mp-card-price{min-width:0;width:100%;gap:5px;padding:8px 8px;margin-bottom:12px;font-size:22px}
+  .contracts .gem-card .mp-card-price small{font-size:8px}
+  .contracts .gem-card .details{min-height:36px;padding:8px 7px!important;font-size:9px!important;letter-spacing:.04em}
+  .contracts .gem-card .number{width:24px;height:24px}
+  .contracts .gem-card.mp-extra-card .mp-extra-card-icon{width:92px;height:92px;font-size:42px}
+}
+@media(max-width:360px){
+  .contracts .gem-card{padding:12px 8px 14px!important}
+  .contracts .gem-card h3{font-size:20px!important}
+  .contracts .gem-card .mp-card-price{font-size:20px}
+}
+@media(prefers-reduced-motion:reduce){
+  .contracts .gem-card,.contracts .gem-card .gem img,.contracts .gem-card .details{transition:none!important}
+}
