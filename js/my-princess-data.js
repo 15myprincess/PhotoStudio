@@ -149,7 +149,7 @@
   try {
     const draft = JSON.parse(sessionStorage.getItem('mp_booking_draft') || 'null');
     if (draft) {
-      for (const key of ['requesterName','client','guardian','phone','date','contract','payment','notes']) {
+      for (const key of ['requesterName','client','guardian','phone','identityNumber','date','contract','payment','notes']) {
         if (form.elements[key] && typeof draft[key] === 'string') form.elements[key].value = draft[key];
       }
       // La selección confirmada más reciente de la galería tiene prioridad sobre
