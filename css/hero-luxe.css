@@ -89,6 +89,7 @@
   .benefits>div:nth-child(odd){border-right:0}
   .benefits>div:nth-child(even){border-right:1px solid rgba(225,193,143,.15)}
   .benefits>div:nth-child(4),.benefits>div:nth-child(6){border-right:1px solid rgba(225,193,143,.15)}
+  .benefits>div:last-child{grid-column:auto!important;justify-content:center!important}
   .benefits>div:nth-child(3),.benefits>div:nth-child(4),.benefits>div:nth-child(5),.benefits>div:nth-child(6){border-top:1px solid rgba(225,193,143,.14)}
   .benefit-icon{width:39px;height:39px;flex-basis:39px}
   .benefit-icon svg{width:19px;height:19px}
